@@ -348,3 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+OrganizerWeb/.vscode/extensions.json
+OrganizerWeb/.vscode/launch.json
+OrganizerWeb/.vscode/tasks.json
