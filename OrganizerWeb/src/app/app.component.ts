@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { testService } from './services/test.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'OrganizerWeb';
+  public testData: any;
+
+  constructor(private testService: testService){
+    testService.getTestData().subscribe(x => this.testData = x)
+  }
 }
