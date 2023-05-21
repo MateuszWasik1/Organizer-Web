@@ -11,6 +11,6 @@ export class AppComponent {
   public testData: any;
 
   constructor(private testService: testService){
-    testService.getTestData().subscribe(x => this.testData = x)
+    this.testService.getTestData().subscribe(x => this.testData = x)
   }
 }
