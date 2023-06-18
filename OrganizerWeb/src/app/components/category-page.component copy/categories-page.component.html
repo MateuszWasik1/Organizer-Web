@@ -1,8 +1,51 @@
-<!-- <ng-container *ngIf="photos$ | async as photos">
+<ng-container *ngIf="Categories$ | async as categories">
     <section class="body">
-        <div *ngFor="let photo of photos;">
-            <img class='grid-item grid-item-10' src='{{photo.url}}' alt='{{photo.title}}'>
-            <p>"{{photo.title}}"</p>
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                <h1 class="page-title">Kategorie</h1>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                <button mat-raised-button color="accent">Dodaj</button>
+            </div>
+        </div>
+        <div class="row padding-top-15 padding-bottom-15" *ngIf="categories.length != 0">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                Pracownik
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                Nazwa kategori
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                Data początku
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                Data końca
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                Budżet
+            </div>
+        </div>
+        <div *ngFor="let category of categories;">
+            <div class="row data-row">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{category.cuid}}</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <p>{{category.cName}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{category.cStartDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{category.cEndDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{category.cBudget}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="categories.length == 0">
+            <p>Nie znaleziono danych!</p>
         </div>
     </section>
-</ng-container> -->
+</ng-container>

@@ -14,6 +14,8 @@ import { featureKeyCategoriesState } from './components/category-page.component 
 import { CategoriesReducer } from './components/category-page.component copy/categories-page-state/categories-page-state.reducer';
 import { CategoriesEffects } from './components/category-page.component copy/categories-page-state/categories-page-state.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -27,11 +29,13 @@ import { EffectsModule } from '@ngrx/effects';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    MatButtonModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     StoreModule.forFeature(featureKeyCategoriesState, CategoriesReducer),
    
     EffectsModule.forRoot([CategoriesEffects]),
+         BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

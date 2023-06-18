@@ -1,5 +1,272 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$OrganizerWeb-primary: mat.define-palette(mat.$indigo-palette);
+$OrganizerWeb-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$OrganizerWeb-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$OrganizerWeb-theme: mat.define-light-theme((
+  color: (
+    primary: $OrganizerWeb-primary,
+    accent: $OrganizerWeb-accent,
+    warn: $OrganizerWeb-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($OrganizerWeb-theme);
+
 /* You can add global styles to this file, and also import other style files */
 body{
     margin: 0;
     padding: 0;
 }
+
+.padding-top-15{
+    padding-top: 15px;
+}
+
+.padding-bottom-15{
+    padding-bottom: 15px;
+}
+
+.page-title{
+    text-align: left;
+    font-weight: normal;
+    font-size: 26px;
+}
+
+.row{
+    margin-right: 15px;
+    margin-left: 15px;
+    text-align: center;
+}
+
+.data-row{
+    background-color: #EEE;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width: 768px){
+    .col-xs-1{
+        width: 8.333%;
+        display: inline-block;
+    }
+    .col-xs-2{
+        width: 16.667%;
+        display: inline-block;
+    }
+    .col-xs-3{
+        width: 25%;
+        display: inline-block;
+    }
+    .col-xs-4{
+        width: 33.333%;
+        display: inline-block;
+    }
+    .col-xs-5{
+        width: 41.667%;
+        display: inline-block;
+    }
+    .col-xs-6{
+        width: 50%;
+        display: inline-block;
+    }
+    .col-xs-7{
+        width: 58.333%;
+        display: inline-block;
+    }
+    .col-xs-8{
+        width: 66.667%;
+        display: inline-block;
+    }
+    .col-xs-9{
+        width: 75%;
+        display: inline-block;
+    }
+    .col-xs-10{
+        width: 83.333%;
+        display: inline-block;
+    }
+    .col-xs-11{
+        width: 91.667%;
+        display: inline-block;
+    }
+    .col-xs-12{
+        width: 100%;
+        display: inline-block;
+    }
+}
+
+@media screen and (max-width: 992px){
+    .col-sm-1{
+        width: 8.333%;
+        display: inline-block;
+    }
+    .col-sm-2{
+        width: 16.667%;
+        display: inline-block;
+    }
+    .col-sm-3{
+        width: 25%;
+        display: inline-block;
+    }
+    .col-sm-4{
+        width: 33.333%;
+        display: inline-block;
+    }
+    .col-sm-5{
+        width: 41.667%;
+        display: inline-block;
+    }
+    .col-sm-6{
+        width: 50%;
+        display: inline-block;
+    }
+    .col-sm-7{
+        width: 58.333%;
+        display: inline-block;
+    }
+    .col-sm-8{
+        width: 66.667%;
+        display: inline-block;
+    }
+    .col-sm-9{
+        width: 75%;
+        display: inline-block;
+    }
+    .col-sm-10{
+        width: 83.333%;
+        display: inline-block;
+    }
+    .col-sm-11{
+        width: 91.667%;
+        display: inline-block;
+    }
+    .col-sm-12{
+        width: 100%;
+        display: inline-block;
+    }
+}
+
+@media screen and (max-width: 1200px){
+    .col-md-1{
+        width: 8.333%;
+        display: inline-block;
+    }
+    .col-md-2{
+        width: 16.667%;
+        display: inline-block;
+    }
+    .col-md-3{
+        width: 25%;
+        display: inline-block;
+    }
+    .col-md-4{
+        width: 33.333%;
+        display: inline-block;
+    }
+    .col-md-5{
+        width: 41.667%;
+        display: inline-block;
+    }
+    .col-md-6{
+        width: 50%;
+        display: inline-block;
+    }
+    .col-md-7{
+        width: 58.333%;
+        display: inline-block;
+    }
+    .col-md-8{
+        width: 66.667%;
+        display: inline-block;
+    }
+    .col-md-9{
+        width: 75%;
+        display: inline-block;
+    }
+    .col-md-10{
+        width: 83.333%;
+        display: inline-block;
+    }
+    .col-md-11{
+        width: 91.667%;
+        display: inline-block;
+    }
+    .col-md-12{
+        width: 100%;
+        display: inline-block;
+    }   
+}
+
+@media screen and (min-width: 1200px){
+    .col-lg-1{
+        width: 8.333%;
+        display: inline-block;
+    }
+    .col-lg-2{
+        width: 16.667%;
+        display: inline-block;
+    }
+    .col-lg-3{
+        width: 25%;
+        display: inline-block;
+    }
+    .col-lg-4{
+        width: 33.333%;
+        display: inline-block;
+    }
+    .col-lg-5{
+        width: 41.667%;
+        display: inline-block;
+    }
+    .col-lg-6{
+        width: 50%;
+        display: inline-block;
+    }
+    .col-lg-7{
+        width: 58.333%;
+        display: inline-block;
+    }
+    .col-lg-8{
+        width: 66.667%;
+        display: inline-block;
+    }
+    .col-lg-9{
+        width: 75%;
+        display: inline-block;
+    }
+    .col-lg-10{
+        width: 83.333%;
+        display: inline-block;
+    }
+    .col-lg-11{
+        width: 91.667%;
+        display: inline-block;
+    }
+    .col-lg-12{
+        width: 100%;
+        display: inline-block;
+    }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
