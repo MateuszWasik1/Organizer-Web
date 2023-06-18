@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './register-component/register.component';
+import { CategoryPageComponent } from './components/category-page.component copy/categories-page.component';
 
 const routes: Routes = [
   // {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'category',
+    component: CategoryPageComponent
   },
   // {
   //   path: '**',

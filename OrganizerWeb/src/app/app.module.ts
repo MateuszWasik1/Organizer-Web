@@ -9,11 +9,16 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { CategoryPageComponent } from './components/category-page.component copy/categories-page.component';
+import { featureKeyCategoriesState } from './components/category-page.component copy/categories-page-state/categories-page-state.state';
+import { CategoriesReducer } from './components/category-page.component copy/categories-page-state/categories-page-state.reducer';
+import { CategoriesEffects } from './components/category-page.component copy/categories-page-state/categories-page-state.effects';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent
+    RegisterComponent,
+    CategoryPageComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -22,7 +27,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot({}, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    StoreModule.forFeature(featureKeyCategoriesState, CategoriesReducer),
+   
+    EffectsModule.forRoot([CategoriesEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]
