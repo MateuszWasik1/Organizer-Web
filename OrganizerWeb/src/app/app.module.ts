@@ -9,16 +9,17 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { CategoryPageComponent } from './components/category-page.component copy/categories-page.component';
+import { CategoriesPageComponent } from './components/category-page.component copy/categories-page.component';
 import { featureKeyCategoriesState } from './components/category-page.component copy/categories-page-state/categories-page-state.state';
 import { CategoriesReducer } from './components/category-page.component copy/categories-page-state/categories-page-state.reducer';
 import { CategoriesEffects } from './components/category-page.component copy/categories-page-state/categories-page-state.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    CategoryPageComponent
+    CategoriesPageComponent
   ],
   imports: [
     ReactiveFormsModule,

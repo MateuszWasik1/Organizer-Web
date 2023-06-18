@@ -10,7 +10,7 @@ import { selectCategories } from './categories-page-state/categories-page-state.
   templateUrl: './categories-page.component.html',
   styleUrls: ['./categories-page.component.scss']
 })
-export class CategoryPageComponent implements OnInit, OnDestroy {
+export class CategoriesPageComponent implements OnInit, OnDestroy {
   title = 'Kategorie - P1 - Mateusz Wąsik';
 
   public subscriptions: Subscription[];
