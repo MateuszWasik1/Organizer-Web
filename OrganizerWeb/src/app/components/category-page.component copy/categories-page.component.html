@@ -5,9 +5,48 @@
                 <h1 class="page-title">Kategorie</h1>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                <button mat-raised-button color="accent">Dodaj</button>
+                <button mat-raised-button color="accent" (click)="ShowAddModal = !ShowAddModal">Dodaj</button>
             </div>
         </div>
+
+        <div class="row categories-row" *ngIf="ShowAddModal" [formGroup]="form">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Nazwa:
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <input type="text" formControlName="CName"/>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Data początkowa:
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <input type="date" formControlName="CStartDate" />
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Data końcowa:
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <input type="date" formControlName="CEndDate"/>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Budżet:
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <input type="number" step="1" formControlName="CBudget"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <button mat-raised-button color="accent" class="float-right" (click)="Save()">Zapisz</button>
+
+                        <button mat-raised-button class="float-right" (click)="ShowAddModal = !ShowAddModal">Anuluj</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row padding-top-15 padding-bottom-15" *ngIf="categories.length != 0">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                 Pracownik
