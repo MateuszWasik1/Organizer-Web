@@ -1,1 +1,26 @@
 @import "~bootstrap/dist/css/bootstrap.css";
+
+.navigation{
+    text-align: center;
+    text-transform: uppercase;
+    padding:20px 0px;
+    width: 100%;
+    background-color: #333;
+    font-size: 2em;
+}
+.navigation a{
+    text-decoration: none;
+    padding: 0 20px;
+    font-weight: bold;
+    color: #CCC;
+    transition: 0.5s;
+}
+.navigation a:hover{
+    color: #FFF
+}
+.container{
+    margin-top: 25px;
+    height: 80vh;
+    border: 1px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}

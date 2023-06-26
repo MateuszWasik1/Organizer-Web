@@ -1,0 +1,93 @@
+<ng-container *ngIf="Categories$ | async as categories">
+    <section class="body">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                <h1 class="page-title">Kategorie</h1>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                <button mat-raised-button color="accent" (click)="AddCategory()">Dodaj</button>
+            </div>
+        </div>
+
+        <div class="row categories-row" *ngIf="ShowAddModal" [formGroup]="form">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Nazwa:
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <input type="text" formControlName="CName"/>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Data początkowa:
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <input type="date" formControlName="CStartDate" />
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Data końcowa:
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <input type="date" formControlName="CEndDate"/>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Budżet:
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <input type="number" step="1" formControlName="CBudget"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <button mat-raised-button color="accent" class="float-right" (click)="Save()">Zapisz</button>
+
+                        <button mat-raised-button class="float-right" (click)="ShowAddModal = !ShowAddModal">Anuluj</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row padding-top-15 padding-bottom-15" *ngIf="categories.length != 0">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                Pracownik
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                Nazwa kategori
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                Data początku
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                Data końca
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                Budżet
+            </div>
+        </div>
+        <div *ngFor="let category of categories;">
+            <div class="row data-row">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{category.cuid}}</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <p>{{category.cName}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{category.cStartDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{category.cEndDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{category.cBudget}}</p>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <p class="bi bi-pencil" (click)="ModifyCategory(category)"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="categories.length == 0">
+            <p>Nie znaleziono danych!</p>
+        </div>
+    </section>
+</ng-container>

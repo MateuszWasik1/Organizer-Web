@@ -1,1 +1,272 @@
-/* You can add global styles to this file, and also import other style files */
+
+@use '@angular/material' as mat;
+@include mat.core();
+
+$OrganizerWeb-primary: mat.define-palette(mat.$indigo-palette);
+$OrganizerWeb-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$OrganizerWeb-warn: mat.define-palette(mat.$red-palette);
+
+$OrganizerWeb-theme: mat.define-light-theme((
+  color: (
+    primary: $OrganizerWeb-primary,
+    accent: $OrganizerWeb-accent,
+    warn: $OrganizerWeb-warn,
+  )
+));
+
+@include mat.all-component-themes($OrganizerWeb-theme);
+
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.padding-top-15{
+    padding-top: 15px;
+}
+
+.padding-bottom-15{
+    padding-bottom: 15px;
+}
+
+.page-title{
+    text-align: left;
+    font-weight: normal;
+    font-size: 26px;
+}
+
+.float-right{
+    float: right;
+}
+
+.row{
+    margin-right: 15px;
+    margin-left: 15px;
+    text-align: center;
+}
+
+.data-row{
+    background-color: #EEE;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.bi{
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.bi:hover{
+    background-color: #BBB;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px){
+    .col-xs-1{
+        width: 8.333%;
+        display: inline-block;
+    }
+    .col-xs-2{
+        width: 16.667%;
+        display: inline-block;
+    }
+    .col-xs-3{
+        width: 25%;
+        display: inline-block;
+    }
+    .col-xs-4{
+        width: 33.333%;
+        display: inline-block;
+    }
+    .col-xs-5{
+        width: 41.667%;
+        display: inline-block;
+    }
+    .col-xs-6{
+        width: 50%;
+        display: inline-block;
+    }
+    .col-xs-7{
+        width: 58.333%;
+        display: inline-block;
+    }
+    .col-xs-8{
+        width: 66.667%;
+        display: inline-block;
+    }
+    .col-xs-9{
+        width: 75%;
+        display: inline-block;
+    }
+    .col-xs-10{
+        width: 83.333%;
+        display: inline-block;
+    }
+    .col-xs-11{
+        width: 91.667%;
+        display: inline-block;
+    }
+    .col-xs-12{
+        width: 100%;
+        display: inline-block;
+    }
+}
+
+@media screen and (max-width: 992px){
+    .col-sm-1{
+        width: 8.333%;
+        display: inline-block;
+    }
+    .col-sm-2{
+        width: 16.667%;
+        display: inline-block;
+    }
+    .col-sm-3{
+        width: 25%;
+        display: inline-block;
+    }
+    .col-sm-4{
+        width: 33.333%;
+        display: inline-block;
+    }
+    .col-sm-5{
+        width: 41.667%;
+        display: inline-block;
+    }
+    .col-sm-6{
+        width: 50%;
+        display: inline-block;
+    }
+    .col-sm-7{
+        width: 58.333%;
+        display: inline-block;
+    }
+    .col-sm-8{
+        width: 66.667%;
+        display: inline-block;
+    }
+    .col-sm-9{
+        width: 75%;
+        display: inline-block;
+    }
+    .col-sm-10{
+        width: 83.333%;
+        display: inline-block;
+    }
+    .col-sm-11{
+        width: 91.667%;
+        display: inline-block;
+    }
+    .col-sm-12{
+        width: 100%;
+        display: inline-block;
+    }
+}
+
+@media screen and (max-width: 1200px){
+    .col-md-1{
+        width: 8.333%;
+        display: inline-block;
+    }
+    .col-md-2{
+        width: 16.667%;
+        display: inline-block;
+    }
+    .col-md-3{
+        width: 25%;
+        display: inline-block;
+    }
+    .col-md-4{
+        width: 33.333%;
+        display: inline-block;
+    }
+    .col-md-5{
+        width: 41.667%;
+        display: inline-block;
+    }
+    .col-md-6{
+        width: 50%;
+        display: inline-block;
+    }
+    .col-md-7{
+        width: 58.333%;
+        display: inline-block;
+    }
+    .col-md-8{
+        width: 66.667%;
+        display: inline-block;
+    }
+    .col-md-9{
+        width: 75%;
+        display: inline-block;
+    }
+    .col-md-10{
+        width: 83.333%;
+        display: inline-block;
+    }
+    .col-md-11{
+        width: 91.667%;
+        display: inline-block;
+    }
+    .col-md-12{
+        width: 100%;
+        display: inline-block;
+    }   
+}
+
+@media screen and (min-width: 1200px){
+    .col-lg-1{
+        width: 8.333%;
+        display: inline-block;
+    }
+    .col-lg-2{
+        width: 16.667%;
+        display: inline-block;
+    }
+    .col-lg-3{
+        width: 25%;
+        display: inline-block;
+    }
+    .col-lg-4{
+        width: 33.333%;
+        display: inline-block;
+    }
+    .col-lg-5{
+        width: 41.667%;
+        display: inline-block;
+    }
+    .col-lg-6{
+        width: 50%;
+        display: inline-block;
+    }
+    .col-lg-7{
+        width: 58.333%;
+        display: inline-block;
+    }
+    .col-lg-8{
+        width: 66.667%;
+        display: inline-block;
+    }
+    .col-lg-9{
+        width: 75%;
+        display: inline-block;
+    }
+    .col-lg-10{
+        width: 83.333%;
+        display: inline-block;
+    }
+    .col-lg-11{
+        width: 91.667%;
+        display: inline-block;
+    }
+    .col-lg-12{
+        width: 100%;
+        display: inline-block;
+    }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
