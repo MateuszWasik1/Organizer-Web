@@ -5,7 +5,7 @@
                 <h1 class="page-title">Kategorie</h1>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                <button mat-raised-button color="accent" (click)="ShowAddModal = !ShowAddModal">Dodaj</button>
+                <button mat-raised-button color="accent" (click)="AddCategory()">Dodaj</button>
             </div>
         </div>
 
@@ -80,6 +80,9 @@
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <p>{{category.cBudget}}</p>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <p class="bi bi-pencil" (click)="ModifyCategory(category)"></p>
                 </div>
             </div>
         </div>

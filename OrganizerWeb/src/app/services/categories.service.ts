@@ -12,4 +12,8 @@ export class CategoriesService {
     getCategories() : Observable<any>{
         return this.http.get<any>(this.apiUrl + 'api/Categories')
     }
+
+    saveCategories(model: any) : Observable<any>{
+        return this.http.post<any>(this.apiUrl + 'api/Categories/Save', model)
+    }
 }

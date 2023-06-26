@@ -25,4 +25,16 @@ export class CategoriesEffects {
             })
         )
     })
+
+    saveCategory = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.saveCategory),
+            switchMap((params) => {
+                return this.categoriesService.saveCategories(params.category).pipe(
+                    map((result) => CategoriesActions.saveCategorySuccess({ category: params.category })),
+                    catchError((error) => of(CategoriesActions.loadCategoriesError()))
+                )
+            })
+        )
+    })
 }
