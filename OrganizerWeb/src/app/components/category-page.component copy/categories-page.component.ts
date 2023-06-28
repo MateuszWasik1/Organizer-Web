@@ -6,6 +6,7 @@ import { loadCategories, saveCategory } from './categories-page-state/categories
 import { selectCategories } from './categories-page-state/categories-page-state.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
+import { TransaltionService } from 'src/app/services/translation.service';
 
 @Component({
   selector: 'app-categories-page',
@@ -21,7 +22,7 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
   
   public Categories$ = this.store.select(selectCategories)
 
-  constructor(public store: Store<AppState>){
+  constructor(public store: Store<AppState>, public translation: TransaltionService){
     this.subscriptions = []
   }
   ngOnInit(): void {
