@@ -5,37 +5,59 @@
                 <h1 class="page-title">Taski</h1>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                <button mat-raised-button color="accent" (click)="AddCategory()">Dodaj</button>
+                <button mat-raised-button color="accent" (click)="AddTask()">Dodaj</button>
             </div>
         </div>
 
-        <!-- <div class="row categories-row" *ngIf="ShowAddModal" [formGroup]="form">
+        <div class="row categories-row" *ngIf="ShowAddModal" [formGroup]="form">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
                         Nazwa:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="text" formControlName="cName"/>
+                        <input type="text" formControlName="tName"/>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        Data początkowa:
+                        Data:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="date" formControlName="cStartDate" />
+                        <input type="date" formControlName="tTime" />
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        Data końcowa:
+                        Lokalizacja:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="date" formControlName="cEndDate"/>
+                        <input type="text" formControlName="tLocalization"/>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
                         Budżet:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="number" step="1" formControlName="cBudget"/>
+                        <input type="number" step="1" formControlName="tBudget"/>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Status:
+                    </div>
+                    <!-- <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <input type="number" step="1" formControlName="tStatus"/>
+                    </div> -->
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Kategoria:
+                    </div>
+                    <!-- <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <input type="text" step="1" formControlName="tcgid"/>
+                    </div> -->
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -47,45 +69,46 @@
             </div>
         </div>
 
-        <div class="row padding-top-15 padding-bottom-15" *ngIf="categories.length != 0">
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                Pracownik
-            </div>
+        <div class="row padding-top-15 padding-bottom-15" *ngIf="tasks.length != 0">
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                Nazwa kategori
+                Nazwa
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                Data początku
+                Data
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                Data końca
+                Lokalizacja
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                 Budżet
             </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                Status
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
         </div>
-        <div *ngFor="let category of categories;">
+        <div *ngFor="let task of tasks;">
             <div class="row data-row">
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <p>{{category.cuid}}</p>
-                </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <p>{{category.cName}}</p>
+                    <p>{{task.tName}}</p>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <p>{{category.cStartDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+                    <p>{{task.tTime | date: 'yyyy-MM-dd HH:mm'}}</p>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <p>{{category.cEndDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+                    <p>{{task.tLocalization}}</p>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <p>{{category.cBudget}}</p>
+                    <p>{{task.tBudget}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{task.tStatus}}</p>
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                    <p class="bi bi-pencil" (click)="ModifyCategory(category)"></p>
+                    <p class="bi bi-pencil" (click)="ModifyTask(task)"></p>
                 </div>
             </div>
-        </div> -->
+        </div>
         <div class="row" *ngIf="tasks.length == 0">
             <p>Nie znaleziono danych!</p>
         </div>

@@ -29,45 +29,53 @@ export class TasksPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(loadTasks());
 
     this.form = new FormGroup({
-      cid: new FormControl(0, {validators: [] }),
-      cgid: new FormControl('', {validators: [] }),
-      cName: new FormControl('', {validators: [Validators.required] }),
-      cStartDate: new FormControl(new Date(), {validators: [Validators.required] }),
-      cEndDate: new FormControl(new Date(), {validators: [Validators.required] }),
-      cBudget: new FormControl(0, {validators: [Validators.required] }),
+      tid: new FormControl(0, {validators: [] }),
+      tgid: new FormControl('', {validators: [] }),
+      tcgid: new FormControl('', {validators: [] }),
+      tName: new FormControl('', {validators: [Validators.required] }),
+      tTime: new FormControl(new Date(), {validators: [Validators.required] }),
+      tLocalization: new FormControl('', {validators: [Validators.required] }),
+      tBudget: new FormControl(0, {validators: [Validators.required] }),
+      tStatus: new FormControl(0, {validators: [Validators.required] }),
     });
   }
 
-  public AddCategory = () => {
+  public AddTask = () => {
     this.ShowAddModal = !this.ShowAddModal;
     
-    this.form.get("cid")?.setValue(0);
-    this.form.get("cgid")?.setValue(Guid.create().toString());
-    this.form.get("cName")?.setValue('');
-    this.form.get("cStartDate")?.setValue(new Date());
-    this.form.get("cEndDate")?.setValue(new Date());
+    this.form.get("tid")?.setValue(0);
+    this.form.get("tgid")?.setValue(Guid.create().toString());
+    this.form.get("tcgid")?.setValue('');
+    this.form.get("tName")?.setValue('');
+    this.form.get("tTime")?.setValue(new Date());
+    this.form.get("tLocalization")?.setValue('');
     this.form.get("cBudget")?.setValue(0);
+    this.form.get("tStatus")?.setValue(0);
   }
 
-  public ModifyCategory = (category: any) => {
+  public ModifyTask = (task: any) => {
     this.ShowAddModal = !this.ShowAddModal;
 
-    this.form.get("cid")?.setValue(category.cid);
-    this.form.get("cgid")?.setValue(category.cgid);
-    this.form.get("cName")?.setValue(category.cName);
-    this.form.get("cStartDate")?.setValue(formatDate(category.cStartDate, 'yyyy-MM-dd', 'en'));
-    this.form.get("cEndDate")?.setValue(formatDate(category.cEndDate, 'yyyy-MM-dd', 'en'));
-    this.form.get("cBudget")?.setValue(category.cBudget);
+    this.form.get("tid")?.setValue(task.tid);
+    this.form.get("tgid")?.setValue(task.tgid);
+    this.form.get("tcgid")?.setValue(task.tcgid);
+    this.form.get("tName")?.setValue(task.tName);
+    this.form.get("tTime")?.setValue(task.tTime);
+    this.form.get("tLocalization")?.setValue(task.tLocalization);
+    this.form.get("tBudget")?.setValue(task.tBudget);
+    this.form.get("tStatus")?.setValue(task.tStatus);
   }
 
   public Save = () => {
     let model = {
-      "CID": this.form.get("cid")?.value,
-      "CGID": this.form.get("cgid")?.value,
-      "CName": this.form.get("cName")?.value,
-      "CStartDate": this.form.get("cStartDate")?.value,
-      "CEndDate": this.form.get("cEndDate")?.value,
-      "CBudget": this.form.get("cBudget")?.value,
+      "TID": this.form.get("tid")?.value,
+      "TGID": this.form.get("tgid")?.value,
+      "TCGID": this.form.get("tcgid")?.value,
+      "TName": this.form.get("tName")?.value,
+      "TTime": this.form.get("tTime")?.value,
+      "TLocalization": this.form.get("tLocalization")?.value,
+      "TBudget": this.form.get("tBudget")?.value,
+      "TStatus": this.form.get("tStatus")?.value,
     }
     this.store.dispatch(saveTask({ Task: model }));
   }
