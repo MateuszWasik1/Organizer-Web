@@ -16,12 +16,17 @@ import { CategoriesEffects } from './components/category-page.component copy/cat
 import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { TasksPageComponent } from './components/tasks-page.component/tasks-page.component';
+import { featureKeyTasksState } from './components/tasks-page.component/tasks-page-state/tasks-page-state.state';
+import { TasksReducer } from './components/tasks-page.component/tasks-page-state/tasks-page-state.reducer';
+import { TasksEffects } from './components/tasks-page.component/tasks-page-state/tasks-page-state.effects';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    CategoriesPageComponent
+    CategoriesPageComponent,
+    TasksPageComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -33,9 +38,10 @@ import { MatButtonModule } from '@angular/material/button';
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     StoreModule.forFeature(featureKeyCategoriesState, CategoriesReducer),
+    StoreModule.forFeature(featureKeyTasksState, TasksReducer),
    
-    EffectsModule.forRoot([CategoriesEffects]),
-         BrowserAnimationsModule,
+    EffectsModule.forRoot([CategoriesEffects, TasksEffects]),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
