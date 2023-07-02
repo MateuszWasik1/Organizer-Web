@@ -17,16 +17,23 @@ export const CategoriesReducer = createReducer<CategoriesState>(
     on(Actions.saveCategorySuccess, (state, { category }) => {
         let newCategories = [...state.Categories];
 
-        let existingCategoryIndex = newCategories.findIndex(x => x.cgid == category.CGID);
-        console.log(existingCategoryIndex)
-        if(existingCategoryIndex != -1){
-            newCategories[existingCategoryIndex] = category
+        let newModel = {
+            "cid": category.CID,
+            "cgid": category.CGID,
+            "cName": category.CName == "" ? 'Ty' : category.CName,
+            "cStartDate": category.CStartDate,
+            "cEndDate": category.CEndDate,
+            "cBudget": category.CBudget,
         }
-        else
-            newCategories.push(category);
 
-        console.log(category)
-        console.log(newCategories)
+        let existingCategoryIndex = newCategories.findIndex(x => x.cgid == category.CGID);
+
+        if(existingCategoryIndex != -1)
+            newCategories[existingCategoryIndex] = newModel
+        
+        else
+            newCategories.push(newModel)
+
         return {...state, Categories: newCategories};
     }),
 ) 

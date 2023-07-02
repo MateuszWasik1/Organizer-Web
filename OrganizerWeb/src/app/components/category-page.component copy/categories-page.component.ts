@@ -6,6 +6,7 @@ import { loadCategories, saveCategory } from './categories-page-state/categories
 import { selectCategories } from './categories-page-state/categories-page-state.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-categories-page',
@@ -28,43 +29,47 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(loadCategories());
 
     this.form = new FormGroup({
-      CGID: new FormControl('', {validators: [] }),
-      CName: new FormControl('', {validators: [Validators.required] }),
-      CStartDate: new FormControl(new Date(), {validators: [Validators.required] }),
-      CEndDate: new FormControl(new Date(), {validators: [Validators.required] }),
-      CBudget: new FormControl(0, {validators: [Validators.required] }),
+      cid: new FormControl(0, {validators: [] }),
+      cgid: new FormControl('', {validators: [] }),
+      cName: new FormControl('', {validators: [Validators.required] }),
+      cStartDate: new FormControl(new Date(), {validators: [Validators.required] }),
+      cEndDate: new FormControl(new Date(), {validators: [Validators.required] }),
+      cBudget: new FormControl(0, {validators: [Validators.required] }),
     });
   }
 
   public AddCategory = () => {
     this.ShowAddModal = !this.ShowAddModal;
     
-    this.form.get("CGID")?.setValue('');
-    this.form.get("CName")?.setValue('');
-    this.form.get("CStartDate")?.setValue(new Date());
-    this.form.get("CEndDate")?.setValue(new Date());
-    this.form.get("CBudget")?.setValue(0);
+    this.form.get("cid")?.setValue(0);
+    this.form.get("cgid")?.setValue(Guid.create().toString());
+    this.form.get("cName")?.setValue('');
+    this.form.get("cStartDate")?.setValue(new Date());
+    this.form.get("cEndDate")?.setValue(new Date());
+    this.form.get("cBudget")?.setValue(0);
   }
 
   public ModifyCategory = (category: any) => {
     this.ShowAddModal = !this.ShowAddModal;
 
-    this.form.get("CGID")?.setValue(category.cgid);
-    this.form.get("CName")?.setValue(category.cName);
-    this.form.get("CStartDate")?.setValue(formatDate(category.cStartDate, 'yyyy-MM-dd', 'en'));
-    this.form.get("CEndDate")?.setValue(formatDate(category.cEndDate, 'yyyy-MM-dd', 'en'));
-    this.form.get("CBudget")?.setValue(category.cBudget);
+    this.form.get("cid")?.setValue(category.cid);
+    this.form.get("cgid")?.setValue(category.cgid);
+    this.form.get("cName")?.setValue(category.cName);
+    this.form.get("cStartDate")?.setValue(formatDate(category.cStartDate, 'yyyy-MM-dd', 'en'));
+    this.form.get("cEndDate")?.setValue(formatDate(category.cEndDate, 'yyyy-MM-dd', 'en'));
+    this.form.get("cBudget")?.setValue(category.cBudget);
   }
 
   public Save = () => {
     let model = {
-      "CGID": this.form.get("CGID")?.value,
-      "CName": this.form.get("CName")?.value,
-      "CStartDate": this.form.get("CStartDate")?.value,
-      "CEndDate": this.form.get("CEndDate")?.value,
-      "CBudget": this.form.get("CBudget")?.value,
+      "CID": this.form.get("cid")?.value,
+      "CGID": this.form.get("cgid")?.value,
+      "CName": this.form.get("cName")?.value,
+      "CStartDate": this.form.get("cStartDate")?.value,
+      "CEndDate": this.form.get("cEndDate")?.value,
+      "CBudget": this.form.get("cBudget")?.value,
     }
-    this.store.dispatch(saveCategory({ category: model}));
+    this.store.dispatch(saveCategory({ category: model }));
   }
 
   ngOnDestroy() {
