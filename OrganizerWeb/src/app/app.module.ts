@@ -20,6 +20,9 @@ import { TasksPageComponent } from './components/tasks-page.component/tasks-page
 import { featureKeyTasksState } from './components/tasks-page.component/tasks-page-state/tasks-page-state.state';
 import { TasksReducer } from './components/tasks-page.component/tasks-page-state/tasks-page-state.reducer';
 import { TasksEffects } from './components/tasks-page.component/tasks-page-state/tasks-page-state.effects';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,9 @@ import { TasksEffects } from './components/tasks-page.component/tasks-page-state
     AppRoutingModule,
     HttpClientModule,
     MatButtonModule,
+    NgxMatSelectSearchModule,
+    MatFormFieldModule,
+    MatSelectModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     StoreModule.forFeature(featureKeyCategoriesState, CategoriesReducer),

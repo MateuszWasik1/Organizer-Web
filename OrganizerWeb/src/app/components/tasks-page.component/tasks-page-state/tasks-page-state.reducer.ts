@@ -4,6 +4,7 @@ import { TasksState } from "./tasks-page-state.state";
 
 var initialStateOfTasksPage: TasksState = {
     Tasks: [],
+    Categories: [],
 };
 
 export const TasksReducer = createReducer<TasksState>(
@@ -14,26 +15,42 @@ export const TasksReducer = createReducer<TasksState>(
         Tasks: Tasks
     })),
 
+    on(Actions.loadCategoriesSuccess, (state, { Categories }) => ({
+        ...state,
+        Categories: Categories
+    })),
+
     on(Actions.saveTaskSuccess, (state, { Task }) => {
         let newTasks = [...state.Tasks];
 
-        // let newModel = {
-        //     "cid": category.CID,
-        //     "cgid": category.CGID,
-        //     "cName": category.CName == "" ? 'Ty' : category.CName,
-        //     "cStartDate": category.CStartDate,
-        //     "cEndDate": category.CEndDate,
-        //     "cBudget": category.CBudget,
-        // }
+        let newModel = {
+            "tid": Task.TID,
+            "tgid": Task.TGID,
+            "tcgid": Task.TCGID,
+            "tName": Task.TName,
+            "tTime": Task.TTime,
+            "tLocalization": Task.TLocalization,
+            "tBudget": Task.TBudget,
+            "tStatus": Task.TStatus,
+        }
 
-        // let existingCategoryIndex = newCategories.findIndex(x => x.cgid == category.CGID);
+        let existingTaskIndex = newTasks.findIndex(x => x.tgid == Task.TGID);
 
-        // if(existingCategoryIndex != -1)
-        //     newCategories[existingCategoryIndex] = newModel
-        
-        // else
-        //     newCategories.push(newModel)
+        if(existingTaskIndex != -1)
+            newTasks[existingTaskIndex] = newModel
+        else
+            newTasks.push(newModel)
 
         return {...state, Tasks: newTasks};
+    }),
+
+    on(Actions.deleteTaskSuccess, (state, { tgid }) => {
+        let newTasks = [...state.Tasks];
+        console.log(newTasks)
+        console.log(tgid)
+        let taskWithoutDeletedTask = newTasks.filter(x => x.tgid != tgid);
+        console.log(taskWithoutDeletedTask)
+
+        return {...state, Tasks: taskWithoutDeletedTask};
     }),
 ) 
