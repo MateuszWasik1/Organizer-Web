@@ -1,0 +1,140 @@
+<ng-container *ngIf="Tasks$ | async as tasks">
+    <section class="body">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                <h1 class="page-title">Taski</h1>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                <button mat-raised-button color="accent" (click)="AddTask()">Dodaj</button>
+            </div>
+        </div>
+
+        <div class="row categories-row" *ngIf="ShowAddModal" [formGroup]="form">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Nazwa:
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <input type="text" formControlName="tName"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Data:
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <input type="date" formControlName="tTime" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Lokalizacja:
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <input type="text" formControlName="tLocalization"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Budżet:
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <input type="number" step="1" formControlName="tBudget"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Status:
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <mat-form-field>
+                            <mat-select [(value)]="selectedStatus"> 
+                                <!-- <mat-option>
+                                    <ngx-mat-select-search><ngx-mat-select-search>
+                                </mat-option> Dodać z czasem ??? -->
+                            
+                                <mat-option *ngFor="let status of statuses;" [value]="status['id']">
+                                    {{status['name']}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <ng-container *ngIf="Categories$ | async as categories">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                            Kategoria:
+                        </div>
+
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                            <mat-form-field>
+                                <mat-select [(value)]="selectedCategory">
+                                    <!-- <mat-option>
+                                        <ngx-mat-select-search></ngx-mat-select-search>
+                                        </mat-option> Dodać z czasem ??? -->
+                                
+                                    <mat-option *ngFor="let category of categories;" [value]="category['cgid']">
+                                        {{category['cName']}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <button mat-raised-button color="accent" class="float-right" (click)="Save()">Zapisz</button>
+
+                        <button mat-raised-button class="float-right" (click)="ShowAddModal = !ShowAddModal">Anuluj</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row padding-top-15 padding-bottom-15" *ngIf="tasks.length != 0">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                Nazwa
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                Data
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                Lokalizacja
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                Budżet
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                Status
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+        </div>
+        <div *ngFor="let task of tasks;">
+            <div class="row data-row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <p>{{task.tName}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{task.tTime | date: 'yyyy-MM-dd HH:mm'}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{task.tLocalization}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{task.tBudget}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{task.tStatus}}</p>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <p class="bi bi-pencil" (click)="ModifyTask(task)"></p>
+                    <p class="bi bi-trash" (click)="DeleteTask(task.tgid)"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="tasks.length == 0">
+            <p>Nie znaleziono danych!</p>
+        </div>
+    </section>
+</ng-container>
