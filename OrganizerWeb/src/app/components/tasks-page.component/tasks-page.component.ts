@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, filter } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { deleteTask, loadCategories, loadTasks, saveTask } from './tasks-page-state/tasks-page-state.actions';
-import { selectCategories, selectTasks } from './tasks-page-state/tasks-page-state.selectors';
+import { ChangeCategoryFilterValue, ChangeStatusFilterValue, deleteTask, loadCategories, loadTasks, saveTask } from './tasks-page-state/tasks-page-state.actions';
+import { selectCategories, selectFilters, selectTasks } from './tasks-page-state/tasks-page-state.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { Guid } from 'guid-typescript';
@@ -23,6 +23,10 @@ export class TasksPageComponent implements OnInit, OnDestroy {
   public selectedStatus: any;
   public selectedCategory: any;
 
+  public selectedFilterStatus: any;
+  public selectedFilterCategory: any;
+
+  public Filters$ = this.store.select(selectFilters);
   public Tasks$ = this.store.select(selectTasks);
   public Categories$ = this.store.select(selectCategories);
 
@@ -45,11 +49,20 @@ export class TasksPageComponent implements OnInit, OnDestroy {
     });
 
     this.statuses = [
-      {id: '1', name: 'Nie zaczęty'},
-      {id: '2', name: 'W trakcie'},
-      {id: '3', name: 'Skończony'},
+      {id: '0', name: 'Nie zaczęty'},
+      {id: '1', name: 'W trakcie'},
+      {id: '2', name: 'Skończony'},
     ];
+    this.subscriptions.push(
+      this.Filters$.subscribe(filter => this.store.dispatch(loadTasks())
+    ));
   }
+
+  public ChangeCategoryFilterValue = (event: any) => this.store.dispatch(ChangeCategoryFilterValue({ value: event.value }));
+
+  public ChangeStatusFilterValue = (event: any) => this.store.dispatch(ChangeStatusFilterValue({ value: event.value }));
+
+  public DisplayStatus = (status: number) => this.statuses[status].name;
 
   public AddTask = () => {
     this.ShowAddModal = !this.ShowAddModal;
@@ -66,7 +79,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
 
   public ModifyTask = (task: any) => {
     this.ShowAddModal = !this.ShowAddModal;
-    console.log(task)
+
     this.form.get("tid")?.setValue(task.tid);
     this.form.get("tgid")?.setValue(task.tgid);
     this.form.get("tcgid")?.setValue(task.tcgid);
@@ -78,9 +91,6 @@ export class TasksPageComponent implements OnInit, OnDestroy {
   }
 
   public Save = () => {
-    console.log(this.form)
-    console.log(this.selectedStatus)
-    console.log(this.selectedCategory)
     let model = {
       "TID": this.form.get("tid")?.value,
       "TGID": this.form.get("tgid")?.value,

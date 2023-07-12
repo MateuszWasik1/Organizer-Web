@@ -1,23 +1,28 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, switchMap} from "rxjs/operators";
+import { catchError, map, switchMap, withLatestFrom} from "rxjs/operators";
 import * as CategoriesActions from "./tasks-page-state.actions"
 import { TasksService } from "src/app/services/tasks.service";
 import { CategoriesService } from "src/app/services/categories.service";
+import { selectFilters } from "./tasks-page-state.selectors";
+import { Store } from "@ngrx/store";
+import { AppState } from "src/app/app.state";
 
 @Injectable()
 export class TasksEffects {
     constructor(
         private actions: Actions,
         private tasksService: TasksService,
-        private categoriesService: CategoriesService) {
+        private categoriesService: CategoriesService,
+        public store: Store<AppState>) {
     }
     loadTasks = createEffect(() => {
         return this.actions.pipe(
             ofType(CategoriesActions.loadTasks),
+            withLatestFrom(this.store.select(selectFilters)),
             switchMap((params) => {
-                return this.tasksService.getTasks().pipe(
+                return this.tasksService.getTasks(params[1].Category, params[1].Status).pipe(
                     map((result) => CategoriesActions.loadTasksSuccess({ Tasks: result })),
                     catchError((error) => of(CategoriesActions.loadTasksError()))
                 )

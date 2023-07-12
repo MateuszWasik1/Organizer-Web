@@ -16,3 +16,6 @@ export const deleteTask = createAction('[Tasks Page] Delete Task', props<{ tgid:
 export const deleteTaskSuccess = createAction('Tasks Page] Delete Task Success', props<{ tgid: any }>());
 export const deleteTaskError = createAction('[Tasks Page] Delete Task Error');
 
+export const ChangeCategoryFilterValue = createAction('[Tasks Page] Change Category Filter Value', props<{ value: any }>());
+
+export const ChangeStatusFilterValue = createAction('[Tasks Page] Change Status Filter Value', props<{ value: any }>());
