@@ -3,6 +3,10 @@ import * as Actions from "./tasks-page-state.actions"
 import { TasksState } from "./tasks-page-state.state";
 
 var initialStateOfTasksPage: TasksState = {
+    Filters: {
+        Category: '',
+        Status: 0,
+    },
     Tasks: [],
     Categories: [],
 };
@@ -53,4 +57,20 @@ export const TasksReducer = createReducer<TasksState>(
 
         return {...state, Tasks: taskWithoutDeletedTask};
     }),
+
+    on(Actions.ChangeCategoryFilterValue, (state, { value }) => ({
+        ...state,
+        Filters: {
+            ...state.Filters,
+            Category: value
+        }
+    })),
+
+    on(Actions.ChangeStatusFilterValue, (state, { value }) => ({
+        ...state,
+        Filters: {
+            ...state.Filters,
+            Status: parseInt(value)
+        }
+    })),
 ) 

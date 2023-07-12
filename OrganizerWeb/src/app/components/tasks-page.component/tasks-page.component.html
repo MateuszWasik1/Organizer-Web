@@ -8,6 +8,34 @@
                 <button mat-raised-button color="accent" (click)="AddTask()">Dodaj</button>
             </div>
         </div>
+        <div class="row">
+            <ng-container *ngIf="Categories$ | async as categories">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">   
+                    Kategorie:
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <mat-form-field>
+                        <mat-select [(value)]="selectedFilterCategory" (selectionChange)="ChangeCategoryFilterValue($event)">
+                            <mat-option *ngFor="let category of categories;" [value]="category['cgid']">
+                                {{category['cName']}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </ng-container>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">   
+                Status:
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <mat-form-field>
+                    <mat-select [(value)]="selectedFilterStatus" (selectionChange)="ChangeStatusFilterValue($event)">                   
+                        <mat-option *ngFor="let status of statuses;" [value]="status['id']">
+                            {{status['id']}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
 
         <div class="row categories-row" *ngIf="ShowAddModal" [formGroup]="form">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -24,7 +52,7 @@
                         Data:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="date" formControlName="tTime" />
+                        <input type="date" formControlName="tTime"/>
                     </div>
                 </div>
                 <div class="row">
@@ -40,7 +68,7 @@
                         Budżet:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="number" step="1" formControlName="tBudget"/>
+                        <input type="number" step="1" formControlName="tBudget" />
                     </div>
                 </div>
                 <div class="row">
@@ -125,11 +153,11 @@
                     <p>{{task.tBudget}}</p>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <p>{{task.tStatus}}</p>
+                    <p>{{DisplayStatus(task.tStatus)}}</p>
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                    <p class="bi bi-pencil" (click)="ModifyTask(task)"></p>
-                    <p class="bi bi-trash" (click)="DeleteTask(task.tgid)"></p>
+                    <span class="bi bi-pencil" (click)="ModifyTask(task)"></span>
+                    <span class="bi bi-trash" (click)="DeleteTask(task.tgid)"></span>
                 </div>
             </div>
         </div>

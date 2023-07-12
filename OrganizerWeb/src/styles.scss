@@ -49,6 +49,8 @@ body{
 }
 
 .data-row{
+    display: flex;
+    align-items: center;
     background-color: #EEE;
     border-radius: 5px;
     margin-bottom: 5px;
@@ -58,6 +60,7 @@ body{
     width: 20px;
     height: 20px;
     border-radius: 5px;
+    padding: 10px;
 }
 
 .bi:hover{
