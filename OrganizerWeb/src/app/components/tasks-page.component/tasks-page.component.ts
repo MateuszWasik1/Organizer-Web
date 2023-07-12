@@ -26,6 +26,10 @@ export class TasksPageComponent implements OnInit, OnDestroy {
   public selectedFilterStatus: any;
   public selectedFilterCategory: any;
 
+  public categories: any = [];
+  public IsBudgetExceeded: boolean = false;
+  public budgetExceededInfo: string = '';
+
   public Filters$ = this.store.select(selectFilters);
   public Tasks$ = this.store.select(selectTasks);
   public Categories$ = this.store.select(selectCategories);
@@ -55,6 +59,9 @@ export class TasksPageComponent implements OnInit, OnDestroy {
     ];
     this.subscriptions.push(
       this.Filters$.subscribe(filter => this.store.dispatch(loadTasks())
+    ));
+    this.subscriptions.push(
+      this.Categories$.subscribe(categories => this.categories = categories
     ));
   }
 
@@ -103,6 +110,21 @@ export class TasksPageComponent implements OnInit, OnDestroy {
       "TUID": 0,
     }
     this.store.dispatch(saveTask({ Task: model }));
+  }
+
+  public TaskCategoryChange = (category: any) =>{
+    let cat = this.categories.find((x: any) => x.cgid == category.value);
+
+    if(cat.cBudget < cat.cBudgetCount + this.form.get("tBudget")?.value){
+      this.IsBudgetExceeded = true;
+      this.budgetExceededInfo = `W obecnej kategorii zaplanowany budżet to ${cat.cBudget}, przekraczasz budżet kategorii o ${(cat.cBudgetCount + this.form.get("tBudget")?.value) - cat.cBudget} !`
+    }
+    else
+      console.log("xdnt")
+    console.log(cat)
+    console.log(cat['cBudget'])
+    console.log(category)
+    console.log(this.categories)
   }
 
   public DeleteTask = (tgid: any) => this.store.dispatch(deleteTask({ tgid: tgid }))

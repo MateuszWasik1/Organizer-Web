@@ -44,7 +44,7 @@
                         Nazwa:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="text" formControlName="tName"/>
+                        <input type="text" formControlName="tName" required/>
                     </div>
                 </div>
                 <div class="row">
@@ -52,7 +52,7 @@
                         Data:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="date" formControlName="tTime"/>
+                        <input type="date" formControlName="tTime" required/>
                     </div>
                 </div>
                 <div class="row">
@@ -60,7 +60,7 @@
                         Lokalizacja:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="text" formControlName="tLocalization"/>
+                        <input type="text" formControlName="tLocalization" required/>
                     </div>
                 </div>
                 <div class="row">
@@ -68,7 +68,7 @@
                         Budżet:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="number" step="1" formControlName="tBudget" />
+                        <input type="number" step="1" formControlName="tBudget" required/>
                     </div>
                 </div>
                 <div class="row">
@@ -76,7 +76,7 @@
                         Status:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <mat-form-field>
+                        <mat-form-field class="margin-left-30">
                             <mat-select [(value)]="selectedStatus"> 
                                 <!-- <mat-option>
                                     <ngx-mat-select-search><ngx-mat-select-search>
@@ -96,8 +96,8 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                            <mat-form-field>
-                                <mat-select [(value)]="selectedCategory">
+                            <mat-form-field class="margin-left-30">
+                                <mat-select [(value)]="selectedCategory" (selectionChange)="TaskCategoryChange($event)">
                                     <!-- <mat-option>
                                         <ngx-mat-select-search></ngx-mat-select-search>
                                         </mat-option> Dodać z czasem ??? -->
@@ -108,11 +108,12 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
+                        <span *ngIf="IsBudgetExceeded">{{budgetExceededInfo}}</span>
                     </div>
                 </ng-container>
-                <div class="row">
+                <div class="row padding-bottom-15">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button mat-raised-button color="accent" class="float-right" (click)="Save()">Zapisz</button>
+                        <button mat-raised-button color="accent" class="float-right" (click)="Save()" [disabled]="IsBudgetExceeded || form.invalid">Zapisz</button>
 
                         <button mat-raised-button class="float-right" (click)="ShowAddModal = !ShowAddModal">Anuluj</button>
                     </div>

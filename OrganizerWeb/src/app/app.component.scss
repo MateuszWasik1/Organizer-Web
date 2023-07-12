@@ -20,7 +20,8 @@
 }
 .container{
     margin-top: 25px;
-    height: 80vh;
+    min-height: 80vh;
     border: 1px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding-bottom: 15px;
 }
