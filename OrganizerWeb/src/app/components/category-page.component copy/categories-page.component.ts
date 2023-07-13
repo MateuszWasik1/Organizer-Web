@@ -2,11 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { loadCategories, saveCategory } from './categories-page-state/categories-page-state.actions';
-import { selectCategories } from './categories-page-state/categories-page-state.selectors';
+import { changeDateFilter, loadCategories, saveCategory } from './categories-page-state/categories-page-state.actions';
+import { selectCategories, selectFilters } from './categories-page-state/categories-page-state.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { Guid } from 'guid-typescript';
+import { MatDatepicker } from '@angular/material/datepicker';
+import { Moment } from 'moment';
 
 @Component({
   selector: 'app-categories-page',
@@ -19,8 +21,10 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[];
   public ShowAddModal: boolean = false;
   public form: FormGroup = new FormGroup({});
+  public filterForm: FormGroup = new FormGroup({});
   
-  public Categories$ = this.store.select(selectCategories)
+  public Categories$ = this.store.select(selectCategories);
+  public Filters$ = this.store.select(selectFilters);
 
   constructor(public store: Store<AppState>){
     this.subscriptions = []
@@ -36,16 +40,29 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
       cEndDate: new FormControl(new Date(), {validators: [Validators.required] }),
       cBudget: new FormControl(0, {validators: [Validators.required] }),
     });
-  }
 
+    this.filterForm = new FormGroup({
+      date: new FormControl(formatDate(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1), 'yyyy-MM-dd', 'en'))
+    })
+
+    this.subscriptions.push(
+      this.Filters$.subscribe(filter => this.store.dispatch(loadCategories())
+    ));
+
+    this.filterForm.valueChanges.subscribe(x => this.store.dispatch(changeDateFilter({date: x})))
+  }
+  public setMonthAndYear(normalizedMonth: any, datepicker: MatDatepicker<Moment>) {
+    this.filterForm.patchValue({ date: new Date(normalizedMonth)});
+    datepicker.close();
+  }
   public AddCategory = () => {
     this.ShowAddModal = !this.ShowAddModal;
     
     this.form.get("cid")?.setValue(0);
     this.form.get("cgid")?.setValue(Guid.create().toString());
     this.form.get("cName")?.setValue('');
-    this.form.get("cStartDate")?.setValue(new Date());
-    this.form.get("cEndDate")?.setValue(new Date());
+    this.form.get("cStartDate")?.setValue(formatDate(new Date(), 'yyyy-MM-dd', 'en'));
+    this.form.get("cEndDate")?.setValue(formatDate(new Date(), 'yyyy-MM-dd', 'en'));
     this.form.get("cBudget")?.setValue(0);
   }
 

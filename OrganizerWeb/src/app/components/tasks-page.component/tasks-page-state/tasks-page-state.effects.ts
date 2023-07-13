@@ -34,7 +34,7 @@ export class TasksEffects {
         return this.actions.pipe(
             ofType(CategoriesActions.loadCategories),
             switchMap((params) => {
-                return this.categoriesService.getCategories().pipe(
+                return this.categoriesService.getCategories(null).pipe(
                     map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
                     catchError((error) => of(CategoriesActions.loadCategoriesError()))
                 )

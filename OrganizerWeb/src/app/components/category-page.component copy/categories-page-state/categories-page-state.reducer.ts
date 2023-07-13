@@ -4,6 +4,9 @@ import { CategoriesState } from "./categories-page-state.state";
 
 var initialStateOfSearchPage: CategoriesState = {
     Categories: [],
+    Filters: {
+        Date: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+    }
 };
 
 export const CategoriesReducer = createReducer<CategoriesState>(
@@ -36,4 +39,11 @@ export const CategoriesReducer = createReducer<CategoriesState>(
 
         return {...state, Categories: newCategories};
     }),
+    on(Actions.changeDateFilter, (state, { date }) => ({
+        ...state,
+        Filters: {
+            ...state.Filters,
+            Date: date,
+        }
+    })),
 ) 

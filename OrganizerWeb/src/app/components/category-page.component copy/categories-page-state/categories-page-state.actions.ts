@@ -7,3 +7,5 @@ export const loadCategoriesError = createAction('[Categories Page] Load Categori
 export const saveCategory = createAction('[Categories Page] Save Categories', props<{ category: any }>());
 export const saveCategorySuccess = createAction('Categoriesh Page] Save Categories Success', props<{ category: any }>());
 export const saveCategoryError = createAction('[Categories Page] Save Categories Error');
+
+export const changeDateFilter = createAction('[Categories Page] Save Categories Error', props<{ date: any }>());
