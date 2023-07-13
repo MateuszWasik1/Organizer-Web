@@ -23,6 +23,9 @@ import { TasksEffects } from './components/tasks-page.component/tasks-page-state
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,9 @@ import { MatSelectModule } from '@angular/material/select';
     NgxMatSelectSearchModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     StoreModule.forFeature(featureKeyCategoriesState, CategoriesReducer),
@@ -49,7 +55,9 @@ import { MatSelectModule } from '@angular/material/select';
     EffectsModule.forRoot([CategoriesEffects, TasksEffects]),
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
