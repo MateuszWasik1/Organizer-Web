@@ -12,11 +12,11 @@ export class CategoriesService {
     getCategories(date: any) : Observable<any>{
         if(date == undefined)
             date = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1)
-        console.log(date)
+
         let newDate = new Date(date);
         let stringDate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
         let params = new HttpParams().set("date", stringDate);
-        console.log(stringDate)
+
         return this.http.get<any>(this.apiUrl + 'api/Categories', { params: params })
     }
 
