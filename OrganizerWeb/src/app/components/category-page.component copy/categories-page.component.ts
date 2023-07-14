@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { changeDateFilter, loadCategories, saveCategory } from './categories-page-state/categories-page-state.actions';
+import { changeDateFilter, deleteCategory, loadCategories, saveCategory } from './categories-page-state/categories-page-state.actions';
 import { selectCategories, selectFilters } from './categories-page-state/categories-page-state.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
@@ -88,6 +88,8 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
     }
     this.store.dispatch(saveCategory({ category: model }));
   }
+
+  public DeleteCategory= (cGID: any) => this.store.dispatch(deleteCategory({ cGID: cGID }))
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

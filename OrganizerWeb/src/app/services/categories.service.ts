@@ -23,4 +23,8 @@ export class CategoriesService {
     saveCategories(model: any) : Observable<any>{
         return this.http.post<any>(this.apiUrl + 'api/Categories/Save', model)
     }
+
+    deleteCategories(cGID: any) : Observable<any>{
+        return this.http.delete<any>(this.apiUrl + 'api/Categories/Delete/'+ cGID, cGID)
+    }
 }
