@@ -46,4 +46,14 @@ export const CategoriesReducer = createReducer<CategoriesState>(
             Date: date,
         }
     })),
+
+    on(Actions.deleteCategory, (state, { cGID }) => {
+        let newCategories = [...state.Categories];
+        let existingCategoryIndex = newCategories.findIndex(x => x.cgid == cGID);
+
+        if(existingCategoryIndex != -1)
+            newCategories.splice(existingCategoryIndex, 1)
+
+        return {...state, Categories: newCategories};
+    }),
 ) 

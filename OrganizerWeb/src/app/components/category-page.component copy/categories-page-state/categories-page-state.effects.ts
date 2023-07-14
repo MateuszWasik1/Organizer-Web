@@ -39,4 +39,16 @@ export class CategoriesEffects {
             })
         )
     })
+
+    deleteCategory = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.deleteCategory),
+            switchMap((params) => {
+                return this.categoriesService.deleteCategories(params.cGID).pipe(
+                    map((result) => CategoriesActions.deleteCategorySuccess({ cGID: params.cGID })),
+                    catchError((error) => of(CategoriesActions.deleteCategoryError()))
+                )
+            })
+        )
+    })
 }

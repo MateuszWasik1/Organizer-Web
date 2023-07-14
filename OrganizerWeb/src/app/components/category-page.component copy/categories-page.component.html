@@ -97,7 +97,8 @@
                     <p>{{category.cBudget}}</p>
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                    <p class="bi bi-pencil" (click)="ModifyCategory(category)"></p>
+                    <span class="bi bi-pencil" (click)="ModifyCategory(category)"></span>
+                    <span class="bi bi-trash" (click)="DeleteCategory(category.cgid)"></span>
                 </div>
             </div>
         </div>
