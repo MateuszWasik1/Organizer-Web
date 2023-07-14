@@ -30,7 +30,7 @@
                 <mat-form-field>
                     <mat-select [(value)]="selectedFilterStatus" (selectionChange)="ChangeStatusFilterValue($event)">                   
                         <mat-option *ngFor="let status of statuses;" [value]="status['id']">
-                            {{status['id']}}
+                            {{status['name']}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

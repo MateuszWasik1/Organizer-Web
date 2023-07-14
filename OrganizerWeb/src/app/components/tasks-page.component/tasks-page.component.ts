@@ -120,11 +120,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
       this.budgetExceededInfo = `W obecnej kategorii zaplanowany budżet to ${cat.cBudget}, przekraczasz budżet kategorii o ${(cat.cBudgetCount + this.form.get("tBudget")?.value) - cat.cBudget} !`
     }
     else
-      console.log("xdnt")
-    console.log(cat)
-    console.log(cat['cBudget'])
-    console.log(category)
-    console.log(this.categories)
+      this.IsBudgetExceeded = false;
   }
 
   public DeleteTask = (tgid: any) => this.store.dispatch(deleteTask({ tgid: tgid }))
