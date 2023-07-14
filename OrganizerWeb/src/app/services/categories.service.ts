@@ -9,13 +9,14 @@ export class CategoriesService {
     public apiUrl = 'https://localhost:44393/'
     constructor( private http: HttpClient ) { }
 
-    getCategories(date: any) : Observable<any>{
+    getCategories(date: any, isFromTask: boolean) : Observable<any>{
         if(date == undefined)
             date = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1)
 
         let newDate = new Date(date);
         let stringDate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
-        let params = new HttpParams().set("date", stringDate);
+
+        let params = new HttpParams().set("date", isFromTask ? '' : stringDate);
 
         return this.http.get<any>(this.apiUrl + 'api/Categories', { params: params })
     }
