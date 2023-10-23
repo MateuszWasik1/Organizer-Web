@@ -3,7 +3,7 @@
 Instalacja:
 
 1. Należy pobrać repozytorium korzystając z gita.
-2. Należy otworzyć repozytorium przez edytor rektu np.: VS Code
+2. Należy otworzyć repozytorium przez edytor tekstu np.: VS Code
 3. Należy otworzyć node.js użyć komendy CD oraz ścieżki do folderu app z repozytorium
 4. Przy pierwzym uruchomieniu projektu może być niezbędne użycie komendy: npm install - komenda pobierze i zainstaluje wymagane paczki npm
 5. Należy użyć komendy ng -serve, która uruchomi aplikację
