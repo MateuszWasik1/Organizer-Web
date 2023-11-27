@@ -162,8 +162,8 @@
                 </div>
             </div>
         </div>
-        <div class="row" *ngIf="tasks.length == 0">
-            <p>Nie znaleziono danych!</p>
+        <div class="row no-data-row" *ngIf="tasks.length == 0">
+            <p>Nie znaleziono żadnych zadań! Dodaj zadanie bądź zmień opcje filtrowania!</p>
         </div>
     </section>
 </ng-container>
