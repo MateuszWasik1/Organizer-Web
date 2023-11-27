@@ -14,7 +14,7 @@ import { Guid } from 'guid-typescript';
   styleUrls: ['./tasks-page.component.scss']
 })
 export class TasksPageComponent implements OnInit, OnDestroy {
-  title = 'Taski - P1 - Mateusz Wąsik';
+  title = 'Zadania - P1 - Mateusz Wąsik';
 
   public subscriptions: Subscription[];
   public ShowAddModal: boolean = false;
