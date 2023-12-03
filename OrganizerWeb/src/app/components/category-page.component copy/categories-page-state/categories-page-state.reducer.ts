@@ -6,7 +6,8 @@ var initialStateOfSearchPage: CategoriesState = {
     Categories: [],
     Filters: {
         Date: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
-    }
+    },
+    IsCategoriesError: false,
 };
 
 export const CategoriesReducer = createReducer<CategoriesState>(
@@ -15,6 +16,11 @@ export const CategoriesReducer = createReducer<CategoriesState>(
     on(Actions.loadCategoriesSuccess, (state, { Categories }) => ({
         ...state,
         Categories: Categories
+    })),
+
+    on(Actions.loadCategoriesError, state => ({
+        ...state,
+        IsCategoriesError: true,
     })),
 
     on(Actions.saveCategorySuccess, (state, { category }) => {

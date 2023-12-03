@@ -2,13 +2,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { changeDateFilter, deleteCategory, loadCategories, saveCategory } from './categories-page-state/categories-page-state.actions';
-import { selectCategories, selectFilters } from './categories-page-state/categories-page-state.selectors';
+import { changeDateFilter, deleteCategory, loadCategories, saveCategory, loadCustomCategories } from './categories-page-state/categories-page-state.actions';
+import { selectCategories, selectErrors, selectFilters } from './categories-page-state/categories-page-state.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { Guid } from 'guid-typescript';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Moment } from 'moment';
+import { MatDialog } from '@angular/material/dialog';
+import { CategoriesFillDataDialogComponent } from './categories-dialogs/categories-fill-data-dialog.component';
 
 @Component({
   selector: 'app-categories-page',
@@ -25,8 +27,9 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
   
   public Categories$ = this.store.select(selectCategories);
   public Filters$ = this.store.select(selectFilters);
+  public IsCategoriesError$ = this.store.select(selectErrors);
 
-  constructor(public store: Store<AppState>){
+  constructor(public store: Store<AppState>, private dialog: MatDialog){
     this.subscriptions = []
   }
   ngOnInit(): void {
@@ -46,10 +49,23 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
     })
 
     this.subscriptions.push(
-      this.Filters$.subscribe(filter => this.store.dispatch(loadCategories())
+      this.Filters$.subscribe(() => this.store.dispatch(loadCategories())
     ));
 
     this.filterForm.valueChanges.subscribe(x => this.store.dispatch(changeDateFilter({date: x})))
+
+    this.subscriptions.push(
+      this.IsCategoriesError$.subscribe(isError => {
+        if(isError)
+          this.dialog
+          .open(CategoriesFillDataDialogComponent)
+          .afterClosed()
+          .subscribe(fill => {
+            if(fill)
+              this.store.dispatch(loadCustomCategories());
+          });
+      })
+    )
   }
   public setMonthAndYear(normalizedMonth: any, datepicker: MatDatepicker<Moment>) {
     this.filterForm.patchValue({ date: new Date(normalizedMonth)});

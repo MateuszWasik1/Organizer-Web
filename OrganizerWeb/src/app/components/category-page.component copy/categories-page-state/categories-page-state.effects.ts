@@ -7,13 +7,15 @@ import { AppState } from "src/app/app.state";
 import { Store } from "@ngrx/store";
 import { CategoriesService } from "src/app/services/categories.service";
 import { selectFilters } from "./categories-page-state.selectors";
+import { FillDataService } from "src/app/services/fill-data.service";
 
 @Injectable()
 export class CategoriesEffects {
     constructor(
         private actions: Actions,
         private store: Store<AppState>,
-        private categoriesService: CategoriesService) {
+        private categoriesService: CategoriesService,
+        private fillDataService: FillDataService) {
     }
     loadCategories = createEffect(() => {
         return this.actions.pipe(
@@ -22,7 +24,19 @@ export class CategoriesEffects {
             switchMap((params) => {
                 return this.categoriesService.getCategories(params[1].Date.date, false).pipe(
                     map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
-                    catchError((error) => of(CategoriesActions.loadCategoriesError()))
+                    catchError(() => of(CategoriesActions.loadCategoriesError()))
+                )
+            })
+        )
+    })
+
+    loadCustomCategories = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.loadCustomCategories),
+            switchMap(() => {
+                return of(this.fillDataService.FillCategories()).pipe(
+                    map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
+                    catchError(() => of(CategoriesActions.loadCategoriesError()))
                 )
             })
         )
@@ -33,8 +47,8 @@ export class CategoriesEffects {
             ofType(CategoriesActions.saveCategory),
             switchMap((params) => {
                 return this.categoriesService.saveCategories(params.category).pipe(
-                    map((result) => CategoriesActions.saveCategorySuccess({ category: params.category })),
-                    catchError((error) => of(CategoriesActions.loadCategoriesError()))
+                    map(() => CategoriesActions.saveCategorySuccess({ category: params.category })),
+                    catchError(() => of(CategoriesActions.loadCategoriesError()))
                 )
             })
         )
@@ -45,8 +59,8 @@ export class CategoriesEffects {
             ofType(CategoriesActions.deleteCategory),
             switchMap((params) => {
                 return this.categoriesService.deleteCategories(params.cGID).pipe(
-                    map((result) => CategoriesActions.deleteCategorySuccess({ cGID: params.cGID })),
-                    catchError((error) => of(CategoriesActions.deleteCategoryError()))
+                    map(() => CategoriesActions.deleteCategorySuccess({ cGID: params.cGID })),
+                    catchError(() => of(CategoriesActions.deleteCategoryError()))
                 )
             })
         )

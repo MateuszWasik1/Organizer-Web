@@ -2,11 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, filter } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { ChangeCategoryFilterValue, ChangeStatusFilterValue, deleteTask, loadCategories, loadTasks, saveTask } from './tasks-page-state/tasks-page-state.actions';
-import { selectCategories, selectFilters, selectTasks } from './tasks-page-state/tasks-page-state.selectors';
+import { ChangeCategoryFilterValue, ChangeStatusFilterValue, deleteTask, loadCategories, loadCustomCategories, loadCustomTasks, loadTasks, saveTask } from './tasks-page-state/tasks-page-state.actions';
+import { selectCategories, selectErrors, selectFilters, selectTasks } from './tasks-page-state/tasks-page-state.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { Guid } from 'guid-typescript';
+import { MatDialog } from '@angular/material/dialog';
+import { TasksFillDataDialogComponent } from './tasks-dialogs/tasks-fill-data-dialog.component';
 
 @Component({
   selector: 'app-tasks-page',
@@ -33,8 +35,9 @@ export class TasksPageComponent implements OnInit, OnDestroy {
   public Filters$ = this.store.select(selectFilters);
   public Tasks$ = this.store.select(selectTasks);
   public Categories$ = this.store.select(selectCategories);
+  public Errors$ = this.store.select(selectErrors);
 
-  constructor(public store: Store<AppState>){
+  constructor(public store: Store<AppState>, private dialog: MatDialog){
     this.subscriptions = []
   }
   ngOnInit(): void {
@@ -57,12 +60,34 @@ export class TasksPageComponent implements OnInit, OnDestroy {
       {id: '1', name: 'W trakcie'},
       {id: '2', name: 'Skończony'},
     ];
+
     this.subscriptions.push(
       this.Filters$.subscribe(filter => this.store.dispatch(loadTasks())
     ));
+
     this.subscriptions.push(
       this.Categories$.subscribe(categories => this.categories = categories
     ));
+
+    this.subscriptions.push(
+      this.Errors$.subscribe(isErrors => {
+        if(isErrors.IsTasksError || isErrors.IsCategoriesError)
+          this.dialog
+          .open(TasksFillDataDialogComponent, {
+            data: {
+              IsTasksError: isErrors.IsTasksError,
+              IsCategoriesError: isErrors.IsCategoriesError,
+            }
+          })
+          .afterClosed()
+          .subscribe(fill => {
+            if(fill && isErrors.IsTasksError)
+              this.store.dispatch(loadCustomTasks());
+            if(fill && isErrors.IsCategoriesError)
+              this.store.dispatch(loadCustomCategories());
+          });
+      })
+    )
   }
 
   public ChangeCategoryFilterValue = (event: any) => this.store.dispatch(ChangeCategoryFilterValue({ value: event.value }));

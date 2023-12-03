@@ -7,4 +7,8 @@ export interface TasksState {
     },
     Tasks: any[],
     Categories: [],
+    IsError: {
+        IsTasksError: boolean,
+        IsCategoriesError: boolean,
+    }
 }
