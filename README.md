@@ -21,6 +21,7 @@ https://github.com/MateuszWasik1/Organiser-Mobile
 
 # Dokumentacja 
 
-Dokumentacja dostępna jest pod linkiem: https://github.com/MateuszWasik1/Organizer-Web/blob/master/Dokumentacja%20-%20Web.pdf
+Dokumentacja dostępna jest pod linkiem: 
+https://github.com/MateuszWasik1/Organizer-Web/blob/master/Dokumentacja%20-%20Web.pdf
 
 Bądź bezpośrednio wchodząc z poziomu głównego menu tego repozytorium pod nazwą: "Dokumentacja - Web.pdf" 
