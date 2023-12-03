@@ -1,0 +1,18 @@
+<h2 mat-dialog-title *ngIf="IsTasksError && !IsCategoriesError">Błąd załadowania Zadań</h2>
+<h2 mat-dialog-title *ngIf="!IsTasksError && IsCategoriesError">Błąd załadowania Kategorii</h2>
+<h2 mat-dialog-title *ngIf="IsTasksError && IsCategoriesError">Błąd załadowania Danych</h2>
+
+<mat-dialog-content *ngIf="IsTasksError && !IsCategoriesError">
+    Podczas ładowania Zadań wystąpił błąd. Czy chcesz załadować customowe dane?
+</mat-dialog-content>
+<mat-dialog-content *ngIf="!IsTasksError && IsCategoriesError">
+  Podczas ładowania Kategorii wystąpił błąd. Czy chcesz załadować customowe dane?
+</mat-dialog-content>
+<mat-dialog-content *ngIf="IsTasksError && IsCategoriesError">
+  Podczas ładowania Danych wystąpił błąd. Czy chcesz załadować customowe dane?
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">Nie</button>
+  <button mat-button [mat-dialog-close]="true">Tak</button>
+</mat-dialog-actions>

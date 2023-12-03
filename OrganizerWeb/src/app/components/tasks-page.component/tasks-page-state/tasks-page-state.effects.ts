@@ -8,6 +8,7 @@ import { CategoriesService } from "src/app/services/categories.service";
 import { selectFilters } from "./tasks-page-state.selectors";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.state";
+import { FillDataService } from "src/app/services/fill-data.service";
 
 @Injectable()
 export class TasksEffects {
@@ -15,7 +16,8 @@ export class TasksEffects {
         private actions: Actions,
         private tasksService: TasksService,
         private categoriesService: CategoriesService,
-        public store: Store<AppState>) {
+        public store: Store<AppState>,
+        private fillDataService: FillDataService) {
     }
     loadTasks = createEffect(() => {
         return this.actions.pipe(
@@ -35,6 +37,30 @@ export class TasksEffects {
             ofType(CategoriesActions.loadCategories),
             switchMap((params) => {
                 return this.categoriesService.getCategories(null, true).pipe(
+                    map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
+                    catchError((error) => of(CategoriesActions.loadCategoriesError()))
+                )
+            })
+        )
+    })
+
+    loadCustomTasks = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.loadCustomTasks),
+            switchMap((params) => {
+                return of(this.fillDataService.FillTasks()).pipe(
+                    map((result) => CategoriesActions.loadTasksSuccess({ Tasks: result })),
+                    catchError((error) => of(CategoriesActions.loadTasksError()))
+                )
+            })
+        )
+    })
+
+    loadCustomCategories = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.loadCustomCategories),
+            switchMap((params) => {
+                return of(this.fillDataService.FillCategories()).pipe(
                     map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
                     catchError((error) => of(CategoriesActions.loadCategoriesError()))
                 )

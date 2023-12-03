@@ -28,6 +28,7 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CategoriesFillDataDialogComponent } from './components/category-page.component copy/categories-dialogs/categories-fill-data-dialog.component';
+import { TasksFillDataDialogComponent } from './components/tasks-page.component/tasks-dialogs/tasks-fill-data-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CategoriesFillDataDialogComponent } from './components/category-page.co
     CategoriesPageComponent,
     CategoriesFillDataDialogComponent,
     TasksPageComponent,
+    TasksFillDataDialogComponent,
   ],
   imports: [
     ReactiveFormsModule,

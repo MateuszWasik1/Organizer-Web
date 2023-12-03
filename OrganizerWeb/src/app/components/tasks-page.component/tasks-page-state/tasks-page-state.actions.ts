@@ -8,6 +8,9 @@ export const loadCategories = createAction('[Tasks Page] Load Categories');
 export const loadCategoriesSuccess = createAction('[Tasks Page] Load Categories Success', props<{ Categories: any }>());
 export const loadCategoriesError = createAction('[Tasks Page] Load Categories Error');
 
+export const loadCustomTasks = createAction('[Tasks Page] Load Custom Tasks');
+export const loadCustomCategories = createAction('[Tasks Page] Load Custom Categories');
+
 export const saveTask = createAction('[Tasks Page] Save Task', props<{ Task: any }>());
 export const saveTaskSuccess = createAction('Tasks Page] Save Task Success', props<{ Task: any }>());
 export const saveTaskError = createAction('[Tasks Page] Save Task Error');
