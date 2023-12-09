@@ -64,4 +64,31 @@ export class FillDataService {
         }
         return result;
     }
+
+    public FillSavings(){
+        let sid = [1, 22, 34, 54, 245, 684, 788, 899, 999, 1023];
+        let sgid = [Guid.create(), Guid.create(), Guid.create(), Guid.create(), Guid.create(), Guid.create(), Guid.create(), Guid.create(), Guid.create(), Guid.create()];
+        let suid = [1, 2, 3, 4, 55, 120, 122, 168, 200, 201];
+        let sOnWhat = ["Delegacja", "Zakupy", "Zabieg", "Leczenie", "Sen", "Seans", "Kuracja", "Odpoczynek", "Lody", "Praca"];
+        let sWhere = ["Bar", "Kino", "Sklep", "SPA", "Biuro", "Warszawa", "Kraków", "Ustroń", "Galeria Krokus", "XXX"];
+        let sTime = [new Date(2024, 11, 1), new Date(2022, 12, 1), new Date(2023, 9, 23), new Date(2023, 1, 15), new Date(2023, 1, 1), new Date(2023, 12, 31), new Date(2022, 2, 22), new Date(2023, 11, 30), new Date(2023, 2, 28), new Date(2023, 10, 6)];
+        let sAmount = [345, 444, 556, 1233, 6742, 9893, 12345, 12999, 21231, 33333];
+
+        let result = [];
+
+        for(let i = 0; i < 5; i++){
+            let saving = {
+                sid: sid[Math.floor(Math.random() * 10)], 
+                sgid: sgid[Math.floor(Math.random() * 10)],
+                suid: suid[Math.floor(Math.random() * 10)],
+                sOnWhat: sOnWhat[Math.floor(Math.random() * 10)],
+                sWhere: sWhere[Math.floor(Math.random() * 10)],
+                sTime: sTime[Math.floor(Math.random() * 10)],
+                sAmount: sAmount[Math.floor(Math.random() * 10)], 
+            }
+
+            result.push(saving);
+        }
+        return result;
+    }
 }

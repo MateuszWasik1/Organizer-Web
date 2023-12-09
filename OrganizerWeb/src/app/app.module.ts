@@ -29,6 +29,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CategoriesFillDataDialogComponent } from './components/category-page.component copy/categories-dialogs/categories-fill-data-dialog.component';
 import { TasksFillDataDialogComponent } from './components/tasks-page.component/tasks-dialogs/tasks-fill-data-dialog.component';
+import { SavingsPageComponent } from './components/savings-page.component/savings-page.component';
+import { SavingsFillDataDialogComponent } from './components/savings-page.component/savings-page-dialogs/savings-fill-data-dialog.component';
+import { featureKeySavingsState } from './components/savings-page.component/savings-page-state/savings-page-state.state';
+import { SavingsReducer } from './components/savings-page.component/savings-page-state/savings-page-state.reducer';
+import { SavingsEffects } from './components/savings-page.component/savings-page-state/savings-page-state.effects';
 
 @NgModule({
   declarations: [
@@ -38,6 +43,8 @@ import { TasksFillDataDialogComponent } from './components/tasks-page.component/
     CategoriesFillDataDialogComponent,
     TasksPageComponent,
     TasksFillDataDialogComponent,
+    SavingsPageComponent,
+    SavingsFillDataDialogComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -57,8 +64,9 @@ import { TasksFillDataDialogComponent } from './components/tasks-page.component/
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     StoreModule.forFeature(featureKeyCategoriesState, CategoriesReducer),
     StoreModule.forFeature(featureKeyTasksState, TasksReducer),
+    StoreModule.forFeature(featureKeySavingsState, SavingsReducer),
    
-    EffectsModule.forRoot([CategoriesEffects, TasksEffects]),
+    EffectsModule.forRoot([CategoriesEffects, TasksEffects, SavingsEffects]),
     BrowserAnimationsModule,
   ],
   providers: [
