@@ -3,8 +3,12 @@ import * as Actions from "./stats-page-state.actions"
 import { StatsState } from "./stats-page-state.state";
 
 var initialStateOfStatsPage: StatsState = {
+    Stats: [],
     Filters: {
-        Date: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+        StartDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+        EndDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+        ChartType: 'bar',
+        DataType: '',
     },
     IsStatsError: false,
 };

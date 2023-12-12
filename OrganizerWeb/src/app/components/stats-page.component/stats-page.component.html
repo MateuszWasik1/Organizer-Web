@@ -19,5 +19,15 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
         </div>
+
+        <div class="row">
+            <canvas
+                baseChart
+                class="chart"
+                [data]="barChartData"
+                [options]="barChartOptions"
+                [type]="'bar'">
+            </canvas>
+        </div>
     </section>
 <!-- </ng-container> -->
