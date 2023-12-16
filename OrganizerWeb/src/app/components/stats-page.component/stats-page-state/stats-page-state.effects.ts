@@ -18,12 +18,25 @@ export class StatsEffects {
         private statsService: StatsService) {
     }
 
-    loadSavings = createEffect(() => {
+    loadSavingBarChartStats = createEffect(() => {
         return this.actions.pipe(
-            ofType(StatsActions.loadStats),
+            ofType(StatsActions.loadSavingBarChartStats),
             withLatestFrom(this.store.select(selectFilters)),
             switchMap((params) => {
                 return this.statsService.getSavingsBarChart(params[1].StartDate, params[1].EndDate).pipe(
+                    map((result) => StatsActions.loadStatsSuccess({ Result: result })),
+                    catchError(() => of(StatsActions.loadStatsError()))
+                )
+            })
+        )
+    })
+
+    loadTaskSpendedMoneyBarChartStats = createEffect(() => {
+        return this.actions.pipe(
+            ofType(StatsActions.loadTaskSpendedMoneyBarChartStats),
+            withLatestFrom(this.store.select(selectFilters)),
+            switchMap((params) => {
+                return this.statsService.getMoneySpendedFromTaskBarChart(params[1].StartDate, params[1].EndDate).pipe(
                     map((result) => StatsActions.loadStatsSuccess({ Result: result })),
                     catchError(() => of(StatsActions.loadStatsError()))
                 )

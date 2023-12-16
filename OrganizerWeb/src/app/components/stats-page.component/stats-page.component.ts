@@ -2,14 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { formatDate } from '@angular/common';
-import { Guid } from 'guid-typescript';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Moment } from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { StatsFillDataDialogComponent } from './stats-page-dialogs/stats-fill-data-dialog.component';
-import { changeEndDateFilter, changeStartDateFilter, loadCustomStats, loadStats } from './stats-page-state/stats-page-state.actions';
+import { changeDataTypeFilter, changeEndDateFilter, changeStartDateFilter, loadCustomStats, loadSavingBarChartStats, loadTaskSpendedMoneyBarChartStats } from './stats-page-state/stats-page-state.actions';
 import { selectErrors, selectFilters, selectStats } from './stats-page-state/stats-page-state.selectors';
 import { ChartOptions } from 'chart.js';
 
@@ -23,23 +20,31 @@ export class StatsPageComponent implements OnInit, OnDestroy {
   title = 'Statystyki - P1 - Mateusz Wąsik';
 
   public subscriptions: Subscription[];
-  public filterForm: FormGroup = new FormGroup({});
-  
+
   public Stats$ = this.store.select(selectStats);
   public Filters$ = this.store.select(selectFilters);
   public IsStatsError$ = this.store.select(selectErrors);
+
+  public defaultDataType: string = "savings";
+  public dataTypes = [
+    {name: "Oszczędności", value: "savings"},
+    {name: "Wydatki z zadań", value: "task-money"},
+  ]
 
   constructor(public store: Store<AppState>, private dialog: MatDialog){
     this.subscriptions = []
   }
   ngOnInit(): void {
-    this.store.dispatch(loadStats());
+    this.store.dispatch(loadSavingBarChartStats());
 
     this.subscriptions.push(
-      this.Filters$.subscribe(() => this.store.dispatch(loadStats())
-    ));
-
-    this.filterForm.valueChanges.subscribe(x => this.store.dispatch(changeStartDateFilter({startDate: x})))
+      this.Filters$.subscribe(filters => {
+        if(filters.DataType == "savings")
+          this.store.dispatch(loadSavingBarChartStats())
+        if(filters.DataType == "task-money")
+          this.store.dispatch(loadTaskSpendedMoneyBarChartStats())
+      })
+    );
 
     this.subscriptions.push(
       this.IsStatsError$.subscribe(isError => {
@@ -93,6 +98,8 @@ export class StatsPageComponent implements OnInit, OnDestroy {
     labels: [],
     datasets: []
   }
+
+  public changeDataType = (dataType: any) => this.store.dispatch(changeDataTypeFilter({ dataType: dataType.value }))
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

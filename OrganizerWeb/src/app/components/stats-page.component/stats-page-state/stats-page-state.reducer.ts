@@ -11,7 +11,7 @@ var initialStateOfStatsPage: StatsState = {
         StartDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
         EndDate:  new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1),
         ChartType: 'bar',
-        DataType: '',
+        DataType: 'savings',
     },
     IsStatsError: false,
 };
@@ -41,6 +41,14 @@ export const StatsReducer = createReducer<StatsState>(
         Filters: {
             ...state.Filters,
             EndDate: endDate,
+        }
+    })),
+
+    on(Actions.changeDataTypeFilter, (state, { dataType }) => ({
+        ...state,
+        Filters: {
+            ...state.Filters,
+            DataType: dataType,
         }
     })),
 ) 
