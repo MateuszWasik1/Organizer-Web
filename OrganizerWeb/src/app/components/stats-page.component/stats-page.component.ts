@@ -9,8 +9,8 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { Moment } from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { StatsFillDataDialogComponent } from './stats-page-dialogs/stats-fill-data-dialog.component';
-import { changeDateFilter, loadCustomStats, loadStats } from './stats-page-state/stats-page-state.actions';
-import { selectErrors, selectFilters } from './stats-page-state/stats-page-state.selectors';
+import { changeEndDateFilter, changeStartDateFilter, loadCustomStats, loadStats } from './stats-page-state/stats-page-state.actions';
+import { selectErrors, selectFilters, selectStats } from './stats-page-state/stats-page-state.selectors';
 import { ChartOptions } from 'chart.js';
 
 
@@ -25,6 +25,7 @@ export class StatsPageComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[];
   public filterForm: FormGroup = new FormGroup({});
   
+  public Stats$ = this.store.select(selectStats);
   public Filters$ = this.store.select(selectFilters);
   public IsStatsError$ = this.store.select(selectErrors);
 
@@ -38,7 +39,7 @@ export class StatsPageComponent implements OnInit, OnDestroy {
       this.Filters$.subscribe(() => this.store.dispatch(loadStats())
     ));
 
-    this.filterForm.valueChanges.subscribe(x => this.store.dispatch(changeDateFilter({date: x})))
+    this.filterForm.valueChanges.subscribe(x => this.store.dispatch(changeStartDateFilter({startDate: x})))
 
     this.subscriptions.push(
       this.IsStatsError$.subscribe(isError => {
@@ -53,10 +54,16 @@ export class StatsPageComponent implements OnInit, OnDestroy {
       })
     )
   }
-  // public setMonthAndYear(normalizedMonth: any, datepicker: MatDatepicker<Moment>) {
-  //   this.filterForm.patchValue({ date: new Date(normalizedMonth)});
-  //   datepicker.close();
-  // }
+
+  public setMonthAndYear(normalizedMonth: any, datepicker: MatDatepicker<Moment>, isStartDate: boolean) {
+    console.log(normalizedMonth)
+    if(isStartDate)
+      this.store.dispatch(changeStartDateFilter({startDate: new Date(normalizedMonth)}))
+    else
+      this.store.dispatch(changeEndDateFilter({endDate: new Date(normalizedMonth)}))
+
+    datepicker.close();
+  }
 
   public barChartOptions: ChartOptions = {
     scales: {
@@ -73,15 +80,19 @@ export class StatsPageComponent implements OnInit, OnDestroy {
     },
   };
 
-  public barChartData = {
-    labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
-    datasets: [
-      { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-      { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-      { data: [28, 48, 46, 19, 86, 26, 90], label: 'Series C' },
-    ],
-  }; 
+  // public barChartData = {
+  //   labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
+  //   datasets: [
+  //     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+  //     { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
+  //     { data: [28, 48, 46, 19, 86, 26, 90], label: 'Series C' },
+  //   ],
+  // }; 
 
+  public emptyChartData = {
+    labels: [],
+    datasets: []
+  }
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

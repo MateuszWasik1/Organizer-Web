@@ -1,9 +1,9 @@
-import { ChartType } from "chart.js";
+import { BubbleDataPoint, ChartData, ChartType, ChartTypeRegistry, Point } from "chart.js";
 
 export const featureKeyStatsState = 'stats-page-state';
 
 export interface StatsState {
-    Stats: any[],
+    Stats: ChartData<keyof ChartTypeRegistry, (number | [number, number] | Point | BubbleDataPoint | null)[], unknown>,
     Filters: {
         StartDate: any,
         EndDate: any,
