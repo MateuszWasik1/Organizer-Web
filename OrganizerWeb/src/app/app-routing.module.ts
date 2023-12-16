@@ -4,6 +4,7 @@ import { RegisterComponent } from './register-component/register.component';
 import { CategoriesPageComponent } from './components/category-page.component copy/categories-page.component';
 import { TasksPageComponent } from './components/tasks-page.component/tasks-page.component';
 import { SavingsPageComponent } from './components/savings-page.component/savings-page.component';
+import { StatsPageComponent } from './components/stats-page.component/stats-page.component';
 
 const routes: Routes = [
   // {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'savings',
     component: SavingsPageComponent
+  },
+  {
+    path: 'stats',
+    component: StatsPageComponent
   },
   // {
   //   path: '**',

@@ -18,7 +18,11 @@ export class CategoriesService {
 
         let params = new HttpParams().set("date", isFromTask ? '' : stringDate);
 
-        return this.http.get<any>(this.apiUrl + 'api/Categories', { params: params })
+        return this.http.get<any>(this.apiUrl + 'api/Categories/Get', { params: params })
+    }
+
+    getCategoriesForFilters() : Observable<any>{
+        return this.http.get<any>(this.apiUrl + 'api/Categories/GetCategoriesForFilter', { params: new HttpParams() })
     }
 
     saveCategories(model: any) : Observable<any>{

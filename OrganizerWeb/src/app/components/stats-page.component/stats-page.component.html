@@ -1,0 +1,82 @@
+<ng-container *ngIf="Stats$ | async as stats">
+    <ng-container *ngIf="Filters$ | async as filter">
+        <section class="body">
+            <div class="row">
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                    <h1 class="page-title">Statystyki</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    Data początku:
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <mat-form-field>
+                        <mat-label>Wybierz datę początku</mat-label>
+                        <input matInput [matDatepicker]="startDate" [value]="filter.StartDate">
+                        <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
+                        <mat-datepicker #startDate startView="year" (monthSelected)="setMonthAndYear($event, startDate, true)"></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    Data końca:
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <mat-form-field>
+                        <mat-label>Wybierz datę końca</mat-label>
+                        <input matInput [matDatepicker]="endDate" [value]="filter.EndDate">
+                        <mat-datepicker-toggle matIconSuffix [for]="endDate"></mat-datepicker-toggle>
+                        <mat-datepicker #endDate startView="year" (monthSelected)="setMonthAndYear($event, endDate, false)"></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <!-- ToDo: zrobić by kalendarze działały dla dni a nie miesięcy -->
+            </div>
+
+            <ng-container *ngIf="Categories$ | async as categories">
+                <div class="row" *ngIf="filter.DataType == 'category'">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Kategoria:
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 row-inputs">
+                        <mat-form-field class="margin-left-30">
+                            <mat-select (selectionChange)="changeCategory($event)">                       
+                                <mat-option *ngFor="let category of categories;" [value]="category['cgid']">
+                                    {{category['cName']}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div> 
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 row-inputs"></div>
+            </ng-container>
+
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    Typ danych:
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 row-inputs">
+                    <mat-form-field class="margin-left-30">
+                        <mat-select [value]="defaultDataType" (selectionChange)="changeDataType($event)">
+                            <mat-option *ngFor="let dataType of dataTypes;" [value]="dataType['value']">
+                                {{dataType['name']}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 row-inputs"></div>
+            </div>
+
+            <div class="row">
+                <canvas
+                    baseChart
+                    class="chart"
+                    [data]="stats?.labels?.length == 0 ? emptyChartData : stats"
+                    [options]="barChartOptions"
+                    [type]="'bar'">
+                </canvas>
+            </div>
+        </section>
+    </ng-container>
+</ng-container>

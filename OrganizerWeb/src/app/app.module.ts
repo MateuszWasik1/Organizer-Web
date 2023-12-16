@@ -34,6 +34,12 @@ import { SavingsFillDataDialogComponent } from './components/savings-page.compon
 import { featureKeySavingsState } from './components/savings-page.component/savings-page-state/savings-page-state.state';
 import { SavingsReducer } from './components/savings-page.component/savings-page-state/savings-page-state.reducer';
 import { SavingsEffects } from './components/savings-page.component/savings-page-state/savings-page-state.effects';
+import { NgChartsModule } from 'ng2-charts';
+import { StatsPageComponent } from './components/stats-page.component/stats-page.component';
+import { StatsFillDataDialogComponent } from './components/stats-page.component/stats-page-dialogs/stats-fill-data-dialog.component';
+import { featureKeyStatsState } from './components/stats-page.component/stats-page-state/stats-page-state.state';
+import { StatsReducer } from './components/stats-page.component/stats-page-state/stats-page-state.reducer';
+import { StatsEffects } from './components/stats-page.component/stats-page-state/stats-page-state.effects';
 
 @NgModule({
   declarations: [
@@ -44,7 +50,9 @@ import { SavingsEffects } from './components/savings-page.component/savings-page
     TasksPageComponent,
     TasksFillDataDialogComponent,
     SavingsPageComponent,
-    SavingsFillDataDialogComponent
+    SavingsFillDataDialogComponent,
+    StatsPageComponent,
+    StatsFillDataDialogComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -60,13 +68,15 @@ import { SavingsEffects } from './components/savings-page.component/savings-page
     MatNativeDateModule,
     MatInputModule,
     MatDialogModule,
+    NgChartsModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     StoreModule.forFeature(featureKeyCategoriesState, CategoriesReducer),
     StoreModule.forFeature(featureKeyTasksState, TasksReducer),
     StoreModule.forFeature(featureKeySavingsState, SavingsReducer),
+    StoreModule.forFeature(featureKeyStatsState, StatsReducer),
    
-    EffectsModule.forRoot([CategoriesEffects, TasksEffects, SavingsEffects]),
+    EffectsModule.forRoot([CategoriesEffects, TasksEffects, SavingsEffects, StatsEffects]),
     BrowserAnimationsModule,
   ],
   providers: [
