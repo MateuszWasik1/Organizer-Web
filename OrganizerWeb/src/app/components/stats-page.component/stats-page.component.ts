@@ -6,8 +6,8 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { Moment } from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { StatsFillDataDialogComponent } from './stats-page-dialogs/stats-fill-data-dialog.component';
-import { changeDataTypeFilter, changeEndDateFilter, changeStartDateFilter, loadCustomStats, loadSavingBarChartStats, loadTaskSpendedMoneyBarChartStats } from './stats-page-state/stats-page-state.actions';
-import { selectErrors, selectFilters, selectStats } from './stats-page-state/stats-page-state.selectors';
+import { changeCategoryFilter, changeDataTypeFilter, changeEndDateFilter, changeStartDateFilter, loadCategories, loadCategorySpendedMoneyBarChartStats, loadCustomStats, loadSavingBarChartStats, loadTaskSpendedMoneyBarChartStats } from './stats-page-state/stats-page-state.actions';
+import { selectCategories, selectErrors, selectFilters, selectStats } from './stats-page-state/stats-page-state.selectors';
 import { ChartOptions } from 'chart.js';
 
 
@@ -23,12 +23,14 @@ export class StatsPageComponent implements OnInit, OnDestroy {
 
   public Stats$ = this.store.select(selectStats);
   public Filters$ = this.store.select(selectFilters);
+  public Categories$ = this.store.select(selectCategories);
   public IsStatsError$ = this.store.select(selectErrors);
 
   public defaultDataType: string = "savings";
   public dataTypes = [
     {name: "Oszczędności", value: "savings"},
     {name: "Wydatki z zadań", value: "task-money"},
+    {name: "Wydatki z kategorii", value: "category"},
   ]
 
   constructor(public store: Store<AppState>, private dialog: MatDialog){
@@ -36,6 +38,7 @@ export class StatsPageComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     this.store.dispatch(loadSavingBarChartStats());
+    this.store.dispatch(loadCategories());
 
     this.subscriptions.push(
       this.Filters$.subscribe(filters => {
@@ -43,6 +46,8 @@ export class StatsPageComponent implements OnInit, OnDestroy {
           this.store.dispatch(loadSavingBarChartStats())
         if(filters.DataType == "task-money")
           this.store.dispatch(loadTaskSpendedMoneyBarChartStats())
+        if(filters.DataType == "category")
+          this.store.dispatch(loadCategorySpendedMoneyBarChartStats())
       })
     );
 
@@ -100,6 +105,8 @@ export class StatsPageComponent implements OnInit, OnDestroy {
   }
 
   public changeDataType = (dataType: any) => this.store.dispatch(changeDataTypeFilter({ dataType: dataType.value }))
+
+  public changeCategory = (dataType: any) => this.store.dispatch(changeCategoryFilter({ category: dataType.value }))
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

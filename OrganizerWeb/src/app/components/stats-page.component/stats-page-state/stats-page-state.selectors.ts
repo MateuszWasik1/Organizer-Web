@@ -3,8 +3,10 @@ import { StatsState, featureKeyStatsState } from "./stats-page-state.state";
 
 const selectStatsState = createFeatureSelector<StatsState>(featureKeyStatsState)
 
-export const selectStats= createSelector(selectStatsState, (state: StatsState) => state.Stats)
+export const selectStats = createSelector(selectStatsState, (state: StatsState) => state.Stats)
 
-export const selectFilters= createSelector(selectStatsState, (state: StatsState) => state.Filters)
+export const selectFilters = createSelector(selectStatsState, (state: StatsState) => state.Filters)
 
-export const selectErrors= createSelector(selectStatsState, (state: StatsState) => state.IsStatsError)
+export const selectCategories = createSelector(selectStatsState, (state: StatsState) => state.Categories)
+
+export const selectErrors = createSelector(selectStatsState, (state: StatsState) => state.IsStatsError)

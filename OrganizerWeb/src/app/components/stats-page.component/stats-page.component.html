@@ -32,6 +32,25 @@
                 <!-- ToDo: zrobić by kalendarze działały dla dni a nie miesięcy -->
             </div>
 
+            <ng-container *ngIf="Categories$ | async as categories">
+                <div class="row" *ngIf="filter.DataType == 'category'">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        Kategoria:
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 row-inputs">
+                        <mat-form-field class="margin-left-30">
+                            <mat-select (selectionChange)="changeCategory($event)">                       
+                                <mat-option *ngFor="let category of categories;" [value]="category['cgid']">
+                                    {{category['cName']}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div> 
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 row-inputs"></div>
+            </ng-container>
+
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
                     Typ danych:
@@ -39,7 +58,6 @@
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 row-inputs">
                     <mat-form-field class="margin-left-30">
-                        <!-- [(value)]="selectedDataType"  -->
                         <mat-select [value]="defaultDataType" (selectionChange)="changeDataType($event)">
                             <mat-option *ngFor="let dataType of dataTypes;" [value]="dataType['value']">
                                 {{dataType['name']}}

@@ -8,6 +8,7 @@ import { Store } from "@ngrx/store";
 import { selectFilters } from "./stats-page-state.selectors";
 import { FillDataService } from "src/app/services/fill-data.service";
 import { StatsService } from "src/app/services/stats.service";
+import { CategoriesService } from "src/app/services/categories.service";
 
 @Injectable()
 export class StatsEffects {
@@ -15,6 +16,7 @@ export class StatsEffects {
         private actions: Actions,
         private store: Store<AppState>,
         private fillDataService: FillDataService,
+        private categoriesService: CategoriesService,
         private statsService: StatsService) {
     }
 
@@ -39,6 +41,31 @@ export class StatsEffects {
                 return this.statsService.getMoneySpendedFromTaskBarChart(params[1].StartDate, params[1].EndDate).pipe(
                     map((result) => StatsActions.loadStatsSuccess({ Result: result })),
                     catchError(() => of(StatsActions.loadStatsError()))
+                )
+            })
+        )
+    })
+
+    loadCategorySpendedMoneyBarChartStats = createEffect(() => {
+        return this.actions.pipe(
+            ofType(StatsActions.loadCategorySpendedMoneyBarChartStats),
+            withLatestFrom(this.store.select(selectFilters)),
+            switchMap((params) => {
+                return this.statsService.getMoneySpendedForCategoryBarChart(params[1].StartDate, params[1].EndDate, params[1].Category).pipe(
+                    map((result) => StatsActions.loadStatsSuccess({ Result: result })),
+                    catchError(() => of(StatsActions.loadStatsError()))
+                )
+            })
+        )
+    })
+
+    loadCategories = createEffect(() => {
+        return this.actions.pipe(
+            ofType(StatsActions.loadCategories),
+            switchMap((params) => {
+                return this.categoriesService.getCategoriesForFilters().pipe(
+                    map((result) => StatsActions.loadCategoriesSuccess({ Categories: result })),
+                    catchError(() => of(StatsActions.loadCategoriesError()))
                 )
             })
         )

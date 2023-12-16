@@ -9,6 +9,8 @@ export interface StatsState {
         EndDate: any,
         ChartType: ChartType,
         DataType: string,
+        Category: string,
     },
+    Categories: [],
     IsStatsError: boolean
 }
