@@ -68,7 +68,7 @@ export class StatsPageComponent implements OnInit, OnDestroy {
     if(isStartDate)
       this.store.dispatch(changeStartDateFilter({ startDate: normalizedMonth.value }));
     else{
-      this.store.dispatch(changeEndDateFilter({ endDate: normalizedMonth.value.addDays(1) }))
+      this.store.dispatch(changeEndDateFilter({ endDate: normalizedMonth.value }))
     }
 
     datepicker.close();
