@@ -11,24 +11,24 @@ export class StatsService {
 
     getSavingsBarChart(startDate: Date, endDate: Date) : Observable<any>{
         let params = new HttpParams()
-            .set("startDate", this.DateToString(startDate))
-            .set("endDate", this.DateToString(endDate));
+            .set("startDate", this.DateToString(new Date(startDate)))
+            .set("endDate", this.DateToString(new Date(endDate)));
             
         return this.http.get<any>(this.apiUrl + 'api/Stats/GetSavingBarChart', { params: params })
     }
 
     getMoneySpendedFromTaskBarChart(startDate: Date, endDate: Date) : Observable<any>{
         let params = new HttpParams()
-            .set("startDate", this.DateToString(startDate))
-            .set("endDate", this.DateToString(endDate));
+            .set("startDate", this.DateToString(new Date(startDate)))
+            .set("endDate", this.DateToString(new Date(endDate)));
             
         return this.http.get<any>(this.apiUrl + 'api/Stats/GetMoneySpendedFromTaskBarChart', { params: params })
     }
 
     getMoneySpendedForCategoryBarChart(startDate: Date, endDate: Date, cGID: string) : Observable<any>{
         let params = new HttpParams()
-            .set("startDate", this.DateToString(startDate))
-            .set("endDate", this.DateToString(endDate))
+            .set("startDate", this.DateToString(new Date(startDate)))
+            .set("endDate", this.DateToString(new Date(endDate)))
             .set("cGID", cGID);
             
         return this.http.get<any>(this.apiUrl + 'api/Stats/GetMoneySpendedForCategoryBarChart', { params: params })
