@@ -49,7 +49,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
       tgid: new FormControl('', {validators: [] }),
       tcgid: new FormControl('', {validators: [] }),
       tName: new FormControl('', {validators: [Validators.required] }),
-      tTime: new FormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en'), {validators: [Validators.required] }),
+      tTime: new FormControl(new Date(), {validators: [Validators.required] }),
       tLocalization: new FormControl('', {validators: [Validators.required] }),
       tBudget: new FormControl(0, {validators: [Validators.required] }),
       tStatus: new FormControl(0, {validators: [Validators.required] }),
@@ -104,7 +104,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
     this.form.get("tgid")?.setValue(Guid.create().toString());
     this.form.get("tcgid")?.setValue('');
     this.form.get("tName")?.setValue('');
-    this.form.get("tTime")?.setValue(formatDate(new Date(), 'yyyy-MM-dd', 'en'));
+    this.form.get("tTime")?.setValue(new Date());
     this.form.get("tLocalization")?.setValue('');
     this.form.get("tBudget")?.setValue(0);
     this.form.get("tStatus")?.setValue(0);
@@ -117,7 +117,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
     this.form.get("tgid")?.setValue(task.tgid);
     this.form.get("tcgid")?.setValue(task.tcgid);
     this.form.get("tName")?.setValue(task.tName);
-    this.form.get("tTime")?.setValue(formatDate(task.tTime, 'yyyy-MM-dd', 'en'));
+    this.form.get("tTime")?.setValue(task.tTime);
     this.form.get("tLocalization")?.setValue(task.tLocalization);
     this.form.get("tBudget")?.setValue(task.tBudget);
     this.form.get("tStatus")?.setValue(task.tStatus);
