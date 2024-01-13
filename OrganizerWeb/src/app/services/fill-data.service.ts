@@ -91,4 +91,20 @@ export class FillDataService {
         }
         return result;
     }
+
+    public FillStats(dataType: string){
+        let result = {
+              labels: ['2023-9', '2023-10', '2023-11', '2023-12', '2024-1', '2024-2', '2024-3'],
+              datasets: 
+                { data: [65, 59, 80, 81, 56, 55, 40], label: 'Oszczędności' },
+            }; 
+
+        if(dataType == "task-money")
+            result.datasets.label = "Wydane pieniądze na zadania";
+
+        if(dataType == "category")
+            result.datasets.label = "Wydane pieniądze na daną kategorię";
+
+        return result;    
+    }
 }

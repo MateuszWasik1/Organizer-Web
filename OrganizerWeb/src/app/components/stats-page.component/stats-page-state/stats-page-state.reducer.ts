@@ -30,6 +30,11 @@ export const StatsReducer = createReducer<StatsState>(
         }
     })),
 
+    on(Actions.loadStatsError, (state) => ({
+        ...state,
+        IsStatsError: true,
+    })),
+
     //Categories
     on(Actions.loadCategoriesSuccess, (state, { Categories }) => ({
         ...state,

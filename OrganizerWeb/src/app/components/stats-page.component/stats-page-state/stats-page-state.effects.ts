@@ -71,15 +71,16 @@ export class StatsEffects {
         )
     })
 
-    // loadCustomStats = createEffect(() => {
-    //     return this.actions.pipe(
-    //         ofType(StatsActions.loadCustomStats),
-    //         switchMap(() => {
-    //             return of(this.fillDataService.FillCategories()).pipe(
-    //                 map((result) => StatsActions.loadStatsSuccess({ Stats: result })),
-    //                 catchError(() => of(StatsActions.loadStatsError()))
-    //             )
-    //         })
-    //     )
-    // })
+    loadCustomStats = createEffect(() => {
+        return this.actions.pipe(
+            ofType(StatsActions.loadCustomStats),
+            withLatestFrom(this.store.select(selectFilters)),
+            switchMap(params => {
+                return of(this.fillDataService.FillStats(params[1].DataType)).pipe(
+                    map((result) => StatsActions.loadStatsSuccess({ Result: result })),
+                    catchError(() => of(StatsActions.loadStatsError()))
+                )
+            })
+        )
+    })
 }
