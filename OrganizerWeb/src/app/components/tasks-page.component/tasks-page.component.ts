@@ -59,6 +59,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
       {id: '0', name: 'Nie zaczęty'},
       {id: '1', name: 'W trakcie'},
       {id: '2', name: 'Skończony'},
+      {id: '3', name: 'Wszystkie'},
     ];
 
     this.subscriptions.push(

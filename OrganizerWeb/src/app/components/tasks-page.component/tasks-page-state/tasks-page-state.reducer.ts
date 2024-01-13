@@ -5,7 +5,7 @@ import { TasksState } from "./tasks-page-state.state";
 var initialStateOfTasksPage: TasksState = {
     Filters: {
         Category: '',
-        Status: 0,
+        Status: 3,
     },
     Tasks: [],
     Categories: [],
