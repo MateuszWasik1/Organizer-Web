@@ -52,7 +52,29 @@
                         Data:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="date" formControlName="tTime" required/>
+                        <mat-form-field>
+                            <input matInput [ngxMatDatetimePicker]="picker" placeholder="Wybierz datę i czas" formControlName="tTime">
+                            <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                            <ngx-mat-datetime-picker #picker 
+                                [showSpinners]="true" 
+                                [showSeconds]="false"
+                                [stepHour]="1" 
+                                [stepMinute]="1" 
+                                [stepSecond]="1"
+                                [touchUi]="false" 
+                                [enableMeridian]="false" 
+                                [disableMinute]="false" 
+                                [color]="'primary'">
+                                <ngx-mat-datepicker-actions>
+                                    <button ngxMatDatepickerCancel class="action-btn">
+                                        <span class="bi bi-x"></span>
+                                    </button>
+                                    <button ngxMatDatepickerApply class="action-btn">
+                                        <span class="bi bi-check-lg"></span>
+                                    </button>
+                                </ngx-mat-datepicker-actions>
+                            </ngx-mat-datetime-picker>
+                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
@@ -78,10 +100,6 @@
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                         <mat-form-field class="margin-left-30">
                             <mat-select [(value)]="selectedStatus"> 
-                                <!-- <mat-option>
-                                    <ngx-mat-select-search><ngx-mat-select-search>
-                                </mat-option> Dodać z czasem ??? -->
-                            
                                 <mat-option *ngFor="let status of statuses;" [value]="status['id']">
                                     {{status['name']}}
                                 </mat-option>

@@ -40,6 +40,7 @@ import { StatsFillDataDialogComponent } from './components/stats-page.component/
 import { featureKeyStatsState } from './components/stats-page.component/stats-page-state/stats-page-state.state';
 import { StatsReducer } from './components/stats-page.component/stats-page-state/stats-page-state.reducer';
 import { StatsEffects } from './components/stats-page.component/stats-page-state/stats-page-state.effects';
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,9 @@ import { StatsEffects } from './components/stats-page.component/stats-page-state
     MatInputModule,
     MatDialogModule,
     NgChartsModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     StoreModule.forFeature(featureKeyCategoriesState, CategoriesReducer),
