@@ -19,6 +19,10 @@ export const saveTask = createAction('[Tasks Page] Save Task', props<{ Task: any
 export const saveTaskSuccess = createAction('Tasks Page] Save Task Success', props<{ Task: any }>());
 export const saveTaskError = createAction('[Tasks Page] Save Task Error');
 
+export const saveTaskNote = createAction('[Tasks Page] Save Task Note', props<{ TaskNote: any }>());
+export const saveTaskNoteSuccess = createAction('Tasks Page] Save Task Note Success', props<{ TaskNote: any }>());
+export const saveTaskNoteError = createAction('[Tasks Page] Save Task Note Error');
+
 export const deleteTask = createAction('[Tasks Page] Delete Task', props<{ tgid: any }>());
 export const deleteTaskSuccess = createAction('Tasks Page] Delete Task Success', props<{ tgid: any }>());
 export const deleteTaskError = createAction('[Tasks Page] Delete Task Error');

@@ -74,6 +74,31 @@ export const TasksReducer = createReducer<TasksState>(
         return {...state, Tasks: newTasks};
     }),
 
+    //ToDO
+    // on(Actions.saveTaskNoteSuccess, (state, { TaskNote }) => {
+    //     let newTaskNotes = [...state.TasksNotes];
+
+    //     let newModel = {
+    //         "tid": newTaskNotes.TID,
+    //         "tgid": newTaskNotes.TGID,
+    //         "tcgid": newTaskNotes.TCGID,
+    //         "tName": newTaskNotes.TName,
+    //         "tTime": newTaskNotes.TTime,
+    //         "tLocalization": newTaskNotes.TLocalization,
+    //         "tBudget": newTaskNotes.,
+    //         "tStatus": newTaskNotes.TStatus,
+    //     }
+
+    //     let existingTaskIndex = newTasks.findIndex(x => x.tgid == Task.TGID);
+
+    //     if(existingTaskIndex != -1)
+    //         newTasks[existingTaskIndex] = newModel
+    //     else
+    //         newTasks.push(newModel)
+
+    //     return {...state, Tasks: newTasks};
+    // }),
+
     on(Actions.deleteTaskSuccess, (state, { tgid }) => {
         let newTasks = [...state.Tasks];
         console.log(newTasks)

@@ -132,6 +132,42 @@
                         <button mat-raised-button class="float-right" (click)="ShowAddModal = !ShowAddModal">Anuluj</button>
                     </div>
                 </div>
+
+                <ng-container *ngIf="TaskNotes$ | async as taskNotes">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                            <h1 class="page-title">Dodaj notatkę do zadania</h1>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                            <button mat-raised-button color="accent" (click)="AddTaskNote()">Dodaj notatkę</button>
+                        </div>
+                    </div>
+
+                    <div class="row" [formGroup]="addTaskNote">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <textarea formControlName="taskNote" class="taskNoteTextArea"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row padding-top-15 padding-bottom-15" *ngIf="taskNotes.length != 0">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            Data
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                            Notatka
+                        </div>
+                    </div>
+                    <div *ngFor="let taskNote of taskNotes;">
+                        <div class="row data-row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <p>{{taskNote.TNDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                <p>{{taskNote.TNNote}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
             </div>
         </div>
 

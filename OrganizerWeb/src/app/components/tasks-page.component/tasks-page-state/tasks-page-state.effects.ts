@@ -94,6 +94,18 @@ export class TasksEffects {
         )
     })
 
+    saveTaskNote = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.saveTaskNote),
+            switchMap((params) => {
+                return this.tasksNotesService.addTaskNotes(params.TaskNote).pipe(
+                    map((result) => CategoriesActions.saveTaskNoteSuccess({ TaskNote: params.TaskNote })),
+                    catchError((error) => of(CategoriesActions.saveTaskNoteError()))
+                )
+            })
+        )
+    })
+
     deleteTask = createEffect(() => {
         return this.actions.pipe(
             ofType(CategoriesActions.deleteTask),

@@ -16,8 +16,8 @@ export class TasksNotesService {
         return this.http.get<any>(this.apiUrl + 'api/TasksNotes', { params: params })
     }
 
-    addTaskNotes(model: any) : Observable<any>{
-        return this.http.post<any>(this.apiUrl + 'api/TasksNotes/AddTaskNote', model)
+    addTaskNotes(taskNote: any) : Observable<any>{
+        return this.http.post<any>(this.apiUrl + 'api/TasksNotes/AddTaskNote', taskNote)
     }
 
     editTaskNotes(model: any) : Observable<any>{
