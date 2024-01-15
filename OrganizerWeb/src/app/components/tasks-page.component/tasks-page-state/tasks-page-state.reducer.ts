@@ -8,9 +8,11 @@ var initialStateOfTasksPage: TasksState = {
         Status: 3,
     },
     Tasks: [],
+    TasksNotes: [],
     Categories: [],
     IsError: {
         IsTasksError: false,
+        IsTasksNotesError: false,
         IsCategoriesError: false,
     }
 };
@@ -26,6 +28,16 @@ export const TasksReducer = createReducer<TasksState>(
     on(Actions.loadTasksError, state => ({
         ...state,
         IsError: { ...state.IsError, IsTasksError: true },
+    })),
+
+    on(Actions.loadTasksNotesSuccess, (state, { TasksNotes }) => ({
+        ...state,
+        TasksNotes: TasksNotes
+    })),
+
+    on(Actions.loadTasksNotesError, state => ({
+        ...state,
+        IsError: { ...state.IsError, IsTasksNotesError: true },
     })),
 
     on(Actions.loadCategoriesSuccess, (state, { Categories }) => ({

@@ -6,9 +6,11 @@ export interface TasksState {
         Status: number,
     },
     Tasks: any[],
+    TasksNotes: any[],
     Categories: [],
     IsError: {
         IsTasksError: boolean,
+        IsTasksNotesError: boolean,
         IsCategoriesError: boolean,
     }
 }
