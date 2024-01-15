@@ -4,6 +4,10 @@ export const loadTasks = createAction('[Tasks Page] Load Tasks');
 export const loadTasksSuccess = createAction('[Tasks Page] Load Tasks Success', props<{ Tasks: any }>());
 export const loadTasksError = createAction('[Tasks Page] Load Tasks Error');
 
+export const loadTasksNotes = createAction('[Tasks Page] Load Tasks Notes', props<{ TGID: string }>());
+export const loadTasksNotesSuccess = createAction('[Tasks Page] Load Tasks Notes Success', props<{ TasksNotes: any }>());
+export const loadTasksNotesError = createAction('[Tasks Page] Load Tasks Notes Error');
+
 export const loadCategories = createAction('[Tasks Page] Load Categories');
 export const loadCategoriesSuccess = createAction('[Tasks Page] Load Categories Success', props<{ Categories: any }>());
 export const loadCategoriesError = createAction('[Tasks Page] Load Categories Error');
