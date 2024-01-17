@@ -132,6 +132,46 @@
                         <button mat-raised-button class="float-right" (click)="ShowAddModal = !ShowAddModal">Anuluj</button>
                     </div>
                 </div>
+
+                <ng-container *ngIf="TaskNotes$ | async as taskNotes">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                            <h1 class="page-title">Dodaj notatkę do zadania</h1>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                            <button mat-raised-button color="accent" (click)="AddTaskNote()" [disabled]="addTaskNote.get('taskNote')?.invalid">Dodaj notatkę</button>
+                        </div>
+                    </div>
+
+                    <div class="row" [formGroup]="addTaskNote">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <textarea formControlName="taskNote" class="taskNoteTextArea" maxlength="2000"></textarea>
+                            <div *ngIf="addTaskNote.get('taskNote')?.invalid">Przkroczyłeś liczbę znaków! Maksymalna liczba znaków to 2000!</div>
+                        </div>
+                    </div>
+
+                    <div class="row padding-top-15 padding-bottom-15" *ngIf="taskNotes.length != 0">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            Data
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                            Notatka
+                        </div>
+                    </div>
+                    <div *ngFor="let taskNote of taskNotes;" class="padding-bottom-15">
+                        <div class="row data-row">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <p>{{taskNote.tnDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                <p>{{taskNote.tnNote}}</p>
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                <span class="bi bi-trash" (click)="DeleteTaskNote(taskNote.tngid)"></span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
             </div>
         </div>
 

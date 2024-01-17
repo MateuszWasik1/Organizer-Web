@@ -2,10 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, filter } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { ChangeCategoryFilterValue, ChangeStatusFilterValue, deleteTask, loadCategories, loadCustomCategories, loadCustomTasks, loadTasks, saveTask } from './tasks-page-state/tasks-page-state.actions';
-import { selectCategories, selectErrors, selectFilters, selectTasks } from './tasks-page-state/tasks-page-state.selectors';
+import { ChangeCategoryFilterValue, ChangeStatusFilterValue, deleteTask, loadCategories, loadCustomCategories, loadCustomTasks, loadTasks, saveTask, loadTasksNotes, saveTaskNote, deleteTaskNote } from './tasks-page-state/tasks-page-state.actions';
+import { selectCategories, selectErrors, selectFilters, selectTasks, selectTasksNotes } from './tasks-page-state/tasks-page-state.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { formatDate } from '@angular/common';
 import { Guid } from 'guid-typescript';
 import { MatDialog } from '@angular/material/dialog';
 import { TasksFillDataDialogComponent } from './tasks-dialogs/tasks-fill-data-dialog.component';
@@ -21,6 +20,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[];
   public ShowAddModal: boolean = false;
   public form: FormGroup = new FormGroup({});
+  public addTaskNote: FormGroup = new FormGroup({});
   public statuses: any;
   public selectedStatus: any;
   public selectedCategory: any;
@@ -34,6 +34,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
 
   public Filters$ = this.store.select(selectFilters);
   public Tasks$ = this.store.select(selectTasks);
+  public TaskNotes$ = this.store.select(selectTasksNotes);
   public Categories$ = this.store.select(selectCategories);
   public Errors$ = this.store.select(selectErrors);
 
@@ -54,6 +55,10 @@ export class TasksPageComponent implements OnInit, OnDestroy {
       tBudget: new FormControl(0, {validators: [Validators.required] }),
       tStatus: new FormControl(0, {validators: [Validators.required] }),
     });
+
+    this.addTaskNote = new FormGroup({
+      taskNote: new FormControl('', { validators: [Validators.maxLength(2000)] }),
+    })
 
     this.statuses = [
       {id: '0', name: 'Nie zaczęty'},
@@ -113,6 +118,8 @@ export class TasksPageComponent implements OnInit, OnDestroy {
   public ModifyTask = (task: any) => {
     this.ShowAddModal = !this.ShowAddModal;
 
+    this.store.dispatch(loadTasksNotes({ TGID: task.tgid }))
+
     this.form.get("tid")?.setValue(task.tid);
     this.form.get("tgid")?.setValue(task.tgid);
     this.form.get("tcgid")?.setValue(task.tcgid);
@@ -149,7 +156,11 @@ export class TasksPageComponent implements OnInit, OnDestroy {
       this.IsBudgetExceeded = false;
   }
 
+  public AddTaskNote = () => this.store.dispatch(saveTaskNote({ TNGID: Guid.create().toString(), TGID: this.form.get("tgid")?.value, TaskNote: this.addTaskNote.get("taskNote")?.value }));
+
   public DeleteTask = (tgid: any) => this.store.dispatch(deleteTask({ tgid: tgid }))
+
+  public DeleteTaskNote = (tngid: any) => this.store.dispatch(deleteTaskNote({ TNGID: tngid }))
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

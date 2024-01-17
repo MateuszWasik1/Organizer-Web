@@ -8,9 +8,11 @@ var initialStateOfTasksPage: TasksState = {
         Status: 3,
     },
     Tasks: [],
+    TasksNotes: [],
     Categories: [],
     IsError: {
         IsTasksError: false,
+        IsTasksNotesError: false,
         IsCategoriesError: false,
     }
 };
@@ -26,6 +28,16 @@ export const TasksReducer = createReducer<TasksState>(
     on(Actions.loadTasksError, state => ({
         ...state,
         IsError: { ...state.IsError, IsTasksError: true },
+    })),
+
+    on(Actions.loadTasksNotesSuccess, (state, { TasksNotes }) => ({
+        ...state,
+        TasksNotes: TasksNotes
+    })),
+
+    on(Actions.loadTasksNotesError, state => ({
+        ...state,
+        IsError: { ...state.IsError, IsTasksNotesError: true },
     })),
 
     on(Actions.loadCategoriesSuccess, (state, { Categories }) => ({
@@ -62,14 +74,34 @@ export const TasksReducer = createReducer<TasksState>(
         return {...state, Tasks: newTasks};
     }),
 
+    on(Actions.saveTaskNoteSuccess, (state, { TaskNote }) => {
+        let newTaskNotes = [...state.TasksNotes];
+
+        let newModel = {
+            "tngid": TaskNote.TNGID,
+            "tnDate": new Date(),
+            "tnNote": TaskNote.TaskNote,
+        }
+
+        newTaskNotes.push(newModel)
+
+        return {...state, TasksNotes: newTaskNotes};
+    }),
+
     on(Actions.deleteTaskSuccess, (state, { tgid }) => {
         let newTasks = [...state.Tasks];
-        console.log(newTasks)
-        console.log(tgid)
+
         let taskWithoutDeletedTask = newTasks.filter(x => x.tgid != tgid);
-        console.log(taskWithoutDeletedTask)
 
         return {...state, Tasks: taskWithoutDeletedTask};
+    }),
+
+    on(Actions.deleteTaskNoteSuccess, (state, { TNGID }) => {
+        let newTaskNotes = [...state.TasksNotes];
+
+        let taskNotesWithoutDeletedTask = newTaskNotes.filter(x => x.tngid != TNGID);
+
+        return {...state, TasksNotes: taskNotesWithoutDeletedTask};
     }),
 
     on(Actions.ChangeCategoryFilterValue, (state, { value }) => ({

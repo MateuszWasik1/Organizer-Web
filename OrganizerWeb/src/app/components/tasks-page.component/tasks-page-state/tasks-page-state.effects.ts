@@ -9,12 +9,14 @@ import { selectFilters } from "./tasks-page-state.selectors";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.state";
 import { FillDataService } from "src/app/services/fill-data.service";
+import { TasksNotesService } from "src/app/services/tasks-notes.service";
 
 @Injectable()
 export class TasksEffects {
     constructor(
         private actions: Actions,
         private tasksService: TasksService,
+        private tasksNotesService: TasksNotesService,
         private categoriesService: CategoriesService,
         public store: Store<AppState>,
         private fillDataService: FillDataService) {
@@ -27,6 +29,18 @@ export class TasksEffects {
                 return this.tasksService.getTasks(params[1].Category, params[1].Status).pipe(
                     map((result) => CategoriesActions.loadTasksSuccess({ Tasks: result })),
                     catchError((error) => of(CategoriesActions.loadTasksError()))
+                )
+            })
+        )
+    })
+
+    loadTasksNotes = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.loadTasksNotes),
+            switchMap((params) => {
+                return this.tasksNotesService.getTasksNotes(params.TGID).pipe(
+                    map((result) => CategoriesActions.loadTasksNotesSuccess({ TasksNotes: result })),
+                    catchError((error) => of(CategoriesActions.loadTasksNotesError()))
                 )
             })
         )
@@ -80,6 +94,18 @@ export class TasksEffects {
         )
     })
 
+    saveTaskNote = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.saveTaskNote),
+            switchMap((params) => {
+                return this.tasksNotesService.addTaskNotes(params.TNGID, params.TGID, params.TaskNote).pipe(
+                    map((result) => CategoriesActions.saveTaskNoteSuccess({ TaskNote: params })),
+                    catchError((error) => of(CategoriesActions.saveTaskNoteError()))
+                )
+            })
+        )
+    })
+
     deleteTask = createEffect(() => {
         return this.actions.pipe(
             ofType(CategoriesActions.deleteTask),
@@ -87,6 +113,18 @@ export class TasksEffects {
                 return this.tasksService.deleteTask(params.tgid).pipe(
                     map((result) => CategoriesActions.deleteTaskSuccess({ tgid: params.tgid })),
                     catchError((error) => of(CategoriesActions.deleteTaskError()))
+                )
+            })
+        )
+    })
+
+    deleteTaskNote = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.deleteTaskNote),
+            switchMap((params) => {
+                return this.tasksNotesService.deleteTaskNote(params.TNGID).pipe(
+                    map((result) => CategoriesActions.deleteTaskNoteSuccess({ TNGID: params.TNGID })),
+                    catchError((error) => of(CategoriesActions.deleteTaskNoteError()))
                 )
             })
         )
