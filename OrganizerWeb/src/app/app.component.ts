@@ -9,8 +9,15 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
   title = 'OrganizerWeb';
 
+  public language: string = "pl";
+
   constructor(public translate: TranslateService){
     translate.addLangs(["pl", "en"]);
     translate.setDefaultLang("pl");
+  }
+
+  public ChangeLanguage = (language: string) => {
+    this.language = language
+    this.translate.setDefaultLang(this.language);
   }
 }

@@ -40,6 +40,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
   public Errors$ = this.store.select(selectErrors);
 
   constructor(public store: Store<AppState>, private dialog: MatDialog, public translate: TranslateService){
+    this.translate.get('TopMenu_Savings').subscribe(x => console.log(x))
     this.subscriptions = []
   }
   ngOnInit(): void {
