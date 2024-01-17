@@ -74,39 +74,34 @@ export const TasksReducer = createReducer<TasksState>(
         return {...state, Tasks: newTasks};
     }),
 
-    //ToDO
-    // on(Actions.saveTaskNoteSuccess, (state, { TaskNote }) => {
-    //     let newTaskNotes = [...state.TasksNotes];
+    on(Actions.saveTaskNoteSuccess, (state, { TaskNote }) => {
+        let newTaskNotes = [...state.TasksNotes];
 
-    //     let newModel = {
-    //         "tid": newTaskNotes.TID,
-    //         "tgid": newTaskNotes.TGID,
-    //         "tcgid": newTaskNotes.TCGID,
-    //         "tName": newTaskNotes.TName,
-    //         "tTime": newTaskNotes.TTime,
-    //         "tLocalization": newTaskNotes.TLocalization,
-    //         "tBudget": newTaskNotes.,
-    //         "tStatus": newTaskNotes.TStatus,
-    //     }
+        let newModel = {
+            "tngid": TaskNote.TNGID,
+            "tnDate": new Date(),
+            "tnNote": TaskNote.TaskNote,
+        }
 
-    //     let existingTaskIndex = newTasks.findIndex(x => x.tgid == Task.TGID);
+        newTaskNotes.push(newModel)
 
-    //     if(existingTaskIndex != -1)
-    //         newTasks[existingTaskIndex] = newModel
-    //     else
-    //         newTasks.push(newModel)
-
-    //     return {...state, Tasks: newTasks};
-    // }),
+        return {...state, TasksNotes: newTaskNotes};
+    }),
 
     on(Actions.deleteTaskSuccess, (state, { tgid }) => {
         let newTasks = [...state.Tasks];
-        console.log(newTasks)
-        console.log(tgid)
+
         let taskWithoutDeletedTask = newTasks.filter(x => x.tgid != tgid);
-        console.log(taskWithoutDeletedTask)
 
         return {...state, Tasks: taskWithoutDeletedTask};
+    }),
+
+    on(Actions.deleteTaskNoteSuccess, (state, { TNGID }) => {
+        let newTaskNotes = [...state.TasksNotes];
+
+        let taskNotesWithoutDeletedTask = newTaskNotes.filter(x => x.tngid != TNGID);
+
+        return {...state, TasksNotes: taskNotesWithoutDeletedTask};
     }),
 
     on(Actions.ChangeCategoryFilterValue, (state, { value }) => ({

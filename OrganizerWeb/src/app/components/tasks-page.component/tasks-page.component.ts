@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, filter } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { ChangeCategoryFilterValue, ChangeStatusFilterValue, deleteTask, loadCategories, loadCustomCategories, loadCustomTasks, loadTasks, saveTask, loadTasksNotes, saveTaskNoteSuccess } from './tasks-page-state/tasks-page-state.actions';
+import { ChangeCategoryFilterValue, ChangeStatusFilterValue, deleteTask, loadCategories, loadCustomCategories, loadCustomTasks, loadTasks, saveTask, loadTasksNotes, saveTaskNote, deleteTaskNote } from './tasks-page-state/tasks-page-state.actions';
 import { selectCategories, selectErrors, selectFilters, selectTasks, selectTasksNotes } from './tasks-page-state/tasks-page-state.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Guid } from 'guid-typescript';
@@ -156,9 +156,11 @@ export class TasksPageComponent implements OnInit, OnDestroy {
       this.IsBudgetExceeded = false;
   }
 
-  public AddTaskNote = () => this.store.dispatch(saveTaskNoteSuccess({ TaskNote: this.addTaskNote.get("taskNote")?.value }));
+  public AddTaskNote = () => this.store.dispatch(saveTaskNote({ TNGID: Guid.create().toString(), TGID: this.form.get("tgid")?.value, TaskNote: this.addTaskNote.get("taskNote")?.value }));
 
   public DeleteTask = (tgid: any) => this.store.dispatch(deleteTask({ tgid: tgid }))
+
+  public DeleteTaskNote = (tngid: any) => this.store.dispatch(deleteTaskNote({ TNGID: tngid }))
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());
