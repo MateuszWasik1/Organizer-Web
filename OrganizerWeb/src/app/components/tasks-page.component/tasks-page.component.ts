@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Guid } from 'guid-typescript';
 import { MatDialog } from '@angular/material/dialog';
 import { TasksFillDataDialogComponent } from './tasks-dialogs/tasks-fill-data-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-tasks-page',
@@ -38,7 +39,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
   public Categories$ = this.store.select(selectCategories);
   public Errors$ = this.store.select(selectErrors);
 
-  constructor(public store: Store<AppState>, private dialog: MatDialog){
+  constructor(public store: Store<AppState>, private dialog: MatDialog, public translate: TranslateService){
     this.subscriptions = []
   }
   ngOnInit(): void {
