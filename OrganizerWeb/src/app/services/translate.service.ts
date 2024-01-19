@@ -7,5 +7,5 @@ import { TranslateService } from "@ngx-translate/core";
 export class TranslationService {
     constructor(public translate: TranslateService) { }
 
-    public Get = (translation: string) => this.translate.get(translation).subscribe(x => x)
+    public Get = (translation: string) => this.translate.instant(translation);
 }
