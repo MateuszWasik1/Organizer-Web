@@ -3,39 +3,38 @@
         <section class="body">
             <div class="row">
                 <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-                    <h1 class="page-title">Statystyki</h1>
+                    <h1 class="page-title">{{translations.Get('TopMenu_Stats')}}</h1>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    Data początku:
+                    {{translations.Get('Stats_StartDate')}}:
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <mat-form-field>
-                        <mat-label>Wybierz datę początku</mat-label>
+                        <mat-label>{{translations.Get('Stats_ChooseStartDate')}}</mat-label>
                         <input matInput [matDatepicker]="startDate" [value]="filter.StartDate" (dateChange)="setMonthAndYear($event, startDate, true)">
                         <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
                         <mat-datepicker #startDate startView="year"></mat-datepicker>
                     </mat-form-field>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    Data końca:
+                    {{translations.Get('Stats_EndDate')}}:
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <mat-form-field>
-                        <mat-label>Wybierz datę końca</mat-label>
+                        <mat-label>{{translations.Get('Stats_ChooseEndDate')}}</mat-label>
                         <input matInput [matDatepicker]="endDate" [value]="filter.EndDate" (dateChange)="setMonthAndYear($event, endDate, false)">
                         <mat-datepicker-toggle matIconSuffix [for]="endDate"></mat-datepicker-toggle>
                         <mat-datepicker #endDate startView="year"></mat-datepicker>
                     </mat-form-field>
                 </div>
-                <!-- ToDo: zrobić by kalendarze działały dla dni a nie miesięcy -->
             </div>
 
             <ng-container *ngIf="Categories$ | async as categories">
                 <div class="row" *ngIf="filter.DataType == 'category'">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        Kategoria:
+                        {{translations.Get('Stats_Category')}}:
                     </div>
 
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 row-inputs">
@@ -53,7 +52,7 @@
 
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                    Typ danych:
+                    {{translations.Get('Stats_DataType')}}:
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 row-inputs">

@@ -1,13 +1,15 @@
-<nav class="navigation">
-    <a href="categories">Kategorie</a>
-    <a href="tasks">Zadania</a>
-    <a href="savings">Oszczędności</a>
-    <a href="stats">Statystyki</a>
-    <!-- <a href="users">Użytkownicy</a>
-    <a href="login">Zaloguj się</a>
-    <a href="user">BERT</a> -->
-</nav>
-
+<div class="navigation">
+    <nav>
+        <a href="categories">{{"TopMenu_Categories" | translate}}</a>
+        <a href="tasks">{{"TopMenu_Tasks" | translate}}</a>
+        <a href="savings">{{"TopMenu_Savings" | translate}}</a>
+        <a href="stats">{{"TopMenu_Stats" | translate}}</a>
+    </nav>
+    <div class="language">
+        <div class="pl" *ngIf="language == 'en'" (click)="ChangeLanguage('pl')"></div>
+        <div class="en" *ngIf="language == 'pl'" (click)="ChangeLanguage('en')"></div>
+    </div>
+</div>
 <div class="container">
     <router-outlet></router-outlet>
 </div>

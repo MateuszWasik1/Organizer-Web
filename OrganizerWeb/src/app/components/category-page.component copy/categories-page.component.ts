@@ -11,6 +11,7 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { Moment } from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { CategoriesFillDataDialogComponent } from './categories-dialogs/categories-fill-data-dialog.component';
+import { TranslationService } from 'src/app/services/translate.service';
 
 @Component({
   selector: 'app-categories-page',
@@ -29,7 +30,10 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
   public Filters$ = this.store.select(selectFilters);
   public IsCategoriesError$ = this.store.select(selectErrors);
 
-  constructor(public store: Store<AppState>, private dialog: MatDialog){
+  constructor(public store: Store<AppState>, 
+    private dialog: MatDialog,
+    public translations: TranslationService)
+  {
     this.subscriptions = []
   }
   ngOnInit(): void {

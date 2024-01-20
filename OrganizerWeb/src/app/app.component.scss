@@ -1,23 +1,51 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
 .navigation{
+    display: flex;
     text-align: center;
     text-transform: uppercase;
     padding:20px 0px;
     width: 100%;
     background-color: #333;
     font-size: 2em;
+
+    nav{
+        width: 90%;
+
+        a{
+            text-decoration: none;
+            padding: 0 20px;
+            font-weight: bold;
+            color: #CCC;
+            transition: 0.5s;
+        }
+
+        a:hover{
+            color: #FFF
+        }
+    }
+
+    .language{
+        width: 10%;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 15px;
+
+        .pl{
+            width: 25%;
+            height: 100%;
+            background-image: url(../app/img/poland.png);
+            background-repeat: no-repeat;
+        }
+        .en{
+            width: 25%;
+            height: 100%;
+            background-image: url(../app/img/england.png);
+            background-repeat: no-repeat;
+        }
+    }
 }
-.navigation a{
-    text-decoration: none;
-    padding: 0 20px;
-    font-weight: bold;
-    color: #CCC;
-    transition: 0.5s;
-}
-.navigation a:hover{
-    color: #FFF
-}
+
 .container{
     margin-top: 25px;
     min-height: 80vh;

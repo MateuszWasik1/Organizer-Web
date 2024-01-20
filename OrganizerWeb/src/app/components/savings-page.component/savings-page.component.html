@@ -2,10 +2,10 @@
     <section class="body">
         <div class="row">
             <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-                <h1 class="page-title">Oszczędności</h1>
+                <h1 class="page-title">{{translations.Get('TopMenu_Savings')}}</h1>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                <button mat-raised-button color="accent" (click)="AddSaving()">Dodaj</button>
+                <button mat-raised-button color="accent" (click)="AddSaving()">{{translations.Get('General_Add')}}</button>
             </div>
         </div>
 
@@ -13,7 +13,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        Kwota:
+                        {{translations.Get('Savings_Amount')}}:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                         <input type="number" formControlName="sAmount"/>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        Data:
+                        {{translations.Get('Savings_Date')}}:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                         <input type="date" formControlName="sTime" />
@@ -29,7 +29,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        Na czym:
+                        {{translations.Get('Savings_OnWhat')}}:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                         <input type="text" formControlName="sOnWhat"/>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        Gdzie:
+                        {{translations.Get('Savings_Where')}}:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                         <input type="text" step="1" formControlName="sWhere"/>
@@ -45,9 +45,9 @@
                 </div>
                 <div class="row padding-bottom-15">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button mat-raised-button color="accent" class="float-right" (click)="Save()">Zapisz</button>
+                        <button mat-raised-button color="accent" class="float-right" (click)="Save()">  {{translations.Get('General_Save')}}</button>
 
-                        <button mat-raised-button class="float-right" (click)="ShowAddModal = !ShowAddModal">Anuluj</button>
+                        <button mat-raised-button class="float-right" (click)="ShowAddModal = !ShowAddModal">  {{translations.Get('General_Cancel')}}</button>
                     </div>
                 </div>
             </div>
@@ -55,16 +55,16 @@
 
         <div class="row padding-top-15 padding-bottom-15" *ngIf="savings.length != 0">
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                Kwota
+                {{translations.Get('Savings_Amount')}}
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                Data
+                {{translations.Get('Savings_Date')}}
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                Na czym
+                {{translations.Get('Savings_OnWhat')}}
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                Gdzie
+                {{translations.Get('Savings_Where')}}
             </div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
         </div>
@@ -89,7 +89,7 @@
             </div>
         </div>
         <div class="row no-data-row" *ngIf="savings.length == 0">
-            <p>Nie znaleziono żadnych oszczędności! Dodaj nowe oszczędności.</p>
+            <p>{{translations.Get('Savings_NotFound')}}</p>
         </div>
     </section>
 </ng-container>

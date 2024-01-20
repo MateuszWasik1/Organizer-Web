@@ -2,19 +2,19 @@
     <section class="body">
         <div class="row">
             <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-                <h1 class="page-title">Kategorie</h1>
+                <h1 class="page-title">{{translations.Get('TopMenu_Categories')}}</h1>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                <button mat-raised-button color="accent" (click)="AddCategory()">Dodaj</button>
+                <button mat-raised-button color="accent" (click)="AddCategory()">{{translations.Get('General_Add')}}</button>
             </div>
         </div>
         <div class="row" [formGroup]="filterForm">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                Wybierz datę:
+                {{translations.Get('General_ChooseDate')}}:
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <mat-form-field>
-                    <mat-label>Wybierz datę</mat-label>
+                    <mat-label>{{translations.Get('General_ChooseDate')}}</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="date">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker startView="year" (monthSelected)="setMonthAndYear($event, picker)"></mat-datepicker>
@@ -27,7 +27,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        Nazwa:
+                        {{translations.Get('Categories_Name')}}:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                         <input type="text" formControlName="cName"/>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        Data początkowa:
+                        {{translations.Get('Categories_StartDate')}}:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                         <input type="date" formControlName="cStartDate" />
@@ -43,7 +43,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        Data końcowa:
+                        {{translations.Get('Categories_EndDate')}}:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                         <input type="date" formControlName="cEndDate"/>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        Budżet:
+                        {{translations.Get('Categories_Budget')}}:
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                         <input type="number" step="1" formControlName="cBudget"/>
@@ -59,9 +59,9 @@
                 </div>
                 <div class="row padding-bottom-15">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button mat-raised-button color="accent" class="float-right" (click)="Save()">Zapisz</button>
+                        <button mat-raised-button color="accent" class="float-right" (click)="Save()">{{translations.Get('General_Save')}}</button>
 
-                        <button mat-raised-button class="float-right" (click)="ShowAddModal = !ShowAddModal">Anuluj</button>
+                        <button mat-raised-button class="float-right" (click)="ShowAddModal = !ShowAddModal">{{translations.Get('General_Cancel')}}</button>
                     </div>
                 </div>
             </div>
@@ -69,16 +69,16 @@
 
         <div class="row padding-top-15 padding-bottom-15" *ngIf="categories.length != 0">
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                Nazwa kategorii
+                {{translations.Get('Categories_Name')}}
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                Data początku
+                {{translations.Get('Categories_StartDate')}}
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                Data końca
+                {{translations.Get('Categories_EndDate')}}
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                Budżet
+                {{translations.Get('Categories_Budget')}}
             </div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
         </div>
@@ -103,7 +103,7 @@
             </div>
         </div>
         <div class="row no-data-row" *ngIf="categories.length == 0">
-            <p>Nie znaleziono żadnych kategorii! Dodaj kategorie bądź wybierz inny okres.</p>
+            <p>{{translations.Get('Categories_NotFound')}}</p>
         </div>
     </section>
 </ng-container>
