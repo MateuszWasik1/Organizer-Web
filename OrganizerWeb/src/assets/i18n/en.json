@@ -16,5 +16,12 @@
     "Categories_StartDate": "Start Date",
     "Categories_EndDate": "End Date",
     "Categories_Budget": "Budget",
-    "Categories_NotFound": "No categories found! Add categories or select a different period."
+    "Categories_NotFound": "No categories found! Add categories or select a different period.",
+    "Savings_Dialog_Error_title": "Savings loading error",
+    "Savings_Dialog_Error_Text": "An error occurred while loading the Savings. Do you want to load custom data?",
+    "Savings_Amount": "Amount",
+    "Savings_Date": "Date",
+    "Savings_OnWhat": "On what",
+    "Savings_Where": "Where",
+    "Savings_NotFound": "No savings found! Add bew savings!"
 }

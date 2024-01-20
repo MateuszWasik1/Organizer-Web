@@ -5,12 +5,11 @@ import { AppState } from '../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { Guid } from 'guid-typescript';
-import { MatDatepicker } from '@angular/material/datepicker';
-import { Moment } from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { SavingsFillDataDialogComponent } from './savings-page-dialogs/savings-fill-data-dialog.component';
 import { deleteSaving, loadCustomSavings, loadSavings, saveSaving } from './savings-page-state/savings-page-state.actions';
 import { selectSavings, selectErrors } from './savings-page-state/savings-page-state.selectors';
+import { TranslationService } from 'src/app/services/translate.service';
 
 @Component({
   selector: 'app-savings-page',
@@ -28,7 +27,10 @@ export class SavingsPageComponent implements OnInit, OnDestroy {
   public Savings$ = this.store.select(selectSavings);
   public IsSavingsError$ = this.store.select(selectErrors);
 
-  constructor(public store: Store<AppState>, private dialog: MatDialog){
+  constructor(public store: Store<AppState>, 
+    private dialog: MatDialog,
+    public translations: TranslationService)
+  {
     this.subscriptions = []
   }
   ngOnInit(): void {
