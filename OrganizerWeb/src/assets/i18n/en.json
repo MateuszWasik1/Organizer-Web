@@ -23,5 +23,16 @@
     "Savings_Date": "Date",
     "Savings_OnWhat": "On what",
     "Savings_Where": "Where",
-    "Savings_NotFound": "No savings found! Add bew savings!"
+    "Savings_NotFound": "No savings found! Add bew savings!",
+    "Stats_Dialog_Error_Title": "Stats loading error",
+    "Stats_Dialog_Error_Text": "An error occurred while loading the Stats. Do you want to load custom data?",
+    "Stats_StartDate": "Start date",
+    "Stats_ChooseStartDate": "Select start date",
+    "Stats_EndDate": "End date",
+    "Stats_ChooseEndDate": "Select end date",
+    "Stats_Category": "Category",
+    "Stats_DataType": "Data type",
+    "Stats_DataType_Savings": "Savings",
+    "Stats_DataType_TaskMoney": "Spendings from tasks",
+    "Stats_DataType_Category": "Spendings from category"
 }

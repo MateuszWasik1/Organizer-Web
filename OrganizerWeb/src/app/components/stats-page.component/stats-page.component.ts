@@ -9,6 +9,7 @@ import { StatsFillDataDialogComponent } from './stats-page-dialogs/stats-fill-da
 import { changeCategoryFilter, changeDataTypeFilter, changeEndDateFilter, changeStartDateFilter, loadCategories, loadCategorySpendedMoneyBarChartStats, loadCustomStats, loadSavingBarChartStats, loadTaskSpendedMoneyBarChartStats } from './stats-page-state/stats-page-state.actions';
 import { selectCategories, selectErrors, selectFilters, selectStats } from './stats-page-state/stats-page-state.selectors';
 import { ChartOptions } from 'chart.js';
+import { TranslationService } from 'src/app/services/translate.service';
 
 @Component({
   selector: 'app-stats-page',
@@ -27,12 +28,15 @@ export class StatsPageComponent implements OnInit, OnDestroy {
 
   public defaultDataType: string = "savings";
   public dataTypes = [
-    {name: "Oszczędności", value: "savings"},
-    {name: "Wydatki z zadań", value: "task-money"},
-    {name: "Wydatki z kategorii", value: "category"},
+    {name: this.translations.Get('Stats_DataType_Savings'), value: "savings"},
+    {name: this.translations.Get('Stats_DataType_TaskMoney'), value: "task-money"},
+    {name: this.translations.Get('Stats_DataType_Category'), value: "category"},
   ]
 
-  constructor(public store: Store<AppState>, private dialog: MatDialog){
+  constructor(public store: Store<AppState>, 
+    private dialog: MatDialog,
+    public translations: TranslationService)
+  {
     this.subscriptions = []
   }
   ngOnInit(): void {

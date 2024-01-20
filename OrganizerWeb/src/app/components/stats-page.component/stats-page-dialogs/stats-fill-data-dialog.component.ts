@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslationService } from 'src/app/services/translate.service';
 
 @Component({
   selector: 'app-stats-fill-data-dialog',
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: []
 })
 export class StatsFillDataDialogComponent {
+  constructor(public translations: TranslationService){
+  }
 }
