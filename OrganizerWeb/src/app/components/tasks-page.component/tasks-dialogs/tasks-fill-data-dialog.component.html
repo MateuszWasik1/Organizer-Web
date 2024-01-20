@@ -1,18 +1,18 @@
-<h2 mat-dialog-title *ngIf="IsTasksError && !IsCategoriesError">Błąd załadowania Zadań</h2>
-<h2 mat-dialog-title *ngIf="!IsTasksError && IsCategoriesError">Błąd załadowania Kategorii</h2>
-<h2 mat-dialog-title *ngIf="IsTasksError && IsCategoriesError">Błąd załadowania Danych</h2>
+<h2 mat-dialog-title *ngIf="IsTasksError && !IsCategoriesError">{{translations.Get('Tasks_Dialog_Error_Title_Task')}}</h2>
+<h2 mat-dialog-title *ngIf="!IsTasksError && IsCategoriesError">{{translations.Get('Tasks_Dialog_Error_Title_Categories')}}</h2>
+<h2 mat-dialog-title *ngIf="IsTasksError && IsCategoriesError">{{translations.Get('Tasks_Dialog_Error_Title_Data')}}</h2>
 
 <mat-dialog-content *ngIf="IsTasksError && !IsCategoriesError">
-    Podczas ładowania Zadań wystąpił błąd. Czy chcesz załadować customowe dane?
+  {{translations.Get('Tasks_Dialog_Error_Text_Task')}}
 </mat-dialog-content>
 <mat-dialog-content *ngIf="!IsTasksError && IsCategoriesError">
-  Podczas ładowania Kategorii wystąpił błąd. Czy chcesz załadować customowe dane?
+  {{translations.Get('Tasks_Dialog_Error_Text_Categories')}}
 </mat-dialog-content>
 <mat-dialog-content *ngIf="IsTasksError && IsCategoriesError">
-  Podczas ładowania Danych wystąpił błąd. Czy chcesz załadować customowe dane?
+  {{translations.Get('Tasks_Dialog_Error_Text_Data')}}
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="false">Nie</button>
-  <button mat-button [mat-dialog-close]="true">Tak</button>
+  <button mat-button [mat-dialog-close]="false">{{translations.Get('General_No')}}</button>
+  <button mat-button [mat-dialog-close]="true">{{translations.Get('General_Yes')}}</button>
 </mat-dialog-actions>

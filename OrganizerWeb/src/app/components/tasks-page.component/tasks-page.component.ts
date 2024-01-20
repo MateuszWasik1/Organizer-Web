@@ -8,7 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Guid } from 'guid-typescript';
 import { MatDialog } from '@angular/material/dialog';
 import { TasksFillDataDialogComponent } from './tasks-dialogs/tasks-fill-data-dialog.component';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslationService } from 'src/app/services/translate.service';
 
 @Component({
   selector: 'app-tasks-page',
@@ -39,8 +39,10 @@ export class TasksPageComponent implements OnInit, OnDestroy {
   public Categories$ = this.store.select(selectCategories);
   public Errors$ = this.store.select(selectErrors);
 
-  constructor(public store: Store<AppState>, private dialog: MatDialog, public translate: TranslateService){
-    this.translate.get('TopMenu_Savings').subscribe(x => console.log(x))
+  constructor(public store: Store<AppState>, 
+    private dialog: MatDialog, 
+    public translations: TranslationService)
+  {
     this.subscriptions = []
   }
   ngOnInit(): void {
@@ -63,10 +65,10 @@ export class TasksPageComponent implements OnInit, OnDestroy {
     })
 
     this.statuses = [
-      {id: '0', name: 'Nie zaczęty'},
-      {id: '1', name: 'W trakcie'},
-      {id: '2', name: 'Skończony'},
-      {id: '3', name: 'Wszystkie'},
+      {id: '0', name: this.translations.Get('Tasks_Status_NotStarted')},
+      {id: '1', name: this.translations.Get('Tasks_Status_OnGoing')},
+      {id: '2', name: this.translations.Get('Tasks_Status_Done')},
+      {id: '3', name: this.translations.Get('Tasks_Status_All')},
     ];
 
     this.subscriptions.push(
