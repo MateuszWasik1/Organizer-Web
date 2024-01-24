@@ -8,34 +8,6 @@
                 <button mat-raised-button color="accent" (click)="AddTask()">{{translations.Get('General_Add')}}</button>
             </div>
         </div>
-        <div class="row">
-            <ng-container *ngIf="Categories$ | async as categories">
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">   
-                    {{translations.Get('Tasks_Categories')}}:
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <mat-form-field>
-                        <mat-select [(value)]="selectedFilterCategory" (selectionChange)="ChangeCategoryFilterValue($event)">
-                            <mat-option *ngFor="let category of categories;" [value]="category['cgid']">
-                                {{category['cName']}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </ng-container>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">   
-                {{translations.Get('Tasks_Status')}}:
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <mat-form-field>
-                    <mat-select [(value)]="selectedFilterStatus" (selectionChange)="ChangeStatusFilterValue($event)">                   
-                        <mat-option *ngFor="let status of statuses;" [value]="status['id']">
-                            {{status['name']}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div>
 
         <div class="row categories-row" *ngIf="ShowAddModal" [formGroup]="form">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -129,49 +101,80 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <button mat-raised-button color="accent" class="float-right" (click)="Save()" [disabled]="IsBudgetExceeded || form.invalid">{{translations.Get('General_Save')}}</button>
 
-                        <button mat-raised-button class="float-right" (click)="ShowAddModal = !ShowAddModal">{{translations.Get('General_Cancel')}}</button>
+                        <button mat-raised-button class="float-right" (click)="Cancel()">{{translations.Get('General_Cancel')}}</button>
                     </div>
                 </div>
 
                 <ng-container *ngIf="TaskNotes$ | async as taskNotes">
-                    <div class="row">
-                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-                            <h1 class="page-title">{{translations.Get('TasksNotes_AddNoteToTask')}}</h1>
+                    <div *ngIf="!AddNewTask">
+                        <div class="row">
+                            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                                <h1 class="page-title">{{translations.Get('TasksNotes_AddNoteToTask')}}</h1>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                                <button mat-raised-button color="accent" (click)="AddTaskNote()" [disabled]="addTaskNote.get('taskNote')?.invalid">{{translations.Get('TasksNotes_AddNote')}}</button>
+                            </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                            <button mat-raised-button color="accent" (click)="AddTaskNote()" [disabled]="addTaskNote.get('taskNote')?.invalid">{{translations.Get('TasksNotes_AddNote')}}</button>
+    
+                        <div class="row" [formGroup]="addTaskNote">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <textarea formControlName="taskNote" class="taskNoteTextArea" maxlength="2000"></textarea>
+                                <div *ngIf="addTaskNote.get('taskNote')?.invalid">{{translations.Get('TasksNotes_AddNote_Error')}}</div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="row" [formGroup]="addTaskNote">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <textarea formControlName="taskNote" class="taskNoteTextArea" maxlength="2000"></textarea>
-                            <div *ngIf="addTaskNote.get('taskNote')?.invalid">{{translations.Get('TasksNotes_AddNote_Error')}}</div>
-                        </div>
-                    </div>
-
-                    <div class="row padding-top-15 padding-bottom-15" *ngIf="taskNotes.length != 0">
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            {{translations.Get('TasksNote_Date')}}
-                        </div>
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            {{translations.Get('TasksNote_Note')}}
-                        </div>
-                    </div>
-                    <div *ngFor="let taskNote of taskNotes;" class="padding-bottom-15">
-                        <div class="row data-row">
+    
+                        <div class="row padding-top-15 padding-bottom-15" *ngIf="taskNotes.length != 0">
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                <p>{{taskNote.tnDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+                                {{translations.Get('TasksNote_Date')}}
                             </div>
                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                <p>{{taskNote.tnNote}}</p>
+                                {{translations.Get('TasksNote_Note')}}
                             </div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                <span class="bi bi-trash" (click)="DeleteTaskNote(taskNote.tngid)"></span>
+                        </div>
+                        <div *ngFor="let taskNote of taskNotes;" class="padding-bottom-15">
+                            <div class="row data-row">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <p>{{taskNote.tnDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                    <p>{{taskNote.tnNote}}</p>
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                    <span class="bi bi-trash" (click)="DeleteTaskNote(taskNote.tngid)"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </ng-container>
+            </div>
+        </div>
+
+        <div class="row padding-top-15">
+            <ng-container *ngIf="Categories$ | async as categories">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">   
+                    {{translations.Get('Tasks_Categories')}}:
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <mat-form-field>
+                        <mat-select [(value)]="selectedFilterCategory" (selectionChange)="ChangeCategoryFilterValue($event)">
+                            <mat-option *ngFor="let category of categories;" [value]="category['cgid']">
+                                {{category['cName']}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </ng-container>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">   
+                {{translations.Get('Tasks_Status')}}:
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <mat-form-field>
+                    <mat-select [(value)]="selectedFilterStatus" (selectionChange)="ChangeStatusFilterValue($event)">                   
+                        <mat-option *ngFor="let status of statuses;" [value]="status['id']">
+                            {{status['name']}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </div>
 

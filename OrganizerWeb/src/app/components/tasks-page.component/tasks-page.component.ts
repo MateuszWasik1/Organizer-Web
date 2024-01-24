@@ -20,6 +20,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
 
   public subscriptions: Subscription[];
   public ShowAddModal: boolean = false;
+  public AddNewTask: boolean = false;
   public form: FormGroup = new FormGroup({});
   public addTaskNote: FormGroup = new FormGroup({});
   public statuses: any;
@@ -108,6 +109,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
 
   public AddTask = () => {
     this.ShowAddModal = !this.ShowAddModal;
+    this.AddNewTask = true;
 
     this.form.get("tid")?.setValue(0);
     this.form.get("tgid")?.setValue(Guid.create().toString());
@@ -121,6 +123,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
 
   public ModifyTask = (task: any) => {
     this.ShowAddModal = !this.ShowAddModal;
+    this.AddNewTask = false;
 
     this.store.dispatch(loadTasksNotes({ TGID: task.tgid }))
 
@@ -147,6 +150,13 @@ export class TasksPageComponent implements OnInit, OnDestroy {
       "TUID": 0,
     }
     this.store.dispatch(saveTask({ Task: model }));
+
+    this.AddNewTask = false;
+  }
+
+  public Cancel = () => {
+    this.ShowAddModal = !this.ShowAddModal
+    this.AddNewTask = false;
   }
 
   public TaskCategoryChange = (category: any) =>{
