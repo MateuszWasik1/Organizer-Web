@@ -66,10 +66,10 @@ export class TasksPageComponent implements OnInit, OnDestroy {
     })
 
     this.statuses = [
-      {id: '0', name: this.translations.Get('Tasks_Status_NotStarted')},
-      {id: '1', name: this.translations.Get('Tasks_Status_OnGoing')},
-      {id: '2', name: this.translations.Get('Tasks_Status_Done')},
-      {id: '3', name: this.translations.Get('Tasks_Status_All')},
+      {id: '0', name: 'Nie zaczęty'},
+      {id: '1', name: 'W trakcie'},
+      {id: '2', name: 'Skończony'},
+      {id: '3', name: 'Wszystkie'},
     ];
 
     this.subscriptions.push(
