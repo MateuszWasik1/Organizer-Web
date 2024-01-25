@@ -5,7 +5,7 @@
                 <h1 class="page-title">{{translations.Get('TopMenu_Savings')}}</h1>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                <button mat-raised-button color="accent" (click)="AddSaving()">{{translations.Get('General_Add')}}</button>
+                <button mat-raised-button class="primary-btn" (click)="AddSaving()">{{translations.Get('General_Add')}}</button>
             </div>
         </div>
 
@@ -45,7 +45,7 @@
                 </div>
                 <div class="row padding-bottom-15">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button mat-raised-button color="accent" class="float-right" (click)="Save()">  {{translations.Get('General_Save')}}</button>
+                        <button mat-raised-button class="primary-btn" class="float-right" (click)="Save()">  {{translations.Get('General_Save')}}</button>
 
                         <button mat-raised-button class="float-right" (click)="ShowAddModal = !ShowAddModal">  {{translations.Get('General_Cancel')}}</button>
                     </div>

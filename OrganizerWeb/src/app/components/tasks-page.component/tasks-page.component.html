@@ -5,7 +5,7 @@
                 <h1 class="page-title">{{translations.Get('TopMenu_Tasks')}}</h1>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                <button mat-raised-button color="accent" (click)="AddTask()">{{translations.Get('General_Add')}}</button>
+                <button mat-raised-button class="primary-btn" (click)="AddTask()">{{translations.Get('General_Add')}}</button>
             </div>
         </div>
 
@@ -65,6 +65,16 @@
                         <input type="number" step="1" formControlName="tBudget" required/>
                     </div>
                 </div>
+                <!-- <div class="row">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                        <div class="form-group">
+                            <span>
+                                {{translations.Get('Tasks_Budget')}}
+                            </span>
+                            <input class="form-field" type="text">
+                        </div>
+                    </div>
+                </div> -->
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
                         {{translations.Get('Tasks_Status')}}:
@@ -99,9 +109,9 @@
                 </ng-container>
                 <div class="row padding-bottom-15">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button mat-raised-button color="accent" class="float-right" (click)="Save()" [disabled]="IsBudgetExceeded || form.invalid">{{translations.Get('General_Save')}}</button>
+                        <button mat-raised-button class="float-right primary-btn" (click)="Save()" [disabled]="IsBudgetExceeded || form.invalid">{{translations.Get('General_Save')}}</button>
 
-                        <button mat-raised-button class="float-right" (click)="Cancel()">{{translations.Get('General_Cancel')}}</button>
+                        <button mat-raised-button class="float-right margin-right-15" (click)="Cancel()">{{translations.Get('General_Cancel')}}</button>
                     </div>
                 </div>
 
@@ -112,7 +122,7 @@
                                 <h1 class="page-title">{{translations.Get('TasksNotes_AddNoteToTask')}}</h1>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                                <button mat-raised-button color="accent" (click)="AddTaskNote()" [disabled]="addTaskNote.get('taskNote')?.invalid">{{translations.Get('TasksNotes_AddNote')}}</button>
+                                <button mat-raised-button class="primary-btn" (click)="AddTaskNote()" [disabled]="addTaskNote.get('taskNote')?.invalid">{{translations.Get('TasksNotes_AddNote')}}</button>
                             </div>
                         </div>
     
