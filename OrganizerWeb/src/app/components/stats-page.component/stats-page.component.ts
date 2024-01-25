@@ -28,9 +28,9 @@ export class StatsPageComponent implements OnInit, OnDestroy {
 
   public defaultDataType: string = "savings";
   public dataTypes = [
-    {name: this.translations.Get('Stats_DataType_Savings'), value: "savings"},
-    {name: this.translations.Get('Stats_DataType_TaskMoney'), value: "task-money"},
-    {name: this.translations.Get('Stats_DataType_Category'), value: "category"},
+    {name: "Oszczędności", value: "savings"},
+    {name: "Wydatki z zadań", value: "task-money"},
+    {name: "Wydatki z kategorii", value: "category"},
   ]
 
   constructor(public store: Store<AppState>, 
