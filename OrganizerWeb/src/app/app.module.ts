@@ -46,10 +46,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AccountEffects } from './components/account-page.component/account-page-state/account-page-state.effects';
 import { featureKeyAccountState } from './components/account-page.component/account-page-state/account-page-state.state';
 import { AccountReducer } from './components/account-page.component/account-page-state/account-page-state.reducer';
+import { AccountComponent } from './components/account-page.component/account-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AccountComponent,
     RegisterComponent,
     CategoriesPageComponent,
     CategoriesFillDataDialogComponent,

@@ -1,4 +1,13 @@
 {
+    "Account_Register": "Rejestracja",
+    "Account_Register_Email": "Email",
+    "Account_Register_UserName": "Nazwa",
+    "Account_Register_Password": "Hasło",
+    "Account_Register_Send": "Zarejestruj się",
+    "Account_Register_Reset": "Wyczyść formularz",
+    "Account_Register_Validation_Required": "Pole wymagane",
+    "Account_Register_Validation_MinLength8": "Pole musi zawierać co najmniej 8 znaków",
+    "Account_Register_Validation_Email": "Pole musi zawierać adres email",
     "General_Yes": "Tak",
     "General_No": "Nie",
     "General_Add": "Dodaj",

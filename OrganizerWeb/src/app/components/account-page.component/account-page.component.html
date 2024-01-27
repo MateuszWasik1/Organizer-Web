@@ -1,108 +1,64 @@
-<!-- <ng-container *ngIf="Categories$ | async as categories">
-    <section class="body">
-        <div class="row">
-            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-                <h1 class="page-title">{{translations.Get('TopMenu_Categories')}}</h1>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                <button mat-raised-button class="primary-btn" (click)="AddCategory()">{{translations.Get('General_Add')}}</button>
+<section class="body">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h1 class="page-title center">{{translations.Get('Account_Register')}}</h1>
+        </div>
+    </div>
+
+    <form [formGroup]="form">
+        <div class="row margin-bottom-15">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 register-form">
+                <div class="form-group">
+                    <span>
+                        {{translations.Get('Account_Register_Email')}}
+                    </span>
+                    <input class="form-field" type="text" formControlName="email">
+                </div>
             </div>
         </div>
-        <div class="row" [formGroup]="filterForm">
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                {{translations.Get('General_ChooseDate')}}:
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <mat-form-field>
-                    <mat-label>{{translations.Get('General_ChooseDate')}}</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="date">
-                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker startView="year" (monthSelected)="setMonthAndYear($event, picker)"></mat-datepicker>
-                </mat-form-field>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
+        <div class="row error margin-bottom-15" *ngIf="this.form.get('email')?.errors?.['email']">
+            {{translations.Get('Account_Register_Validation_Email')}}
+        </div>
+        <div class="row error margin-bottom-15" *ngIf="this.form.get('email')?.errors?.['required']">
+            {{translations.Get('Account_Register_Validation_Required')}}
         </div>
 
-        <div class="row categories-row" *ngIf="ShowAddModal" [formGroup]="form">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        {{translations.Get('Categories_Name')}}:
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="text" formControlName="cName"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        {{translations.Get('Categories_StartDate')}}:
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="date" formControlName="cStartDate" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        {{translations.Get('Categories_EndDate')}}:
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="date" formControlName="cEndDate"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        {{translations.Get('Categories_Budget')}}:
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                        <input type="number" step="1" formControlName="cBudget"/>
-                    </div>
-                </div>
-                <div class="row padding-bottom-15">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button mat-raised-button class="primary-btn" class="float-right" (click)="Save()">{{translations.Get('General_Save')}}</button>
-                        <button mat-raised-button class="float-right" (click)="ShowAddModal = !ShowAddModal">{{translations.Get('General_Cancel')}}</button>
-                    </div>
+        <div class="row margin-bottom-15">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 register-form">
+                <div class="form-group">
+                    <span>
+                        {{translations.Get('Account_Register_UserName')}}
+                    </span>
+                    <input class="form-field" type="text" formControlName="userName">
                 </div>
             </div>
+        </div>
+        <div class="row error margin-bottom-15" *ngIf="this.form.get('userName')?.errors?.['required']">
+            {{translations.Get('Account_Register_Validation_Required')}}
         </div>
 
-        <div class="row padding-top-15 padding-bottom-15" *ngIf="categories.length != 0">
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                {{translations.Get('Categories_Name')}}
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                {{translations.Get('Categories_StartDate')}}
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                {{translations.Get('Categories_EndDate')}}
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                {{translations.Get('Categories_Budget')}}
-            </div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-        </div>
-        <div *ngFor="let category of categories;">
-            <div class="row data-row">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <p>{{category.cName}}</p>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <p>{{category.cStartDate | date: 'yyyy-MM-dd'}}</p>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <p>{{category.cEndDate | date: 'yyyy-MM-dd'}}</p>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <p>{{category.cBudget}}</p>
-                </div>
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                    <span class="bi bi-pencil" (click)="ModifyCategory(category)"></span>
-                    <span class="bi bi-trash" (click)="DeleteCategory(category.cgid)"></span>
+        <div class="row margin-bottom-15">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 register-form">
+                <div class="form-group">
+                    <span>
+                        {{translations.Get('Account_Register_Password')}}
+                    </span>
+                    <input class="form-field" type="text" formControlName="password">
                 </div>
             </div>
         </div>
-        <div class="row no-data-row" *ngIf="categories.length == 0">
-            <p>{{translations.Get('Categories_NotFound')}}</p>
+        <div class="error row margin-bottom-15" *ngIf="this.form.get('password')?.errors?.['minlength']">
+            {{translations.Get('Account_Register_Validation_MinLength8')}}
         </div>
-    </section>
-</ng-container> -->
+        <div class="error row margin-bottom-15" *ngIf="this.form.get('password')?.errors?.['required']">
+            {{translations.Get('Account_Register_Validation_Required')}}
+        </div>
+    </form>
+
+    <div class="row margin-top-35"> 
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <button mat-raised-button class="margin-right-15" (click)="Clear()">{{translations.Get('Account_Register_Reset')}}</button>
+            <button mat-raised-button class="primary-btn" (click)="Save()" [disabled]="form.invalid">{{translations.Get('Account_Register_Send')}}</button>
+        </div>
+    </div>
+</section>

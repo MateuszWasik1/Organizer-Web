@@ -1,5 +1,13 @@
 {
-
+    "Account_Register": "Register",
+    "Account_Register_Email": "Email",
+    "Account_Register_UserName": "Name",
+    "Account_Register_Password": "Password",
+    "Account_Register_Send": "Register",
+    "Account_Register_Reset": "Clear",
+    "Account_Register_Validation_Required": "Field required",
+    "Account_Register_Validation_MinLength8": "Field must contains at least 8 characters",
+    "Account_Register_Validation_Email": "Field must contains email address",
     "General_Yes": "Yes",
     "General_No": "No",
     "General_Add": "Add",
