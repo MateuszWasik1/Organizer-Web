@@ -43,6 +43,9 @@ import { StatsEffects } from './components/stats-page.component/stats-page-state
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AccountEffects } from './components/account-page.component/account-page-state/account-page-state.effects';
+import { featureKeyAccountState } from './components/account-page.component/account-page-state/account-page-state.state';
+import { AccountReducer } from './components/account-page.component/account-page-state/account-page-state.reducer';
 
 @NgModule({
   declarations: [
@@ -84,12 +87,13 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     }),
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    StoreModule.forFeature(featureKeyAccountState, AccountReducer),
     StoreModule.forFeature(featureKeyCategoriesState, CategoriesReducer),
     StoreModule.forFeature(featureKeyTasksState, TasksReducer),
     StoreModule.forFeature(featureKeySavingsState, SavingsReducer),
     StoreModule.forFeature(featureKeyStatsState, StatsReducer),
    
-    EffectsModule.forRoot([CategoriesEffects, TasksEffects, SavingsEffects, StatsEffects]),
+    EffectsModule.forRoot([AccountEffects, CategoriesEffects, TasksEffects, SavingsEffects, StatsEffects]),
     BrowserAnimationsModule,
   ],
   providers: [

@@ -5,6 +5,7 @@ import { CategoriesPageComponent } from './components/category-page.component co
 import { TasksPageComponent } from './components/tasks-page.component/tasks-page.component';
 import { SavingsPageComponent } from './components/savings-page.component/savings-page.component';
 import { StatsPageComponent } from './components/stats-page.component/stats-page.component';
+import { AccountComponent } from './components/account-page.component/account-page.component';
 
 const routes: Routes = [
   // {
@@ -12,9 +13,13 @@ const routes: Routes = [
   //   pathMatch: 'full',
   //   component: mainPageComponent
   // },
+  // {
+  //   path: 'register',
+  //   component: RegisterComponent
+  // },
   {
     path: 'register',
-    component: RegisterComponent
+    component: AccountComponent
   },
   {
     path: 'categories',
