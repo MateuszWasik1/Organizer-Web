@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
 import { RegisterUser } from './account-page-state/account-page-state.actions';
+import { PasswordConsistency } from 'src/app/validators/forms.validator';
 
 @Component({
   selector: 'app-account-page',
@@ -13,13 +14,17 @@ import { RegisterUser } from './account-page-state/account-page-state.actions';
 export class AccountComponent implements OnInit {
   title = 'Kategorie - P1 - Mateusz Wąsik';
 
-  public ShowAddModal: boolean = false;
+  public IsPasswordsEqual: boolean = true;
 
   public form = new FormGroup({
     userName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-  })
+    password2: new FormControl('', [Validators.required, Validators.minLength(8)]),
+  }, 
+  {
+    validators: PasswordConsistency
+  });
 
   constructor(public store: Store<AppState>, public translations: TranslationService)
   {
@@ -32,6 +37,7 @@ export class AccountComponent implements OnInit {
     this.form.get('userName')?.setValue('');
     this.form.get('email')?.setValue('');
     this.form.get('password')?.setValue('');
+    this.form.get('password2')?.setValue('');
   }
 
   public Save = () => {

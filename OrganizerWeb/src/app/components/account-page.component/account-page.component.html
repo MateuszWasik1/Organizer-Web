@@ -53,6 +53,26 @@
         <div class="error row margin-bottom-15" *ngIf="this.form.get('password')?.errors?.['required']">
             {{translations.Get('Account_Register_Validation_Required')}}
         </div>
+
+        <div class="row margin-bottom-15">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 register-form">
+                <div class="form-group">
+                    <span>
+                        {{translations.Get('Account_Register_Password_Repeat')}}
+                    </span>
+                    <input class="form-field" type="text" formControlName="password2">
+                </div>
+            </div>
+        </div>
+        <div class="error row margin-bottom-15" *ngIf="this.form.get('password2')?.errors?.['minlength']">
+            {{translations.Get('Account_Register_Validation_MinLength8')}}
+        </div>
+        <div class="error row margin-bottom-15" *ngIf="this.form.get('password2')?.errors?.['required']">
+            {{translations.Get('Account_Register_Validation_Required')}}
+        </div>
+        <div class="error row margin-bottom-15" *ngIf="this.form.errors?.['PasswordNoMatch']">
+            {{translations.Get('Account_Register_Validation_Password_Equals')}}
+        </div>
     </form>
 
     <div class="row margin-top-35"> 

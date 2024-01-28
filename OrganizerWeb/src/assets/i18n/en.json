@@ -3,6 +3,7 @@
     "Account_Register_Email": "Email",
     "Account_Register_UserName": "Name",
     "Account_Register_Password": "Password",
+    "Account_Register_Password_Repeat": "Repeat",
     "Account_Register_Send": "Register",
     "Account_Register_Reset": "Clear",
     "Account_Register_Validation_Required": "Field required",
