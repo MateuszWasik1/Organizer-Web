@@ -47,11 +47,13 @@ import { AccountEffects } from './components/account-page.component/account-page
 import { featureKeyAccountState } from './components/account-page.component/account-page-state/account-page-state.state';
 import { AccountReducer } from './components/account-page.component/account-page-state/account-page-state.reducer';
 import { AccountComponent } from './components/account-page.component/account-page.component';
+import { LoginComponent } from './components/account-page.component/login-page.component/login-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AccountComponent,
+    LoginComponent,
     RegisterComponent,
     CategoriesPageComponent,
     CategoriesFillDataDialogComponent,

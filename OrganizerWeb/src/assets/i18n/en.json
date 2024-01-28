@@ -9,6 +9,8 @@
     "Account_Register_Validation_Required": "Field required",
     "Account_Register_Validation_MinLength8": "Field must contains at least 8 characters",
     "Account_Register_Validation_Email": "Field must contains email address",
+    "Account_Login": "Login",
+    "Account_Login_Button": "Login",
     "General_Yes": "Yes",
     "General_No": "No",
     "General_Add": "Add",

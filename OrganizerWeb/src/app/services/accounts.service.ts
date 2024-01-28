@@ -12,4 +12,8 @@ export class AccountsService {
     Register(model: any) : Observable<any>{
         return this.http.post<any>(this.apiUrl + 'api/Accounts/Register', model)
     }
+
+    Login(model: any) : Observable<any>{
+        return this.http.post<any>(this.apiUrl + 'api/Accounts/Login', model)
+    }
 }

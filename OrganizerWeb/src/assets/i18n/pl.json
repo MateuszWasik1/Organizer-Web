@@ -10,6 +10,8 @@
     "Account_Register_Validation_MinLength8": "Pole musi zawierać co najmniej 8 znaków",
     "Account_Register_Validation_Email": "Pole musi zawierać adres email",
     "Account_Register_Validation_Password_Equals": "Hasła nie są jednakowe!",
+    "Account_Login": "Logowanie",
+    "Account_Login_Button": "Zaloguj się",
     "General_Yes": "Tak",
     "General_No": "Nie",
     "General_Add": "Dodaj",

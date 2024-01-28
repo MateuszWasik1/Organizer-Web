@@ -24,4 +24,16 @@ export class AccountEffects {
             })
         )
     })
+
+    Login = createEffect(() => {
+        return this.actions.pipe(
+            ofType(AccountActions.Login),
+            switchMap((params) => {
+                return this.accountService.Login(params.user).pipe(
+                    map(() => AccountActions.LoginSuccess()),
+                    catchError(() => of(AccountActions.LoginError()))
+                )
+            })
+        )
+    })
 }

@@ -1,0 +1,47 @@
+<section class="body">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h1 class="page-title center">{{translations.Get('Account_Login')}}</h1>
+        </div>
+    </div>
+
+    <form [formGroup]="form">
+        <div class="row margin-bottom-15">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 register-form">
+                <div class="form-group">
+                    <span>
+                        {{translations.Get('Account_Register_UserName')}}
+                    </span>
+                    <input class="form-field" type="text" formControlName="userName">
+                </div>
+            </div>
+        </div>
+        <div class="row error margin-bottom-15" *ngIf="this.form.get('userName')?.errors?.['required']">
+            {{translations.Get('Account_Register_Validation_Required')}}
+        </div>
+
+        <div class="row margin-bottom-15">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 register-form">
+                <div class="form-group">
+                    <span>
+                        {{translations.Get('Account_Register_Password')}}
+                    </span>
+                    <input class="form-field" type="text" formControlName="password">
+                </div>
+            </div>
+        </div>
+        <div class="error row margin-bottom-15" *ngIf="this.form.get('password')?.errors?.['minlength']">
+            {{translations.Get('Account_Register_Validation_MinLength8')}}
+        </div>
+        <div class="error row margin-bottom-15" *ngIf="this.form.get('password')?.errors?.['required']">
+            {{translations.Get('Account_Register_Validation_Required')}}
+        </div>
+    </form>
+
+    <div class="row margin-top-35"> 
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <button mat-raised-button class="margin-right-15" (click)="Clear()">{{translations.Get('Account_Register_Reset')}}</button>
+            <button mat-raised-button class="primary-btn" (click)="Save()" [disabled]="form.invalid">{{translations.Get('Account_Login_Button')}}</button>
+        </div>
+    </div>
+</section>

@@ -6,6 +6,7 @@ import { TasksPageComponent } from './components/tasks-page.component/tasks-page
 import { SavingsPageComponent } from './components/savings-page.component/savings-page.component';
 import { StatsPageComponent } from './components/stats-page.component/stats-page.component';
 import { AccountComponent } from './components/account-page.component/account-page.component';
+import { LoginComponent } from './components/account-page.component/login-page.component/login-page.component';
 
 const routes: Routes = [
   // {
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: AccountComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: 'categories',
