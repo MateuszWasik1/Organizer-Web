@@ -36,4 +36,9 @@ export class AppComponent {
     this.translate.setDefaultLang(this.language);
     this.cookieService.set("lang", language);
   }
+
+  public LogOut = () => {
+    this.cookieService.set("token", "");
+    this.router.navigate(['login'])
+  }
 }
