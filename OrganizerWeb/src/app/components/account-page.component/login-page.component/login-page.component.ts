@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.form.get('password')?.setValue('');
   }
 
-  public Save = () => {
+  public Login = () => {
     let model = {
       UUserName: this.form.get('userName')?.value,
       UPassword: this.form.get('password')?.value,

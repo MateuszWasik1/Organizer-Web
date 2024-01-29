@@ -28,7 +28,7 @@ export class TasksEffects {
             switchMap((params) => {
                 return this.tasksService.getTasks(params[1].Category, params[1].Status).pipe(
                     map((result) => CategoriesActions.loadTasksSuccess({ Tasks: result })),
-                    catchError((error) => of(CategoriesActions.loadTasksError()))
+                    catchError((error) => of(CategoriesActions.loadTasksError())),
                 )
             })
         )

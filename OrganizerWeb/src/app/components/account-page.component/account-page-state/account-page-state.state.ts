@@ -5,5 +5,6 @@ export interface AccountState {
         UUserName: string,
         UEmail: string,
         UPassword: string,
-    }
+    },
+    Token: string;
 }
