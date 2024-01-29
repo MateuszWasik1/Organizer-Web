@@ -14,15 +14,7 @@ var initialStateOfAccountPage: AccountState = {
 export const AccountReducer = createReducer<AccountState>(
     initialStateOfAccountPage,
 
-    on(Actions.LoginSuccess, (state, { token }) => {
-        console.log(token)
-
-        return { ...state, Token: token };
-    }),
-
-    on(Actions.LoginError, (state, { error }) => {
-        console.log(error)
-
-        return { ...state };
+    on(Actions.LoginSuccess, (state) => {
+        return { ...state};
     }),
 ) 

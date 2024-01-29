@@ -37,7 +37,7 @@ export class AccountEffects {
                     map((result) => AccountActions.LoginSuccess({ token: result.toString() })),
                     tap(result => this.cookieService.set("token", result.token)),
                     tap(() => this.router.navigate(['/categories'])),
-                    catchError((error) => of(AccountActions.LoginError({ error: error }))),
+                    catchError((error) => of(AccountActions.LoginError())),
                 )
             })
         )

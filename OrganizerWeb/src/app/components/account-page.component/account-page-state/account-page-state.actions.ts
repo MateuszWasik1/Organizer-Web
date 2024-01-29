@@ -6,4 +6,4 @@ export const RegisterUserError = createAction('[Account Page] Register User Erro
 
 export const Login = createAction('[Account Page] Login', props<{ user: any }>());
 export const LoginSuccess = createAction('[Account Page] Login Success', props<{ token: string }>());
-export const LoginError = createAction('[Account Page] Login Error', props<{ error: string }>());
+export const LoginError = createAction('[Account Page] Login Error');
