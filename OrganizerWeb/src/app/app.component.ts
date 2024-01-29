@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -12,12 +13,19 @@ export class AppComponent {
 
   public language: string = "pl";
 
-  constructor(public translate: TranslateService, public cookieService: CookieService){
+  constructor(public translate: TranslateService, 
+    public cookieService: CookieService, 
+    public router: Router)
+  {
+    //Token
+    if(cookieService.get("token") == "")
+      this.router.navigate(["/login"]);
+
+    //Language
     translate.addLangs(["pl", "en"]);
 
-    if(cookieService.get("lang") == ""){
+    if(cookieService.get("lang") == "")
       cookieService.set("lang", "pl");
-    }
 
     translate.setDefaultLang(cookieService.get("lang"));
     this.language = cookieService.get("lang");
