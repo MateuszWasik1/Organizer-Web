@@ -1,4 +1,4 @@
-<div class="navigation">
+<div class="navigation" *ngIf="!hideMenu">
     <div style="width: 10%;"></div>
     <nav>
         <a href="categories">{{"TopMenu_Categories" | translate}}</a>
@@ -6,9 +6,10 @@
         <a href="savings">{{"TopMenu_Savings" | translate}}</a>
         <a href="stats">{{"TopMenu_Stats" | translate}}</a>
     </nav>
-    <div class="language">
+    <div class="side-menu">
         <div class="pl" *ngIf="language == 'en'" (click)="ChangeLanguage('pl')"></div>
         <div class="en" *ngIf="language == 'pl'" (click)="ChangeLanguage('en')"></div>
+        <div class="logout" (click)="LogOut()"></div>
     </div>
 </div>
 <div class="container">

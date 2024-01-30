@@ -25,7 +25,7 @@
         }
     }
 
-    .language{
+    .side-menu{
         width: 10%;
         display: flex;
         justify-content: flex-end;
@@ -42,6 +42,13 @@
             height: 100%;
             background-image: url(../app/img/england.png);
             background-repeat: no-repeat;
+        }
+        .logout{
+            width: 25%;
+            height: 100%;
+            background-image: url(../app/img/logout.png);
+            background-repeat: no-repeat;
+            margin-left: 15px;
         }
     }
 }
