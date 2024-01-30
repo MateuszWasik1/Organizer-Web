@@ -1,13 +1,15 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from "rxjs";
+import { CookieService } from "ngx-cookie-service";
+import { GetToken } from "../helpers/request.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CategoriesService {
     public apiUrl = 'https://localhost:44393/'
-    constructor( private http: HttpClient ) { }
+    constructor( private http: HttpClient, private cookiesService: CookieService ) { }
 
     getCategories(date: any, isFromTask: boolean) : Observable<any>{
         if(date == undefined)
@@ -18,18 +20,18 @@ export class CategoriesService {
 
         let params = new HttpParams().set("date", isFromTask ? '' : stringDate);
 
-        return this.http.get<any>(this.apiUrl + 'api/Categories/Get', { params: params })
+        return this.http.get<any>(this.apiUrl + 'api/Categories/Get', { params: params, headers: GetToken(this.cookiesService)});
     }
 
     getCategoriesForFilters() : Observable<any>{
-        return this.http.get<any>(this.apiUrl + 'api/Categories/GetCategoriesForFilter', { params: new HttpParams() })
+        return this.http.get<any>(this.apiUrl + 'api/Categories/GetCategoriesForFilter', { params: new HttpParams(), headers: GetToken(this.cookiesService) })
     }
 
     saveCategories(model: any) : Observable<any>{
-        return this.http.post<any>(this.apiUrl + 'api/Categories/Save', model)
+        return this.http.post<any>(this.apiUrl + 'api/Categories/Save', model, { headers: GetToken(this.cookiesService) })
     }
 
     deleteCategories(cGID: any) : Observable<any>{
-        return this.http.delete<any>(this.apiUrl + 'api/Categories/Delete/'+ cGID, cGID)
+        return this.http.delete<any>(this.apiUrl + 'api/Categories/Delete/'+ cGID, { headers: GetToken(this.cookiesService) })
     }
 }
