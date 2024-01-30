@@ -80,5 +80,8 @@
             <button mat-raised-button class="margin-right-15" (click)="Clear()">{{translations.Get('Account_Register_Reset')}}</button>
             <button mat-raised-button class="primary-btn" (click)="Save()" [disabled]="form.invalid">{{translations.Get('Account_Register_Send')}}</button>
         </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15">
+            <button mat-raised-button class="primary-btn" (click)="GoToLogin()">{{translations.Get('Account_Login_Already_Have_Account')}}</button>
+        </div>
     </div>
 </section>

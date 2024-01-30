@@ -12,6 +12,8 @@
     "Account_Register_Validation_Password_Equals": "Hasła nie są jednakowe!",
     "Account_Login": "Logowanie",
     "Account_Login_Button": "Zaloguj się",
+    "Account_Login_Already_Have_Account": "Posiadasz już konto? Zaloguj się",
+    "Account_Login_Dont_Have_Account": "Nie osiadasz konta? Zarejestruj się",
     "General_Yes": "Tak",
     "General_No": "Nie",
     "General_Add": "Dodaj",

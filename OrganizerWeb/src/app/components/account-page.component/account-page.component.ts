@@ -5,6 +5,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { TranslationService } from 'src/app/services/translate.service';
 import { RegisterUser } from './account-page-state/account-page-state.actions';
 import { PasswordConsistency } from 'src/app/validators/forms.validator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-page',
@@ -26,7 +27,9 @@ export class AccountComponent implements OnInit {
     validators: PasswordConsistency
   });
 
-  constructor(public store: Store<AppState>, public translations: TranslationService)
+  constructor(public store: Store<AppState>, 
+    public translations: TranslationService, 
+    public router: Router)
   {
   }
   
@@ -49,4 +52,6 @@ export class AccountComponent implements OnInit {
     
     this.store.dispatch(RegisterUser({ user: model }));
   }
+
+  public GoToLogin = () => this.router.navigate(['/login']);
 }

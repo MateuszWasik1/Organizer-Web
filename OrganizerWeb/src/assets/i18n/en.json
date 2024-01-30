@@ -11,6 +11,8 @@
     "Account_Register_Validation_Email": "Field must contains email address",
     "Account_Login": "Login",
     "Account_Login_Button": "Login",
+    "Account_Login_Already_Have_Account": "Already have account? Login.",
+    "Account_Login_Dont_Have_Account": "You not have account? Register",
     "General_Yes": "Yes",
     "General_No": "No",
     "General_Add": "Add",

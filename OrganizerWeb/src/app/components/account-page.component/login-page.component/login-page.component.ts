@@ -4,6 +4,7 @@ import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
 import { Login } from '../account-page-state/account-page-state.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -18,7 +19,9 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
   });
 
-  constructor(public store: Store<AppState>, public translations: TranslationService)
+  constructor(public store: Store<AppState>, 
+    public translations: TranslationService, 
+    public router: Router)
   {
   }
   
@@ -38,4 +41,5 @@ export class LoginComponent implements OnInit {
     
     this.store.dispatch(Login({ user: model }));
   }
+  public GoToRegistration = () => this.router.navigate(['/register'])
 }
