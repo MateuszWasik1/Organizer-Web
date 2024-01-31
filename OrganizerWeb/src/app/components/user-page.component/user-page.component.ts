@@ -3,8 +3,6 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { formatDate } from '@angular/common';
-import { Guid } from 'guid-typescript';
 import { TranslationService } from 'src/app/services/translate.service';
 import { loadUser, saveUser } from './user-page-state/user-page-state.actions';
 import { selectUser } from './user-page-state/user-page-state.selectors';
@@ -18,7 +16,13 @@ export class UserPageComponent implements OnInit, OnDestroy {
   title = 'Użytkownik - P1 - Mateusz Wąsik';
 
   public subscriptions: Subscription[];
-  public form: FormGroup = new FormGroup({});
+  public form: FormGroup = new FormGroup({
+    uFirstName: new FormControl('', {validators: [] }),
+    uLastName: new FormControl('', {validators: [] }),
+    uUserName: new FormControl({value: '', disabled: true}, {validators: [Validators.required] }),
+    uEmail: new FormControl('', {validators: [Validators.required] }),
+    uPhone: new FormControl('', {validators: [] }),
+  });
   
   public User$ = this.store.select(selectUser);
 
@@ -30,42 +34,21 @@ export class UserPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(loadUser());
 
-    this.form = new FormGroup({
-      cid: new FormControl(0, {validators: [] }),
-      cgid: new FormControl('', {validators: [] }),
-      cName: new FormControl('', {validators: [Validators.required] }),
-      cStartDate: new FormControl(new Date(), {validators: [Validators.required] }),
-      cEndDate: new FormControl(new Date(), {validators: [Validators.required] }),
-      cBudget: new FormControl(0, {validators: [Validators.required] }),
-    });
+    this.subscriptions.push(this.User$.subscribe( user => {
+      this.form.get("uFirstName")?.setValue(user.uFirstName);
+      this.form.get("uLastName")?.setValue(user.uLastName);
+      this.form.get("uUserName")?.setValue(user.uUserName);
+      this.form.get("uEmail")?.setValue(user.uEmail);
+      this.form.get("uPhone")?.setValue(user.uPhone);
+    }))
   }
-
-  public AddCategory = () => {    
-    this.form.get("cid")?.setValue(0);
-    this.form.get("cgid")?.setValue(Guid.create().toString());
-    this.form.get("cName")?.setValue('');
-    this.form.get("cStartDate")?.setValue(formatDate(new Date(), 'yyyy-MM-dd', 'en'));
-    this.form.get("cEndDate")?.setValue(formatDate(new Date(), 'yyyy-MM-dd', 'en'));
-    this.form.get("cBudget")?.setValue(0);
-  }
-
-  public ModifyCategory = (category: any) => {
-    this.form.get("cid")?.setValue(category.cid);
-    this.form.get("cgid")?.setValue(category.cgid);
-    this.form.get("cName")?.setValue(category.cName);
-    this.form.get("cStartDate")?.setValue(formatDate(category.cStartDate, 'yyyy-MM-dd', 'en'));
-    this.form.get("cEndDate")?.setValue(formatDate(category.cEndDate, 'yyyy-MM-dd', 'en'));
-    this.form.get("cBudget")?.setValue(category.cBudget);
-  }
-
   public Save = () => {
     let model = {
-      "CID": this.form.get("cid")?.value,
-      "CGID": this.form.get("cgid")?.value,
-      "CName": this.form.get("cName")?.value,
-      "CStartDate": this.form.get("cStartDate")?.value,
-      "CEndDate": this.form.get("cEndDate")?.value,
-      "CBudget": this.form.get("cBudget")?.value,
+      "UFirstName": this.form.get("uFirstName")?.value,
+      "ULastName": this.form.get("uLastName")?.value,
+      "UUserName": this.form.get("uUserName")?.value,
+      "UEmail": this.form.get("uEmail")?.value,
+      "UPhone": this.form.get("uPhone")?.value,
     }
     this.store.dispatch(saveUser({ User: model }));
   }

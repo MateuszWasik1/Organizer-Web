@@ -14,10 +14,10 @@ export class UserService {
     GetUser() : Observable<any>{
         let params = new HttpParams();
 
-        return this.http.get<any>(this.apiUrl + 'api/User', { params: params, headers: GetToken(this.cookiesService) })
+        return this.http.get<any>(this.apiUrl + 'api/User/GetUser', { params: params, headers: GetToken(this.cookiesService) })
     }
 
     SaveUser(model: any) : Observable<any>{
-        return this.http.post<any>(this.apiUrl + 'api/User/Save', model, { headers: GetToken(this.cookiesService) })
+        return this.http.post<any>(this.apiUrl + 'api/User/SaveUser', model, { headers: GetToken(this.cookiesService) })
     }
 }

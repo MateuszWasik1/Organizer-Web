@@ -70,5 +70,11 @@
     "TasksNotes_AddNote_Error": "Przekroczyłeś liczbę znaków! Maksymalna liczba znaków to 2000!",
     "TasksNote_Date": "Data",
     "TasksNote_Note": "Notatka",
-    "Task_NotFound": "Nie znaleziono żadnych zadań! Dodaj zadanie bądź zmień opcje filtrowania!"
+    "Task_NotFound": "Nie znaleziono żadnych zadań! Dodaj zadanie bądź zmień opcje filtrowania!",
+    "User_User": "Użytkownik",
+    "User_First_Name": "Imię",
+    "User_Last_Name": "Nazwisko",
+    "User_User_Name": "Nazwa użytkownika",
+    "User_Email": "Email",
+    "User_Phone": "Telefon"
 }
