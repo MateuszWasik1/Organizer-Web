@@ -1,63 +1,38 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, switchMap, withLatestFrom} from "rxjs/operators";
-import * as UsersActions from "./user-page-state.actions"
-import { AppState } from "src/app/app.state";
-import { Store } from "@ngrx/store";
+import { catchError, map, switchMap } from "rxjs/operators";
+import * as UserActions from "./user-page-state.actions"
+import { UserService } from "src/app/services/user.service";
 
 @Injectable()
 export class UserEffects {
     constructor(
         private actions: Actions,
-        private store: Store<AppState>) {
+        private userService: UserService) {
     }
-    // loadCategories = createEffect(() => {
-    //     return this.actions.pipe(
-    //         ofType(CategoriesActions.loadCategories),
-    //         withLatestFrom(this.store.select(selectFilters)),
-    //         switchMap((params) => {
-    //             return this.categoriesService.getCategories(params[1].Date.date, false).pipe(
-    //                 map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
-    //                 catchError(() => of(CategoriesActions.loadCategoriesError()))
-    //             )
-    //         })
-    //     )
-    // })
 
-    // loadCustomCategories = createEffect(() => {
-    //     return this.actions.pipe(
-    //         ofType(CategoriesActions.loadCustomCategories),
-    //         switchMap(() => {
-    //             return of(this.fillDataService.FillCategories()).pipe(
-    //                 map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
-    //                 catchError(() => of(CategoriesActions.loadCategoriesError()))
-    //             )
-    //         })
-    //     )
-    // })
+    loadCategories = createEffect(() => {
+        return this.actions.pipe(
+            ofType(UserActions.loadUser),
+            switchMap((params) => {
+                return this.userService.GetUser().pipe(
+                    map((result) => UserActions.loadUserSuccess({ User: result })),
+                    catchError(() => of(UserActions.loadUserError()))
+                )
+            })
+        )
+    })
 
-    // saveCategory = createEffect(() => {
-    //     return this.actions.pipe(
-    //         ofType(CategoriesActions.saveCategory),
-    //         switchMap((params) => {
-    //             return this.categoriesService.saveCategories(params.category).pipe(
-    //                 map(() => CategoriesActions.saveCategorySuccess({ category: params.category })),
-    //                 catchError(() => of(CategoriesActions.loadCategoriesError()))
-    //             )
-    //         })
-    //     )
-    // })
-
-    // deleteCategory = createEffect(() => {
-    //     return this.actions.pipe(
-    //         ofType(CategoriesActions.deleteCategory),
-    //         switchMap((params) => {
-    //             return this.categoriesService.deleteCategories(params.cGID).pipe(
-    //                 map(() => CategoriesActions.deleteCategorySuccess({ cGID: params.cGID })),
-    //                 catchError(() => of(CategoriesActions.deleteCategoryError()))
-    //             )
-    //         })
-    //     )
-    // })
+    saveCategory = createEffect(() => {
+        return this.actions.pipe(
+            ofType(UserActions.saveUser),
+            switchMap((params) => {
+                return this.userService.SaveUser(params.User).pipe(
+                    map(() => UserActions.saveUserSuccess()),
+                    catchError(() => of(UserActions.saveUserError()))
+                )
+            })
+        )
+    })
 }

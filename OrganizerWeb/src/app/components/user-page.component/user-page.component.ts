@@ -2,15 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { changeDateFilter, deleteCategory, loadCategories, saveCategory, loadCustomCategories } from './categories-page-state/categories-page-state.actions';
-import { selectCategories, selectErrors, selectFilters } from './categories-page-state/categories-page-state.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { Guid } from 'guid-typescript';
-import { MatDatepicker } from '@angular/material/datepicker';
-import { Moment } from 'moment';
-import { MatDialog } from '@angular/material/dialog';
 import { TranslationService } from 'src/app/services/translate.service';
+import { loadUser, saveUser } from './user-page-state/user-page-state.actions';
+import { selectUser } from './user-page-state/user-page-state.selectors';
 
 @Component({
   selector: 'app-user-page',
@@ -21,13 +18,9 @@ export class UserPageComponent implements OnInit, OnDestroy {
   title = 'Użytkownik - P1 - Mateusz Wąsik';
 
   public subscriptions: Subscription[];
-  public ShowAddModal: boolean = false;
   public form: FormGroup = new FormGroup({});
-  public filterForm: FormGroup = new FormGroup({});
   
-  public Categories$ = this.store.select(selectCategories);
-  public Filters$ = this.store.select(selectFilters);
-  public IsCategoriesError$ = this.store.select(selectErrors);
+  public User$ = this.store.select(selectUser);
 
   constructor(public store: Store<AppState>, 
     public translations: TranslationService)
@@ -35,7 +28,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
     this.subscriptions = []
   }
   ngOnInit(): void {
-    this.store.dispatch(loadCategories());
+    this.store.dispatch(loadUser());
 
     this.form = new FormGroup({
       cid: new FormControl(0, {validators: [] }),
@@ -45,21 +38,9 @@ export class UserPageComponent implements OnInit, OnDestroy {
       cEndDate: new FormControl(new Date(), {validators: [Validators.required] }),
       cBudget: new FormControl(0, {validators: [Validators.required] }),
     });
-
-    this.filterForm = new FormGroup({
-      date: new FormControl(formatDate(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1), 'yyyy-MM-dd', 'en'))
-    })
-
-    this.subscriptions.push(
-      this.Filters$.subscribe(() => this.store.dispatch(loadCategories())
-    ));
-
-    this.filterForm.valueChanges.subscribe(x => this.store.dispatch(changeDateFilter({date: x})))    
   }
 
-  public AddCategory = () => {
-    this.ShowAddModal = !this.ShowAddModal;
-    
+  public AddCategory = () => {    
     this.form.get("cid")?.setValue(0);
     this.form.get("cgid")?.setValue(Guid.create().toString());
     this.form.get("cName")?.setValue('');
@@ -69,8 +50,6 @@ export class UserPageComponent implements OnInit, OnDestroy {
   }
 
   public ModifyCategory = (category: any) => {
-    this.ShowAddModal = !this.ShowAddModal;
-
     this.form.get("cid")?.setValue(category.cid);
     this.form.get("cgid")?.setValue(category.cgid);
     this.form.get("cName")?.setValue(category.cName);
@@ -88,7 +67,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
       "CEndDate": this.form.get("cEndDate")?.value,
       "CBudget": this.form.get("cBudget")?.value,
     }
-    this.store.dispatch(saveCategory({ category: model }));
+    this.store.dispatch(saveUser({ User: model }));
   }
 
   ngOnDestroy() {
