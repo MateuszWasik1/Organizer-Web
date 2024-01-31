@@ -10,16 +10,15 @@ import { Guid } from 'guid-typescript';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Moment } from 'moment';
 import { MatDialog } from '@angular/material/dialog';
-import { CategoriesFillDataDialogComponent } from './categories-dialogs/categories-fill-data-dialog.component';
 import { TranslationService } from 'src/app/services/translate.service';
 
 @Component({
-  selector: 'app-categories-page',
-  templateUrl: './categories-page.component.html',
-  styleUrls: ['./categories-page.component.scss']
+  selector: 'app-user-page',
+  templateUrl: './user-page.component.html',
+  styleUrls: ['./user-page.component.scss']
 })
-export class CategoriesPageComponent implements OnInit, OnDestroy {
-  title = 'Kategorie - P1 - Mateusz Wąsik';
+export class UserPageComponent implements OnInit, OnDestroy {
+  title = 'Użytkownik - P1 - Mateusz Wąsik';
 
   public subscriptions: Subscription[];
   public ShowAddModal: boolean = false;
@@ -31,7 +30,6 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
   public IsCategoriesError$ = this.store.select(selectErrors);
 
   constructor(public store: Store<AppState>, 
-    private dialog: MatDialog,
     public translations: TranslationService)
   {
     this.subscriptions = []
@@ -56,25 +54,9 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
       this.Filters$.subscribe(() => this.store.dispatch(loadCategories())
     ));
 
-    this.filterForm.valueChanges.subscribe(x => this.store.dispatch(changeDateFilter({date: x})))
+    this.filterForm.valueChanges.subscribe(x => this.store.dispatch(changeDateFilter({date: x})))    
+  }
 
-    this.subscriptions.push(
-      this.IsCategoriesError$.subscribe(isError => {
-        if(isError)
-          this.dialog
-          .open(CategoriesFillDataDialogComponent)
-          .afterClosed()
-          .subscribe(fill => {
-            if(fill)
-              this.store.dispatch(loadCustomCategories());
-          });
-      })
-    )
-  }
-  public setMonthAndYear(normalizedMonth: any, datepicker: MatDatepicker<Moment>) {
-    this.filterForm.patchValue({ date: new Date(normalizedMonth)});
-    datepicker.close();
-  }
   public AddCategory = () => {
     this.ShowAddModal = !this.ShowAddModal;
     
@@ -108,8 +90,6 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
     }
     this.store.dispatch(saveCategory({ category: model }));
   }
-
-  public DeleteCategory= (cGID: any) => this.store.dispatch(deleteCategory({ cGID: cGID }))
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

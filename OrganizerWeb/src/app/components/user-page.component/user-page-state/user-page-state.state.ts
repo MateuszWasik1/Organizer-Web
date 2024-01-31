@@ -1,9 +1,4 @@
-export const featureKeyCategoriesState = 'categories-page-state';
+export const featureKeyUserState = 'user-page-state';
 
-export interface CategoriesState {
-    Categories: any[];
-    Filters: {
-        Date: any,
-    },
-    IsCategoriesError: boolean
+export interface UserState {
 }

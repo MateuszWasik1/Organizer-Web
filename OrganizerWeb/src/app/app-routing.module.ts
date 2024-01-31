@@ -7,6 +7,7 @@ import { SavingsPageComponent } from './components/savings-page.component/saving
 import { StatsPageComponent } from './components/stats-page.component/stats-page.component';
 import { AccountComponent } from './components/account-page.component/account-page.component';
 import { LoginComponent } from './components/account-page.component/login-page.component/login-page.component';
+import { UserPageComponent } from './components/user-page.component/user-page.component';
 
 const routes: Routes = [
   // {
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'stats',
     component: StatsPageComponent
+  },
+  {
+    path: 'user',
+    component: UserPageComponent
   },
   // {
   //   path: '**',
