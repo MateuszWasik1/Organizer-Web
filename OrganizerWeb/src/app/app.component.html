@@ -7,6 +7,7 @@
         <a href="stats">{{"TopMenu_Stats" | translate}}</a>
     </nav>
     <div class="side-menu">
+        <div class="user" (click)="GoToUser()"></div>
         <div class="pl" *ngIf="language == 'en'" (click)="ChangeLanguage('pl')"></div>
         <div class="en" *ngIf="language == 'pl'" (click)="ChangeLanguage('en')"></div>
         <div class="logout" (click)="LogOut()"></div>

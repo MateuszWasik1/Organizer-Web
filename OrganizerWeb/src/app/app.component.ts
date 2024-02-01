@@ -41,6 +41,8 @@ export class AppComponent {
     this.language = cookieService.get("lang");
   }
 
+  public GoToUser = () => this.router.navigate(['/user']);
+
   public ChangeLanguage = (language: string) => {
     this.language = language
     this.translate.setDefaultLang(this.language);

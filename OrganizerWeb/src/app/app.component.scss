@@ -31,6 +31,12 @@
         justify-content: flex-end;
         margin-right: 15px;
 
+        .user{
+            width: 25%;
+            height: 100%;
+            background-image: url(../app/img/user.png);
+            background-repeat: no-repeat;
+        }
         .pl{
             width: 25%;
             height: 100%;
