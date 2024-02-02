@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RegisterComponent } from './register-component/register.component';
 import { CategoriesPageComponent } from './components/category-page.component copy/categories-page.component';
 import { TasksPageComponent } from './components/tasks-page.component/tasks-page.component';
 import { SavingsPageComponent } from './components/savings-page.component/savings-page.component';
@@ -14,10 +13,6 @@ const routes: Routes = [
   //   path: '',
   //   pathMatch: 'full',
   //   component: mainPageComponent
-  // },
-  // {
-  //   path: 'register',
-  //   component: RegisterComponent
   // },
   {
     path: 'register',
@@ -47,10 +42,6 @@ const routes: Routes = [
     path: 'user',
     component: UserPageComponent
   },
-  // {
-  //   path: '**',
-  //   component: RegisterComponent
-  // },
 ];
 
 @NgModule({
