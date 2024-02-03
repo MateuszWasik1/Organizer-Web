@@ -13,6 +13,6 @@
         <div class="logout" (click)="LogOut()"></div>
     </div>
 </div>
-<div class="container">
+<div [ngClass]="mainClass">
     <router-outlet></router-outlet>
 </div>

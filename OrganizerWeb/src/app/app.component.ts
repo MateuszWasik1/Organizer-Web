@@ -14,6 +14,7 @@ export class AppComponent {
   public language: string = "pl";
   public stopNavigate: boolean = false;
   public hideMenu: boolean = false
+  public mainClass: string = "container";
 
   constructor(public translate: TranslateService, 
     public cookieService: CookieService, 
@@ -24,6 +25,7 @@ export class AppComponent {
       if (e instanceof NavigationEnd) {
         this.hideMenu = e.url.includes("register") || e.url.includes("login");
         this.stopNavigate = e.url.includes("register"); 
+        this.mainClass = e.url.includes("register") || e.url.includes("login") ? "account-container" : "container";
       }
     });
 
