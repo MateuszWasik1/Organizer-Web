@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.state';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AppState } from '../../../app.state';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
-import { RegisterUser } from './account-page-state/account-page-state.actions';
+import { RegisterUser } from '../account-page-state/account-page-state.actions';
 import { PasswordConsistency } from 'src/app/validators/forms.validator';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-account-page',
-  templateUrl: './account-page.component.html',
-  styleUrls: ['./account-page.component.scss']
+  selector: 'app-register-page',
+  templateUrl: './register-page.component.html',
+  styleUrls: ['./register-page.component.scss']
 })
-export class AccountComponent implements OnInit {
-  title = 'Kategorie - P1 - Mateusz Wąsik';
+export class RegisterComponent implements OnInit {
+  title = 'Rejestracja - P1 - Mateusz Wąsik';
 
   public IsPasswordsEqual: boolean = true;
 

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['../account-page.component.scss']
+  styleUrls: ['../register-page.component/register-page.component.scss']
 })
 export class LoginComponent implements OnInit {
   title = 'Kategorie - P1 - Mateusz Wąsik';

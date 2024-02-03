@@ -23,6 +23,7 @@ export class AccountEffects {
             switchMap((params) => {
                 return this.accountService.Register(params.user).pipe(
                     map(() => AccountActions.RegisterUserSuccess()),
+                    tap(() => this.router.navigate(['/login'])),
                     catchError(() => of(AccountActions.RegisterUserError()))
                 )
             })

@@ -45,7 +45,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AccountEffects } from './components/account-page.component/account-page-state/account-page-state.effects';
 import { featureKeyAccountState } from './components/account-page.component/account-page-state/account-page-state.state';
 import { AccountReducer } from './components/account-page.component/account-page-state/account-page-state.reducer';
-import { AccountComponent } from './components/account-page.component/account-page.component';
+import { RegisterComponent } from './components/account-page.component/register-page.component/register-page.component';
 import { LoginComponent } from './components/account-page.component/login-page.component/login-page.component';
 import { featureKeyUserState } from './components/user-page.component/user-page-state/user-page-state.state';
 import { UserReducer } from './components/user-page.component/user-page-state/user-page-state.reducer';
@@ -55,7 +55,7 @@ import { UserPageComponent } from './components/user-page.component/user-page.co
 @NgModule({
   declarations: [
     AppComponent,
-    AccountComponent,
+    RegisterComponent,
     LoginComponent,
     CategoriesPageComponent,
     CategoriesFillDataDialogComponent,
