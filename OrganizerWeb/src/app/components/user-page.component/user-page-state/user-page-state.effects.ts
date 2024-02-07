@@ -12,7 +12,7 @@ export class UserEffects {
         private userService: UserService) {
     }
 
-    loadCategories = createEffect(() => {
+    loadUser = createEffect(() => {
         return this.actions.pipe(
             ofType(UserActions.loadUser),
             switchMap((params) => {
@@ -24,7 +24,19 @@ export class UserEffects {
         )
     })
 
-    saveCategory = createEffect(() => {
+    loadUserByAdmin = createEffect(() => {
+        return this.actions.pipe(
+            ofType(UserActions.loadUserByAdmin),
+            switchMap((params) => {
+                return this.userService.GetUserByAdmin(params.ugid).pipe(
+                    map((result) => UserActions.loadUserByAdminSuccess({ User: result })),
+                    catchError(() => of(UserActions.loadUserByAdminError()))
+                )
+            })
+        )
+    })
+
+    saveUser = createEffect(() => {
         return this.actions.pipe(
             ofType(UserActions.saveUser),
             switchMap((params) => {

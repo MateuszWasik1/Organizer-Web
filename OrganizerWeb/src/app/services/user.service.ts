@@ -17,6 +17,12 @@ export class UserService {
         return this.http.get<any>(this.apiUrl + 'api/User/GetAllUsers', { params: params, headers: GetToken(this.cookiesService) })
     }
 
+    GetUserByAdmin(ugid: any) : Observable<any>{
+        let params = new HttpParams();
+
+        return this.http.get<any>(this.apiUrl + 'api/User/GetUserByAdmin/' + ugid, { params: params, headers: GetToken(this.cookiesService) })
+    }
+
     GetUser() : Observable<any>{
         let params = new HttpParams();
 

@@ -4,8 +4,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
-import { loadUser, saveUser } from './user-page-state/user-page-state.actions';
+import { loadUser, loadUserByAdmin, saveUser } from './user-page-state/user-page-state.actions';
 import { selectUser } from './user-page-state/user-page-state.selectors';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-page',
@@ -17,22 +18,35 @@ export class UserPageComponent implements OnInit, OnDestroy {
 
   public subscriptions: Subscription[];
   public form: FormGroup = new FormGroup({
+    uid: new FormControl(0, {validators: [] }),
+    ugid: new FormControl('', {validators: [] }),
+    urid: new FormControl(0, {validators: [] }),
     uFirstName: new FormControl('', {validators: [] }),
     uLastName: new FormControl('', {validators: [] }),
     uUserName: new FormControl({value: '', disabled: true}, {validators: [Validators.required] }),
     uEmail: new FormControl('', {validators: [Validators.required] }),
     uPhone: new FormControl('', {validators: [] }),
+    uCategoriesCount: new FormControl(-1, {validators: [] }),
+    uTasksCount: new FormControl(-1, {validators: [] }),
+    uTaskNotesCount: new FormControl(-1, {validators: [] }),
+    uSavingsCount: new FormControl(-1, {validators: [] }),
   });
   
   public User$ = this.store.select(selectUser);
 
-  constructor(public store: Store<AppState>, 
+  constructor(public store: Store<AppState>,
+    public route: ActivatedRoute, 
     public translations: TranslationService)
   {
     this.subscriptions = []
   }
   ngOnInit(): void {
-    this.store.dispatch(loadUser());
+    let ugid = this.route.snapshot.paramMap.get('ugid');
+
+    if(ugid == null)
+      this.store.dispatch(loadUser());
+    else
+      this.store.dispatch(loadUserByAdmin({ ugid: ugid }));
 
     this.subscriptions.push(this.User$.subscribe( user => {
       this.form.get("uFirstName")?.setValue(user.uFirstName);

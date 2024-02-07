@@ -23,16 +23,4 @@ export class UsersEffects {
             })
         )
     })
-
-    // loadUser = createEffect(() => {
-    //     return this.actions.pipe(
-    //         ofType(UsersActions.loadUser),
-    //         switchMap((params) => {
-    //             return this.savingsService.getSavings().pipe(
-    //                 map((result) => UsersActions.loadUserSuccess({ User: result })),
-    //                 catchError(() => of(UsersActions.loadUserError()))
-    //             )
-    //         })
-    //     )
-    // })
 }

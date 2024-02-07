@@ -44,6 +44,10 @@ const routes: Routes = [
     component: UserPageComponent
   },
   {
+    path: 'user/:ugid',
+    component: UserPageComponent
+  },
+  {
     path: 'users',
     component: UsersPageComponent
   },

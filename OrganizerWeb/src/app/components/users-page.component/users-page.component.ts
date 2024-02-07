@@ -30,7 +30,7 @@ export class UsersPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(loadUsers());
   }
 
-  public GoToUser = (ugid: string) => this.router.navigate(['/user']);
+  public GoToUser = (ugid: string) => this.router.navigate([`/user/${ugid}`]);
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());
