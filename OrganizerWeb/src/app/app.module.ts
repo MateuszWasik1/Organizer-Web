@@ -51,6 +51,10 @@ import { featureKeyUserState } from './components/user-page.component/user-page-
 import { UserReducer } from './components/user-page.component/user-page-state/user-page-state.reducer';
 import { UserEffects } from './components/user-page.component/user-page-state/user-page-state.effects';
 import { UserPageComponent } from './components/user-page.component/user-page.component';
+import { UsersPageComponent } from './components/users-page.component/users-page.component';
+import { UsersReducer } from './components/users-page.component/users-page-state/users-page-state.reducer';
+import { featureKeyUsersState } from './components/users-page.component/users-page-state/users-page-state.state';
+import { UsersEffects } from './components/users-page.component/users-page-state/users-page-state.effects';
 
 @NgModule({
   declarations: [
@@ -65,7 +69,8 @@ import { UserPageComponent } from './components/user-page.component/user-page.co
     SavingsFillDataDialogComponent,
     StatsPageComponent,
     StatsFillDataDialogComponent,
-    UserPageComponent
+    UserPageComponent,
+    UsersPageComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -100,8 +105,9 @@ import { UserPageComponent } from './components/user-page.component/user-page.co
     StoreModule.forFeature(featureKeySavingsState, SavingsReducer),
     StoreModule.forFeature(featureKeyStatsState, StatsReducer),
     StoreModule.forFeature(featureKeyUserState, UserReducer),
+    StoreModule.forFeature(featureKeyUsersState, UsersReducer),
    
-    EffectsModule.forRoot([AccountEffects, CategoriesEffects, TasksEffects, SavingsEffects, StatsEffects, UserEffects]),
+    EffectsModule.forRoot([AccountEffects, CategoriesEffects, TasksEffects, SavingsEffects, StatsEffects, UserEffects, UsersEffects]),
     BrowserAnimationsModule,
   ],
   providers: [
