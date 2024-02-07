@@ -77,5 +77,13 @@
     "User_Last_Name": "Nazwisko",
     "User_User_Name": "Nazwa użytkownika",
     "User_Email": "Email",
-    "User_Phone": "Telefon"
+    "User_Phone": "Telefon",
+    "Users_GUID": "GUID",
+    "Users_Role": "Rola",
+    "Users_FirstName": "Imię",
+    "Users_LastName": "Nazwisko",
+    "Users_UserName": "Nazwa",
+    "Users_Email": "Email",
+    "Users_Phone": "Telefon",
+    "Users_NotFound": "Nie znaleziono żadnych użytkowników! Zmień opcje filtrowania!"
 }

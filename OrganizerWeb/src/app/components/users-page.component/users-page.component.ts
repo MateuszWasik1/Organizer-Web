@@ -5,6 +5,7 @@ import { AppState } from '../../app.state';
 import { loadUsers } from './users-page-state/users-page-state.actions';
 import { selectUsers } from './users-page-state/users-page-state.selectors';
 import { TranslationService } from 'src/app/services/translate.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-page',
@@ -18,7 +19,9 @@ export class UsersPageComponent implements OnInit, OnDestroy {
   
   public Users$ = this.store.select(selectUsers);
 
-  constructor(public store: Store<AppState>, public translations: TranslationService)
+  constructor(public store: Store<AppState>, 
+    public translations: TranslationService,
+    public router: Router)
   {
     this.subscriptions = []
   }
@@ -26,6 +29,8 @@ export class UsersPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(loadUsers());
   }
+
+  public GoToUser = (ugid: string) => this.router.navigate(['/user']);
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

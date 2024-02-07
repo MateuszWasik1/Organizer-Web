@@ -2,44 +2,61 @@
     <section class="body">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h1 class="page-title">{{translations.Get('TopMenu_Savings')}}</h1>
+                <h1 class="page-title">{{translations.Get('TopMenu_Users')}}</h1>
             </div>
         </div>
 
         <div class="row padding-top-15 padding-bottom-15" *ngIf="users.length != 0">
-            <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                {{translations.Get('Savings_Amount')}}
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Users_GUID')}}
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                {{translations.Get('Savings_Date')}}
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                {{translations.Get('Savings_OnWhat')}}
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                {{translations.Get('Users_Role')}}
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                {{translations.Get('Savings_Where')}}
+                {{translations.Get('Users_FirstName')}}
             </div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div> -->
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Users_LastName')}}
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Users_UserName')}}
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                {{translations.Get('Users_Email')}}
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                {{translations.Get('Users_Phone')}}
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
         </div>
         <div *ngFor="let user of users;">
-            <!-- <div class="row data-row">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <p>{{saving.sAmount}}</p>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <p>{{saving.sTime | date: 'yyyy-MM-dd'}}</p>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <p>{{saving.sOnWhat}}</p>
-                </div>
+            <div class="row data-row">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <p>{{saving.sWhere}}</p>
+                    <p>{{user.ugid}}</p>
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                    <span class="bi bi-pencil" (click)="ModifySaving(saving)"></span>
-                    <span class="bi bi-trash" (click)="DeleteSaving(saving.sgid)"></span>
+                    <p>{{user.urid}}</p>
                 </div>
-            </div> -->
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{user.uFirstName}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{user.uLastName}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{user.uUserName}}</p>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <p>{{user.eEmail}}</p>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <p>{{user.uPhone}}</p>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <span class="bi bi-pencil" (click)="GoToUser(user.ugid)"></span>
+                </div>
+            </div>
         </div>
         <div class="row no-data-row" *ngIf="users.length == 0">
             <p>{{translations.Get('Savings_NotFound')}}</p>
