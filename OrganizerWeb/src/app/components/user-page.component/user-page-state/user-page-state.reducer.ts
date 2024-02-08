@@ -6,7 +6,7 @@ var initialStateOfUserPage: UserState = {
     User: {
         uid: 0,
         ugid: '',
-        urid: 0,
+        urid: 1,
         uFirstName: '',
         uLastName: '',
         uUserName: '',
@@ -27,7 +27,7 @@ export const UserReducer = createReducer<UserState>(
         User: {
             uid: 0,
             ugid: '',
-            urid: 0,
+            urid: 1,
             uFirstName: User.uFirstName,
             uLastName: User.uLastName,
             uUserName: User.uUserName,

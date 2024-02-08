@@ -32,7 +32,13 @@
                     {{translations.Get('Users_Role')}}:
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="urid"/>
+                    <mat-form-field class="margin-left-30">
+                        <mat-select [(value)]="selectedRole"> 
+                            <mat-option *ngFor="let role of roles;" [value]="role['id']">
+                                {{role['name']}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
             </div>
             <div class="row">

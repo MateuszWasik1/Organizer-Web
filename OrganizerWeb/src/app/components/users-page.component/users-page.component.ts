@@ -16,7 +16,8 @@ export class UsersPageComponent implements OnInit, OnDestroy {
   title = 'Użytkownicy - P1 - Mateusz Wąsik';
 
   public subscriptions: Subscription[];
-  
+  public roles: any;
+
   public Users$ = this.store.select(selectUsers);
 
   constructor(public store: Store<AppState>, 
@@ -28,9 +29,17 @@ export class UsersPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.dispatch(loadUsers());
+
+    this.roles = [
+      {id: '1', name: 'Użytkownik'},
+      {id: '2', name: 'Wsparcie'},
+      {id: '3', name: 'Admin'},
+    ];
   }
 
   public GoToUser = (ugid: string) => this.router.navigate([`/user/${ugid}`]);
+
+  public DisplayRoles = (role: number) => this.roles[role - 1].name;
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

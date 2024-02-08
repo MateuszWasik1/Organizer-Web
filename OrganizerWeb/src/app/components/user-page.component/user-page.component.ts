@@ -16,12 +16,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UserPageComponent implements OnInit, OnDestroy {
   title = 'Użytkownik - P1 - Mateusz Wąsik';
 
-  public IsAdminView: boolean = false
+  public IsAdminView: boolean = false;
+  public roles: any;
+  public selectedRole: any;
+  public selectedFilterRole: any;
   public subscriptions: Subscription[];
   public form: FormGroup = new FormGroup({
     uid: new FormControl(0, {validators: [] }),
     ugid: new FormControl('', {validators: [] }),
-    urid: new FormControl(0, {validators: [] }),
+    urid: new FormControl('', {validators: [] }),
     uFirstName: new FormControl('', {validators: [] }),
     uLastName: new FormControl('', {validators: [] }),
     uUserName: new FormControl({value: '', disabled: true}, {validators: [Validators.required] }),
@@ -50,10 +53,16 @@ export class UserPageComponent implements OnInit, OnDestroy {
     else
       this.store.dispatch(loadUser());
 
+    this.roles = [
+      {id: '1', name: 'Użytkownik'},
+      {id: '2', name: 'Wsparcie'},
+      {id: '3', name: 'Admin'},
+    ];
+
     this.subscriptions.push(this.User$.subscribe( user => {
       this.form.get("uid")?.setValue(user.uid);
       this.form.get("ugid")?.setValue(user.ugid);
-      this.form.get("urid")?.setValue(user.urid);
+      this.form.get("urid")?.setValue(this.roles[user.urid - 1 ?? 1].id);
       this.form.get("uFirstName")?.setValue(user.uFirstName);
       this.form.get("uLastName")?.setValue(user.uLastName);
       this.form.get("uUserName")?.setValue(user.uUserName);
@@ -63,6 +72,8 @@ export class UserPageComponent implements OnInit, OnDestroy {
       this.form.get("uTasksCount")?.setValue(user.uTasksCount);
       this.form.get("uTaskNotesCount")?.setValue(user.uTaskNotesCount);
       this.form.get("uSavingsCount")?.setValue(user.uSavingsCount);
+
+      this.selectedRole = this.roles[user.urid - 1 ?? 0].id;
     }))
   }
   public Save = () => {
