@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
 import { loadUser, loadUserByAdmin, saveUser } from './user-page-state/user-page-state.actions';
 import { selectUser } from './user-page-state/user-page-state.selectors';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-page',
@@ -16,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 export class UserPageComponent implements OnInit, OnDestroy {
   title = 'Użytkownik - P1 - Mateusz Wąsik';
 
+  public IsAdminView: boolean = false
   public subscriptions: Subscription[];
   public form: FormGroup = new FormGroup({
     uid: new FormControl(0, {validators: [] }),
@@ -36,24 +37,32 @@ export class UserPageComponent implements OnInit, OnDestroy {
 
   constructor(public store: Store<AppState>,
     public route: ActivatedRoute, 
+    public router: Router, 
     public translations: TranslationService)
   {
     this.subscriptions = []
   }
   ngOnInit(): void {
-    let ugid = this.route.snapshot.paramMap.get('ugid');
+    this.IsAdminView = this.route.snapshot.paramMap.get('ugid') != null;
 
-    if(ugid == null)
-      this.store.dispatch(loadUser());
+    if(this.IsAdminView)
+      this.store.dispatch(loadUserByAdmin({ ugid: this.route.snapshot.paramMap.get('ugid') }));
     else
-      this.store.dispatch(loadUserByAdmin({ ugid: ugid }));
+      this.store.dispatch(loadUser());
 
     this.subscriptions.push(this.User$.subscribe( user => {
+      this.form.get("uid")?.setValue(user.uid);
+      this.form.get("ugid")?.setValue(user.ugid);
+      this.form.get("urid")?.setValue(user.urid);
       this.form.get("uFirstName")?.setValue(user.uFirstName);
       this.form.get("uLastName")?.setValue(user.uLastName);
       this.form.get("uUserName")?.setValue(user.uUserName);
       this.form.get("uEmail")?.setValue(user.uEmail);
       this.form.get("uPhone")?.setValue(user.uPhone);
+      this.form.get("uCategoriesCount")?.setValue(user.uCategoriesCount);
+      this.form.get("uTasksCount")?.setValue(user.uTasksCount);
+      this.form.get("uTaskNotesCount")?.setValue(user.uTaskNotesCount);
+      this.form.get("uSavingsCount")?.setValue(user.uSavingsCount);
     }))
   }
   public Save = () => {
@@ -66,6 +75,8 @@ export class UserPageComponent implements OnInit, OnDestroy {
     }
     this.store.dispatch(saveUser({ User: model }));
   }
+
+  public Cancel = () => this.router.navigate(['/users']);
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

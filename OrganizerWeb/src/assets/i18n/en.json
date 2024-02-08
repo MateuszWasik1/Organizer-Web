@@ -84,5 +84,9 @@
     "Users_UserName": "UserName",
     "Users_Email": "Email",
     "Users_Phone": "Phone",
-    "Users_NotFound": "No users found! Change filters options!"
+    "Users_NotFound": "No users found! Change filters options!",
+    "User_Categories_Count": "Categories sum",
+    "User_Tasks_Count": "Tasks sum",
+    "User_Tasks_Notes_Count": "Tasks Notes sum",
+    "User_Savings_Count": "Savings sum"
 }

@@ -78,6 +78,7 @@
     "User_User_Name": "Nazwa użytkownika",
     "User_Email": "Email",
     "User_Phone": "Telefon",
+    "Users_ID": "ID",
     "Users_GUID": "GUID",
     "Users_Role": "Rola",
     "Users_FirstName": "Imię",
@@ -85,5 +86,9 @@
     "Users_UserName": "Nazwa",
     "Users_Email": "Email",
     "Users_Phone": "Telefon",
-    "Users_NotFound": "Nie znaleziono żadnych użytkowników! Zmień opcje filtrowania!"
+    "Users_NotFound": "Nie znaleziono żadnych użytkowników! Zmień opcje filtrowania!",
+    "User_Categories_Count": "Suma kategorii",
+    "User_Tasks_Count": "Suma zadań",
+    "User_Tasks_Notes_Count": "Suma notatek",
+    "User_Savings_Count": "Suma oszczędności"
 }
