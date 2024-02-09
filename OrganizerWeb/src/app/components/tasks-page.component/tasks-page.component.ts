@@ -129,12 +129,14 @@ export class TasksPageComponent implements OnInit, OnDestroy {
 
     this.form.get("tid")?.setValue(task.tid);
     this.form.get("tgid")?.setValue(task.tgid);
-    this.form.get("tcgid")?.setValue(task.tcgid);
+    this.form.get("tcgid")?.setValue(this.categories.find((x: any) => x.cgid == task.tcgid).cgid);
     this.form.get("tName")?.setValue(task.tName);
     this.form.get("tTime")?.setValue(task.tTime);
     this.form.get("tLocalization")?.setValue(task.tLocalization);
     this.form.get("tBudget")?.setValue(task.tBudget);
-    this.form.get("tStatus")?.setValue(task.tStatus);
+    this.form.get("tStatus")?.setValue(this.statuses[task.tStatus].id);
+    this.selectedStatus = this.statuses[task.tStatus].id
+    this.selectedCategory = this.categories.find((x: any) => x.cgid == task.tcgid).cgid
   }
 
   public Save = () => {

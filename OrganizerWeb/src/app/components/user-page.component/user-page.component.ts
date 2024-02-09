@@ -94,8 +94,6 @@ export class UserPageComponent implements OnInit, OnDestroy {
     }
     else
       this.store.dispatch(saveUser({ User: model }));
-
-    console.log(model)
   }
 
   public Cancel = () => this.router.navigate(['/users']);
