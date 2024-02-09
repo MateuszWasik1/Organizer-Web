@@ -4,12 +4,43 @@
             <h1 class="page-title">{{translations.Get('User_User')}}</h1>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+            <button mat-raised-button class="margin-right-15" (click)="Cancel()" *ngIf="IsAdminView">{{translations.Get('General_Cancel')}}</button>
             <button mat-raised-button class="primary-btn" (click)="Save()">{{translations.Get('General_Save')}}</button>
         </div>
     </div>
 
     <div class="row" [formGroup]="form">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="row" *ngIf="IsAdminView">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    {{translations.Get('Users_ID')}}:
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <input type="text" formControlName="uid"/>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsAdminView">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    {{translations.Get('Users_GUID')}}:
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <input type="text" formControlName="ugid"/>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsAdminView">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    {{translations.Get('Users_Role')}}:
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <mat-form-field class="margin-left-30">
+                        <mat-select [(value)]="selectedRole"> 
+                            <mat-option *ngFor="let role of roles;" [value]="role['id']">
+                                {{role['name']}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
                     {{translations.Get('User_First_Name')}}:
@@ -48,6 +79,38 @@
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                     <input type="text" formControlName="uPhone"/>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsAdminView">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    {{translations.Get('User_Categories_Count')}}:
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <input type="text" formControlName="uCategoriesCount"/>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsAdminView">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    {{translations.Get('User_Tasks_Count')}}:
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <input type="text" formControlName="uTasksCount"/>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsAdminView">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    {{translations.Get('User_Tasks_Notes_Count')}}:
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <input type="text" formControlName="uTaskNotesCount"/>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsAdminView">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    {{translations.Get('User_Savings_Count')}}:
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <input type="text" formControlName="uSavingsCount"/>
                 </div>
             </div>
         </div>

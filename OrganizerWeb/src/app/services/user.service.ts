@@ -11,6 +11,18 @@ export class UserService {
     public apiUrl = 'https://localhost:44393/'
     constructor( private http: HttpClient, private cookiesService: CookieService ) { }
 
+    GetAllUsers() : Observable<any>{
+        let params = new HttpParams();
+
+        return this.http.get<any>(this.apiUrl + 'api/User/GetAllUsers', { params: params, headers: GetToken(this.cookiesService) })
+    }
+
+    GetUserByAdmin(ugid: any) : Observable<any>{
+        let params = new HttpParams();
+
+        return this.http.get<any>(this.apiUrl + 'api/User/GetUserByAdmin/' + ugid, { params: params, headers: GetToken(this.cookiesService) })
+    }
+
     GetUser() : Observable<any>{
         let params = new HttpParams();
 
@@ -19,5 +31,9 @@ export class UserService {
 
     SaveUser(model: any) : Observable<any>{
         return this.http.post<any>(this.apiUrl + 'api/User/SaveUser', model, { headers: GetToken(this.cookiesService) })
+    }
+
+    SaveUserByAdmin(model: any) : Observable<any>{
+        return this.http.post<any>(this.apiUrl + 'api/User/SaveUserByAdmin', model, { headers: GetToken(this.cookiesService) })
     }
 }

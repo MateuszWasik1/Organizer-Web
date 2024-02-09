@@ -23,6 +23,7 @@
     "TopMenu_Tasks": "Tasks",
     "TopMenu_Savings": "Savings",
     "TopMenu_Stats": "Stats",
+    "TopMenu_Users": "Users",
     "Categories_Dialog_Error_Title": "Categories loading error",
     "Categories_Dialog_Error_Text": "An error occurred while loading the Categories. Do you want to load custom data?",
     "Categories_Name": "Category Name",
@@ -75,5 +76,17 @@
     "User_Last_Name": "Last Name",
     "User_User_Name": "UserName",
     "User_Email": "Email",
-    "User_Phone": "Phone"
+    "User_Phone": "Phone",
+    "Users_GUID": "GUID",
+    "Users_Role": "Role",
+    "Users_FirstName": "Name",
+    "Users_LastName": "Surname",
+    "Users_UserName": "UserName",
+    "Users_Email": "Email",
+    "Users_Phone": "Phone",
+    "Users_NotFound": "No users found! Change filters options!",
+    "User_Categories_Count": "Categories sum",
+    "User_Tasks_Count": "Tasks sum",
+    "User_Tasks_Notes_Count": "Tasks Notes sum",
+    "User_Savings_Count": "Savings sum"
 }
