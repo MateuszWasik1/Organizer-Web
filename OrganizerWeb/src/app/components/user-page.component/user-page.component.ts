@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
-import { loadUser, loadUserByAdmin, saveUser } from './user-page-state/user-page-state.actions';
+import { loadUser, loadUserByAdmin, saveUser, saveUserByAdmin } from './user-page-state/user-page-state.actions';
 import { selectUser } from './user-page-state/user-page-state.selectors';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -78,13 +78,24 @@ export class UserPageComponent implements OnInit, OnDestroy {
   }
   public Save = () => {
     let model = {
+      "UGID": '',
+      "URID": '',
       "UFirstName": this.form.get("uFirstName")?.value,
       "ULastName": this.form.get("uLastName")?.value,
       "UUserName": this.form.get("uUserName")?.value,
       "UEmail": this.form.get("uEmail")?.value,
       "UPhone": this.form.get("uPhone")?.value,
     }
-    this.store.dispatch(saveUser({ User: model }));
+
+    if(this.IsAdminView){
+      model.UGID = this.form.get("ugid")?.value
+      model.URID = this.selectedRole
+      this.store.dispatch(saveUserByAdmin({ User: model }));
+    }
+    else
+      this.store.dispatch(saveUser({ User: model }));
+
+    console.log(model)
   }
 
   public Cancel = () => this.router.navigate(['/users']);

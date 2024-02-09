@@ -11,3 +11,7 @@ export const saveUserError = createAction('[User Page] Save User Error');
 export const loadUserByAdmin = createAction('[User Page] Load User By Admin', props<{ ugid: any }>());
 export const loadUserByAdminSuccess = createAction('[User Page] Load User ByA dmin  Success', props<{ User: any }>());
 export const loadUserByAdminError = createAction('[User Page] Load User By Admin  Error');
+
+export const saveUserByAdmin = createAction('[User Page] Save User By Admin', props<{ User: any }>());
+export const saveUserByAdminSuccess = createAction('[User Page] Save User By Admin Success');
+export const saveUserByAdminError = createAction('[User Page] Save User By Admin Error');

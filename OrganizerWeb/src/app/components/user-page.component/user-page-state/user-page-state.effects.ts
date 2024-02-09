@@ -47,4 +47,16 @@ export class UserEffects {
             })
         )
     })
+
+    saveUserByAdmin = createEffect(() => {
+        return this.actions.pipe(
+            ofType(UserActions.saveUserByAdmin),
+            switchMap((params) => {
+                return this.userService.SaveUserByAdmin(params.User).pipe(
+                    map(() => UserActions.saveUserByAdminSuccess()),
+                    catchError(() => of(UserActions.saveUserByAdminError()))
+                )
+            })
+        )
+    })
 }

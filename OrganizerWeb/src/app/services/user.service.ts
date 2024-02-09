@@ -32,4 +32,8 @@ export class UserService {
     SaveUser(model: any) : Observable<any>{
         return this.http.post<any>(this.apiUrl + 'api/User/SaveUser', model, { headers: GetToken(this.cookiesService) })
     }
+
+    SaveUserByAdmin(model: any) : Observable<any>{
+        return this.http.post<any>(this.apiUrl + 'api/User/SaveUserByAdmin', model, { headers: GetToken(this.cookiesService) })
+    }
 }
