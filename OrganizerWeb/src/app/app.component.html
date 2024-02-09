@@ -5,7 +5,7 @@
         <a href="tasks">{{"TopMenu_Tasks" | translate}}</a>
         <a href="savings">{{"TopMenu_Savings" | translate}}</a>
         <a href="stats">{{"TopMenu_Stats" | translate}}</a>
-        <a href="users">{{"TopMenu_Users" | translate}}</a>
+        <a href="users" *ngIf="IsAdmin">{{"TopMenu_Users" | translate}}</a>
     </nav>
     <div class="side-menu">
         <div class="user" (click)="GoToUser()"></div>

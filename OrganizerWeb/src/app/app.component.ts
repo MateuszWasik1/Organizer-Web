@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
+import { RolesService } from './services/roles.service';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +16,14 @@ export class AppComponent {
   public stopNavigate: boolean = false;
   public hideMenu: boolean = false
   public mainClass: string = "container";
+  public IsAdmin: boolean = false;
+  public IsSupport: boolean = false;
 
   constructor(public translate: TranslateService, 
     public cookieService: CookieService, 
-    public router: Router)
+    public rolesService: RolesService, 
+    public router: Router,
+    public route: ActivatedRoute)
   {
     //routing - find if in component login or register
     this.router.events.subscribe((e) => {
@@ -41,6 +46,14 @@ export class AppComponent {
 
     translate.setDefaultLang(cookieService.get("lang"));
     this.language = cookieService.get("lang");
+
+    //GetUserRoles
+    if(!this.hideMenu){
+      this.rolesService.GetUserRoles().subscribe(x => {
+        this.IsAdmin = x.isAdmin;
+        this.IsSupport = x.isSupport;
+      });
+    }
   }
 
   public GoToUser = () => this.router.navigate(['/user']);
