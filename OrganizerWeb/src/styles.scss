@@ -106,6 +106,7 @@ body{
     color: white !important;
 }
 
+//Login / Register btns
 .form-field {
     display: block;
     width: 100%;
@@ -176,6 +177,56 @@ body{
             border-color: #275EFE;
         }
     }
+}
+
+//Data btns
+.data-input {
+    width: 268px;
+    height: 35px;
+    display: block;
+    border: none;
+    padding: 10px 16px;
+    border-bottom: solid 1px #678EFE;
+    transition: all 0.3s cubic-bezier(.64,.09,.08,1);
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 96%, #678EFE 4%);
+    background-position: -300px 0;
+    background-size: 300px 100%;
+    background-repeat: no-repeat;
+    background-color: whitesmoke;
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
+      background-position: 0 0;
+
+        &::-webkit-input-placeholder {
+            color: #678EFE;
+            font-size: 11px;
+            transform: translateY(-20px);
+            visibility: visible !important;
+            transition: all 0.3s ease-in-out;
+        }
+    }
+}
+
+.mat-mdc-form-field-bottom-align::before{
+    display: none !important; //warning! If i keep this for all mat-form fields i cannot user mat error or mat hint
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before{
+    border-bottom-color: #678EFE;
+}
+
+.mdc-text-field--filled .mdc-line-ripple::after {
+    border-bottom-color: #678EFE;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before {
+    border-bottom-color: #678EFE;
+}
+
+.mat-mdc-form-field{
+    width: 300px;
 }
 
 .error{
