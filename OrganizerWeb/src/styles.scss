@@ -190,7 +190,16 @@ body{
     }
 }
 
-//Data btns
+//Data inputs
+.data-input-text {
+    display: block;
+    border-left:8px solid #6E93FE;
+    padding-left: 15px;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
 .data-input {
     width: 268px;
     height: 35px;

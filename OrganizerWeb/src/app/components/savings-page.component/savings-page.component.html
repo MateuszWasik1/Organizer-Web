@@ -13,7 +13,9 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        {{translations.Get('Savings_Amount')}}:
+                        <span class="data-input-text">
+                            {{translations.Get('Savings_Amount')}}:
+                        </span>
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                         <input type="number" class="data-input" [placeholder]="translations.Get('Savings_Amount')"  formControlName="sAmount"/>
@@ -21,7 +23,9 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        {{translations.Get('Savings_Date')}}:
+                        <span class="data-input-text">
+                            {{translations.Get('Savings_Date')}}:
+                        </span>
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                         <input type="date" class="data-input" [placeholder]="translations.Get('Savings_Date')"  formControlName="sTime" />
@@ -29,7 +33,9 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        {{translations.Get('Savings_OnWhat')}}:
+                        <span class="data-input-text">
+                            {{translations.Get('Savings_OnWhat')}}:
+                        </span>
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                         <input type="text" class="data-input" [placeholder]="translations.Get('Savings_OnWhat')"  formControlName="sOnWhat"/>
@@ -37,7 +43,9 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        {{translations.Get('Savings_Where')}}:
+                        <span class="data-input-text">
+                            {{translations.Get('Savings_Where')}}:
+                        </span>
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                         <input type="text" class="data-input" [placeholder]="translations.Get('Savings_Where')"  step="1" formControlName="sWhere"/>
