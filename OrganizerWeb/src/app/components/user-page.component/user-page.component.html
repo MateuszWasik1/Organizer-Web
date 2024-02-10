@@ -13,23 +13,29 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="row" *ngIf="IsAdminView">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                    {{translations.Get('Users_ID')}}:
+                    <span class="data-input-text">
+                        {{translations.Get('Users_ID')}}:
+                    </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uid"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Users_ID')" formControlName="uid"/>
                 </div>
             </div>
             <div class="row" *ngIf="IsAdminView">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                    {{translations.Get('Users_GUID')}}:
+                    <span class="data-input-text">
+                        {{translations.Get('Users_GUID')}}:
+                    </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="ugid"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Users_GUID')" formControlName="ugid"/>
                 </div>
             </div>
             <div class="row" *ngIf="IsAdminView">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                    {{translations.Get('Users_Role')}}:
+                    <span class="data-input-text">
+                        {{translations.Get('Users_Role')}}:
+                    </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
                     <mat-form-field class="margin-left-30">
@@ -43,74 +49,92 @@
             </div>
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                    {{translations.Get('User_First_Name')}}:
+                    <span class="data-input-text">
+                        {{translations.Get('User_First_Name')}}:
+                    </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uFirstName"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_First_Name')" formControlName="uFirstName"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                    {{translations.Get('User_Last_Name')}}:
+                    <span class="data-input-text">
+                        {{translations.Get('User_Last_Name')}}:
+                    </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uLastName"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_Last_Name')" formControlName="uLastName"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                    {{translations.Get('User_User_Name')}}:
+                    <span class="data-input-text">
+                        {{translations.Get('User_User_Name')}}:
+                    </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uUserName"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_User_Name')" formControlName="uUserName"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                    {{translations.Get('User_Email')}}:
+                    <span class="data-input-text">
+                        {{translations.Get('User_Email')}}:
+                    </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uEmail"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_Email')" formControlName="uEmail"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                    {{translations.Get('User_Phone')}}:
+                    <span class="data-input-text">
+                        {{translations.Get('User_Phone')}}:
+                    </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uPhone"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_Phone')" formControlName="uPhone"/>
                 </div>
             </div>
             <div class="row" *ngIf="IsAdminView">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                    {{translations.Get('User_Categories_Count')}}:
+                    <span class="data-input-text">
+                        {{translations.Get('User_Categories_Count')}}:
+                    </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uCategoriesCount"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_Categories_Count')" formControlName="uCategoriesCount"/>
                 </div>
             </div>
             <div class="row" *ngIf="IsAdminView">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                    {{translations.Get('User_Tasks_Count')}}:
+                    <span class="data-input-text">
+                        {{translations.Get('User_Tasks_Count')}}:
+                    </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uTasksCount"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_Tasks_Count')" formControlName="uTasksCount"/>
                 </div>
             </div>
             <div class="row" *ngIf="IsAdminView">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                    {{translations.Get('User_Tasks_Notes_Count')}}:
+                    <span class="data-input-text">
+                        {{translations.Get('User_Tasks_Notes_Count')}}:
+                    </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uTaskNotesCount"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_Tasks_Notes_Count')" formControlName="uTaskNotesCount"/>
                 </div>
             </div>
             <div class="row" *ngIf="IsAdminView">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                    {{translations.Get('User_Savings_Count')}}:
+                    <span class="data-input-text">
+                        {{translations.Get('User_Savings_Count')}}:
+                    </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uSavingsCount"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_Savings_Count')" formControlName="uSavingsCount"/>
                 </div>
             </div>
         </div>
