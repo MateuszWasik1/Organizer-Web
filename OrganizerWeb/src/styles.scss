@@ -82,6 +82,7 @@ body{
     &:hover{
         background-color: #6E93FE;
         color: white;
+        cursor: pointer;
     }
 }
 
@@ -90,7 +91,13 @@ body{
     padding: 5px;
     background-color: #EEE;
     border-radius: 5px;
-    margin-top: 15px;
+    margin-top: 30px;
+
+    &:hover{
+        background-color: #6E93FE;
+        color: white;
+        cursor: pointer;
+    }
 }
 
 .bi{
