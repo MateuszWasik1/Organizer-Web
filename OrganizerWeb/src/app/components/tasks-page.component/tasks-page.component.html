@@ -5,7 +5,7 @@
                 <h1 class="page-title">{{translations.Get('TopMenu_Tasks')}}</h1>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                <button mat-raised-button class="primary-btn" (click)="AddTask()">{{translations.Get('General_Add')}}</button>
+                <button mat-raised-button class="primary-btn" (click)="AddTask()" *ngIf="!ShowAddModal">{{translations.Get('General_Add')}}</button>
             </div>
         </div>
 

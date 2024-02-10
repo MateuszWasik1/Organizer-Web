@@ -16,7 +16,7 @@
                     {{translations.Get('Users_ID')}}:
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uid"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Users_ID')" formControlName="uid"/>
                 </div>
             </div>
             <div class="row" *ngIf="IsAdminView">
@@ -24,7 +24,7 @@
                     {{translations.Get('Users_GUID')}}:
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="ugid"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Users_GUID')" formControlName="ugid"/>
                 </div>
             </div>
             <div class="row" *ngIf="IsAdminView">
@@ -46,7 +46,7 @@
                     {{translations.Get('User_First_Name')}}:
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uFirstName"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_First_Name')" formControlName="uFirstName"/>
                 </div>
             </div>
             <div class="row">
@@ -54,7 +54,7 @@
                     {{translations.Get('User_Last_Name')}}:
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uLastName"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_Last_Name')" formControlName="uLastName"/>
                 </div>
             </div>
             <div class="row">
@@ -62,7 +62,7 @@
                     {{translations.Get('User_User_Name')}}:
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uUserName"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_User_Name')" formControlName="uUserName"/>
                 </div>
             </div>
             <div class="row">
@@ -70,7 +70,7 @@
                     {{translations.Get('User_Email')}}:
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uEmail"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_Email')" formControlName="uEmail"/>
                 </div>
             </div>
             <div class="row">
@@ -78,7 +78,7 @@
                     {{translations.Get('User_Phone')}}:
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uPhone"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_Phone')" formControlName="uPhone"/>
                 </div>
             </div>
             <div class="row" *ngIf="IsAdminView">
@@ -86,7 +86,7 @@
                     {{translations.Get('User_Categories_Count')}}:
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uCategoriesCount"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_Categories_Count')" formControlName="uCategoriesCount"/>
                 </div>
             </div>
             <div class="row" *ngIf="IsAdminView">
@@ -94,7 +94,7 @@
                     {{translations.Get('User_Tasks_Count')}}:
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uTasksCount"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_Tasks_Count')" formControlName="uTasksCount"/>
                 </div>
             </div>
             <div class="row" *ngIf="IsAdminView">
@@ -102,7 +102,7 @@
                     {{translations.Get('User_Tasks_Notes_Count')}}:
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uTaskNotesCount"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_Tasks_Notes_Count')" formControlName="uTaskNotesCount"/>
                 </div>
             </div>
             <div class="row" *ngIf="IsAdminView">
@@ -110,7 +110,7 @@
                     {{translations.Get('User_Savings_Count')}}:
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
-                    <input type="text" formControlName="uSavingsCount"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('User_Savings_Count')" formControlName="uSavingsCount"/>
                 </div>
             </div>
         </div>

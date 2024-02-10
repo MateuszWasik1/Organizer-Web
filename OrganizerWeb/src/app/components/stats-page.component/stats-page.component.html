@@ -31,32 +31,13 @@
                 </div>
             </div>
 
-            <ng-container *ngIf="Categories$ | async as categories">
-                <div class="row" *ngIf="filter.DataType == 'category'">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
-                        {{translations.Get('Stats_Category')}}:
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 row-inputs">
-                        <mat-form-field class="margin-left-30">
-                            <mat-select (selectionChange)="changeCategory($event)">                       
-                                <mat-option *ngFor="let category of categories;" [value]="category['cgid']">
-                                    {{category['cName']}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div> 
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 row-inputs"></div>
-            </ng-container>
-
-            <div class="row">
+            <div class="row margin-top-15">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
                     {{translations.Get('Stats_DataType')}}:
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 row-inputs">
-                    <mat-form-field class="margin-left-30">
+                    <mat-form-field>
                         <mat-select [value]="defaultDataType" (selectionChange)="changeDataType($event)">
                             <mat-option *ngFor="let dataType of dataTypes;" [value]="dataType['value']">
                                 {{dataType['name']}}
@@ -64,7 +45,24 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 row-inputs"></div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" *ngIf="filter.DataType != 'category'"></div>
+
+                <ng-container *ngIf="Categories$ | async as categories">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text" *ngIf="filter.DataType == 'category'">
+                        {{translations.Get('Stats_Category')}}:
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 row-inputs" *ngIf="filter.DataType == 'category'">
+                        <mat-form-field>
+                            <mat-select (selectionChange)="changeCategory($event)">                       
+                                <mat-option *ngFor="let category of categories;" [value]="category['cgid']">
+                                    {{category['cName']}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
             </div>
 
             <div class="row">
