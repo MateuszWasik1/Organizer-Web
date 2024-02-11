@@ -4,7 +4,7 @@ import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
 import { RegisterUser } from '../account-page-state/account-page-state.actions';
-import { PasswordConsistency } from 'src/app/validators/forms.validator';
+import { PasswordConsistency, PatternValidator } from 'src/app/validators/forms.validator';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,8 +20,42 @@ export class RegisterComponent implements OnInit {
   public form = new FormGroup({
     userName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    password2: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    password: new FormControl('', 
+      [
+        Validators.required, 
+        Validators.minLength(8),
+        PatternValidator(new RegExp("(?=.*[0-9])"), {
+          requiresDigit: true
+        }),
+        PatternValidator(new RegExp("(?=.*[A-Z])"), {
+          requiresUppercase: true
+        }),
+        PatternValidator(new RegExp("(?=.*[a-z])"), {
+          requiresLowercase: true
+        }),
+        PatternValidator(new RegExp("(?=.*[$@^!%*?&])"), {
+          requiresSpecialChars: true
+        })
+      ]
+    ),
+    password2: new FormControl('', 
+      [
+        Validators.required, 
+        Validators.minLength(8),
+        PatternValidator(new RegExp("(?=.*[0-9])"), {
+          requiresDigit: true
+        }),
+        PatternValidator(new RegExp("(?=.*[A-Z])"), {
+          requiresUppercase: true
+        }),
+        PatternValidator(new RegExp("(?=.*[a-z])"), {
+          requiresLowercase: true
+        }),
+        PatternValidator(new RegExp("(?=.*[$@^!%*?&])"), {
+          requiresSpecialChars: true
+        })
+      ]
+    ),
   }, 
   {
     validators: PasswordConsistency

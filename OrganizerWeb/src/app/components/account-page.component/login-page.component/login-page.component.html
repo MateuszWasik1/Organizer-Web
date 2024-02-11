@@ -30,9 +30,6 @@
                 </div>
             </div>
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.get('password')?.errors?.['minlength']">
-            {{translations.Get('Account_Register_Validation_MinLength8')}}
-        </div>
         <div class="error row margin-bottom-15" *ngIf="this.form.get('password')?.errors?.['required']">
             {{translations.Get('Account_Register_Validation_Required')}}
         </div>
