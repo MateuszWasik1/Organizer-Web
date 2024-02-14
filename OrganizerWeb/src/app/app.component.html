@@ -1,5 +1,5 @@
 <div class="navigation" *ngIf="!hideMenu">
-    <div style="width: 10%;"></div>
+    <div class="left-panel"></div>
     <nav>
         <a href="categories">{{"TopMenu_Categories" | translate}}</a>
         <a href="tasks">{{"TopMenu_Tasks" | translate}}</a>
@@ -7,6 +7,20 @@
         <a href="stats">{{"TopMenu_Stats" | translate}}</a>
         <a href="users" *ngIf="IsAdmin">{{"TopMenu_Users" | translate}}</a>
     </nav>
+    <div class="mobile-navigation">
+        <div class="mobile-navigation-button"> 
+            <span class="bi bi-list" (click)="ToggleMobileMenu()"></span> 
+        </div> 
+        <div class="mobile-menu" [ngClass]="IsMobileMenuActive ? 'mobile-menu-active' : 'mobile-menu-inactive'"> 
+            <div class="mobile-menu-container"> 
+                <a href="categories">{{"TopMenu_Categories" | translate}}</a>
+                <a href="tasks">{{"TopMenu_Tasks" | translate}}</a>
+                <a href="savings">{{"TopMenu_Savings" | translate}}</a>
+                <a href="stats">{{"TopMenu_Stats" | translate}}</a>
+                <a href="users" *ngIf="IsAdmin">{{"TopMenu_Users" | translate}}</a>
+            </div>
+        </div>
+    </div>
     <div class="side-menu">
         <div class="user" (click)="GoToUser()"></div>
         <div class="pl" *ngIf="language == 'en'" (click)="ChangeLanguage('pl')"></div>
