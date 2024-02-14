@@ -1,10 +1,10 @@
 <ng-container *ngIf="Categories$ | async as categories">
     <section class="body">
         <div class="row">
-            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9">
                 <h1 class="page-title">{{translations.Get('TopMenu_Categories')}}</h1>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                 <button mat-raised-button class="primary-btn" (click)="AddCategory()" *ngIf="!ShowAddModal">{{translations.Get('General_Add')}}</button>
             </div>
         </div>
@@ -12,42 +12,42 @@
         <div class="row categories-row" *ngIf="ShowAddModal" [formGroup]="form">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
                         <span class="data-input-text">
                             {{translations.Get('Categories_Name')}}:
                         </span>
                     </div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                         <input type="text" class="data-input" [placeholder]="translations.Get('Categories_Name')" formControlName="cName"/>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
                         <span class="data-input-text">
                             {{translations.Get('Categories_StartDate')}}:
                         </span>
                     </div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                         <input type="date" class="data-input" [placeholder]="translations.Get('Categories_StartDate')" formControlName="cStartDate" />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
                         <span class="data-input-text">
                             {{translations.Get('Categories_EndDate')}}:
                         </span>
                     </div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                         <input type="date" class="data-input" [placeholder]="translations.Get('Categories_EndDate')" formControlName="cEndDate"/>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
                         <span class="data-input-text">
                             {{translations.Get('Categories_Budget')}}:
                         </span>
                     </div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                         <input type="number" class="data-input" [placeholder]="translations.Get('Categories_Budget')" step="1" formControlName="cBudget"/>
                     </div>
                 </div>
@@ -85,10 +85,10 @@
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                 {{translations.Get('Categories_EndDate')}}
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-xs">
                 {{translations.Get('Categories_Budget')}}
             </div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3"></div>
         </div>
         <div *ngFor="let category of categories;">
             <div class="row data-row">
@@ -101,10 +101,10 @@
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <p>{{category.cEndDate | date: 'yyyy-MM-dd'}}</p>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-xs">
                     <p>{{category.cBudget}}</p>
                 </div>
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
                     <span class="bi bi-pencil" (click)="ModifyCategory(category)"></span>
                     <span class="bi bi-trash" (click)="DeleteCategory(category.cgid)"></span>
                 </div>
