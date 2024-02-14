@@ -6,11 +6,11 @@
                     <h1 class="page-title">{{translations.Get('TopMenu_Stats')}}</h1>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <div class="row filter-row">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                     {{translations.Get('Stats_StartDate')}}:
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <mat-form-field>
                         <mat-label>{{translations.Get('Stats_ChooseStartDate')}}</mat-label>
                         <input matInput [matDatepicker]="startDate" [value]="filter.StartDate" (dateChange)="setMonthAndYear($event, startDate, true)">
@@ -18,10 +18,10 @@
                         <mat-datepicker #startDate startView="year"></mat-datepicker>
                     </mat-form-field>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                     {{translations.Get('Stats_EndDate')}}:
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <mat-form-field>
                         <mat-label>{{translations.Get('Stats_ChooseEndDate')}}</mat-label>
                         <input matInput [matDatepicker]="endDate" [value]="filter.EndDate" (dateChange)="setMonthAndYear($event, endDate, false)">
@@ -31,12 +31,12 @@
                 </div>
             </div>
 
-            <div class="row margin-top-15">
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+            <div class="row margin-top-15 filter-row">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
                     {{translations.Get('Stats_DataType')}}:
                 </div>
 
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 row-inputs">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 row-inputs">
                     <mat-form-field>
                         <mat-select [value]="defaultDataType" (selectionChange)="changeDataType($event)">
                             <mat-option *ngFor="let dataType of dataTypes;" [value]="dataType['value']">
@@ -46,14 +46,14 @@
                     </mat-form-field>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" *ngIf="filter.DataType != 'category'"></div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngIf="filter.DataType != 'category'"></div>
 
                 <ng-container *ngIf="Categories$ | async as categories">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text" *ngIf="filter.DataType == 'category'">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text" *ngIf="filter.DataType == 'category'">
                         {{translations.Get('Stats_Category')}}:
                     </div>
 
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 row-inputs" *ngIf="filter.DataType == 'category'">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 row-inputs" *ngIf="filter.DataType == 'category'">
                         <mat-form-field>
                             <mat-select (selectionChange)="changeCategory($event)">                       
                                 <mat-option *ngFor="let category of categories;" [value]="category['cgid']">
