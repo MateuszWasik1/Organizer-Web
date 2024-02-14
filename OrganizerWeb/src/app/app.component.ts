@@ -18,6 +18,7 @@ export class AppComponent {
   public mainClass: string = "container";
   public IsAdmin: boolean = false;
   public IsSupport: boolean = false;
+  public IsMobileMenuActive : boolean = false;
 
   constructor(public translate: TranslateService, 
     public cookieService: CookieService, 
@@ -55,6 +56,8 @@ export class AppComponent {
       });
     }
   }
+
+  public ToggleMobileMenu = () => this.IsMobileMenuActive = !this.IsMobileMenuActive;
 
   public GoToUser = () => this.router.navigate(['/user']);
 
