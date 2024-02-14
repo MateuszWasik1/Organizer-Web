@@ -413,6 +413,14 @@ body{
     .data-input-text {
         padding-left: 22px;
     }
+
+    .filter-row{
+        text-align: left;
+
+        > div{
+            margin-bottom: 15px;
+        }
+    }
 }
 
 @media screen and (max-width: 768px){
@@ -466,6 +474,10 @@ body{
     }
 
     .hidden-xs{
+        display: none;
+    }
+
+    .hidden-sm{
         display: none;
     }
 

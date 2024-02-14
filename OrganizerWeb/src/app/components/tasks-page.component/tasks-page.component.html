@@ -1,10 +1,10 @@
 <ng-container *ngIf="Tasks$ | async as tasks">
     <section class="body">
         <div class="row">
-            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9">
                 <h1 class="page-title">{{translations.Get('TopMenu_Tasks')}}</h1>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                 <button mat-raised-button class="primary-btn" (click)="AddTask()" *ngIf="!ShowAddModal">{{translations.Get('General_Add')}}</button>
             </div>
         </div>
@@ -12,22 +12,22 @@
         <div class="row categories-row" *ngIf="ShowAddModal" [formGroup]="form">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
                         <span class="data-input-text">
                             {{translations.Get('Tasks_Name')}}:
                         </span>
                     </div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                         <input type="text" class="data-input" [placeholder]="translations.Get('Tasks_Name')" formControlName="tName" required/>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
                         <span class="data-input-text">
                             {{translations.Get('Tasks_Date')}}:
                         </span>
                     </div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                         <mat-form-field class="margin-left-30">
                             <input matInput [ngxMatDatetimePicker]="picker" placeholder="Wybierz datę i czas" formControlName="tTime">
                             <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
@@ -54,32 +54,32 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
                         <span class="data-input-text">
                             {{translations.Get('Tasks_Localization')}}:
                         </span>
                     </div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                         <input type="text" class="data-input" [placeholder]="translations.Get('Tasks_Localization')" formControlName="tLocalization" required/>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
                         <span class="data-input-text">
                             {{translations.Get('Tasks_Budget')}}:
                         </span>
                     </div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                         <input type="number" class="data-input" [placeholder]="translations.Get('Tasks_Budget')" step="1" formControlName="tBudget" required/>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
                         <span class="data-input-text">
                             {{translations.Get('Tasks_Status')}}:
                         </span>
                     </div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                         <mat-form-field class="margin-left-30">
                             <mat-select [(value)]="selectedStatus"> 
                                 <mat-option *ngFor="let status of statuses;" [value]="status['id']">
@@ -91,13 +91,13 @@
                 </div>
                 <ng-container *ngIf="Categories$ | async as categories">
                     <div class="row">
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row-text">
+                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
                             <span class="data-input-text">
                                 {{translations.Get('Tasks_Categories')}}:
                             </span>
                         </div>
 
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row-inputs">
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                             <mat-form-field class="margin-left-30">
                                 <mat-select [(value)]="selectedCategory" (selectionChange)="TaskCategoryChange($event)">
                                     <mat-option *ngFor="let category of categories;" [value]="category['cgid']">
@@ -160,12 +160,12 @@
             </div>
         </div>
 
-        <div class="row padding-top-15">
+        <div class="row padding-top-15 filter-row">
             <ng-container *ngIf="Categories$ | async as categories">
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">   
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">   
                     {{translations.Get('Tasks_Categories')}}:
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <mat-form-field>
                         <mat-select [(value)]="selectedFilterCategory" (selectionChange)="ChangeCategoryFilterValue($event)">
                             <mat-option *ngFor="let category of categories;" [value]="category['cgid']">
@@ -175,10 +175,10 @@
                     </mat-form-field>
                 </div>
             </ng-container>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">   
+            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">   
                 {{translations.Get('Tasks_Status')}}:
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <mat-form-field>
                     <mat-select [(value)]="selectedFilterStatus" (selectionChange)="ChangeStatusFilterValue($event)">                   
                         <mat-option *ngFor="let status of statuses;" [value]="status['id']">
@@ -193,38 +193,38 @@
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                 {{translations.Get('Tasks_Name')}}
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                 {{translations.Get('Tasks_Date')}}
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
                 {{translations.Get('Tasks_Localization')}}
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-xs">
                 {{translations.Get('Tasks_Budget')}}
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-sm hidden-xs">
                 {{translations.Get('Tasks_Status')}}
             </div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            <div class="col-lg-1 col-md-1 col-sm-2 col-xs-3"></div>
         </div>
         <div *ngFor="let task of tasks;">
             <div class="row data-row">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <p>{{task.tName}}</p>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                     <p>{{task.tTime | date: 'yyyy-MM-dd HH:mm'}}</p>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
                     <p>{{task.tLocalization}}</p>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-xs">
                     <p>{{task.tBudget}}</p>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-sm hidden-xs">
                     <p>{{DisplayStatus(task.tStatus)}}</p>
                 </div>
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-3">
                     <span class="bi bi-pencil" (click)="ModifyTask(task)"></span>
                     <span class="bi bi-trash" (click)="DeleteTask(task.tgid)"></span>
                 </div>
