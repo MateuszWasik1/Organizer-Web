@@ -10,11 +10,6 @@ import { UserPageComponent } from './components/user-page.component/user-page.co
 import { UsersPageComponent } from './components/users-page.component/users-page.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   pathMatch: 'full',
-  //   component: mainPageComponent
-  // },
   {
     path: 'register',
     component: RegisterComponent
