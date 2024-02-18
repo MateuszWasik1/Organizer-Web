@@ -74,11 +74,14 @@ body{
     background-color: #EEE;
     border-radius: 5px;
     margin-bottom: 5px;
+    border-left: 10px solid #6E93FE;
+    border-right: 10px solid #6E93FE;
 
     p{
         word-wrap: break-word;
         word-break: break-word;
     }
+
     &:hover{
         background-color: #6E93FE;
         color: white;
@@ -92,6 +95,8 @@ body{
     background-color: #EEE;
     border-radius: 5px;
     margin-top: 30px;
+    border-left: 10px solid #6E93FE;
+    border-right: 10px solid #6E93FE;
 
     &:hover{
         background-color: #6E93FE;
@@ -227,6 +232,12 @@ body{
             transition: all 0.3s ease-in-out;
         }
     }
+}
+
+@media screen and (max-width: 410px) {
+    .data-input {
+        width: 200px;
+    }   
 }
 
 .mat-mdc-form-field-bottom-align::before{
