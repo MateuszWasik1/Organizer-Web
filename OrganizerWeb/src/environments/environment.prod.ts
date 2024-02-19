@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: "https://organiserapi.azurewebsites.net/api"
+    apiUrl: "https://organiserapi.azurewebsites.net/"
 }
