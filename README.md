@@ -25,3 +25,8 @@ Dokumentacja dostępna jest pod linkiem:
 https://github.com/MateuszWasik1/Organizer-Web/blob/master/Dokumentacja%20-%20Web.pdf
 
 Bądź bezpośrednio wchodząc z poziomu głównego menu tego repozytorium pod nazwą: "Dokumentacja - Web.pdf" 
+
+
+# Aplikacja 
+
+Aplikacja również jest dostępna online, na portalu Azure: https://organiserweb.azurewebsites.net/login  
