@@ -93,5 +93,12 @@
     "User_Categories_Count": "Categories sum",
     "User_Tasks_Count": "Tasks sum",
     "User_Tasks_Notes_Count": "Tasks Notes sum",
-    "User_Savings_Count": "Savings sum"
+    "User_Savings_Count": "Savings sum",
+    "Bugs_Title": "Title",
+    "Bugs_Text": "Message",
+    "Bugs_Support": "Support",
+    "Bugs_Date": "Date",
+    "Bugs_Status": "Status",
+    "Bugs_NotFound_Admin": "No bugs found! Change filters options!",
+    "Bugs_NotFound_User": "No bugs found! Report new errors by add button!"
 }
