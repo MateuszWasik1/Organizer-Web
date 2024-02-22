@@ -1,8 +1,8 @@
 import { createAction, props } from '@ngrx/store'
 
-// export const loadCategories = createAction('[Categories Page] Load Categories');
-// export const loadCategoriesSuccess = createAction('[Categories Page] Load Categories Success', props<{ Categories: any }>());
-// export const loadCategoriesError = createAction('[Categories Page] Load Categories Error');
+export const loadBugs = createAction('[Bugs Page] Load Bugs');
+export const loadBugsSuccess = createAction('[Bugs Page] Load Bugs Success', props<{ Bugs: any }>());
+export const loadBugsError = createAction('[Bugs Page] Load Bugs Error');
 
 // export const saveCategory = createAction('[Categories Page] Save Categories', props<{ category: any }>());
 // export const saveCategorySuccess = createAction('[Categories Page] Save Categories Success', props<{ category: any }>());

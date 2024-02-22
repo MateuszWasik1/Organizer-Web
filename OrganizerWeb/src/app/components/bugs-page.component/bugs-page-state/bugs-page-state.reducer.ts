@@ -12,10 +12,10 @@ var initialStateOfBugsPage: BugsState = {
 export const BugsReducer = createReducer<BugsState>(
     initialStateOfBugsPage,
 
-    // on(Actions.loadCategoriesSuccess, (state, { Categories }) => ({
-    //     ...state,
-    //     Categories: Categories
-    // })),
+    on(Actions.loadBugsSuccess, (state, { Bugs }) => ({
+        ...state,
+        Bugs: Bugs
+    })),
 
     // on(Actions.loadCategoriesError, state => ({
     //     ...state,

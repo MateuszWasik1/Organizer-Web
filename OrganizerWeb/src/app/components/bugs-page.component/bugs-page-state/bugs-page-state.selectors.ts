@@ -3,7 +3,7 @@ import { BugsState, featureKeyBugsState } from "./bugs-page-state.state";
 
 const selectBugsState = createFeatureSelector<BugsState>(featureKeyBugsState)
 
-// export const selectCategories = createSelector(selectCategoriesState, (state: CategoriesState) => state.Categories)
+export const selectBugs = createSelector(selectBugsState, (state: BugsState) => state.Bugs)
 
 // export const selectFilters= createSelector(selectCategoriesState, (state: CategoriesState) => state.Filters)
 

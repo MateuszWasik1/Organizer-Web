@@ -1,30 +1,30 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, switchMap, withLatestFrom} from "rxjs/operators";
-// import * as CategoriesActions from "./categories-page-state.actions"
+import { catchError, map, switchMap } from "rxjs/operators";
+import * as BugsActions from "./bugs-page-state.actions"
 import { AppState } from "src/app/app.state";
 import { Store } from "@ngrx/store";
-// import { selectFilters } from "./categories-page-state.selectors";
+import { BugsService } from "src/app/services/bugs.service";
 
 @Injectable()
 export class BugsEffects {
     constructor(
         private actions: Actions,
-        private store: Store<AppState>) {
+        private store: Store<AppState>,
+        private bugsService: BugsService) {
     }
-    // loadCategories = createEffect(() => {
-    //     return this.actions.pipe(
-    //         ofType(CategoriesActions.loadCategories),
-    //         withLatestFrom(this.store.select(selectFilters)),
-    //         switchMap((params) => {
-    //             return this.categoriesService.getCategories(params[1].Date.date, false).pipe(
-    //                 map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
-    //                 catchError(() => of(CategoriesActions.loadCategoriesError()))
-    //             )
-    //         })
-    //     )
-    // })
+    loadCategories = createEffect(() => {
+        return this.actions.pipe(
+            ofType(BugsActions.loadBugs),
+            switchMap((params) => {
+                return this.bugsService.GetBugs().pipe(
+                    map((result) => BugsActions.loadBugsSuccess({ Bugs: result })),
+                    catchError(() => of(BugsActions.loadBugsError()))
+                )
+            })
+        )
+    })
 
     // saveCategory = createEffect(() => {
     //     return this.actions.pipe(
