@@ -59,6 +59,7 @@ import { BugsPageComponent } from './components/bugs-page.component/bugs-page.co
 import { featureKeyBugsState } from './components/bugs-page.component/bugs-page-state/bugs-page-state.state';
 import { BugsReducer } from './components/bugs-page.component/bugs-page-state/bugs-page-state.reducer';
 import { BugsEffects } from './components/bugs-page.component/bugs-page-state/bugs-page-state.effects';
+import { BugPageComponent } from './components/bugs-page.component/bug-page.component/bug-page.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { BugsEffects } from './components/bugs-page.component/bugs-page-state/bu
     UserPageComponent,
     UsersPageComponent,
     BugsPageComponent,
+    BugPageComponent,
   ],
   imports: [
     ReactiveFormsModule,

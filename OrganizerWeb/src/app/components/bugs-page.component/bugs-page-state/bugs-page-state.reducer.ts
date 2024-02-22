@@ -32,12 +32,7 @@ export const BugsReducer = createReducer<BugsState>(
         }
     })),
 
-    // on(Actions.loadCategoriesError, state => ({
-    //     ...state,
-    //     IsCategoriesError: true,
-    // })),
-
-    // on(Actions.saveCategorySuccess, (state, { category }) => {
+    // on(Actions.saveBugSuccess, (state, { bug }) => {
     //     let newCategories = [...state.Categories];
 
     //     let newModel = {
@@ -59,21 +54,5 @@ export const BugsReducer = createReducer<BugsState>(
 
     //     return {...state, Categories: newCategories};
     // }),
-    // on(Actions.changeDateFilter, (state, { date }) => ({
-    //     ...state,
-    //     Filters: {
-    //         ...state.Filters,
-    //         Date: date,
-    //     }
-    // })),
 
-    // on(Actions.deleteCategory, (state, { cGID }) => {
-    //     let newCategories = [...state.Categories];
-    //     let existingCategoryIndex = newCategories.findIndex(x => x.cgid == cGID);
-
-    //     if(existingCategoryIndex != -1)
-    //         newCategories.splice(existingCategoryIndex, 1)
-
-    //     return {...state, Categories: newCategories};
-    // }),
 ) 

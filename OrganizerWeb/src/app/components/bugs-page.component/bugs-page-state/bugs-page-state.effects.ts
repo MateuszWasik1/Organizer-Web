@@ -1,17 +1,18 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, switchMap } from "rxjs/operators";
+import { catchError, map, switchMap, tap } from "rxjs/operators";
 import * as BugsActions from "./bugs-page-state.actions"
 import { AppState } from "src/app/app.state";
 import { Store } from "@ngrx/store";
 import { BugsService } from "src/app/services/bugs.service";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class BugsEffects {
     constructor(
         private actions: Actions,
-        private store: Store<AppState>,
+        private router: Router,
         private bugsService: BugsService) {
     }
 
@@ -39,15 +40,16 @@ export class BugsEffects {
         )
     })
 
-    // saveCategory = createEffect(() => {
-    //     return this.actions.pipe(
-    //         ofType(CategoriesActions.saveCategory),
-    //         switchMap((params) => {
-    //             return this.categoriesService.saveCategories(params.category).pipe(
-    //                 map(() => CategoriesActions.saveCategorySuccess({ category: params.category })),
-    //                 catchError(() => of(CategoriesActions.loadCategoriesError()))
-    //             )
-    //         })
-    //     )
-    // })
+    saveBug = createEffect(() => {
+        return this.actions.pipe(
+            ofType(BugsActions.saveBug),
+            switchMap((params) => {
+                return this.bugsService.SaveBug(params.bug).pipe(
+                    map(() => BugsActions.saveBugSuccess({ bug: params.bug })),
+                    tap(x => this.router.navigate(['bugs'])),
+                    catchError(() => of(BugsActions.saveBugError()))
+                )
+            })
+        )
+    })
 }

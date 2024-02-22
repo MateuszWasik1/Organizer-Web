@@ -25,7 +25,7 @@ export class BugsService {
         return this.http.get<any>(this.apiUrl + 'api/Bugs/GetBug', { params: params, headers: GetToken(this.cookiesService)});
     }
     
-    // saveCategories(model: any) : Observable<any>{
-    //     return this.http.post<any>(this.apiUrl + 'api/Categories/Save', model, { headers: GetToken(this.cookiesService) })
-    // }
+    SaveBug(model: any) : Observable<any>{
+        return this.http.post<any>(this.apiUrl + 'api/Bugs/GetBug', model, { headers: GetToken(this.cookiesService) })
+    }
 }

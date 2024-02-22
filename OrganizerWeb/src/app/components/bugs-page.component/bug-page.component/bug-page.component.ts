@@ -3,9 +3,8 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { formatDate } from '@angular/common';
-import { selectBugs } from '../bugs-page-state/bugs-page-state.selectors';
-import { loadBug } from '../bugs-page-state/bugs-page-state.actions';
+import { selectBug } from '../bugs-page-state/bugs-page-state.selectors';
+import { loadBug, saveBug } from '../bugs-page-state/bugs-page-state.actions';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -20,9 +19,8 @@ export class BugPageComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[];
   public ShowAddModal: boolean = false;
   public form: FormGroup = new FormGroup({});
-  public filterForm: FormGroup = new FormGroup({});
   
-  public Bug$ = this.store.select(selectBugs);
+  public Bug$ = this.store.select(selectBug);
 
   constructor(public store: Store<AppState>, 
     public translations: TranslationService,
@@ -31,23 +29,31 @@ export class BugPageComponent implements OnInit, OnDestroy {
     this.subscriptions = []
   }
   ngOnInit(): void {
-    let bgid = this.route.snapshot.paramMap.get('ugid');
+    let bgid = this.route.snapshot.paramMap.get('bgid');
 
     if(bgid != "0")
       this.store.dispatch(loadBug({ bgid: bgid }));
-    
+
+    this.subscriptions.push(
+      this.Bug$.subscribe(x =>{
+        console.log(x)
+        this.form = new FormGroup({
+          bTitle: new FormControl( x.bTitle, { validators: [Validators.maxLength(200)] }),
+          bText:  new FormControl( x.bText, { validators: [Validators.maxLength(4000)] }),
+          bStatus:  new FormControl( x.bStatus, { validators: [] }),
+        })
+      })
+    )
   }
 
   public SaveBug = () => {
-    // let model = {
-    //   "CID": this.form.get("cid")?.value,
-    //   "CGID": this.form.get("cgid")?.value,
-    //   "CName": this.form.get("cName")?.value,
-    //   "CStartDate": this.form.get("cStartDate")?.value,
-    //   "CEndDate": this.form.get("cEndDate")?.value,
-    //   "CBudget": this.form.get("cBudget")?.value,
-    // }
-    // this.store.dispatch(saveCategory({ category: model }));
+    let model = {
+      "BTitle": this.form.get("bTitle")?.value,
+      "BText": this.form.get("bText")?.value,
+      "BStatus": this.form.get("bStatus")?.value,
+    }
+    
+    this.store.dispatch(saveBug({ bug: model }));
   }
 
   ngOnDestroy() {
