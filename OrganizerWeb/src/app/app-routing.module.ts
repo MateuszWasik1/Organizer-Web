@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/account-page.component/register-
 import { LoginComponent } from './components/account-page.component/login-page.component/login-page.component';
 import { UserPageComponent } from './components/user-page.component/user-page.component';
 import { UsersPageComponent } from './components/users-page.component/users-page.component';
+import { BugsPageComponent } from './components/bugs-page.component/bugs-page.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersPageComponent
+  },
+  {
+    path: 'bugs',
+    component: BugsPageComponent
   },
   {
     path: '**',

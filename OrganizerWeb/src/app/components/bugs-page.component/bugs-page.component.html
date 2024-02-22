@@ -1,15 +1,15 @@
-<!-- <ng-container *ngIf="Categories$ | async as categories">
+<ng-container *ngIf="Bugs$ | async as bugs">
     <section class="body">
         <div class="row">
             <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9">
-                <h1 class="page-title">{{translations.Get('TopMenu_Categories')}}</h1>
+                <h1 class="page-title">{{translations.Get('TopMenu_Bugs')}}</h1>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
-                <button mat-raised-button class="primary-btn" (click)="AddCategory()" *ngIf="!ShowAddModal">{{translations.Get('General_Add')}}</button>
+                <button mat-raised-button class="primary-btn" (click)="AddBug()" *ngIf="!ShowAddModal">{{translations.Get('General_Add')}}</button>
             </div>
         </div>
 
-        <div class="row categories-row" *ngIf="ShowAddModal" [formGroup]="form">
+        <!-- <div class="row categories-row" *ngIf="ShowAddModal" [formGroup]="form">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
@@ -58,9 +58,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <div class="row margin-top-15 filter-row" [formGroup]="filterForm">
+        <!-- <div class="row margin-top-15 filter-row" [formGroup]="filterForm">
             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                 {{translations.Get('General_ChooseDate')}}:
             </div>
@@ -73,45 +73,51 @@
                 </mat-form-field>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
-        </div>
+        </div> -->
 
-        <div class="row padding-top-15 padding-bottom-15" *ngIf="categories.length != 0">
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                {{translations.Get('Categories_Name')}}
+        <div class="row padding-top-15 padding-bottom-15" *ngIf="bugs.length != 0">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Bugs_Title')}}
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                {{translations.Get('Categories_StartDate')}}
+                {{translations.Get('Bugs_Text')}}
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                {{translations.Get('Categories_EndDate')}}
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Bugs_Support')}}
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-xs">
-                {{translations.Get('Categories_Budget')}}
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Bugs_Date')}}
             </div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3"></div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Bugs_Status')}}
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
         </div>
-        <div *ngFor="let category of categories;">
+        <div *ngFor="let bug of bugs;">
             <div class="row data-row">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <p>{{category.cName}}</p>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{bug.BTitle}}</p>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <p>{{category.cStartDate | date: 'yyyy-MM-dd'}}</p>
+                    <p>{{bug.BText}}</p>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <p>{{category.cEndDate | date: 'yyyy-MM-dd'}}</p>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{bug.BVerifiers}}</p>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-xs">
-                    <p>{{category.cBudget}}</p>
+                <!-- Powyżej tylko dla Admina  i Supportu ??? -->
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{bug.BDate}}</p>
                 </div>
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
-                    <span class="bi bi-pencil" (click)="ModifyCategory(category)"></span>
-                    <span class="bi bi-trash" (click)="DeleteCategory(category.cgid)"></span>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{bug.BStatus}}</p>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <span class="bi bi-pencil" (click)="ModifyBug(bug)"></span>
                 </div>
             </div>
         </div>
-        <div class="row no-data-row" *ngIf="categories.length == 0">
-            <p>{{translations.Get('Categories_NotFound')}}</p>
+        <div class="row no-data-row" *ngIf="bugs.length == 0">
+            <p>{{translations.Get('Bugs_NotFound_User')}}</p>
         </div>
     </section>
-</ng-container> -->
+</ng-container>
