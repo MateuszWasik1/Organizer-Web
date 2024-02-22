@@ -26,6 +26,6 @@ export class BugsService {
     }
     
     SaveBug(model: any) : Observable<any>{
-        return this.http.post<any>(this.apiUrl + 'api/Bugs/GetBug', model, { headers: GetToken(this.cookiesService) })
+        return this.http.post<any>(this.apiUrl + 'api/Bugs/SaveBug', model, { headers: GetToken(this.cookiesService) })
     }
 }
