@@ -9,6 +9,7 @@ import { LoginComponent } from './components/account-page.component/login-page.c
 import { UserPageComponent } from './components/user-page.component/user-page.component';
 import { UsersPageComponent } from './components/users-page.component/users-page.component';
 import { BugsPageComponent } from './components/bugs-page.component/bugs-page.component';
+import { BugPageComponent } from './components/bugs-page.component/bug-page.component/bug-page.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'bugs',
     component: BugsPageComponent
+  },
+  {
+    path: 'bugs/:bgid',
+    component: BugPageComponent
   },
   {
     path: '**',

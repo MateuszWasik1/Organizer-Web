@@ -1,0 +1,51 @@
+    <!-- <section class="body">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9">
+                <h1 class="page-title">{{translations.Get('TopMenu_Bugs')}}</h1>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                <button mat-raised-button class="primary-btn" (click)="AddBug()" *ngIf="!ShowAddModal">{{translations.Get('General_Add')}}</button>
+            </div>
+        </div>
+
+        <div class="row padding-top-15 padding-bottom-15" *ngIf="bugs.length != 0">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Bugs_Title')}}
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                {{translations.Get('Bugs_Text')}}
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Bugs_Support')}}
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Bugs_Date')}}
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Bugs_Status')}}
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+        </div>
+        <div *ngFor="let bug of bugs;">
+            <div class="row data-row">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{bug.BTitle}}</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <p>{{bug.BText}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{bug.BVerifiers}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{bug.BDate}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{bug.BStatus}}</p>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <span class="bi bi-pencil" (click)="ModifyBug(bug)"></span>
+                </div>
+            </div>
+        </div>
+    </section> -->

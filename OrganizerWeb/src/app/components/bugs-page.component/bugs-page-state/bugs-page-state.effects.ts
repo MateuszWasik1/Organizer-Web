@@ -14,11 +14,24 @@ export class BugsEffects {
         private store: Store<AppState>,
         private bugsService: BugsService) {
     }
-    loadCategories = createEffect(() => {
+
+    loadBugs = createEffect(() => {
         return this.actions.pipe(
             ofType(BugsActions.loadBugs),
             switchMap((params) => {
                 return this.bugsService.GetBugs().pipe(
+                    map((result) => BugsActions.loadBugsSuccess({ Bugs: result })),
+                    catchError(() => of(BugsActions.loadBugsError()))
+                )
+            })
+        )
+    })
+
+    loadBug = createEffect(() => {
+        return this.actions.pipe(
+            ofType(BugsActions.loadBug),
+            switchMap((params) => {
+                return this.bugsService.GetBug(params.bgid).pipe(
                     map((result) => BugsActions.loadBugsSuccess({ Bugs: result })),
                     catchError(() => of(BugsActions.loadBugsError()))
                 )

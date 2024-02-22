@@ -1,0 +1,31 @@
+.categories-row{
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; 
+}
+.row-text{
+    text-align: right;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.row-inputs{
+    text-align: left;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    input{
+        margin-left: 30px
+    }
+}
+
+
+@media screen and (max-width: 992px) {
+    .row-text{
+        text-align: left; 
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .row-text{
+        text-align: left; 
+    }
+}
