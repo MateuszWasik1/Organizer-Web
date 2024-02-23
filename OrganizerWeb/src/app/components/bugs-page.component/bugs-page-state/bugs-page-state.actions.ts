@@ -12,4 +12,8 @@ export const saveBug = createAction('[Bugs Page] Save Bug', props<{ bug: any }>(
 export const saveBugSuccess = createAction('[Bugs Page] Save Bug Success', props<{ bug: any }>());
 export const saveBugError = createAction('[Bugs Page] Save Bug Error');
 
+export const changeBugStatus = createAction('[Bugs Page] Change Bug Status', props<{ model: any }>());
+export const changeBugStatusSuccess = createAction('[Bugs Page] Change Bug Status Success', props<{ status: any }>());
+export const changeBugStatusError = createAction('[Bugs Page] Change Bug Status Error');
+
 // export const changeDateFilter = createAction('[Categories Page] Save Categories Error', props<{ date: any }>());

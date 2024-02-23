@@ -33,8 +33,8 @@ export class BugsEffects {
             ofType(BugsActions.loadBug),
             switchMap((params) => {
                 return this.bugsService.GetBug(params.bgid).pipe(
-                    map((result) => BugsActions.loadBugsSuccess({ Bugs: result })),
-                    catchError(() => of(BugsActions.loadBugsError()))
+                    map((result) => BugsActions.loadBugSuccess({ Bug: result })),
+                    catchError(() => of(BugsActions.loadBugError()))
                 )
             })
         )
@@ -48,6 +48,19 @@ export class BugsEffects {
                     map(() => BugsActions.saveBugSuccess({ bug: params.bug })),
                     tap(x => this.router.navigate(['bugs'])),
                     catchError(() => of(BugsActions.saveBugError()))
+                )
+            })
+        )
+    })
+
+    
+    changeBugStatus = createEffect(() => {
+        return this.actions.pipe(
+            ofType(BugsActions.changeBugStatus),
+            switchMap((params) => {
+                return this.bugsService.ChangeBugStatus(params.model).pipe(
+                    map(() => BugsActions.changeBugStatusSuccess({ status: params.model.status })),
+                    catchError(() => of(BugsActions.changeBugStatusError()))
                 )
             })
         )

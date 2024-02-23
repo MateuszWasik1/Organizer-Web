@@ -17,8 +17,9 @@ export class BugPageComponent implements OnInit, OnDestroy {
   title = 'Błąd - P1 - Mateusz Wąsik';
 
   public subscriptions: Subscription[];
-  public ShowAddModal: boolean = false;
   public form: FormGroup = new FormGroup({});
+  public bgid: string = "";
+  public isNewBugView: boolean = true;
   
   public Bug$ = this.store.select(selectBug);
 
@@ -29,17 +30,18 @@ export class BugPageComponent implements OnInit, OnDestroy {
     this.subscriptions = []
   }
   ngOnInit(): void {
-    let bgid = this.route.snapshot.paramMap.get('bgid');
-
-    if(bgid != "0")
-      this.store.dispatch(loadBug({ bgid: bgid }));
+    this.bgid = this.route.snapshot.paramMap.get('bgid') ?? "";
+    this.isNewBugView = this.bgid == "" || this.bgid == "0";
+    console.log( this.isNewBugView)
+    if(!this.isNewBugView)
+      this.store.dispatch(loadBug({ bgid: this.bgid }));
 
     this.subscriptions.push(
       this.Bug$.subscribe(x =>{
-        console.log(x)
         this.form = new FormGroup({
-          bTitle: new FormControl( x.bTitle, { validators: [Validators.maxLength(200)] }),
-          bText:  new FormControl( x.bText, { validators: [Validators.maxLength(4000)] }),
+          bguid: new FormControl( x.bguid, { validators: [] }),
+          bTitle: new FormControl( { value: x.bTitle, disabled: !this.isNewBugView }, { validators: [Validators.maxLength(200)] }),
+          bText:  new FormControl( { value: x.bText, disabled: !this.isNewBugView }, { validators: [Validators.maxLength(4000)] }),
           bStatus:  new FormControl( x.bStatus, { validators: [] }),
         })
       })
@@ -48,6 +50,7 @@ export class BugPageComponent implements OnInit, OnDestroy {
 
   public SaveBug = () => {
     let model = {
+      "BGID": this.form.get("bguid")?.value,
       "BTitle": this.form.get("bTitle")?.value,
       "BText": this.form.get("bText")?.value,
       "BStatus": this.form.get("bStatus")?.value,

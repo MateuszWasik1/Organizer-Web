@@ -28,4 +28,8 @@ export class BugsService {
     SaveBug(model: any) : Observable<any>{
         return this.http.post<any>(this.apiUrl + 'api/Bugs/SaveBug', model, { headers: GetToken(this.cookiesService) })
     }
+
+    ChangeBugStatus(model: any) : Observable<any>{
+        return this.http.post<any>(this.apiUrl + 'api/Bugs/ChangeBugStatus', model, { headers: GetToken(this.cookiesService) })
+    }
 }

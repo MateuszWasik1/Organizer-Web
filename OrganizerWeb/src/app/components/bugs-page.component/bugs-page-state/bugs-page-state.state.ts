@@ -5,6 +5,7 @@ export const featureKeyBugsState = 'bugs-page-state';
 export interface BugsState {
     Bugs: any[];
     Bug: {
+        bguid: string,
         bTitle: string,
         bText: string,
         bStatus: BugStatusEnum,
