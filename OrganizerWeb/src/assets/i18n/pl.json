@@ -24,6 +24,7 @@
     "General_ChooseDate": "Wybierz datę",
     "General_Save": "Zapisz",
     "General_Cancel": "Anuluj",
+    "General_Close": "Zamknij",
     "TopMenu_Categories": "Kategorie",
     "TopMenu_Tasks": "Zadania",
     "TopMenu_Savings": "Oszczędności",
@@ -94,5 +95,7 @@
     "User_Categories_Count": "Suma kategorii",
     "User_Tasks_Count": "Suma zadań",
     "User_Tasks_Notes_Count": "Suma notatek",
-    "User_Savings_Count": "Suma oszczędności"
+    "User_Savings_Count": "Suma oszczędności",
+    "ErrorHandler_ErrorOccured": "Wystąpił błąd",
+    "ErrorHandler_ErrorContent": "Treść błędu"
 }

@@ -13,11 +13,12 @@ export class MainUIErrorHandler {
     HandleException(error: any){
         if(error){
             this.dialog.open(UIErrorHandler, {
-                width: "658px",
-                height: "140px",
+                minWidth: "658px",
+                minHeight: "140px",
                 data: {
                     error: error
-                }
+                },
+                panelClass: 'ui-error-handler-modal'
             })
         }
     }

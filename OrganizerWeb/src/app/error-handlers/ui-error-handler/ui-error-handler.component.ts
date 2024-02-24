@@ -5,7 +5,7 @@ import { TranslationService } from 'src/app/services/translate.service';
 @Component({
   selector: 'app-ui-error-handler',
   templateUrl: './ui-error-handler.component.html',
-  styleUrls: []
+  styleUrls: ['./ui-error-handler.component.scss']
 })
 export class UIErrorHandler {
   constructor(
