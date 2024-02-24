@@ -6,7 +6,9 @@ import { MatDialog } from '@angular/material/dialog';
     providedIn: 'root'
 })
 export class MainUIErrorHandler {
-    constructor(private dialog: MatDialog,){ }
+    constructor(private dialog: MatDialog)
+    {
+    }
 
     HandleException(error: any){
         if(error){

@@ -10,6 +10,7 @@ import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.state";
 import { FillDataService } from "src/app/services/fill-data.service";
 import { TasksNotesService } from "src/app/services/tasks-notes.service";
+import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
 
 @Injectable()
 export class TasksEffects {
@@ -19,7 +20,8 @@ export class TasksEffects {
         private tasksNotesService: TasksNotesService,
         private categoriesService: CategoriesService,
         public store: Store<AppState>,
-        private fillDataService: FillDataService) {
+        private fillDataService: FillDataService,
+        private errorHandler: APIErrorHandler) {
     }
     loadTasks = createEffect(() => {
         return this.actions.pipe(
@@ -28,7 +30,7 @@ export class TasksEffects {
             switchMap((params) => {
                 return this.tasksService.getTasks(params[1].Category, params[1].Status).pipe(
                     map((result) => CategoriesActions.loadTasksSuccess({ Tasks: result })),
-                    catchError((error) => of(CategoriesActions.loadTasksError())),
+                    catchError(error => of(CategoriesActions.loadTasksError({ error: this.errorHandler.handleAPIError(error) }))),
                 )
             })
         )
@@ -40,7 +42,7 @@ export class TasksEffects {
             switchMap((params) => {
                 return this.tasksNotesService.getTasksNotes(params.TGID).pipe(
                     map((result) => CategoriesActions.loadTasksNotesSuccess({ TasksNotes: result })),
-                    catchError((error) => of(CategoriesActions.loadTasksNotesError()))
+                    catchError(error => of(CategoriesActions.loadTasksNotesError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -52,7 +54,7 @@ export class TasksEffects {
             switchMap((params) => {
                 return this.categoriesService.getCategories(null, true).pipe(
                     map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
-                    catchError((error) => of(CategoriesActions.loadCategoriesError()))
+                    catchError(error => of(CategoriesActions.loadCategoriesError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -64,7 +66,7 @@ export class TasksEffects {
             switchMap((params) => {
                 return of(this.fillDataService.FillTasks()).pipe(
                     map((result) => CategoriesActions.loadTasksSuccess({ Tasks: result })),
-                    catchError((error) => of(CategoriesActions.loadTasksError()))
+                    catchError(error => of(CategoriesActions.loadTasksError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -76,7 +78,7 @@ export class TasksEffects {
             switchMap((params) => {
                 return of(this.fillDataService.FillCategories()).pipe(
                     map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
-                    catchError((error) => of(CategoriesActions.loadCategoriesError()))
+                    catchError(error => of(CategoriesActions.loadCategoriesError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -88,7 +90,7 @@ export class TasksEffects {
             switchMap((params) => {
                 return this.tasksService.saveTask(params.Task).pipe(
                     map((result) => CategoriesActions.saveTaskSuccess({ Task: params.Task })),
-                    catchError((error) => of(CategoriesActions.saveTaskError()))
+                    catchError(error => of(CategoriesActions.saveTaskError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -100,7 +102,7 @@ export class TasksEffects {
             switchMap((params) => {
                 return this.tasksNotesService.addTaskNotes(params.TNGID, params.TGID, params.TaskNote).pipe(
                     map((result) => CategoriesActions.saveTaskNoteSuccess({ TaskNote: params })),
-                    catchError((error) => of(CategoriesActions.saveTaskNoteError()))
+                    catchError(error => of(CategoriesActions.saveTaskNoteError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -112,7 +114,7 @@ export class TasksEffects {
             switchMap((params) => {
                 return this.tasksService.deleteTask(params.tgid).pipe(
                     map((result) => CategoriesActions.deleteTaskSuccess({ tgid: params.tgid })),
-                    catchError((error) => of(CategoriesActions.deleteTaskError()))
+                    catchError(error => of(CategoriesActions.deleteTaskError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -124,7 +126,7 @@ export class TasksEffects {
             switchMap((params) => {
                 return this.tasksNotesService.deleteTaskNote(params.TNGID).pipe(
                     map((result) => CategoriesActions.deleteTaskNoteSuccess({ TNGID: params.TNGID })),
-                    catchError((error) => of(CategoriesActions.deleteTaskNoteError()))
+                    catchError(error => of(CategoriesActions.deleteTaskNoteError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )

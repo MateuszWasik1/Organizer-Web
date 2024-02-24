@@ -4,12 +4,14 @@ import { of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";
 import * as UserActions from "./user-page-state.actions"
 import { UserService } from "src/app/services/user.service";
+import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
 
 @Injectable()
 export class UserEffects {
     constructor(
         private actions: Actions,
-        private userService: UserService) {
+        private userService: UserService,
+        private errorHandler: APIErrorHandler) {
     }
 
     loadUser = createEffect(() => {
@@ -18,7 +20,7 @@ export class UserEffects {
             switchMap((params) => {
                 return this.userService.GetUser().pipe(
                     map((result) => UserActions.loadUserSuccess({ User: result })),
-                    catchError(() => of(UserActions.loadUserError()))
+                    catchError(error => of(UserActions.loadUserError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -30,7 +32,7 @@ export class UserEffects {
             switchMap((params) => {
                 return this.userService.GetUserByAdmin(params.ugid).pipe(
                     map((result) => UserActions.loadUserByAdminSuccess({ User: result })),
-                    catchError(() => of(UserActions.loadUserByAdminError()))
+                    catchError(error => of(UserActions.loadUserByAdminError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -42,7 +44,7 @@ export class UserEffects {
             switchMap((params) => {
                 return this.userService.SaveUser(params.User).pipe(
                     map(() => UserActions.saveUserSuccess()),
-                    catchError(() => of(UserActions.saveUserError()))
+                    catchError(error => of(UserActions.saveUserError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -54,7 +56,7 @@ export class UserEffects {
             switchMap((params) => {
                 return this.userService.SaveUserByAdmin(params.User).pipe(
                     map(() => UserActions.saveUserByAdminSuccess()),
-                    catchError(() => of(UserActions.saveUserByAdminError()))
+                    catchError(error => of(UserActions.saveUserByAdminError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )

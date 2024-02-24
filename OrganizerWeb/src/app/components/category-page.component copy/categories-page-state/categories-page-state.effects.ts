@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, switchMap, tap, withLatestFrom} from "rxjs/operators";
+import { catchError, map, switchMap, withLatestFrom} from "rxjs/operators";
 import * as CategoriesActions from "./categories-page-state.actions"
 import { AppState } from "src/app/app.state";
 import { Store } from "@ngrx/store";
@@ -50,7 +50,7 @@ export class CategoriesEffects {
             switchMap((params) => {
                 return this.categoriesService.saveCategories(params.category).pipe(
                     map(() => CategoriesActions.saveCategorySuccess({ category: params.category })),
-                    catchError(() => of(CategoriesActions.saveCategoryError()))
+                    catchError(error => of(CategoriesActions.saveCategoryError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -62,7 +62,7 @@ export class CategoriesEffects {
             switchMap((params) => {
                 return this.categoriesService.deleteCategories(params.cGID).pipe(
                     map(() => CategoriesActions.deleteCategorySuccess({ cGID: params.cGID })),
-                    catchError(() => of(CategoriesActions.deleteCategoryError()))
+                    catchError(error => of(CategoriesActions.deleteCategoryError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
