@@ -10,3 +10,5 @@ export const selectFilters = createSelector(selectStatsState, (state: StatsState
 export const selectCategories = createSelector(selectStatsState, (state: StatsState) => state.Categories)
 
 export const selectErrors = createSelector(selectStatsState, (state: StatsState) => state.IsStatsError)
+
+export const selectErrorMessage = createSelector(selectStatsState, (state: StatsState) => state.ErrorMessage)

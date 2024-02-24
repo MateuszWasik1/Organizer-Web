@@ -7,4 +7,5 @@ export interface AccountState {
         UPassword: string,
     },
     Token: string;
+    ErrorMessage: string;
 }

@@ -8,6 +8,7 @@ import { Store } from "@ngrx/store";
 import { CategoriesService } from "src/app/services/categories.service";
 import { selectFilters } from "./categories-page-state.selectors";
 import { FillDataService } from "src/app/services/fill-data.service";
+import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
 
 @Injectable()
 export class CategoriesEffects {
@@ -15,7 +16,8 @@ export class CategoriesEffects {
         private actions: Actions,
         private store: Store<AppState>,
         private categoriesService: CategoriesService,
-        private fillDataService: FillDataService) {
+        private fillDataService: FillDataService,
+        private errorHandler: APIErrorHandler) {
     }
     loadCategories = createEffect(() => {
         return this.actions.pipe(
@@ -24,7 +26,7 @@ export class CategoriesEffects {
             switchMap((params) => {
                 return this.categoriesService.getCategories(params[1].Date.date, false).pipe(
                     map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
-                    catchError(() => of(CategoriesActions.loadCategoriesError()))
+                    catchError(error => of(CategoriesActions.loadCategoriesError({ error: this.errorHandler.handleAPIError(error) }))),
                 )
             })
         )
@@ -36,7 +38,7 @@ export class CategoriesEffects {
             switchMap(() => {
                 return of(this.fillDataService.FillCategories()).pipe(
                     map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
-                    catchError(() => of(CategoriesActions.loadCategoriesError()))
+                    catchError(error => of(CategoriesActions.loadCategoriesError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -48,7 +50,7 @@ export class CategoriesEffects {
             switchMap((params) => {
                 return this.categoriesService.saveCategories(params.category).pipe(
                     map(() => CategoriesActions.saveCategorySuccess({ category: params.category })),
-                    catchError(() => of(CategoriesActions.loadCategoriesError()))
+                    catchError(error => of(CategoriesActions.saveCategoryError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -60,7 +62,7 @@ export class CategoriesEffects {
             switchMap((params) => {
                 return this.categoriesService.deleteCategories(params.cGID).pipe(
                     map(() => CategoriesActions.deleteCategorySuccess({ cGID: params.cGID })),
-                    catchError(() => of(CategoriesActions.deleteCategoryError()))
+                    catchError(error => of(CategoriesActions.deleteCategoryError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )

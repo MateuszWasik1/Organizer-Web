@@ -16,7 +16,8 @@ var initialStateOfUserPage: UserState = {
         uTasksCount: -1,
         uTaskNotesCount: -1,
         uSavingsCount: -1,
-    }
+    },
+    ErrorMessage: "",
 };
 
 export const UserReducer = createReducer<UserState>(
@@ -40,6 +41,12 @@ export const UserReducer = createReducer<UserState>(
         }
     })),
 
+    
+    on(Actions.loadUserError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
     on(Actions.loadUserByAdminSuccess, (state, { User }) => ({
         ...state,
         User: {
@@ -56,5 +63,23 @@ export const UserReducer = createReducer<UserState>(
             uTaskNotesCount: User.uTaskNotesCount,
             uSavingsCount: User.uSavingsCount,
         }
+    })),
+
+    
+    on(Actions.loadUserByAdminError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
+    
+    on(Actions.saveUserError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
+    
+    on(Actions.saveUserByAdminError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
     })),
 ) 

@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { ErrorHandler, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -55,6 +55,8 @@ import { UsersPageComponent } from './components/users-page.component/users-page
 import { UsersReducer } from './components/users-page.component/users-page-state/users-page-state.reducer';
 import { featureKeyUsersState } from './components/users-page.component/users-page-state/users-page-state.state';
 import { UsersEffects } from './components/users-page.component/users-page-state/users-page-state.effects';
+import { GlobalErrorHandler } from './error-handlers/global-error-handler';
+import { UIErrorHandler } from './error-handlers/ui-error-handler/ui-error-handler.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,7 @@ import { UsersEffects } from './components/users-page.component/users-page-state
     StatsFillDataDialogComponent,
     UserPageComponent,
     UsersPageComponent,
+    UIErrorHandler
   ],
   imports: [
     ReactiveFormsModule,
@@ -111,11 +114,12 @@ import { UsersEffects } from './components/users-page.component/users-page-state
     BrowserAnimationsModule,
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' }
+    { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' },
+    { provide: ErrorHandler, useClass: GlobalErrorHandler }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { } 
 
 export function httpTranslateLoader(http: HttpClient){
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

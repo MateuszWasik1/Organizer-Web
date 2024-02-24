@@ -5,4 +5,6 @@ const selectSavingsState = createFeatureSelector<SavingsState>(featureKeySavings
 
 export const selectSavings = createSelector(selectSavingsState, (state: SavingsState) => state.Savings)
 
-export const selectErrors= createSelector(selectSavingsState, (state: SavingsState) => state.IsSavingsError)
+export const selectErrors = createSelector(selectSavingsState, (state: SavingsState) => state.IsSavingsError)
+
+export const selectErrorMessage = createSelector(selectSavingsState, (state: SavingsState) => state.ErrorMessage)

@@ -14,5 +14,6 @@ export interface UserState {
         uTasksCount: number,
         uTaskNotesCount: number,
         uSavingsCount: number,
-    }
+    },
+    ErrorMessage: string,
 }

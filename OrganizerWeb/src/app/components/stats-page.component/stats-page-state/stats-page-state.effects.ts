@@ -9,6 +9,7 @@ import { selectFilters } from "./stats-page-state.selectors";
 import { FillDataService } from "src/app/services/fill-data.service";
 import { StatsService } from "src/app/services/stats.service";
 import { CategoriesService } from "src/app/services/categories.service";
+import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
 
 @Injectable()
 export class StatsEffects {
@@ -17,7 +18,8 @@ export class StatsEffects {
         private store: Store<AppState>,
         private fillDataService: FillDataService,
         private categoriesService: CategoriesService,
-        private statsService: StatsService) {
+        private statsService: StatsService,
+        private errorHandler: APIErrorHandler) {
     }
 
     loadSavingBarChartStats = createEffect(() => {
@@ -27,7 +29,7 @@ export class StatsEffects {
             switchMap((params) => {
                 return this.statsService.getSavingsBarChart(params[1].StartDate, params[1].EndDate).pipe(
                     map((result) => StatsActions.loadStatsSuccess({ Result: result })),
-                    catchError(() => of(StatsActions.loadStatsError()))
+                    catchError(error => of(StatsActions.loadStatsError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -40,7 +42,7 @@ export class StatsEffects {
             switchMap((params) => {
                 return this.statsService.getMoneySpendedFromTaskBarChart(params[1].StartDate, params[1].EndDate).pipe(
                     map((result) => StatsActions.loadStatsSuccess({ Result: result })),
-                    catchError(() => of(StatsActions.loadStatsError()))
+                    catchError(error => of(StatsActions.loadStatsError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -53,7 +55,7 @@ export class StatsEffects {
             switchMap((params) => {
                 return this.statsService.getMoneySpendedForCategoryBarChart(params[1].StartDate, params[1].EndDate, params[1].Category).pipe(
                     map((result) => StatsActions.loadStatsSuccess({ Result: result })),
-                    catchError(() => of(StatsActions.loadStatsError()))
+                    catchError(error => of(StatsActions.loadStatsError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -65,7 +67,7 @@ export class StatsEffects {
             switchMap((params) => {
                 return this.categoriesService.getCategoriesForFilters().pipe(
                     map((result) => StatsActions.loadCategoriesSuccess({ Categories: result })),
-                    catchError(() => of(StatsActions.loadCategoriesError()))
+                    catchError(error => of(StatsActions.loadCategoriesError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -78,7 +80,7 @@ export class StatsEffects {
             switchMap(params => {
                 return of(this.fillDataService.FillStats(params[1].DataType)).pipe(
                     map((result) => StatsActions.loadStatsSuccess({ Result: result })),
-                    catchError(() => of(StatsActions.loadStatsError()))
+                    catchError(error => of(StatsActions.loadStatsError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )

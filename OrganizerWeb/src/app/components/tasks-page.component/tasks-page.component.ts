@@ -3,12 +3,13 @@ import { Subscription, filter } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { ChangeCategoryFilterValue, ChangeStatusFilterValue, deleteTask, loadCategories, loadCustomCategories, loadCustomTasks, loadTasks, saveTask, loadTasksNotes, saveTaskNote, deleteTaskNote } from './tasks-page-state/tasks-page-state.actions';
-import { selectCategories, selectErrors, selectFilters, selectTasks, selectTasksNotes } from './tasks-page-state/tasks-page-state.selectors';
+import { selectCategories, selectErrorMessage, selectErrors, selectFilters, selectTasks, selectTasksNotes } from './tasks-page-state/tasks-page-state.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Guid } from 'guid-typescript';
 import { MatDialog } from '@angular/material/dialog';
 import { TasksFillDataDialogComponent } from './tasks-dialogs/tasks-fill-data-dialog.component';
 import { TranslationService } from 'src/app/services/translate.service';
+import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 
 @Component({
   selector: 'app-tasks-page',
@@ -39,10 +40,12 @@ export class TasksPageComponent implements OnInit, OnDestroy {
   public TaskNotes$ = this.store.select(selectTasksNotes);
   public Categories$ = this.store.select(selectCategories);
   public Errors$ = this.store.select(selectErrors);
+  public ErrorMessage$ = this.store.select(selectErrorMessage);
 
   constructor(public store: Store<AppState>, 
     private dialog: MatDialog, 
-    public translations: TranslationService)
+    public translations: TranslationService,
+    public errorHandler: MainUIErrorHandler)
   {
     this.subscriptions = []
   }
@@ -97,6 +100,12 @@ export class TasksPageComponent implements OnInit, OnDestroy {
             if(fill && isErrors.IsCategoriesError)
               this.store.dispatch(loadCustomCategories());
           });
+      })
+    )
+
+    this.subscriptions.push(
+      this.ErrorMessage$.subscribe(error => {
+        this.errorHandler.HandleException(error);
       })
     )
   }

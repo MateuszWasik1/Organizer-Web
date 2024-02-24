@@ -8,3 +8,5 @@ export const selectCategories = createSelector(selectCategoriesState, (state: Ca
 export const selectFilters= createSelector(selectCategoriesState, (state: CategoriesState) => state.Filters)
 
 export const selectErrors= createSelector(selectCategoriesState, (state: CategoriesState) => state.IsCategoriesError)
+
+export const selectErrorMessage= createSelector(selectCategoriesState, (state: CategoriesState) => state.ErrorMessage)

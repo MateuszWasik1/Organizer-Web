@@ -6,6 +6,9 @@ import { TranslationService } from 'src/app/services/translate.service';
 import { RegisterUser } from '../account-page-state/account-page-state.actions';
 import { PasswordConsistency, PatternValidator } from 'src/app/validators/forms.validator';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
+import { selectErrorMessage } from '../account-page-state/account-page-state.selectors';
 
 @Component({
   selector: 'app-register-page',
@@ -14,8 +17,12 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   title = 'Rejestracja - P1 - Mateusz Wąsik';
+  
+  public subscriptions: Subscription[];
 
   public IsPasswordsEqual: boolean = true;
+
+  public ErrorMessage$ = this.store.select(selectErrorMessage);
 
   public form = new FormGroup({
     userName: new FormControl('', [Validators.required]),
@@ -63,11 +70,18 @@ export class RegisterComponent implements OnInit {
 
   constructor(public store: Store<AppState>, 
     public translations: TranslationService, 
-    public router: Router)
+    public router: Router,
+    public errorHandler: MainUIErrorHandler)
   {
+    this.subscriptions = [];
   }
   
   ngOnInit(): void {
+    this.subscriptions.push(
+      this.ErrorMessage$.subscribe(error => {
+        this.errorHandler.HandleException(error);
+      })
+    )
   }
 
   public Clear = () => {

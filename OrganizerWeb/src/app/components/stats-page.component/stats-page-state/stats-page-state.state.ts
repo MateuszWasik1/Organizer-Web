@@ -12,5 +12,6 @@ export interface StatsState {
         Category: string,
     },
     Categories: [],
-    IsStatsError: boolean
+    IsStatsError: boolean,
+    ErrorMessage: string,
 }

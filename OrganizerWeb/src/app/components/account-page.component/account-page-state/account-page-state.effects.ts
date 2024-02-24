@@ -6,6 +6,7 @@ import * as AccountActions from "./account-page-state.actions"
 import { AccountsService } from "src/app/services/accounts.service";
 import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
+import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
 
 
 @Injectable()
@@ -14,7 +15,8 @@ export class AccountEffects {
         private actions: Actions,
         private accountService: AccountsService,
         private cookieService: CookieService,
-        private router: Router) {
+        private router: Router,
+        private errorHandler: APIErrorHandler) {
     }
     
     RegisterUser = createEffect(() => {
@@ -24,7 +26,7 @@ export class AccountEffects {
                 return this.accountService.Register(params.user).pipe(
                     map(() => AccountActions.RegisterUserSuccess()),
                     tap(() => this.router.navigate(['/login'])),
-                    catchError(() => of(AccountActions.RegisterUserError()))
+                    catchError(error => of(AccountActions.RegisterUserError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -38,7 +40,7 @@ export class AccountEffects {
                     map((result) => AccountActions.LoginSuccess({ token: result.toString() })),
                     tap(result => this.cookieService.set("token", result.token)),
                     tap(() => this.router.navigate(['/categories'])),
-                    catchError((error) => of(AccountActions.LoginError())),
+                    catchError(error => of(AccountActions.LoginError({ error: this.errorHandler.handleAPIError(error) }))),
                 )
             })
         )

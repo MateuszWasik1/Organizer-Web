@@ -12,5 +12,6 @@ export interface TasksState {
         IsTasksError: boolean,
         IsTasksNotesError: boolean,
         IsCategoriesError: boolean,
-    }
+    },
+    ErrorMessage: string,
 }
