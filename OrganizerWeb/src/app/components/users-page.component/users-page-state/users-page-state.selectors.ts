@@ -4,3 +4,5 @@ import { UsersState, featureKeyUsersState } from "./users-page-state.state";
 const selectSavingsState = createFeatureSelector<UsersState>(featureKeyUsersState)
 
 export const selectUsers = createSelector(selectSavingsState, (state: UsersState) => state.Users)
+
+export const selectErrorMessage = createSelector(selectSavingsState, (state: UsersState) => state.ErrorMessage)

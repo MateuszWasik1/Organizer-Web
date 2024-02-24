@@ -5,8 +5,9 @@ import { AppState } from '../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
 import { loadUser, loadUserByAdmin, saveUser, saveUserByAdmin } from './user-page-state/user-page-state.actions';
-import { selectUser } from './user-page-state/user-page-state.selectors';
+import { selectErrorMessage, selectUser } from './user-page-state/user-page-state.selectors';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 
 @Component({
   selector: 'app-user-page',
@@ -37,11 +38,13 @@ export class UserPageComponent implements OnInit, OnDestroy {
   });
   
   public User$ = this.store.select(selectUser);
+  public ErrorMessage$ = this.store.select(selectErrorMessage);
 
   constructor(public store: Store<AppState>,
     public route: ActivatedRoute, 
     public router: Router, 
-    public translations: TranslationService)
+    public translations: TranslationService,
+    public errorHandler: MainUIErrorHandler)
   {
     this.subscriptions = []
   }
@@ -75,6 +78,12 @@ export class UserPageComponent implements OnInit, OnDestroy {
 
       this.selectedRole = this.roles[user.urid - 1 ?? 0].id;
     }))
+
+    this.subscriptions.push(
+      this.ErrorMessage$.subscribe(error => {
+        this.errorHandler.HandleException(error);
+      })
+    )
   }
   public Save = () => {
     let model = {

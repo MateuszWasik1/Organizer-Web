@@ -4,6 +4,7 @@ import { UsersState } from "./users-page-state.state";
 
 var initialStateOfUsersPage: UsersState = {
     Users: [],
+    ErrorMessage: "",
 };
 
 export const UsersReducer = createReducer<UsersState>(
@@ -12,5 +13,10 @@ export const UsersReducer = createReducer<UsersState>(
     on(Actions.loadUsersSuccess, (state, { Users }) => ({
         ...state,
         Users: Users
+    })),
+
+    on(Actions.loadUsersError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
     })),
 ) 
