@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store'
 
 export const loadCategories = createAction('[Categories Page] Load Categories');
 export const loadCategoriesSuccess = createAction('[Categories Page] Load Categories Success', props<{ Categories: any }>());
-export const loadCategoriesError = createAction('[Categories Page] Load Categories Error');
+export const loadCategoriesError = createAction('[Categories Page] Load Categories Error', props<{ error: any }>());
 
 export const loadCustomCategories = createAction('[Categories Page] Load Custom Categories');
 
