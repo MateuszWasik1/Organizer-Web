@@ -8,6 +8,9 @@ export class APIErrorHandler {
     constructor(){ }
 
     handleAPIError(error: HttpErrorResponse){
+        if(error.status === 401)
+            return "Użytkownik nie zautoryzowany!"
+
         let errorMessage;
 
         if(error.error instanceof ErrorEvent)
