@@ -14,42 +14,50 @@ var initialStateOfTasksPage: TasksState = {
         IsTasksError: false,
         IsTasksNotesError: false,
         IsCategoriesError: false,
-    }
+    },
+    ErrorMessage: "",
 };
 
 export const TasksReducer = createReducer<TasksState>(
     initialStateOfTasksPage,
 
+    //Load Task
     on(Actions.loadTasksSuccess, (state, { Tasks }) => ({
         ...state,
         Tasks: Tasks
     })),
 
-    on(Actions.loadTasksError, state => ({
+    on(Actions.loadTasksError, (state, { error }) => ({
         ...state,
         IsError: { ...state.IsError, IsTasksError: true },
+        ErrorMessage: error
     })),
 
+    //Load Task Notes
     on(Actions.loadTasksNotesSuccess, (state, { TasksNotes }) => ({
         ...state,
         TasksNotes: TasksNotes
     })),
 
-    on(Actions.loadTasksNotesError, state => ({
+    on(Actions.loadTasksNotesError, (state, { error }) => ({
         ...state,
         IsError: { ...state.IsError, IsTasksNotesError: true },
+        ErrorMessage: error
     })),
 
+    //Load Categories
     on(Actions.loadCategoriesSuccess, (state, { Categories }) => ({
         ...state,
         Categories: Categories
     })),
 
-    on(Actions.loadCategoriesError, state => ({
+    on(Actions.loadCategoriesError, (state, { error }) => ({
         ...state,
         IsError: { ...state.IsError, IsCategoriesError: true },
+        ErrorMessage: error
     })),
 
+    //Save Task 
     on(Actions.saveTaskSuccess, (state, { Task }) => {
         let newTasks = [...state.Tasks];
 
@@ -74,6 +82,12 @@ export const TasksReducer = createReducer<TasksState>(
         return {...state, Tasks: newTasks};
     }),
 
+    on(Actions.saveTaskError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
+    //Save Task Note
     on(Actions.saveTaskNoteSuccess, (state, { TaskNote }) => {
         let newTaskNotes = [...state.TasksNotes];
 
@@ -88,6 +102,12 @@ export const TasksReducer = createReducer<TasksState>(
         return {...state, TasksNotes: newTaskNotes};
     }),
 
+    on(Actions.saveTaskNoteError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
+    //Delete Task
     on(Actions.deleteTaskSuccess, (state, { tgid }) => {
         let newTasks = [...state.Tasks];
 
@@ -96,6 +116,12 @@ export const TasksReducer = createReducer<TasksState>(
         return {...state, Tasks: taskWithoutDeletedTask};
     }),
 
+    on(Actions.deleteTaskError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
+    //Delete Task Notes
     on(Actions.deleteTaskNoteSuccess, (state, { TNGID }) => {
         let newTaskNotes = [...state.TasksNotes];
 
@@ -104,6 +130,12 @@ export const TasksReducer = createReducer<TasksState>(
         return {...state, TasksNotes: taskNotesWithoutDeletedTask};
     }),
 
+    on(Actions.deleteTaskNoteError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
+    //Filters
     on(Actions.ChangeCategoryFilterValue, (state, { value }) => ({
         ...state,
         Filters: {

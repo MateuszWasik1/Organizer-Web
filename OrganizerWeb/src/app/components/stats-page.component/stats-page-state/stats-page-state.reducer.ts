@@ -17,6 +17,7 @@ var initialStateOfStatsPage: StatsState = {
     },
     Categories: [],
     IsStatsError: false,
+    ErrorMessage: "",
 };
 
 export const StatsReducer = createReducer<StatsState>(
@@ -30,9 +31,10 @@ export const StatsReducer = createReducer<StatsState>(
         }
     })),
 
-    on(Actions.loadStatsError, (state) => ({
+    on(Actions.loadStatsError, (state, { error }) => ({
         ...state,
         IsStatsError: true,
+        ErrorMessage: error
     })),
 
     //Categories
@@ -40,7 +42,11 @@ export const StatsReducer = createReducer<StatsState>(
         ...state,
         Categories: Categories
     })),
-  
+
+    on(Actions.loadCategoriesError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
   
     //Filters
     on(Actions.changeStartDateFilter, (state, { startDate }) => ({

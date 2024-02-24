@@ -8,8 +8,9 @@ import { Guid } from 'guid-typescript';
 import { MatDialog } from '@angular/material/dialog';
 import { SavingsFillDataDialogComponent } from './savings-page-dialogs/savings-fill-data-dialog.component';
 import { deleteSaving, loadCustomSavings, loadSavings, saveSaving } from './savings-page-state/savings-page-state.actions';
-import { selectSavings, selectErrors } from './savings-page-state/savings-page-state.selectors';
+import { selectSavings, selectErrors, selectErrorMessage } from './savings-page-state/savings-page-state.selectors';
 import { TranslationService } from 'src/app/services/translate.service';
+import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 
 @Component({
   selector: 'app-savings-page',
@@ -26,10 +27,12 @@ export class SavingsPageComponent implements OnInit, OnDestroy {
   
   public Savings$ = this.store.select(selectSavings);
   public IsSavingsError$ = this.store.select(selectErrors);
+  public ErrorMessage$ = this.store.select(selectErrorMessage);
 
   constructor(public store: Store<AppState>, 
     private dialog: MatDialog,
-    public translations: TranslationService)
+    public translations: TranslationService,
+    public errorHandler: MainUIErrorHandler)
   {
     this.subscriptions = []
   }
@@ -55,6 +58,12 @@ export class SavingsPageComponent implements OnInit, OnDestroy {
             if(fill)
               this.store.dispatch(loadCustomSavings());
           });
+      })
+    )
+
+    this.subscriptions.push(
+      this.ErrorMessage$.subscribe(error => {
+        this.errorHandler.HandleException(error);
       })
     )
   }

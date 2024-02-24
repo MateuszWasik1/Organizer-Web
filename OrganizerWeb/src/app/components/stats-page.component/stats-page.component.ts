@@ -7,9 +7,10 @@ import { Moment } from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { StatsFillDataDialogComponent } from './stats-page-dialogs/stats-fill-data-dialog.component';
 import { changeCategoryFilter, changeDataTypeFilter, changeEndDateFilter, changeStartDateFilter, loadCategories, loadCategorySpendedMoneyBarChartStats, loadCustomStats, loadSavingBarChartStats, loadTaskSpendedMoneyBarChartStats } from './stats-page-state/stats-page-state.actions';
-import { selectCategories, selectErrors, selectFilters, selectStats } from './stats-page-state/stats-page-state.selectors';
+import { selectCategories, selectErrorMessage, selectErrors, selectFilters, selectStats } from './stats-page-state/stats-page-state.selectors';
 import { ChartOptions } from 'chart.js';
 import { TranslationService } from 'src/app/services/translate.service';
+import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 
 @Component({
   selector: 'app-stats-page',
@@ -25,6 +26,7 @@ export class StatsPageComponent implements OnInit, OnDestroy {
   public Filters$ = this.store.select(selectFilters);
   public Categories$ = this.store.select(selectCategories);
   public IsStatsError$ = this.store.select(selectErrors);
+  public ErrorMessage$ = this.store.select(selectErrorMessage);
 
   public defaultDataType: string = "savings";
   public dataTypes = [
@@ -35,7 +37,8 @@ export class StatsPageComponent implements OnInit, OnDestroy {
 
   constructor(public store: Store<AppState>, 
     private dialog: MatDialog,
-    public translations: TranslationService)
+    public translations: TranslationService,
+    public errorHandler: MainUIErrorHandler)
   {
     this.subscriptions = []
   }
@@ -64,6 +67,12 @@ export class StatsPageComponent implements OnInit, OnDestroy {
             if(fill)
               this.store.dispatch(loadCustomStats());
           });
+      })
+    )
+
+    this.subscriptions.push(
+      this.ErrorMessage$.subscribe(error => {
+        this.errorHandler.HandleException(error);
       })
     )
   }
