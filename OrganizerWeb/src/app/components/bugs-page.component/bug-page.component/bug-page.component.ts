@@ -23,10 +23,12 @@ export class BugPageComponent implements OnInit, OnDestroy {
   public isNewBugView: boolean = true;
   public selectedBugStatus: any;
   public bugStatus = [
-    {id: '0', name: 'Nie zaczęty'},
-    {id: '1', name: 'W trakcie'},
-    {id: '2', name: 'Skończony'},
-    {id: '3', name: 'Wszystkie'},
+    {id: '0', name: 'Nowy'},
+    {id: '1', name: 'W weryfikacji'},
+    {id: '2', name: 'Odrzucony'},
+    {id: '3', name: 'Zaakceptowany'},
+    {id: '4', name: 'W naprawie'},
+    {id: '5', name: 'Naprawiony'},
   ]
 
   public Bug$ = this.store.select(selectBug);

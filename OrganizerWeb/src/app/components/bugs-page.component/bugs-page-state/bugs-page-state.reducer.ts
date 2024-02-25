@@ -10,7 +10,7 @@ var initialStateOfBugsPage: BugsState = {
         bguid: Guid.create().toString(),
         bTitle: "",
         bText: "",
-        bStatus: BugStatusEnum.test,
+        bStatus: BugStatusEnum.New,
     },
     Filters: {
         Date: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
@@ -46,10 +46,10 @@ export const BugsReducer = createReducer<BugsState>(
         let newBugNotes = [...state.BugNotes];
 
         let newModel = {
-            "bNDate": BugNote.BNDate,
-            "bNText": BugNote.BNText,
-            "bNIsNewVerifier": BugNote.BNIsNewVerifier,
-            "bNIsStatusChange": BugNote.BNIsStatusChange,
+            "bnDate": BugNote.BNDate,
+            "bnText": BugNote.BNText,
+            "bnIsNewVerifier": BugNote.BNIsNewVerifier,
+            "bnIsStatusChange": BugNote.BNIsStatusChange,
         };
 
         newBugNotes.push(newModel)
@@ -61,10 +61,10 @@ export const BugsReducer = createReducer<BugsState>(
         let newBugNotes = [...state.BugNotes];
 
         let newModel = {
-            "bNDate": new Date(),
-            "bNText": "Status został zmieniony",
-            "bNIsNewVerifier": false,
-            "bNIsStatusChange": true,
+            "bnDate": new Date(),
+            "bnText": "Status został zmieniony",
+            "bnIsNewVerifier": false,
+            "bnIsStatusChange": true,
         };
 
         newBugNotes.push(newModel)
