@@ -7,6 +7,7 @@ export const selectBugs = createSelector(selectBugsState, (state: BugsState) => 
 
 export const selectBug = createSelector(selectBugsState, (state: BugsState) => state.Bug)
 
+export const selectBugNotes = createSelector(selectBugsState, (state: BugsState) => state.BugNotes)
+
 // export const selectFilters= createSelector(selectCategoriesState, (state: CategoriesState) => state.Filters)
 
-// export const selectErrors= createSelector(selectCategoriesState, (state: CategoriesState) => state.IsCategoriesError)

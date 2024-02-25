@@ -13,4 +13,5 @@ export interface BugsState {
     Filters: {
         Date: any,
     },
+    BugNotes: any[];
 }

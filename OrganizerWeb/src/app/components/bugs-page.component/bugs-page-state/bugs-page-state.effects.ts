@@ -3,8 +3,6 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
 import * as BugsActions from "./bugs-page-state.actions"
-import { AppState } from "src/app/app.state";
-import { Store } from "@ngrx/store";
 import { BugsService } from "src/app/services/bugs.service";
 import { Router } from "@angular/router";
 
@@ -34,7 +32,19 @@ export class BugsEffects {
             switchMap((params) => {
                 return this.bugsService.GetBug(params.bgid).pipe(
                     map((result) => BugsActions.loadBugSuccess({ Bug: result })),
-                    catchError(() => of(BugsActions.loadBugError()))
+                    catchError(error => of(BugsActions.loadBugError()))
+                )
+            })
+        )
+    })
+
+    loadBugNotes = createEffect(() => {
+        return this.actions.pipe(
+            ofType(BugsActions.loadBugNotes),
+            switchMap((params) => {
+                return this.bugsService.GetBug(params.bgid).pipe(
+                    map((result) => BugsActions.loadBugNotesSuccess({ BugNotes: result })),
+                    catchError(error => of(BugsActions.loadBugNotesError()))
                 )
             })
         )
@@ -47,7 +57,7 @@ export class BugsEffects {
                 return this.bugsService.SaveBug(params.bug).pipe(
                     map(() => BugsActions.saveBugSuccess({ bug: params.bug })),
                     tap(x => this.router.navigate(['bugs'])),
-                    catchError(() => of(BugsActions.saveBugError()))
+                    catchError(error => of(BugsActions.saveBugError()))
                 )
             })
         )
@@ -60,7 +70,7 @@ export class BugsEffects {
             switchMap((params) => {
                 return this.bugsService.ChangeBugStatus(params.model).pipe(
                     map(() => BugsActions.changeBugStatusSuccess({ status: params.model.status })),
-                    catchError(() => of(BugsActions.changeBugStatusError()))
+                    catchError(error => of(BugsActions.changeBugStatusError()))
                 )
             })
         )

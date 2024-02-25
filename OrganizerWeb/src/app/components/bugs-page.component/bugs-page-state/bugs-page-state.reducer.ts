@@ -15,6 +15,7 @@ var initialStateOfBugsPage: BugsState = {
     Filters: {
         Date: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
     },
+    BugNotes: [],
 };
 
 export const BugsReducer = createReducer<BugsState>(

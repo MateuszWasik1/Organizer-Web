@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { selectBug } from '../bugs-page-state/bugs-page-state.selectors';
+import { selectBug, selectBugNotes } from '../bugs-page-state/bugs-page-state.selectors';
 import { loadBug, saveBug } from '../bugs-page-state/bugs-page-state.actions';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute } from '@angular/router';
@@ -18,10 +18,12 @@ export class BugPageComponent implements OnInit, OnDestroy {
 
   public subscriptions: Subscription[];
   public form: FormGroup = new FormGroup({});
+  public addBugNote: FormGroup = new FormGroup({});
   public bgid: string = "";
   public isNewBugView: boolean = true;
   
   public Bug$ = this.store.select(selectBug);
+  public BugNotes$ = this.store.select(selectBugNotes);
 
   constructor(public store: Store<AppState>, 
     public translations: TranslationService,
@@ -45,7 +47,11 @@ export class BugPageComponent implements OnInit, OnDestroy {
           bStatus:  new FormControl( x.bStatus, { validators: [] }),
         })
       })
-    )
+    );
+
+    this.addBugNote = new FormGroup({
+      bugNote: new FormControl('', { validators: [Validators.maxLength(4000)] }),
+    })
   }
 
   public SaveBug = () => {
@@ -58,6 +64,9 @@ export class BugPageComponent implements OnInit, OnDestroy {
     
     this.store.dispatch(saveBug({ bug: model }));
   }
+
+  public AddBugNote = () => console.log("xd")
+  //this.store.dispatch(saveTaskNote({ TNGID: Guid.create().toString(), TGID: this.form.get("tgid")?.value, TaskNote: this.addTaskNote.get("taskNote")?.value }));
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());
