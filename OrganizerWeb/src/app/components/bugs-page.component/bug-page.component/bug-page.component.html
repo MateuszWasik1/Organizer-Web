@@ -21,7 +21,13 @@
                     </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
-                    <input type="text" class="data-input" [placeholder]="translations.Get('Bugs_Status')" formControlName="bStatus"/>
+                    <mat-form-field class="margin-left-30">
+                        <mat-select [value]="selectedBugStatus" (selectionChange)="ChangeBugStatus($event)">
+                            <mat-option *ngFor="let status of bugStatus;" [value]="status['id']">
+                                {{status['name']}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
             </div>
             <div class="row">
@@ -55,43 +61,46 @@
         </div>
     </div>
 
-    <ng-container *ngIf="BugNotes$ | async as bugNotes">
-        <div class="row">
-            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-                <h1 class="page-subtitle">{{translations.Get('Bugs_Bug_AddNoteTitle')}}:</h1>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                <button mat-raised-button class="primary-btn float-right add-task-note-btn" (click)="AddBugNote()" [disabled]="addBugNote.get('bugNote')?.invalid">{{translations.Get('Bugs_Bug_AddNote')}}</button>
-            </div>
-        </div>
 
-        <div class="row" [formGroup]="addBugNote">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <textarea formControlName="bugNote" class="bugs-textarea" maxlength="4000"></textarea>
-                <div *ngIf="addBugNote.get('bugNote')?.invalid">{{translations.Get('Bugs_BugNotes_AddNote_Error')}}</div>
+    <ng-container *ngIf="!isNewBugView">
+        <ng-container *ngIf="BugNotes$ | async as bugNotes">
+            <div class="row">
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                    <h1 class="page-subtitle">{{translations.Get('Bugs_Bug_AddNoteTitle')}}:</h1>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                    <button mat-raised-button class="primary-btn float-right add-task-note-btn" (click)="AddBugNote()" [disabled]="addBugNote.get('bugNote')?.invalid">{{translations.Get('Bugs_Bug_AddNote')}}</button>
+                </div>
             </div>
-        </div>
 
-        <div class="row padding-top-15 padding-bottom-15" *ngIf="bugNotes.length != 0">
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                {{translations.Get('Bugs_Bug_Data')}}
+            <div class="row" [formGroup]="addBugNote">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <textarea formControlName="bugNote" class="bugs-textarea" maxlength="4000"></textarea>
+                    <div *ngIf="addBugNote.get('bugNote')?.invalid">{{translations.Get('Bugs_BugNotes_AddNote_Error')}}</div>
+                </div>
             </div>
-            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                {{translations.Get('Bugs_Bug_Text')}}
-            </div>
-        </div>
-        <div *ngFor="let bugNote of bugNotes;">
-            <div class="row data-row">
+
+            <div class="row padding-top-15 padding-bottom-15" *ngIf="bugNotes.length != 0">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <p>{{bugNote.bnDate | date: "yyyy-MM-dd HH:mm"}}</p>
+                    {{translations.Get('Bugs_Bug_Data')}}
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                    <p>{{bugNote.bnText}}</p>
+                    {{translations.Get('Bugs_Bug_Text')}}
                 </div>
             </div>
-        </div>
-        <div class="row no-data-row" *ngIf="bugNotes.length == 0">
-            <p>{{translations.Get('Bugs_NotFound')}}</p>
-        </div>
+            <div *ngFor="let bugNote of bugNotes;">
+                <div class="row data-row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <p>{{bugNote.bnDate | date: "yyyy-MM-dd HH:mm"}}</p>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                        <p>{{bugNote.bnText}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-data-row" *ngIf="bugNotes.length == 0">
+                <p>{{translations.Get('Bugs_NotFound')}}</p>
+            </div>
+        </ng-container>
     </ng-container>
 </section>

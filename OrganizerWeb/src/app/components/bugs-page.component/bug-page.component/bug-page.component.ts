@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { selectBug, selectBugNotes } from '../bugs-page-state/bugs-page-state.selectors';
-import { loadBug, loadBugNotes, saveBug, saveBugNote } from '../bugs-page-state/bugs-page-state.actions';
+import { changeBugStatus, loadBug, loadBugNotes, saveBug, saveBugNote } from '../bugs-page-state/bugs-page-state.actions';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -21,7 +21,14 @@ export class BugPageComponent implements OnInit, OnDestroy {
   public addBugNote: FormGroup = new FormGroup({});
   public bgid: string = "";
   public isNewBugView: boolean = true;
-  
+  public selectedBugStatus: any;
+  public bugStatus = [
+    {id: '0', name: 'Nie zaczęty'},
+    {id: '1', name: 'W trakcie'},
+    {id: '2', name: 'Skończony'},
+    {id: '3', name: 'Wszystkie'},
+  ]
+
   public Bug$ = this.store.select(selectBug);
   public BugNotes$ = this.store.select(selectBugNotes);
 
@@ -48,6 +55,8 @@ export class BugPageComponent implements OnInit, OnDestroy {
           bText:  new FormControl( { value: x.bText, disabled: !this.isNewBugView }, { validators: [Validators.maxLength(4000)] }),
           bStatus:  new FormControl( x.bStatus, { validators: [] }),
         })
+
+        this.selectedBugStatus = this.bugStatus[x.bStatus].id
       })
     );
 
@@ -73,6 +82,15 @@ export class BugPageComponent implements OnInit, OnDestroy {
       "BNText": this.addBugNote.get("bugNote")?.value,
     }
     this.store.dispatch(saveBugNote({ BugNote: model }));
+  }
+
+  public ChangeBugStatus = (event: any) => {
+    let model = {
+      "BGID": this.form.get("bguid")?.value,
+      "Status": event.value,
+    }
+
+    this.store.dispatch(changeBugStatus({ model: model }));
   }
 
   ngOnDestroy() {

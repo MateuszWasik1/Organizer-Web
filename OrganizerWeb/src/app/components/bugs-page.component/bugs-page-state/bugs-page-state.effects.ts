@@ -80,7 +80,7 @@ export class BugsEffects {
             ofType(BugsActions.changeBugStatus),
             switchMap((params) => {
                 return this.bugsService.ChangeBugStatus(params.model).pipe(
-                    map(() => BugsActions.changeBugStatusSuccess({ status: params.model.status })),
+                    map(() => BugsActions.changeBugStatusSuccess({ status: params.model.Status })),
                     catchError(error => of(BugsActions.changeBugStatusError()))
                 )
             })
