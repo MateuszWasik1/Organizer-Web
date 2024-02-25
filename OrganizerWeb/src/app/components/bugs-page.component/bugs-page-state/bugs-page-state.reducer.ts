@@ -46,14 +46,13 @@ export const BugsReducer = createReducer<BugsState>(
         BugNotes: BugNotes
     })),
 
-    on(Actions.loadUserRolesSuccess, (state, { UserRoles }) => {
-        console.log(UserRoles);
-        return {...state,
+    on(Actions.loadUserRolesSuccess, (state, { UserRoles }) => ({
+        ...state,
         UserRoles: {
             IsSupport: UserRoles.isSupport,
             IsAdmin: UserRoles.isAdmin,
-        }}
-    }),
+        }
+    })),
 
     on(Actions.saveBugNoteSuccess, (state, { BugNote }) => {
         let newBugNotes = [...state.BugNotes];
