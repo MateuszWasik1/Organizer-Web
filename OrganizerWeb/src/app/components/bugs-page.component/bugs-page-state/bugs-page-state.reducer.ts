@@ -50,6 +50,7 @@ export const BugsReducer = createReducer<BugsState>(
             "bnText": BugNote.BNText,
             "bnIsNewVerifier": BugNote.BNIsNewVerifier,
             "bnIsStatusChange": BugNote.BNIsStatusChange,
+            "bnChangedStatus": 0
         };
 
         newBugNotes.push(newModel)
@@ -65,6 +66,7 @@ export const BugsReducer = createReducer<BugsState>(
             "bnText": "Status został zmieniony",
             "bnIsNewVerifier": false,
             "bnIsStatusChange": true,
+            "bnChangedStatus":  +status
         };
 
         newBugNotes.push(newModel)

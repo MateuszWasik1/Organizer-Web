@@ -7,6 +7,7 @@ import { selectBug, selectBugNotes } from '../bugs-page-state/bugs-page-state.se
 import { changeBugStatus, loadBug, loadBugNotes, saveBug, saveBugNote } from '../bugs-page-state/bugs-page-state.actions';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute } from '@angular/router';
+import { BugStatusEnum } from "src/app/enums/BugStatusEnum"
 
 @Component({
   selector: 'app-bug-page',
@@ -65,6 +66,24 @@ export class BugPageComponent implements OnInit, OnDestroy {
     this.addBugNote = new FormGroup({
       bugNote: new FormControl('', { validators: [Validators.maxLength(4000)] }),
     })
+  }
+
+  public ChangeColor = (IsStatusChange: boolean, status: number) => {
+    if(!IsStatusChange)
+      return ""
+
+    let statuses = [
+      { status: BugStatusEnum.New, color: "Status-New"},
+      { status: BugStatusEnum.InVerification, color: "Status-InVerification"},
+      { status: BugStatusEnum.Rejected, color: "Status-Rejected"},
+      { status: BugStatusEnum.Accepted, color: "Status-Accepted"},
+      { status: BugStatusEnum.InDevelopment, color: "Status-InDevelopment"},
+      { status: BugStatusEnum.Fixed, color: "Status-Fixed"},
+    ];
+
+    let color = statuses[statuses.findIndex(x => x.status == status)].color
+
+    return color
   }
 
   public SaveBug = () => {
