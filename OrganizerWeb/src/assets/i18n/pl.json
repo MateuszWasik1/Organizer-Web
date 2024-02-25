@@ -11,7 +11,7 @@
     "Account_Register_Validation_Email": "Pole musi zawierać adres email",
     "Account_Register_Validation_LowerCase": "Pole musi zawierać przynajmniej jedną małą literę",
     "Account_Register_Validation_UpperCase": "Pole musi zawierać przynajmniej jedną wielką literę",
-    "Account_Register_Validation_Digit": "Pole musi zawierać przynajmniej jedną liczbę",
+    "Account_Register_Validation_Digit": "Pole musi zawierać przynajmniej jedną cyfrę",
     "Account_Register_Validation_SpecialChar": "Pole musi zawierać przynajmniej jeden znak specjalny",
     "Account_Register_Validation_Password_Equals": "Hasła nie są jednakowe!",
     "Account_Login": "Logowanie",
