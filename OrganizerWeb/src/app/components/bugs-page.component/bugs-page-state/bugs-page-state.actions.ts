@@ -16,6 +16,10 @@ export const saveBug = createAction('[Bugs Page] Save Bug', props<{ bug: any }>(
 export const saveBugSuccess = createAction('[Bugs Page] Save Bug Success', props<{ bug: any }>());
 export const saveBugError = createAction('[Bugs Page] Save Bug Error');
 
+export const saveBugNote = createAction('[Bugs Page] Save Bug Note', props<{ BugNote: any }>());
+export const saveBugNoteSuccess = createAction('[Bugs Page] Save Bug Note Success', props<{ BugNote: any }>());
+export const saveBugNoteError = createAction('[Bugs Page] Save Bug Note Error');
+
 export const changeBugStatus = createAction('[Bugs Page] Change Bug Status', props<{ model: any }>());
 export const changeBugStatusSuccess = createAction('[Bugs Page] Change Bug Status Success', props<{ status: any }>());
 export const changeBugStatusError = createAction('[Bugs Page] Change Bug Status Error');

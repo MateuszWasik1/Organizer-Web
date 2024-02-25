@@ -36,6 +36,27 @@ export const BugsReducer = createReducer<BugsState>(
         }
     })),
 
+
+    on(Actions.loadBugNotesSuccess, (state, { BugNotes }) => ({
+        ...state,
+        BugNotes: BugNotes
+    })),
+
+    on(Actions.saveBugNoteSuccess, (state, { BugNote }) => {
+        let newBugNotes = [...state.BugNotes];
+
+        let newModel = {
+            "bNDate": BugNote.BNDate,
+            "bNText": BugNote.BNText,
+            "bNIsNewVerifier": BugNote.BNIsNewVerifier,
+            "bNIsStatusChange": BugNote.BNIsStatusChange,
+        };
+
+        newBugNotes.push(newModel)
+
+        return {...state, BugNotes: newBugNotes};
+    }),
+
     on(Actions.changeBugStatusSuccess, (state, { status }) => ({
         ...state,
         Bug: {

@@ -19,14 +19,23 @@ export class BugsService {
     }
 
     GetBug(bgid: any) : Observable<any>{
-        let params = new HttpParams()
-            .set("bgid", bgid);
+        let params = new HttpParams().set("bgid", bgid);
 
         return this.http.get<any>(this.apiUrl + 'api/Bugs/GetBug', { params: params, headers: GetToken(this.cookiesService)});
+    }
+
+    GetBugNotes(bgid: any) : Observable<any>{
+        let params = new HttpParams().set("bgid", bgid);
+
+        return this.http.get<any>(this.apiUrl + 'api/BugsNotes/GetBugNotes', { params: params, headers: GetToken(this.cookiesService)});
     }
     
     SaveBug(model: any) : Observable<any>{
         return this.http.post<any>(this.apiUrl + 'api/Bugs/SaveBug', model, { headers: GetToken(this.cookiesService) })
+    }
+
+    SaveBugNote(model: any) : Observable<any>{
+        return this.http.post<any>(this.apiUrl + 'api/BugsNotes/SaveBugNote', model, { headers: GetToken(this.cookiesService) })
     }
 
     ChangeBugStatus(model: any) : Observable<any>{

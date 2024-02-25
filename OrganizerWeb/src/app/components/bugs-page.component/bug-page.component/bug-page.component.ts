@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { selectBug, selectBugNotes } from '../bugs-page-state/bugs-page-state.selectors';
-import { loadBug, saveBug } from '../bugs-page-state/bugs-page-state.actions';
+import { loadBug, loadBugNotes, saveBug, saveBugNote } from '../bugs-page-state/bugs-page-state.actions';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -34,9 +34,11 @@ export class BugPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.bgid = this.route.snapshot.paramMap.get('bgid') ?? "";
     this.isNewBugView = this.bgid == "" || this.bgid == "0";
-    console.log( this.isNewBugView)
-    if(!this.isNewBugView)
+
+    if(!this.isNewBugView){
       this.store.dispatch(loadBug({ bgid: this.bgid }));
+      this.store.dispatch(loadBugNotes({ bgid: this.bgid }));
+    }
 
     this.subscriptions.push(
       this.Bug$.subscribe(x =>{
@@ -65,8 +67,13 @@ export class BugPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(saveBug({ bug: model }));
   }
 
-  public AddBugNote = () => console.log("xd")
-  //this.store.dispatch(saveTaskNote({ TNGID: Guid.create().toString(), TGID: this.form.get("tgid")?.value, TaskNote: this.addTaskNote.get("taskNote")?.value }));
+  public AddBugNote = () => {
+    let model = {
+      "BNBGID": this.form.get("bguid")?.value,
+      "BNText": this.addBugNote.get("bugNote")?.value,
+    }
+    this.store.dispatch(saveBugNote({ BugNote: model }));
+  }
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

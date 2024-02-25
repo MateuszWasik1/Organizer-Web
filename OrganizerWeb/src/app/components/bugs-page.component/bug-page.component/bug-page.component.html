@@ -67,7 +67,7 @@
 
         <div class="row" [formGroup]="addBugNote">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <textarea formControlName="bugNote" class="taskNoteTextArea" maxlength="4000"></textarea>
+                <textarea formControlName="bugNote" class="bugs-textarea" maxlength="4000"></textarea>
                 <div *ngIf="addBugNote.get('bugNote')?.invalid">{{translations.Get('Bugs_BugNotes_AddNote_Error')}}</div>
             </div>
         </div>
@@ -83,10 +83,10 @@
         <div *ngFor="let bugNote of bugNotes;">
             <div class="row data-row">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <p>{{bugNote.bNDate}}</p>
+                    <p>{{bugNote.bnDate | date: "yyyy-MM-dd HH:mm"}}</p>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                    <p>{{bugNote.bNText}}</p>
+                    <p>{{bugNote.bnText}}</p>
                 </div>
             </div>
         </div>

@@ -42,7 +42,7 @@ export class BugsEffects {
         return this.actions.pipe(
             ofType(BugsActions.loadBugNotes),
             switchMap((params) => {
-                return this.bugsService.GetBug(params.bgid).pipe(
+                return this.bugsService.GetBugNotes(params.bgid).pipe(
                     map((result) => BugsActions.loadBugNotesSuccess({ BugNotes: result })),
                     catchError(error => of(BugsActions.loadBugNotesError()))
                 )
@@ -63,7 +63,18 @@ export class BugsEffects {
         )
     })
 
-    
+    saveBugNote = createEffect(() => {
+        return this.actions.pipe(
+            ofType(BugsActions.saveBugNote),
+            switchMap((params) => {
+                return this.bugsService.SaveBugNote(params.BugNote).pipe(
+                    map(() => BugsActions.saveBugNoteSuccess({ BugNote: params.BugNote })),
+                    catchError(error => of(BugsActions.saveBugNoteError()))
+                )
+            })
+        )
+    })
+
     changeBugStatus = createEffect(() => {
         return this.actions.pipe(
             ofType(BugsActions.changeBugStatus),
