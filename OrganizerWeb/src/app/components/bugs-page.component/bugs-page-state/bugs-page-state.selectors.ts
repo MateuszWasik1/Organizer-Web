@@ -9,5 +9,4 @@ export const selectBug = createSelector(selectBugsState, (state: BugsState) => s
 
 export const selectBugNotes = createSelector(selectBugsState, (state: BugsState) => state.BugNotes)
 
-// export const selectFilters= createSelector(selectCategoriesState, (state: CategoriesState) => state.Filters)
-
+export const selectUserRoles = createSelector(selectBugsState, (state: BugsState) => state.UserRoles)

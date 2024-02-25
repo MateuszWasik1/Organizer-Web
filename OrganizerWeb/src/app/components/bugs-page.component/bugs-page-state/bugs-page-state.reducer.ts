@@ -16,6 +16,10 @@ var initialStateOfBugsPage: BugsState = {
         Date: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
     },
     BugNotes: [],
+    UserRoles: {
+        IsSupport: false,
+        IsAdmin: false,
+    },
 };
 
 export const BugsReducer = createReducer<BugsState>(
@@ -41,6 +45,15 @@ export const BugsReducer = createReducer<BugsState>(
         ...state,
         BugNotes: BugNotes
     })),
+
+    on(Actions.loadUserRolesSuccess, (state, { UserRoles }) => {
+        console.log(UserRoles);
+        return {...state,
+        UserRoles: {
+            IsSupport: UserRoles.isSupport,
+            IsAdmin: UserRoles.isAdmin,
+        }}
+    }),
 
     on(Actions.saveBugNoteSuccess, (state, { BugNote }) => {
         let newBugNotes = [...state.BugNotes];

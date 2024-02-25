@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { selectBug, selectBugNotes } from '../bugs-page-state/bugs-page-state.selectors';
-import { changeBugStatus, loadBug, loadBugNotes, saveBug, saveBugNote } from '../bugs-page-state/bugs-page-state.actions';
+import { selectBug, selectBugNotes, selectUserRoles } from '../bugs-page-state/bugs-page-state.selectors';
+import { changeBugStatus, loadBug, loadBugNotes, loadUserRoles, saveBug, saveBugNote } from '../bugs-page-state/bugs-page-state.actions';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute } from '@angular/router';
 import { BugStatusEnum } from "src/app/enums/BugStatusEnum"
@@ -23,7 +23,7 @@ export class BugPageComponent implements OnInit, OnDestroy {
   public bgid: string = "";
   public isNewBugView: boolean = true;
   public selectedBugStatus: any;
-  public bugStatus = [
+  public bugStatusAdmin = [
     {id: '0', name: 'Nowy'},
     {id: '1', name: 'W weryfikacji'},
     {id: '2', name: 'Odrzucony'},
@@ -31,9 +31,13 @@ export class BugPageComponent implements OnInit, OnDestroy {
     {id: '4', name: 'W naprawie'},
     {id: '5', name: 'Naprawiony'},
   ]
+  public bugStatusUser = [
+    {id: '0', name: 'Nowy'},
+  ]
 
   public Bug$ = this.store.select(selectBug);
   public BugNotes$ = this.store.select(selectBugNotes);
+  public UserRoles$ = this.store.select(selectUserRoles);
 
   constructor(public store: Store<AppState>, 
     public translations: TranslationService,
@@ -49,6 +53,8 @@ export class BugPageComponent implements OnInit, OnDestroy {
       this.store.dispatch(loadBug({ bgid: this.bgid }));
       this.store.dispatch(loadBugNotes({ bgid: this.bgid }));
     }
+    
+    this.store.dispatch(loadUserRoles());
 
     this.subscriptions.push(
       this.Bug$.subscribe(x =>{
@@ -59,7 +65,7 @@ export class BugPageComponent implements OnInit, OnDestroy {
           bStatus:  new FormControl( x.bStatus, { validators: [] }),
         })
 
-        this.selectedBugStatus = this.bugStatus[x.bStatus].id
+        this.selectedBugStatus = this.bugStatusAdmin[x.bStatus].id
       })
     );
 

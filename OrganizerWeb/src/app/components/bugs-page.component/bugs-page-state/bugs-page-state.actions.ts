@@ -23,3 +23,7 @@ export const saveBugNoteError = createAction('[Bugs Page] Save Bug Note Error');
 export const changeBugStatus = createAction('[Bugs Page] Change Bug Status', props<{ model: any }>());
 export const changeBugStatusSuccess = createAction('[Bugs Page] Change Bug Status Success', props<{ status: any }>());
 export const changeBugStatusError = createAction('[Bugs Page] Change Bug Status Error');
+
+export const loadUserRoles = createAction('[Bugs Page] Load User Roles');
+export const loadUserRolesSuccess = createAction('[Bugs Page] Load User Roles Success', props<{ UserRoles: any }>());
+export const loadUserRolesError = createAction('[Bugs Page] Load User Roles Error');

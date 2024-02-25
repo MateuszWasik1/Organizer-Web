@@ -14,4 +14,8 @@ export interface BugsState {
         Date: any,
     },
     BugNotes: any[];
+    UserRoles: {
+        IsSupport: boolean,
+        IsAdmin: boolean,
+    };
 }

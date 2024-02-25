@@ -5,13 +5,15 @@ import { catchError, map, switchMap, tap } from "rxjs/operators";
 import * as BugsActions from "./bugs-page-state.actions"
 import { BugsService } from "src/app/services/bugs.service";
 import { Router } from "@angular/router";
+import { RolesService } from "src/app/services/roles.service";
 
 @Injectable()
 export class BugsEffects {
     constructor(
         private actions: Actions,
         private router: Router,
-        private bugsService: BugsService) {
+        private bugsService: BugsService,
+        private rolesService: RolesService) {
     }
 
     loadBugs = createEffect(() => {
@@ -45,6 +47,18 @@ export class BugsEffects {
                 return this.bugsService.GetBugNotes(params.bgid).pipe(
                     map((result) => BugsActions.loadBugNotesSuccess({ BugNotes: result })),
                     catchError(error => of(BugsActions.loadBugNotesError()))
+                )
+            })
+        )
+    })
+
+    loadUserRoles = createEffect(() => {
+        return this.actions.pipe(
+            ofType(BugsActions.loadUserRoles),
+            switchMap((params) => {
+                return this.rolesService.GetUserRoles().pipe(
+                    map((result) => BugsActions.loadUserRolesSuccess({ UserRoles: result })),
+                    catchError(error => of(BugsActions.loadUserRolesError()))
                 )
             })
         )
