@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { changeDateFilter, deleteCategory, loadCategories, saveCategory, loadCustomCategories } from './categories-page-state/categories-page-state.actions';
-import { selectCategories, selectErrors, selectFilters } from './categories-page-state/categories-page-state.selectors';
+import { selectCategories, selectErrorMessage, selectErrors, selectFilters } from './categories-page-state/categories-page-state.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { Guid } from 'guid-typescript';
@@ -12,6 +12,7 @@ import { Moment } from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { CategoriesFillDataDialogComponent } from './categories-dialogs/categories-fill-data-dialog.component';
 import { TranslationService } from 'src/app/services/translate.service';
+import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 
 @Component({
   selector: 'app-categories-page',
@@ -29,10 +30,12 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
   public Categories$ = this.store.select(selectCategories);
   public Filters$ = this.store.select(selectFilters);
   public IsCategoriesError$ = this.store.select(selectErrors);
+  public ErrorMessage$ = this.store.select(selectErrorMessage);
 
   constructor(public store: Store<AppState>, 
     private dialog: MatDialog,
-    public translations: TranslationService)
+    public translations: TranslationService,
+    public errorHandler: MainUIErrorHandler)
   {
     this.subscriptions = []
   }
@@ -68,6 +71,12 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
             if(fill)
               this.store.dispatch(loadCustomCategories());
           });
+      })
+    )
+
+    this.subscriptions.push(
+      this.ErrorMessage$.subscribe(error => {
+        this.errorHandler.HandleException(error);
       })
     )
   }

@@ -5,6 +5,7 @@ import { SavingsState } from "./savings-page-state.state";
 var initialStateOfSearchPage: SavingsState = {
     Savings: [],
     IsSavingsError: false,
+    ErrorMessage: "",
 };
 
 export const SavingsReducer = createReducer<SavingsState>(
@@ -15,9 +16,10 @@ export const SavingsReducer = createReducer<SavingsState>(
         Savings: savings
     })),
 
-    on(Actions.loadSavingsError, state => ({
+    on(Actions.loadSavingsError, (state, { error }) => ({
         ...state,
         IsSavingsError: true,
+        ErrorMessage: error
     })),
 
     on(Actions.saveSavingSuccess, (state, { saving }) => {
@@ -43,6 +45,11 @@ export const SavingsReducer = createReducer<SavingsState>(
         return {...state, Savings: newSavings};
     }),
 
+    on(Actions.saveSavingError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
     on(Actions.deleteSaving, (state, { sGID }) => {
         let newSavings = [...state.Savings];
         let existingSavingIndex = newSavings.findIndex(x => x.sgid == sGID);
@@ -52,4 +59,9 @@ export const SavingsReducer = createReducer<SavingsState>(
 
         return {...state, Savings: newSavings};
     }),
+
+    on(Actions.deleteSavingError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
 ) 

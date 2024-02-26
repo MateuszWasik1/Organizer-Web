@@ -3,9 +3,10 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { loadUsers } from './users-page-state/users-page-state.actions';
-import { selectUsers } from './users-page-state/users-page-state.selectors';
+import { selectErrorMessage, selectUsers } from './users-page-state/users-page-state.selectors';
 import { TranslationService } from 'src/app/services/translate.service';
 import { Router } from '@angular/router';
+import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 
 @Component({
   selector: 'app-users-page',
@@ -19,10 +20,12 @@ export class UsersPageComponent implements OnInit, OnDestroy {
   public roles: any;
 
   public Users$ = this.store.select(selectUsers);
+  public ErrorMessage$ = this.store.select(selectErrorMessage);
 
   constructor(public store: Store<AppState>, 
     public translations: TranslationService,
-    public router: Router)
+    public router: Router,
+    public errorHandler: MainUIErrorHandler)
   {
     this.subscriptions = []
   }
@@ -35,6 +38,12 @@ export class UsersPageComponent implements OnInit, OnDestroy {
       {id: '2', name: 'Wsparcie'},
       {id: '3', name: 'Admin'},
     ];
+
+    this.subscriptions.push(
+      this.ErrorMessage$.subscribe(error => {
+        this.errorHandler.HandleException(error);
+      })
+    )
   }
 
   public GoToUser = (ugid: string) => this.router.navigate([`/user/${ugid}`]);

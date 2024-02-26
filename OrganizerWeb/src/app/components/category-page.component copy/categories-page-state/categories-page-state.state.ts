@@ -6,4 +6,5 @@ export interface CategoriesState {
         Date: any,
     },
     IsCategoriesError: boolean
+    ErrorMessage: string;
 }

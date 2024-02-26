@@ -4,12 +4,14 @@ import { of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";
 import * as UsersActions from "./users-page-state.actions"
 import { UserService } from "src/app/services/user.service";
+import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
 
 @Injectable()
 export class UsersEffects {
     constructor(
         private actions: Actions,
-        private userService: UserService) {
+        private userService: UserService,
+        private errorHandler: APIErrorHandler) {
     }
     
     loadUsers = createEffect(() => {
@@ -18,7 +20,7 @@ export class UsersEffects {
             switchMap((params) => {
                 return this.userService.GetAllUsers().pipe(
                     map((result) => UsersActions.loadUsersSuccess({ Users: result })),
-                    catchError(() => of(UsersActions.loadUsersError()))
+                    catchError(error => of(UsersActions.loadUsersError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )

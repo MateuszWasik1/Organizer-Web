@@ -9,6 +9,7 @@ var initialStateOfAccountPage: AccountState = {
         UPassword: '',
     },
     Token: "",
+    ErrorMessage: "",
 };
 
 export const AccountReducer = createReducer<AccountState>(
@@ -17,4 +18,12 @@ export const AccountReducer = createReducer<AccountState>(
     on(Actions.LoginSuccess, (state) => {
         return { ...state};
     }),
+    on(Actions.LoginError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+    on(Actions.RegisterUserError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
 ) 
