@@ -1,17 +1,21 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, switchMap, tap } from "rxjs/operators";
+import { catchError, map, switchMap, tap, withLatestFrom } from "rxjs/operators";
 import * as BugsActions from "./bugs-page-state.actions"
 import { BugsService } from "src/app/services/bugs.service";
 import { Router } from "@angular/router";
 import { RolesService } from "src/app/services/roles.service";
+import { AppState } from "src/app/app.state";
+import { Store } from "@ngrx/store";
+import { selectFilters } from "./bugs-page-state.selectors";
 
 @Injectable()
 export class BugsEffects {
     constructor(
         private actions: Actions,
         private router: Router,
+        private store: Store<AppState>,
         private bugsService: BugsService,
         private rolesService: RolesService) {
     }
@@ -19,8 +23,9 @@ export class BugsEffects {
     loadBugs = createEffect(() => {
         return this.actions.pipe(
             ofType(BugsActions.loadBugs),
+            withLatestFrom(this.store.select(selectFilters)),
             switchMap((params) => {
-                return this.bugsService.GetBugs().pipe(
+                return this.bugsService.GetBugs(params[1].BugType).pipe(
                     map((result) => BugsActions.loadBugsSuccess({ Bugs: result })),
                     catchError(() => of(BugsActions.loadBugsError()))
                 )

@@ -3,6 +3,7 @@ import * as Actions from "./bugs-page-state.actions"
 import { BugsState } from "./bugs-page-state.state";
 import { BugStatusEnum } from "src/app/enums/BugStatusEnum"
 import { Guid } from "guid-typescript";
+import { BugTypeEnum } from "src/app/enums/BugTypeEnum";
 
 var initialStateOfBugsPage: BugsState = {
     Bugs: [],
@@ -13,7 +14,7 @@ var initialStateOfBugsPage: BugsState = {
         bStatus: BugStatusEnum.New,
     },
     Filters: {
-        Date: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+        BugType: BugTypeEnum.My
     },
     BugNotes: [],
     UserRoles: {
@@ -92,4 +93,14 @@ export const BugsReducer = createReducer<BugsState>(
             BugNotes: newBugNotes
         }
     }),
+
+    
+    on(Actions.changeBugsType, (state, { BugType }) => ({
+        ...state,
+        Filters: {
+            ...state.Filters,
+            BugType: BugType
+        }
+    })),
+
 )

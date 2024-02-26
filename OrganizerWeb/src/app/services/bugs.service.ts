@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { CookieService } from "ngx-cookie-service";
 import { GetToken } from "../helpers/request.service";
 import { environment } from "src/environments/environment";
+import { BugTypeEnum } from "../enums/BugTypeEnum";
 
 @Injectable({
     providedIn: 'root'
@@ -12,8 +13,8 @@ export class BugsService {
     public apiUrl = environment.apiUrl;
     constructor( private http: HttpClient, private cookiesService: CookieService ) { }
 
-    GetBugs() : Observable<any>{
-        let params = new HttpParams();
+    GetBugs(BugType: BugTypeEnum) : Observable<any>{
+        let params = new HttpParams().set("bugType", BugType);
 
         return this.http.get<any>(this.apiUrl + 'api/Bugs/GetBugs', { params: params, headers: GetToken(this.cookiesService)});
     }

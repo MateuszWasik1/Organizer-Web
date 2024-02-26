@@ -1,4 +1,5 @@
 import { BugStatusEnum } from "src/app/enums/BugStatusEnum"
+import { BugTypeEnum } from "src/app/enums/BugTypeEnum";
 
 export const featureKeyBugsState = 'bugs-page-state';
 
@@ -11,7 +12,7 @@ export interface BugsState {
         bStatus: BugStatusEnum,
     };
     Filters: {
-        Date: any,
+        BugType: BugTypeEnum
     },
     BugNotes: any[];
     UserRoles: {

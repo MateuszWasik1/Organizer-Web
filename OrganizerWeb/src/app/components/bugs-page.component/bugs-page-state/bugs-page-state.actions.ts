@@ -24,6 +24,8 @@ export const changeBugStatus = createAction('[Bugs Page] Change Bug Status', pro
 export const changeBugStatusSuccess = createAction('[Bugs Page] Change Bug Status Success', props<{ status: any }>());
 export const changeBugStatusError = createAction('[Bugs Page] Change Bug Status Error');
 
+export const changeBugsType = createAction('[Bugs Page] Change Bugs Type', props<{ BugType: any }>());
+
 export const loadUserRoles = createAction('[Bugs Page] Load User Roles');
 export const loadUserRolesSuccess = createAction('[Bugs Page] Load User Roles Success', props<{ UserRoles: any }>());
 export const loadUserRolesError = createAction('[Bugs Page] Load User Roles Error');

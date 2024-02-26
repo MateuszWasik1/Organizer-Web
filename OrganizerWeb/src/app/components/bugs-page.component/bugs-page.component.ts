@@ -2,13 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-// import { changeDateFilter, deleteCategory, loadCategories, saveCategory, loadCustomCategories } from './categories-page-state/categories-page-state.actions';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { formatDate } from '@angular/common';
 import { TranslationService } from 'src/app/services/translate.service';
-import { selectBugs } from './bugs-page-state/bugs-page-state.selectors';
-import { loadBugs } from './bugs-page-state/bugs-page-state.actions';
+import { selectBugs, selectFilters, selectUserRoles } from './bugs-page-state/bugs-page-state.selectors';
+import { changeBugsType, loadBugs, loadUserRoles } from './bugs-page-state/bugs-page-state.actions';
 import { Router } from '@angular/router';
+import { BugTypeEnum } from 'src/app/enums/BugTypeEnum';
 
 @Component({
   selector: 'app-bugs-page',
@@ -20,10 +18,18 @@ export class BugsPageComponent implements OnInit, OnDestroy {
 
   public subscriptions: Subscription[];
   public ShowAddModal: boolean = false;
-  public form: FormGroup = new FormGroup({});
-  public filterForm: FormGroup = new FormGroup({});
   
   public Bugs$ = this.store.select(selectBugs);
+  public Filters$ = this.store.select(selectFilters);
+  public UserRoles$ = this.store.select(selectUserRoles);
+
+  public defaultBugsType: BugTypeEnum = BugTypeEnum.My;
+
+  public bugsTypes = [
+    {name: "Moje błędy", value: BugTypeEnum.My},
+    {name: "Weryfikowane przeze mnie", value: BugTypeEnum.ImVerificator},
+    {name: "Zamknięte", value: BugTypeEnum.Closed},
+  ]
 
   constructor(public store: Store<AppState>, 
     public translations: TranslationService,
@@ -32,25 +38,16 @@ export class BugsPageComponent implements OnInit, OnDestroy {
     this.subscriptions = []
   }
   ngOnInit(): void {
-    this.store.dispatch(loadBugs());
+    this.store.dispatch(loadUserRoles());
 
-    this.filterForm = new FormGroup({
-      date: new FormControl(formatDate(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1), 'yyyy-MM-dd', 'en'))
-    })
-
-    // this.subscriptions.push(
-    //   this.Filters$.subscribe(() => this.store.dispatch(loadCategories())
-    // ));
-
-    // this.filterForm.valueChanges.subscribe(x => this.store.dispatch(changeDateFilter({date: x})))
+    this.subscriptions.push(this.Filters$.subscribe(() => this.store.dispatch(loadBugs())))
   }
-  // public setMonthAndYear(normalizedMonth: any, datepicker: MatDatepicker<Moment>) {
-  //   this.filterForm.patchValue({ date: new Date(normalizedMonth)});
-  //   datepicker.close();
-  // }
+
   public AddBug = () => this.router.navigate(['bugs/0'])
 
   public ModifyBug = (bgid: any) => this.router.navigate([`bugs/${bgid}`])
+
+  public ChangeBugsType = (BugType: any) => this.store.dispatch(changeBugsType({ BugType: BugType.value }))
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());
