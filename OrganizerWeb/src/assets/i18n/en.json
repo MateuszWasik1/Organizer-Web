@@ -103,5 +103,14 @@
     "Bugs_Date": "Date",
     "Bugs_Status": "Status",
     "Bugs_NotFound_Admin": "No bugs found! Change filters options!",
-    "Bugs_NotFound_User": "No bugs found! Report new errors by add button!"
+    "Bugs_NotFound_User": "No bugs found! Report new errors by add button!",
+    "Bugs_Bug": "Error",
+    "Bugs_BugHistory": "Error hisotry",
+    "Bugs_Bug_Data": "Update Date",
+    "Bugs_Bug_Text": "Update text",
+    "Bugs_NotFound": "No data about history of error found.",
+    "Bugs_Bug_AddNoteTitle": "Add new note to error",
+    "Bugs_Bug_AddNote": "Add note",
+    "Bugs_AddTitle_Error": "You have exceeded the number of characters! The maximum number of characters is 200!",
+    "Bugs_BugNotes_AddNote_Error": "You have exceeded the number of characters! The maximum number of characters is 4000!"
 }
