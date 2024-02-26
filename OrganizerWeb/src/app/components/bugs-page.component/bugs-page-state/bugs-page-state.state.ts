@@ -19,4 +19,5 @@ export interface BugsState {
         IsSupport: boolean,
         IsAdmin: boolean,
     };
+    ErrorMessage: string,
 }

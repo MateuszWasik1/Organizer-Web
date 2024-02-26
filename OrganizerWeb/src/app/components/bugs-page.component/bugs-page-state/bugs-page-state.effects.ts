@@ -9,6 +9,7 @@ import { RolesService } from "src/app/services/roles.service";
 import { AppState } from "src/app/app.state";
 import { Store } from "@ngrx/store";
 import { selectFilters } from "./bugs-page-state.selectors";
+import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
 
 @Injectable()
 export class BugsEffects {
@@ -17,7 +18,8 @@ export class BugsEffects {
         private router: Router,
         private store: Store<AppState>,
         private bugsService: BugsService,
-        private rolesService: RolesService) {
+        private rolesService: RolesService,
+        private errorHandler: APIErrorHandler) {
     }
 
     loadBugs = createEffect(() => {
@@ -27,7 +29,7 @@ export class BugsEffects {
             switchMap((params) => {
                 return this.bugsService.GetBugs(params[1].BugType).pipe(
                     map((result) => BugsActions.loadBugsSuccess({ Bugs: result })),
-                    catchError(() => of(BugsActions.loadBugsError()))
+                    catchError(error => of(BugsActions.loadBugsError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -39,7 +41,7 @@ export class BugsEffects {
             switchMap((params) => {
                 return this.bugsService.GetBug(params.bgid).pipe(
                     map((result) => BugsActions.loadBugSuccess({ Bug: result })),
-                    catchError(error => of(BugsActions.loadBugError()))
+                    catchError(error => of(BugsActions.loadBugError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -51,7 +53,7 @@ export class BugsEffects {
             switchMap((params) => {
                 return this.bugsService.GetBugNotes(params.bgid).pipe(
                     map((result) => BugsActions.loadBugNotesSuccess({ BugNotes: result })),
-                    catchError(error => of(BugsActions.loadBugNotesError()))
+                    catchError(error => of(BugsActions.loadBugNotesError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -63,7 +65,7 @@ export class BugsEffects {
             switchMap((params) => {
                 return this.rolesService.GetUserRoles().pipe(
                     map((result) => BugsActions.loadUserRolesSuccess({ UserRoles: result })),
-                    catchError(error => of(BugsActions.loadUserRolesError()))
+                    catchError(error => of(BugsActions.loadUserRolesError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -76,7 +78,7 @@ export class BugsEffects {
                 return this.bugsService.SaveBug(params.bug).pipe(
                     map(() => BugsActions.saveBugSuccess({ bug: params.bug })),
                     tap(x => this.router.navigate(['bugs'])),
-                    catchError(error => of(BugsActions.saveBugError()))
+                    catchError(error => of(BugsActions.saveBugError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -88,7 +90,7 @@ export class BugsEffects {
             switchMap((params) => {
                 return this.bugsService.SaveBugNote(params.BugNote).pipe(
                     map(() => BugsActions.saveBugNoteSuccess({ BugNote: params.BugNote })),
-                    catchError(error => of(BugsActions.saveBugNoteError()))
+                    catchError(error => of(BugsActions.saveBugNoteError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -100,7 +102,7 @@ export class BugsEffects {
             switchMap((params) => {
                 return this.bugsService.ChangeBugStatus(params.model).pipe(
                     map(() => BugsActions.changeBugStatusSuccess({ status: params.model.Status })),
-                    catchError(error => of(BugsActions.changeBugStatusError()))
+                    catchError(error => of(BugsActions.changeBugStatusError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )

@@ -12,3 +12,5 @@ export const selectBugNotes = createSelector(selectBugsState, (state: BugsState)
 export const selectUserRoles = createSelector(selectBugsState, (state: BugsState) => state.UserRoles)
 
 export const selectFilters = createSelector(selectBugsState, (state: BugsState) => state.Filters)
+
+export const selectErrorMessage = createSelector(selectBugsState, (state: BugsState) => state.ErrorMessage)

@@ -3,10 +3,11 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { TranslationService } from 'src/app/services/translate.service';
-import { selectBugs, selectFilters, selectUserRoles } from './bugs-page-state/bugs-page-state.selectors';
+import { selectBugs, selectErrorMessage, selectFilters, selectUserRoles } from './bugs-page-state/bugs-page-state.selectors';
 import { changeBugsType, loadBugs, loadUserRoles } from './bugs-page-state/bugs-page-state.actions';
 import { Router } from '@angular/router';
 import { BugTypeEnum } from 'src/app/enums/BugTypeEnum';
+import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 
 @Component({
   selector: 'app-bugs-page',
@@ -22,6 +23,7 @@ export class BugsPageComponent implements OnInit, OnDestroy {
   public Bugs$ = this.store.select(selectBugs);
   public Filters$ = this.store.select(selectFilters);
   public UserRoles$ = this.store.select(selectUserRoles);
+  public ErrorMessage$ = this.store.select(selectErrorMessage);
 
   public defaultBugsType: BugTypeEnum = BugTypeEnum.My;
 
@@ -42,7 +44,8 @@ export class BugsPageComponent implements OnInit, OnDestroy {
 
   constructor(public store: Store<AppState>, 
     public translations: TranslationService,
-    public router: Router)
+    public router: Router,
+    public errorHandler: MainUIErrorHandler)
   {
     this.subscriptions = []
   }
@@ -50,6 +53,12 @@ export class BugsPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(loadUserRoles());
 
     this.subscriptions.push(this.Filters$.subscribe(() => this.store.dispatch(loadBugs())))
+
+    this.subscriptions.push(
+      this.ErrorMessage$.subscribe(error => {
+        this.errorHandler.HandleException(error);
+      })
+    )
   }
 
   public DisplayStatus = (status: number) => this.bugStatuses[status].name;

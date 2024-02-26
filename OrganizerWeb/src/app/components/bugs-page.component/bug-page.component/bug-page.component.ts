@@ -3,11 +3,12 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { selectBug, selectBugNotes, selectUserRoles } from '../bugs-page-state/bugs-page-state.selectors';
+import { selectBug, selectBugNotes, selectErrorMessage, selectUserRoles } from '../bugs-page-state/bugs-page-state.selectors';
 import { changeBugStatus, loadBug, loadBugNotes, loadUserRoles, saveBug, saveBugNote } from '../bugs-page-state/bugs-page-state.actions';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute } from '@angular/router';
 import { BugStatusEnum } from "src/app/enums/BugStatusEnum"
+import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 
 @Component({
   selector: 'app-bug-page',
@@ -38,10 +39,12 @@ export class BugPageComponent implements OnInit, OnDestroy {
   public Bug$ = this.store.select(selectBug);
   public BugNotes$ = this.store.select(selectBugNotes);
   public UserRoles$ = this.store.select(selectUserRoles);
+  public ErrorMessage$ = this.store.select(selectErrorMessage);
 
   constructor(public store: Store<AppState>, 
     public translations: TranslationService,
-    public route: ActivatedRoute)
+    public route: ActivatedRoute,
+    public errorHandler: MainUIErrorHandler)
   {
     this.subscriptions = []
   }
@@ -72,6 +75,12 @@ export class BugPageComponent implements OnInit, OnDestroy {
     this.addBugNote = new FormGroup({
       bugNote: new FormControl('', { validators: [Validators.maxLength(4000)] }),
     })
+
+    this.subscriptions.push(
+      this.ErrorMessage$.subscribe(error => {
+        this.errorHandler.HandleException(error);
+      })
+    )
   }
 
   public ChangeColor = (IsStatusChange: boolean, status: number) => {

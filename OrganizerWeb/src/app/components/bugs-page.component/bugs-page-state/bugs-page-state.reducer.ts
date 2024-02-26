@@ -21,6 +21,7 @@ var initialStateOfBugsPage: BugsState = {
         IsSupport: false,
         IsAdmin: false,
     },
+    ErrorMessage: "",
 };
 
 export const BugsReducer = createReducer<BugsState>(
@@ -29,6 +30,11 @@ export const BugsReducer = createReducer<BugsState>(
     on(Actions.loadBugsSuccess, (state, { Bugs }) => ({
         ...state,
         Bugs: Bugs
+    })),
+
+    on(Actions.loadBugsError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
     })),
 
     on(Actions.loadBugSuccess, (state, { Bug }) => ({
@@ -41,10 +47,19 @@ export const BugsReducer = createReducer<BugsState>(
         }
     })),
 
+    on(Actions.loadBugError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
 
     on(Actions.loadBugNotesSuccess, (state, { BugNotes }) => ({
         ...state,
         BugNotes: BugNotes
+    })),
+
+    on(Actions.loadBugNotesError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
     })),
 
     on(Actions.loadUserRolesSuccess, (state, { UserRoles }) => ({
@@ -53,6 +68,16 @@ export const BugsReducer = createReducer<BugsState>(
             IsSupport: UserRoles.isSupport,
             IsAdmin: UserRoles.isAdmin,
         }
+    })),
+
+    on(Actions.loadUserRolesError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
+    on(Actions.saveBugError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
     })),
 
     on(Actions.saveBugNoteSuccess, (state, { BugNote }) => {
@@ -70,6 +95,11 @@ export const BugsReducer = createReducer<BugsState>(
 
         return {...state, BugNotes: newBugNotes};
     }),
+
+    on(Actions.saveBugNoteError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
 
     on(Actions.changeBugStatusSuccess, (state, { status }) => {
         let newBugNotes = [...state.BugNotes];
@@ -94,7 +124,11 @@ export const BugsReducer = createReducer<BugsState>(
         }
     }),
 
-    
+    on(Actions.changeBugStatusError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
     on(Actions.changeBugsType, (state, { BugType }) => ({
         ...state,
         Filters: {
