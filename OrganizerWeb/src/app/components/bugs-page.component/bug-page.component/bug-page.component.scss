@@ -1,0 +1,66 @@
+.categories-row{
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; 
+}
+.row-text{
+    text-align: right;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.row-textarea{
+    text-align: left;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.row-inputs{
+    text-align: left;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    input{
+        margin-left: 30px
+    }
+}
+
+.bugs-textarea{
+    width: 100%;
+    height: 100px;
+    margin-bottom: 15px;
+}
+
+.Status-New{ 
+    color: #6E93FE
+}
+
+.Status-InVerification{ 
+    color: #0095FF
+}
+
+.Status-Rejected{ 
+    color: #FF0D00
+}
+
+.Status-Accepted{ 
+    color: #FFAE00
+}
+
+.Status-InDevelopment{ 
+    color: #FFE100
+}
+
+.Status-Fixed{ 
+    color: #00FF48
+}
+
+@media screen and (max-width: 992px) {
+    .row-text{
+        text-align: left; 
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .row-text{
+        text-align: left; 
+    }
+}

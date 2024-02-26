@@ -1,0 +1,75 @@
+<ng-container *ngIf="Bugs$ | async as bugs">
+    <section class="body">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9">
+                <h1 class="page-title">{{translations.Get('TopMenu_Bugs')}}</h1>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                <button mat-raised-button class="primary-btn" (click)="AddBug()" *ngIf="!ShowAddModal">{{translations.Get('General_Add')}}</button>
+            </div>
+        </div>
+
+        <ng-container *ngIf="UserRoles$ | async as userRoles">
+            <div class="row margin-top-15 margin-bottom-15 filter-row" *ngIf="userRoles.IsSupport || userRoles.IsAdmin">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                    {{translations.Get('General_ChooseDate')}}:
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <mat-form-field>
+                        <mat-select [value]="defaultBugsType" (selectionChange)="ChangeBugsType($event)">
+                            <mat-option *ngFor="let bugsType of bugsTypes;" [value]="bugsType['value']">
+                                {{bugsType['name']}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
+            </div>
+        </ng-container>
+
+        <div class="row padding-top-15 padding-bottom-15" *ngIf="bugs.length != 0">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Bugs_Title')}}
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                {{translations.Get('Bugs_Text')}}
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Bugs_Support')}}
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Bugs_Date')}}
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{translations.Get('Bugs_Status')}}
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+        </div>
+        <div *ngFor="let bug of bugs;">
+            <div class="row data-row">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{bug.bTitle}}</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <p>{{bug.bText}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{bug.bVerifiers}}</p>
+                </div>
+                <!-- Powyżej tylko dla Admina  i Supportu ??? -->
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{bug.bDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p>{{DisplayStatus(bug.bStatus)}}</p>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <span class="bi bi-pencil" (click)="ModifyBug(bug.bgid)"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row no-data-row" *ngIf="bugs.length == 0">
+            <p>{{translations.Get('Bugs_NotFound_User')}}</p>
+        </div>
+    </section>
+</ng-container>
