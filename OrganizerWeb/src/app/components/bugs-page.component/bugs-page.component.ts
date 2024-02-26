@@ -31,6 +31,15 @@ export class BugsPageComponent implements OnInit, OnDestroy {
     {name: "Zamknięte", value: BugTypeEnum.Closed},
   ]
 
+  public bugStatuses = [
+    {id: '0', name: 'Nowy'},
+    {id: '1', name: 'W weryfikacji'},
+    {id: '2', name: 'Odrzucony'},
+    {id: '3', name: 'Zaakceptowany'},
+    {id: '4', name: 'W naprawie'},
+    {id: '5', name: 'Naprawiony'},
+  ]
+
   constructor(public store: Store<AppState>, 
     public translations: TranslationService,
     public router: Router)
@@ -42,6 +51,8 @@ export class BugsPageComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.Filters$.subscribe(() => this.store.dispatch(loadBugs())))
   }
+
+  public DisplayStatus = (status: number) => this.bugStatuses[status].name;
 
   public AddBug = () => this.router.navigate(['bugs/0'])
 
