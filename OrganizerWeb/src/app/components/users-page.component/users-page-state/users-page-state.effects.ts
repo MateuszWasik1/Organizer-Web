@@ -25,4 +25,16 @@ export class UsersEffects {
             })
         )
     })
+
+    deleteUser = createEffect(() => {
+        return this.actions.pipe(
+            ofType(UsersActions.deleteUser),
+            switchMap((params) => {
+                return this.userService.DeleteUser(params.ugid).pipe(
+                    map((result) => UsersActions.deleteUserSuccess({ ugid: params.ugid })),
+                    catchError(error => of(UsersActions.deleteUserError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    })
 }

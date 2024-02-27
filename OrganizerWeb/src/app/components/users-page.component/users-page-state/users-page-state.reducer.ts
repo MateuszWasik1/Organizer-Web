@@ -19,4 +19,19 @@ export const UsersReducer = createReducer<UsersState>(
         ...state,
         ErrorMessage: error
     })),
+
+    on(Actions.deleteUserSuccess, (state, { ugid }) => {
+        let users = [...state.Users];
+
+        let deletedUserIndex = users.findIndex(x => x.ugid == ugid);
+
+        users.splice(deletedUserIndex, 1)
+
+        return {...state, Users: users};
+    }),
+
+    on(Actions.deleteUserError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
 ) 

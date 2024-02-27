@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { loadUsers } from './users-page-state/users-page-state.actions';
+import { deleteUser, loadUsers } from './users-page-state/users-page-state.actions';
 import { selectErrorMessage, selectUsers } from './users-page-state/users-page-state.selectors';
 import { TranslationService } from 'src/app/services/translate.service';
 import { Router } from '@angular/router';
@@ -50,6 +50,7 @@ export class UsersPageComponent implements OnInit, OnDestroy {
 
   public DisplayRoles = (role: number) => this.roles[role - 1].name;
 
+  public DeleteUser = (ugid: string) => this.store.dispatch(deleteUser({ ugid: ugid }))
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());
   }
