@@ -37,4 +37,8 @@ export class UserService {
     SaveUserByAdmin(model: any) : Observable<any>{
         return this.http.post<any>(this.apiUrl + 'api/User/SaveUserByAdmin', model, { headers: GetToken(this.cookiesService) })
     }
+
+    DeleteUser(ugid: any) : Observable<any>{
+        return this.http.delete<any>(this.apiUrl + 'api/User/DeleteUser/' + ugid, { headers: GetToken(this.cookiesService) })
+    }
 }
