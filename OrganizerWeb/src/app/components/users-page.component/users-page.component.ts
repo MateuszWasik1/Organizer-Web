@@ -5,7 +5,7 @@ import { AppState } from '../../app.state';
 import { deleteUser, loadUsers } from './users-page-state/users-page-state.actions';
 import { selectErrorMessage, selectUsers } from './users-page-state/users-page-state.selectors';
 import { TranslationService } from 'src/app/services/translate.service';
-import { Router } from '@angular/router';
+import { Router, ROUTES } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 
 @Component({
