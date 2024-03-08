@@ -64,4 +64,11 @@ export const SavingsReducer = createReducer<SavingsState>(
         ...state,
         ErrorMessage: error
     })),
+
+    on(Actions.cleanState, (state) => ({
+        ...state,
+        Savings: [],
+        IsSavingsError: false,
+        ErrorMessage: "",
+    })),
 ) 

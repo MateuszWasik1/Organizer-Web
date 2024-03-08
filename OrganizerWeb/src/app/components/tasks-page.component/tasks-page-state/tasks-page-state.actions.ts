@@ -36,4 +36,4 @@ export const ChangeCategoryFilterValue = createAction('[Tasks Page] Change Categ
 
 export const ChangeStatusFilterValue = createAction('[Tasks Page] Change Status Filter Value', props<{ value: any }>());
 
-export const cleanState = createAction('[Users Page] Clean State');
+export const cleanState = createAction('[Tasks Page] Clean State');
