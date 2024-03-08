@@ -151,4 +151,21 @@ export const TasksReducer = createReducer<TasksState>(
             Status: parseInt(value)
         }
     })),
+
+    on(Actions.cleanState, (state) => ({
+        ...state,
+        Filters: {
+            Category: '',
+            Status: 3,
+        },
+        Tasks: [],
+        TasksNotes: [],
+        Categories: [],
+        IsError: {
+            IsTasksError: false,
+            IsTasksNotesError: false,
+            IsCategoriesError: false,
+        },
+        ErrorMessage: "",
+    })),
 ) 

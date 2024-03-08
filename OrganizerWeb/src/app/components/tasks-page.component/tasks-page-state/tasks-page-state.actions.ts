@@ -35,3 +35,5 @@ export const deleteTaskNoteError = createAction('[Tasks Page] Delete Task Note E
 export const ChangeCategoryFilterValue = createAction('[Tasks Page] Change Category Filter Value', props<{ value: any }>());
 
 export const ChangeStatusFilterValue = createAction('[Tasks Page] Change Status Filter Value', props<{ value: any }>());
+
+export const cleanState = createAction('[Users Page] Clean State');

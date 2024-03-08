@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { ChangeCategoryFilterValue, ChangeStatusFilterValue, deleteTask, loadCategories, loadCustomCategories, loadCustomTasks, loadTasks, saveTask, loadTasksNotes, saveTaskNote, deleteTaskNote } from './tasks-page-state/tasks-page-state.actions';
+import { ChangeCategoryFilterValue, ChangeStatusFilterValue, deleteTask, loadCategories, loadCustomCategories, loadCustomTasks, loadTasks, saveTask, loadTasksNotes, saveTaskNote, deleteTaskNote, cleanState } from './tasks-page-state/tasks-page-state.actions';
 import { selectCategories, selectErrorMessage, selectErrors, selectFilters, selectTasks, selectTasksNotes } from './tasks-page-state/tasks-page-state.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Guid } from 'guid-typescript';
@@ -189,5 +189,6 @@ export class TasksPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());
+      this.store.dispatch(cleanState())
   }
 }
