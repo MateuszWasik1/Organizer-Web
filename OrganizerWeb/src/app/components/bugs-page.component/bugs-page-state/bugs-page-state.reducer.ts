@@ -14,7 +14,7 @@ var initialStateOfBugsPage: BugsState = {
         bStatus: BugStatusEnum.New,
     },
     Filters: {
-        BugType: BugTypeEnum.My
+        BugType: BugTypeEnum.New
     },
     BugNotes: [],
     UserRoles: {
