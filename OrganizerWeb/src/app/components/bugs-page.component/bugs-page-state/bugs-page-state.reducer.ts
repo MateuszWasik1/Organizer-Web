@@ -14,7 +14,7 @@ var initialStateOfBugsPage: BugsState = {
         bStatus: BugStatusEnum.New,
     },
     Filters: {
-        BugType: BugTypeEnum.My
+        BugType: BugTypeEnum.New
     },
     BugNotes: [],
     UserRoles: {
@@ -84,10 +84,10 @@ export const BugsReducer = createReducer<BugsState>(
         let newBugNotes = [...state.BugNotes];
 
         let newModel = {
-            "bnDate": BugNote.BNDate,
+            "bnDate": new Date(),
             "bnText": BugNote.BNText,
-            "bnIsNewVerifier": BugNote.BNIsNewVerifier,
-            "bnIsStatusChange": BugNote.BNIsStatusChange,
+            "bnIsNewVerifier": false,
+            "bnIsStatusChange": false,
             "bnChangedStatus": 0
         };
 

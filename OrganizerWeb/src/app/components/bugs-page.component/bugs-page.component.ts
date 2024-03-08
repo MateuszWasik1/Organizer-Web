@@ -31,6 +31,8 @@ export class BugsPageComponent implements OnInit, OnDestroy {
     {name: "Moje błędy", value: BugTypeEnum.My},
     {name: "Weryfikowane przeze mnie", value: BugTypeEnum.ImVerificator},
     {name: "Zamknięte", value: BugTypeEnum.Closed},
+    {name: "Nowe", value: BugTypeEnum.New},
+    {name: "Wszystkie", value: BugTypeEnum.All},
   ]
 
   public bugStatuses = [
