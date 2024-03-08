@@ -82,4 +82,23 @@ export const UserReducer = createReducer<UserState>(
         ...state,
         ErrorMessage: error
     })),
+
+    on(Actions.cleanState, (state) => ({
+        ...state,
+        User: {
+            uid: 0,
+            ugid: '',
+            urid: 1,
+            uFirstName: '',
+            uLastName: '',
+            uUserName: '',
+            uEmail: '',
+            uPhone: '',
+            uCategoriesCount: -1,
+            uTasksCount: -1,
+            uTaskNotesCount: -1,
+            uSavingsCount: -1,
+        },
+        ErrorMessage: "",
+    })),
 ) 
