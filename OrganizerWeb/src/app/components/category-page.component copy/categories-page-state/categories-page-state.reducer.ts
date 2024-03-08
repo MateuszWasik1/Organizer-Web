@@ -68,4 +68,14 @@ export const CategoriesReducer = createReducer<CategoriesState>(
 
         return {...state, Categories: newCategories};
     }),
+
+    on(Actions.cleanState, (state) => ({
+        ...state,
+        Categories: [],
+        Filters: {
+            Date: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+        },
+        IsCategoriesError: false,
+        ErrorMessage: "",
+    })),
 ) 
