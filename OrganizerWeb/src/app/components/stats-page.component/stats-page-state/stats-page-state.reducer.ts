@@ -80,4 +80,22 @@ export const StatsReducer = createReducer<StatsState>(
             Category: category,
         }
     })),
+
+    on(Actions.cleanState, (state) => ({
+        ...state,
+        Stats: {
+            labels: [],
+            datasets: [],
+        },
+        Filters: {
+            StartDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+            EndDate:  new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1),
+            ChartType: 'bar',
+            DataType: 'savings',
+            Category: Guid.EMPTY,
+        },
+        Categories: [],
+        IsStatsError: false,
+        ErrorMessage: "",
+    })),
 ) 

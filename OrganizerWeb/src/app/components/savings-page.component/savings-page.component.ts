@@ -7,7 +7,7 @@ import { formatDate } from '@angular/common';
 import { Guid } from 'guid-typescript';
 import { MatDialog } from '@angular/material/dialog';
 import { SavingsFillDataDialogComponent } from './savings-page-dialogs/savings-fill-data-dialog.component';
-import { deleteSaving, loadCustomSavings, loadSavings, saveSaving } from './savings-page-state/savings-page-state.actions';
+import { cleanState, deleteSaving, loadCustomSavings, loadSavings, saveSaving } from './savings-page-state/savings-page-state.actions';
 import { selectSavings, selectErrors, selectErrorMessage } from './savings-page-state/savings-page-state.selectors';
 import { TranslationService } from 'src/app/services/translate.service';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
@@ -106,5 +106,6 @@ export class SavingsPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());
+      this.store.dispatch(cleanState())
   }
 }

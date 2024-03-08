@@ -137,4 +137,23 @@ export const BugsReducer = createReducer<BugsState>(
         }
     })),
 
+    on(Actions.cleanState, (state) => ({
+        ...state,
+        Bugs: [],
+        Bug: {
+            bguid: Guid.create().toString(),
+            bTitle: "",
+            bText: "",
+            bStatus: BugStatusEnum.New,
+        },
+        Filters: {
+            BugType: BugTypeEnum.My
+        },
+        BugNotes: [],
+        UserRoles: {
+            IsSupport: false,
+            IsAdmin: false,
+        },
+        ErrorMessage: "",
+    })),
 )

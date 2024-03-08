@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { TranslationService } from 'src/app/services/translate.service';
 import { selectBugs, selectErrorMessage, selectFilters, selectUserRoles } from './bugs-page-state/bugs-page-state.selectors';
-import { changeBugsType, loadBugs, loadUserRoles } from './bugs-page-state/bugs-page-state.actions';
+import { changeBugsType, cleanState, loadBugs, loadUserRoles } from './bugs-page-state/bugs-page-state.actions';
 import { Router } from '@angular/router';
 import { BugTypeEnum } from 'src/app/enums/BugTypeEnum';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
@@ -71,5 +71,6 @@ export class BugsPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());
+      this.store.dispatch(cleanState())
   }
 }

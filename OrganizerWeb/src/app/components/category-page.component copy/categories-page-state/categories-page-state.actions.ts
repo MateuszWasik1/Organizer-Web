@@ -15,3 +15,5 @@ export const deleteCategorySuccess = createAction('[Categories Page] Delete Cate
 export const deleteCategoryError = createAction('[Categories Page] Delete Categories Error', props<{ error: any }>());
 
 export const changeDateFilter = createAction('[Categories Page] Save Categories Error', props<{ date: any }>());
+
+export const cleanState = createAction('[Categories Page] Clean State');

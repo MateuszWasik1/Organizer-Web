@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
-import { loadUser, loadUserByAdmin, saveUser, saveUserByAdmin } from './user-page-state/user-page-state.actions';
+import { cleanState, loadUser, loadUserByAdmin, saveUser, saveUserByAdmin } from './user-page-state/user-page-state.actions';
 import { selectErrorMessage, selectUser } from './user-page-state/user-page-state.selectors';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
@@ -109,5 +109,6 @@ export class UserPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());
+      this.store.dispatch(cleanState())
   }
 }

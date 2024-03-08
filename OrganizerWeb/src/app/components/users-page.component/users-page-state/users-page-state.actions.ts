@@ -7,3 +7,5 @@ export const loadUsersError = createAction('[Users Page] Load Users Error', prop
 export const deleteUser = createAction('[Users Page] Delete User', props<{ ugid: string }>());
 export const deleteUserSuccess = createAction('[Users Page] Delete User Success', props<{ ugid: string }>());
 export const deleteUserError = createAction('[Users Page] Delete User Error', props<{ error: any }>());
+
+export const cleanState = createAction('[Users Page] Clean State');
