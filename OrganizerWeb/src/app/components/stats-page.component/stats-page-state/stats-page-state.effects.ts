@@ -65,7 +65,7 @@ export class StatsEffects {
         return this.actions.pipe(
             ofType(StatsActions.loadCategories),
             switchMap((params) => {
-                return this.categoriesService.getCategoriesForFilters().pipe(
+                return this.categoriesService.GetCategoriesForFilters().pipe(
                     map((result) => StatsActions.loadCategoriesSuccess({ Categories: result })),
                     catchError(error => of(StatsActions.loadCategoriesError({ error: this.errorHandler.handleAPIError(error) })))
                 )

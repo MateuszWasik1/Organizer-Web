@@ -24,7 +24,7 @@ export class CategoriesEffects {
             ofType(CategoriesActions.loadCategories),
             withLatestFrom(this.store.select(selectFilters)),
             switchMap((params) => {
-                return this.categoriesService.getCategories(params[1].Date.date, false).pipe(
+                return this.categoriesService.GetCategories(params[1].Date.date, false).pipe(
                     map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
                     catchError(error => of(CategoriesActions.loadCategoriesError({ error: this.errorHandler.handleAPIError(error) }))),
                 )
@@ -48,7 +48,7 @@ export class CategoriesEffects {
         return this.actions.pipe(
             ofType(CategoriesActions.saveCategory),
             switchMap((params) => {
-                return this.categoriesService.saveCategories(params.category).pipe(
+                return this.categoriesService.SaveCategories(params.category).pipe(
                     map(() => CategoriesActions.saveCategorySuccess({ category: params.category })),
                     catchError(error => of(CategoriesActions.saveCategoryError({ error: this.errorHandler.handleAPIError(error) })))
                 )
@@ -60,7 +60,7 @@ export class CategoriesEffects {
         return this.actions.pipe(
             ofType(CategoriesActions.deleteCategory),
             switchMap((params) => {
-                return this.categoriesService.deleteCategories(params.cGID).pipe(
+                return this.categoriesService.DeleteCategories(params.cGID).pipe(
                     map(() => CategoriesActions.deleteCategorySuccess({ cGID: params.cGID })),
                     catchError(error => of(CategoriesActions.deleteCategoryError({ error: this.errorHandler.handleAPIError(error) })))
                 )
