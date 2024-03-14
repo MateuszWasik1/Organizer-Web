@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, switchMap, withLatestFrom } from "rxjs/operators";
+import { catchError, map, switchMap, withLatestFrom, tap } from "rxjs/operators";
 import * as StatsActions from "./stats-page-state.actions"
 import { AppState } from "src/app/app.state";
 import { Store } from "@ngrx/store";
