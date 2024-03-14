@@ -11,15 +11,15 @@ var initialStateOfNotesPage: NotesState = {
 export const NotesReducer = createReducer<NotesState>(
     initialStateOfNotesPage,
 
-    // on(Actions.loadBugsSuccess, (state, { Bugs }) => ({
-    //     ...state,
-    //     Bugs: Bugs
-    // })),
+    on(Actions.loadNotesSuccess, (state, { Notes }) => ({
+        ...state,
+        Notes: Notes
+    })),
 
-    // on(Actions.loadBugsError, (state, { error }) => ({
-    //     ...state,
-    //     ErrorMessage: error
-    // })),
+    on(Actions.loadNotesError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
 
     // on(Actions.loadBugSuccess, (state, { Bug }) => ({
     //     ...state,

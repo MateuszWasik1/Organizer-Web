@@ -62,6 +62,10 @@ import { featureKeyBugsState } from './components/bugs-page.component/bugs-page-
 import { BugsReducer } from './components/bugs-page.component/bugs-page-state/bugs-page-state.reducer';
 import { BugsEffects } from './components/bugs-page.component/bugs-page-state/bugs-page-state.effects';
 import { BugPageComponent } from './components/bugs-page.component/bug-page.component/bug-page.component';
+import { NotesPageComponent } from './components/notes-page.component/notes-page.component';
+import { featureKeyNotesState } from './components/notes-page.component/notes-page-state/notes-page-state.state';
+import { NotesReducer } from './components/notes-page.component/notes-page-state/notes-page-state.reducer';
+import { NotesEffects } from './components/notes-page.component/notes-page-state/notes-page-state.effects';
 
 @NgModule({
   declarations: [
@@ -80,6 +84,7 @@ import { BugPageComponent } from './components/bugs-page.component/bug-page.comp
     UsersPageComponent,
     BugsPageComponent,
     BugPageComponent,
+    NotesPageComponent,
     UIErrorHandler,
   ],
   imports: [
@@ -100,6 +105,7 @@ import { BugPageComponent } from './components/bugs-page.component/bug-page.comp
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
+    
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -107,6 +113,7 @@ import { BugPageComponent } from './components/bugs-page.component/bug-page.comp
         deps: [HttpClient]
       }
     }),
+
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     StoreModule.forFeature(featureKeyAccountState, AccountReducer),
@@ -117,8 +124,9 @@ import { BugPageComponent } from './components/bugs-page.component/bug-page.comp
     StoreModule.forFeature(featureKeyUserState, UserReducer),
     StoreModule.forFeature(featureKeyUsersState, UsersReducer),
     StoreModule.forFeature(featureKeyBugsState, BugsReducer),
+    StoreModule.forFeature(featureKeyNotesState, NotesReducer),
    
-    EffectsModule.forRoot([AccountEffects, CategoriesEffects, TasksEffects, SavingsEffects, StatsEffects, UserEffects, UsersEffects, BugsEffects]),
+    EffectsModule.forRoot([AccountEffects, CategoriesEffects, TasksEffects, SavingsEffects, StatsEffects, UserEffects, UsersEffects, BugsEffects, NotesEffects]),
     BrowserAnimationsModule,
   ],
   providers: [

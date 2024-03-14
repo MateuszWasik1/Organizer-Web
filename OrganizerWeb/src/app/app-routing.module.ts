@@ -10,6 +10,7 @@ import { UserPageComponent } from './components/user-page.component/user-page.co
 import { UsersPageComponent } from './components/users-page.component/users-page.component';
 import { BugsPageComponent } from './components/bugs-page.component/bugs-page.component';
 import { BugPageComponent } from './components/bugs-page.component/bug-page.component/bug-page.component';
+import { NotesPageComponent } from './components/notes-page.component/notes-page.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,14 @@ const routes: Routes = [
   {
     path: 'bugs/:bgid',
     component: BugPageComponent
+  },
+  {
+    path: 'notes',
+    component: NotesPageComponent
+  },
+  {
+    path: 'notes/:ngid',
+    component: NotesPageComponent
   },
   {
     path: '**',

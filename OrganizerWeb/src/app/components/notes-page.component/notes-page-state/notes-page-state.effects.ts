@@ -7,27 +7,29 @@ import { Router } from "@angular/router";
 import { AppState } from "src/app/app.state";
 import { Store } from "@ngrx/store";
 import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
+import { NotesService } from "src/app/services/notes.service";
 
 @Injectable()
-export class BugsEffects {
+export class NotesEffects {
     constructor(
         private actions: Actions,
         private router: Router,
         private store: Store<AppState>,
+        private notesService: NotesService,
         private errorHandler: APIErrorHandler) {
     }
 
-    // loadBugs = createEffect(() => {
-    //     return this.actions.pipe(
-    //         ofType(BugsActions.loadBugs),
-    //         switchMap((params) => {
-    //             return this.bugsService.GetBugs(params[1].BugType).pipe(
-    //                 map((result) => BugsActions.loadBugsSuccess({ Bugs: result })),
-    //                 catchError(error => of(BugsActions.loadBugsError({ error: this.errorHandler.handleAPIError(error) })))
-    //             )
-    //         })
-    //     )
-    // })
+    loadNotes = createEffect(() => {
+        return this.actions.pipe(
+            ofType(NotesActions.loadNotes),
+            switchMap((params) => {
+                return this.notesService.GetNotes().pipe(
+                    map((result) => NotesActions.loadNotesSuccess({ Notes: result })),
+                    catchError(error => of(NotesActions.loadNotesError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    })
 
     // loadBug = createEffect(() => {
     //     return this.actions.pipe(

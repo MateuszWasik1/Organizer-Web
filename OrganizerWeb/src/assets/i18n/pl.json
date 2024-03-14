@@ -30,6 +30,7 @@
     "TopMenu_Savings": "Oszczędności",
     "TopMenu_Stats": "Statystyki",
     "TopMenu_Bugs": "Zgłoś błąd",
+    "TopMenu_Notes": "Notatki",
     "TopMenu_Users": "Użytkownicy",
     "Categories_Dialog_Error_Title": "Błąd załadowania Kategorii",
     "Categories_Dialog_Error_Text": "Podczas ładowania Kategorii wystąpił błąd. Czy chcesz załadować customowe dane?",
@@ -114,5 +115,10 @@
     "Bugs_Bug_AddNoteTitle": "Dodaj nową notatkę do błędu",
     "Bugs_Bug_AddNote": "Dodaj notatkę",
     "Bugs_AddTitle_Error": "Przekroczyłeś liczbę znaków! Maksymalna liczba znaków to 200!",
-    "Bugs_BugNotes_AddNote_Error": "Przekroczyłeś liczbę znaków! Maksymalna liczba znaków to 4000!"
+    "Bugs_BugNotes_AddNote_Error": "Przekroczyłeś liczbę znaków! Maksymalna liczba znaków to 4000!",
+    "Notes_Title": "Tytuł",
+    "Notes_Text": "Wiadomość",
+    "Notes_Date": "Data dodania",
+    "Notes_ModificationDate": "Data modyfikacji",
+    "Notes_NotFound": "Nie znaleziono żadnych danych notatek! Dodaj nową notatkę."
 }

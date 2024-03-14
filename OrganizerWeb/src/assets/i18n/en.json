@@ -29,6 +29,7 @@
     "TopMenu_Savings": "Savings",
     "TopMenu_Stats": "Stats",
     "TopMenu_Bugs": "Report bug",
+    "TopMenu_Notes": "Notes",
     "TopMenu_Users": "Users",
     "Categories_Dialog_Error_Title": "Categories loading error",
     "Categories_Dialog_Error_Text": "An error occurred while loading the Categories. Do you want to load custom data?",
