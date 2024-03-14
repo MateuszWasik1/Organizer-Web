@@ -11,6 +11,7 @@ import { UsersPageComponent } from './components/users-page.component/users-page
 import { BugsPageComponent } from './components/bugs-page.component/bugs-page.component';
 import { BugPageComponent } from './components/bugs-page.component/bug-page.component/bug-page.component';
 import { NotesPageComponent } from './components/notes-page.component/notes-page.component';
+import { NotePageComponent } from './components/notes-page.component/note-page.component/note-page.component';
 
 const routes: Routes = [
   {
@@ -63,7 +64,7 @@ const routes: Routes = [
   },
   {
     path: 'notes/:ngid',
-    component: NotesPageComponent
+    component: NotePageComponent
   },
   {
     path: '**',

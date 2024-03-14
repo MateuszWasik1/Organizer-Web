@@ -66,6 +66,7 @@ import { NotesPageComponent } from './components/notes-page.component/notes-page
 import { featureKeyNotesState } from './components/notes-page.component/notes-page-state/notes-page-state.state';
 import { NotesReducer } from './components/notes-page.component/notes-page-state/notes-page-state.reducer';
 import { NotesEffects } from './components/notes-page.component/notes-page-state/notes-page-state.effects';
+import { NotePageComponent } from './components/notes-page.component/note-page.component/note-page.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { NotesEffects } from './components/notes-page.component/notes-page-state
     BugsPageComponent,
     BugPageComponent,
     NotesPageComponent,
+    NotePageComponent,
     UIErrorHandler,
   ],
   imports: [

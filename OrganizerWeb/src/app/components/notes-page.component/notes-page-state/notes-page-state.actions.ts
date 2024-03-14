@@ -30,6 +30,10 @@ import { createAction, props } from '@ngrx/store'
 // export const loadUserRolesSuccess = createAction('[Bugs Page] Load User Roles Success', props<{ UserRoles: any }>());
 // export const loadUserRolesError = createAction('[Bugs Page] Load User Roles Error', props<{ error: any }>());
 
+export const loadNote = createAction('[Notes Page] Load Note', props<{ NGID: any }>());
+export const loadNoteSuccess = createAction('[Notes Page] Load Note Success', props<{ Note: any }>());
+export const loadNoteError = createAction('[Notes Page] Load Note Error', props<{ error: any }>());
+
 export const loadNotes = createAction('[Notes Page] Load Notes');
 export const loadNotesSuccess = createAction('[Notes Page] Load Notes Success', props<{ Notes: any }>());
 export const loadNotesError = createAction('[Notes Page] Load Notes Error', props<{ error: any }>());

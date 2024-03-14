@@ -1,15 +1,37 @@
 import { createReducer, on } from "@ngrx/store";
 import * as Actions from "./notes-page-state.actions"
 import { NotesState } from "./notes-page-state.state";
-import { Guid } from "guid-typescript";
 
 var initialStateOfNotesPage: NotesState = {
     Notes: [],
+    Note: {
+        NGID: "",
+        NDate: new Date(),
+        NModificationDate: new Date(),
+        NTitle: "",
+        NTxt: "",
+    },
     ErrorMessage: "",
 };
 
 export const NotesReducer = createReducer<NotesState>(
     initialStateOfNotesPage,
+
+    on(Actions.loadNoteSuccess, (state, { Note }) => ({
+        ...state,
+        Note: {
+            NGID: Note.ngid,
+            NDate: Note.nDate,
+            NModificationDate: Note.nModificationDate,
+            NTitle: Note.nTitle,
+            NTxt: Note.nTxt,
+        },
+    })),
+
+    on(Actions.loadNoteError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
 
     on(Actions.loadNotesSuccess, (state, { Notes }) => ({
         ...state,

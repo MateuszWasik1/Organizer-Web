@@ -19,6 +19,18 @@ export class NotesEffects {
         private errorHandler: APIErrorHandler) {
     }
 
+    loadNote = createEffect(() => {
+        return this.actions.pipe(
+            ofType(NotesActions.loadNote),
+            switchMap((params) => {
+                return this.notesService.GetNote(params.NGID).pipe(
+                    map((result) => NotesActions.loadNoteSuccess({ Note: result })),
+                    catchError(error => of(NotesActions.loadNoteError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    })
+
     loadNotes = createEffect(() => {
         return this.actions.pipe(
             ofType(NotesActions.loadNotes),

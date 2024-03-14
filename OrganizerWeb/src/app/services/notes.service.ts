@@ -12,6 +12,12 @@ export class NotesService {
     public apiUrl = environment.apiUrl;
     constructor( private http: HttpClient, private cookiesService: CookieService ) { }
 
+    GetNote(ngid: string) : Observable<any>{
+        let params = new HttpParams().set("ngid", ngid);
+
+        return this.http.get<any>(this.apiUrl + 'api/Notes/GetNote', { params: params, headers: GetToken(this.cookiesService) })
+    }
+
     GetNotes() : Observable<any>{
         let params = new HttpParams();
 
