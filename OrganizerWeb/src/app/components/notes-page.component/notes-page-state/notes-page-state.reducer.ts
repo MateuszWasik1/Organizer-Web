@@ -43,123 +43,48 @@ export const NotesReducer = createReducer<NotesState>(
         ErrorMessage: error
     })),
 
-    // on(Actions.loadBugSuccess, (state, { Bug }) => ({
-    //     ...state,
-    //     Bug: {
-    //         bguid: Bug.bgid,
-    //         bTitle: Bug.bTitle,
-    //         bText: Bug.bText,
-    //         bStatus: Bug.bStatus,
-    //     }
-    // })),
+    on(Actions.addNoteSuccess, (state) => ({
+        ...state,
+    })),
 
-    // on(Actions.loadBugError, (state, { error }) => ({
-    //     ...state,
-    //     ErrorMessage: error
-    // })),
+    on(Actions.addNoteError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
 
-    // on(Actions.loadBugNotesSuccess, (state, { BugNotes }) => ({
-    //     ...state,
-    //     BugNotes: BugNotes
-    // })),
+    on(Actions.updateNoteSuccess, (state) => ({
+        ...state,
+    })),
 
-    // on(Actions.loadBugNotesError, (state, { error }) => ({
-    //     ...state,
-    //     ErrorMessage: error
-    // })),
+    on(Actions.updateNoteError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
 
-    // on(Actions.loadUserRolesSuccess, (state, { UserRoles }) => ({
-    //     ...state,
-    //     UserRoles: {
-    //         IsSupport: UserRoles.isSupport,
-    //         IsAdmin: UserRoles.isAdmin,
-    //     }
-    // })),
+    on(Actions.deleteNoteSuccess, (state, { NGID }) => {
+        let newNotes = [...state.Notes];
+        let existingNoteIndex = newNotes.findIndex(x => x.ngid == NGID);
 
-    // on(Actions.loadUserRolesError, (state, { error }) => ({
-    //     ...state,
-    //     ErrorMessage: error
-    // })),
+        if(existingNoteIndex != -1)
+        newNotes.splice(existingNoteIndex, 1)
 
-    // on(Actions.saveBugError, (state, { error }) => ({
-    //     ...state,
-    //     ErrorMessage: error
-    // })),
+        return {...state, Notes: newNotes};
+    }),
 
-    // on(Actions.saveBugNoteSuccess, (state, { BugNote }) => {
-    //     let newBugNotes = [...state.BugNotes];
+    on(Actions.deleteNoteError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
 
-    //     let newModel = {
-    //         "bnDate": new Date(),
-    //         "bnText": BugNote.BNText,
-    //         "bnIsNewVerifier": false,
-    //         "bnIsStatusChange": false,
-    //         "bnChangedStatus": 0
-    //     };
-
-    //     newBugNotes.push(newModel)
-
-    //     return {...state, BugNotes: newBugNotes};
-    // }),
-
-    // on(Actions.saveBugNoteError, (state, { error }) => ({
-    //     ...state,
-    //     ErrorMessage: error
-    // })),
-
-    // on(Actions.changeBugStatusSuccess, (state, { status }) => {
-    //     let newBugNotes = [...state.BugNotes];
-
-    //     let newModel = {
-    //         "bnDate": new Date(),
-    //         "bnText": "Status został zmieniony",
-    //         "bnIsNewVerifier": false,
-    //         "bnIsStatusChange": true,
-    //         "bnChangedStatus":  +status
-    //     };
-
-    //     newBugNotes.push(newModel)
-
-    //     return {
-    //         ...state,
-    //         Bug: {
-    //             ...state.Bug,
-    //             bStatus: status,
-    //         },
-    //         BugNotes: newBugNotes
-    //     }
-    // }),
-
-    // on(Actions.changeBugStatusError, (state, { error }) => ({
-    //     ...state,
-    //     ErrorMessage: error
-    // })),
-
-    // on(Actions.changeBugsType, (state, { BugType }) => ({
-    //     ...state,
-    //     Filters: {
-    //         ...state.Filters,
-    //         BugType: BugType
-    //     }
-    // })),
-
-    // on(Actions.cleanState, (state) => ({
-    //     ...state,
-    //     Bugs: [],
-    //     Bug: {
-    //         bguid: Guid.create().toString(),
-    //         bTitle: "",
-    //         bText: "",
-    //         bStatus: BugStatusEnum.New,
-    //     },
-    //     Filters: {
-    //         BugType: BugTypeEnum.My
-    //     },
-    //     BugNotes: [],
-    //     UserRoles: {
-    //         IsSupport: false,
-    //         IsAdmin: false,
-    //     },
-    //     ErrorMessage: "",
-    // })),
+    on(Actions.cleanState, (state) => ({
+        Notes: [],
+        Note: {
+            NGID: "",
+            NDate: new Date(),
+            NModificationDate: new Date(),
+            NTitle: "",
+            NTxt: "",
+        },
+        ErrorMessage: "",
+    })),
 )

@@ -5,7 +5,7 @@ import { AppState } from '../../app.state';
 import { TranslationService } from 'src/app/services/translate.service';
 import { Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
-import { cleanState, loadNotes } from './notes-page-state/notes-page-state.actions';
+import { cleanState, deleteNote, loadNotes } from './notes-page-state/notes-page-state.actions';
 import { selectErrorMessage, selectNotes } from './notes-page-state/notes-page-state.selectors';
 
 @Component({
@@ -39,9 +39,11 @@ export class NotesPageComponent implements OnInit, OnDestroy {
     )
   }
 
-  public AddNote = () => this.router.navigate(['notes/0'])
+  public AddNote = () => this.router.navigate(['notes/0']);
 
-  public ModifyNote = (ngid: any) => this.router.navigate([`notes/${ngid}`])
+  public ModifyNote = (ngid: any) => this.router.navigate([`notes/${ngid}`]);
+
+  public DeleteNote = (ngid: any) => this.store.dispatch(deleteNote({ NGID: ngid }));
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

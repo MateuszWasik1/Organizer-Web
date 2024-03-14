@@ -30,16 +30,17 @@
                     <p>{{note.nTitle}}</p>
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                    <p>{{note.nText}}</p>
+                    <p>{{note.nTxt}}</p>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <p>{{note.NDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+                    <p>{{note.nDate | date: 'yyyy-MM-dd HH:mm'}}</p>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <p>{{note.NModificationDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+                    <p>{{note.nModificationDate | date: 'yyyy-MM-dd HH:mm'}}</p>
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                     <span class="bi bi-pencil" (click)="ModifyNote(note.ngid)"></span>
+                    <span class="bi bi-trash" (click)="DeleteNote(note.ngid)"></span>
                 </div>
             </div>
         </div>

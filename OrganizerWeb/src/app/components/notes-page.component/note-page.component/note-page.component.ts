@@ -4,9 +4,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { selectErrorMessage, selectNote } from '../notes-page-state/notes-page-state.selectors';
-import { cleanState, loadNote } from '../notes-page-state/notes-page-state.actions';
+import { addNote, cleanState, loadNote, updateNote } from '../notes-page-state/notes-page-state.actions';
 import { TranslationService } from 'src/app/services/translate.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 
 @Component({
@@ -28,6 +28,7 @@ export class NotePageComponent implements OnInit, OnDestroy {
   constructor(public store: Store<AppState>, 
     public translations: TranslationService,
     public route: ActivatedRoute,
+    public router: Router,
     public errorHandler: MainUIErrorHandler)
   {
     this.subscriptions = []
@@ -60,15 +61,19 @@ export class NotePageComponent implements OnInit, OnDestroy {
   }
 
   public SaveNote = () => {
-    // let model = {
-    //   "BGID": this.form.get("bguid")?.value,
-    //   "BTitle": this.form.get("bTitle")?.value,
-    //   "BText": this.form.get("bText")?.value,
-    //   "BStatus": this.form.get("bStatus")?.value,
-    // }
+    let model = {
+      "NGID": this.form.get("NGID")?.value,
+      "NTitle": this.form.get("NTitle")?.value,
+      "NTxt": this.form.get("NTxt")?.value,
+    }
     
-    // this.store.dispatch(saveBug({ bug: model }));
+    if(model.NGID == "0" || model.NGID == "")
+      this.store.dispatch(addNote({ Note: model }));
+    else
+      this.store.dispatch(updateNote({ Note: model }));
   }
+
+  public Cancel = () => this.router.navigate(['/notes']);
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

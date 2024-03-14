@@ -24,27 +24,15 @@ export class NotesService {
         return this.http.get<any>(this.apiUrl + 'api/Notes/GetNotes', { params: params, headers: GetToken(this.cookiesService) })
     }
 
-    AddNote(TNGID: string, TGID: string, taskNote: any) : Observable<any>{
-        let model = {
-            "TNGID": TNGID,
-            "TNTGID": TGID,
-            "TNNote": taskNote,
-        }
-
-        return this.http.post<any>(this.apiUrl + 'api/Notes/GetNotes', model, {headers: GetToken(this.cookiesService)})
+    AddNote(model: any) : Observable<any>{
+        return this.http.post<any>(this.apiUrl + 'api/Notes/AddNote', model, {headers: GetToken(this.cookiesService)})
     }
 
-    UpdateNote(TNGID: string, TGID: string, taskNote: any) : Observable<any>{
-        let model = {
-            "TNGID": TNGID,
-            "TNTGID": TGID,
-            "TNNote": taskNote,
-        }
-
-        return this.http.put<any>(this.apiUrl + 'api/Notes/GetNotes', model, {headers: GetToken(this.cookiesService)})
+    UpdateNote(model: any) : Observable<any>{
+        return this.http.put<any>(this.apiUrl + 'api/Notes/UpdateNote', model, {headers: GetToken(this.cookiesService)})
     }
     
-    DeleteNote(tNGID: any) : Observable<any>{
-        return this.http.delete<any>(`${this.apiUrl}api/Notes/GetNotes/${tNGID}`, { headers: GetToken(this.cookiesService)})
+    DeleteNote(NGID: any) : Observable<any>{
+        return this.http.delete<any>(`${this.apiUrl}api/Notes/DeleteNote/${NGID}`, { headers: GetToken(this.cookiesService)})
     }
 }
