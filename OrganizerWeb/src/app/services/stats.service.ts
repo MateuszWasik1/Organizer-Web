@@ -37,5 +37,13 @@ export class StatsService {
         return this.http.get<any>(this.apiUrl + 'api/Stats/GetMoneySpendedForCategoryBarChart', { params: params, headers: GetToken(this.cookiesService) })
     }
 
+    GetNotesBarChart(startDate: Date, endDate: Date) : Observable<any>{
+        let params = new HttpParams()
+            .set("startDate", this.DateToString(new Date(startDate)))
+            .set("endDate", this.DateToString(new Date(endDate)));
+            
+        return this.http.get<any>(this.apiUrl + 'api/Stats/GetNotesBarChart', { params: params, headers: GetToken(this.cookiesService) })
+    }
+
     public DateToString = (date: Date) => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 }

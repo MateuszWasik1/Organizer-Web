@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                         <mat-form-field class="margin-left-30">
-                            <input matInput [ngxMatDatetimePicker]="picker" placeholder="Wybierz datę i czas" formControlName="tTime">
+                            <input matInput [ngxMatDatetimePicker]="picker" placeholder="translations.Get('General_Pick_Date_And_Time')" formControlName="tTime">
                             <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
                             <ngx-mat-datetime-picker #picker 
                                 [showSpinners]="true" 

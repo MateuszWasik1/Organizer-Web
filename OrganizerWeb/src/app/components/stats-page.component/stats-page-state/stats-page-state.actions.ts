@@ -3,6 +3,7 @@ import { createAction, props } from '@ngrx/store'
 export const loadSavingBarChartStats = createAction('[Stats Page] Load Saving Bar Chart Stats');
 export const loadTaskSpendedMoneyBarChartStats = createAction('[Stats Page] Load Task Spended Money Bar Chart Stats');
 export const loadCategorySpendedMoneyBarChartStats = createAction('[Stats Page] Load Category Spended Money Bar Chart Stats');
+export const loadNotesBarChartStats = createAction('[Stats Page] Load Notes Bar Chart Stats');
 
 export const loadStatsSuccess = createAction('[Stats Page] Load Stats Success', props<{ Result: any }>());
 export const loadStatsError = createAction('[Stats Page] Load Stats Error', props<{ error: any }>());

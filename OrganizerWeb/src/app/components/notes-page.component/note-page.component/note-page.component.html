@@ -1,0 +1,72 @@
+<section class="body">
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9">
+            <h1 class="page-title" *ngIf="isNewNoteView">{{translations.Get('Notes_New_Note')}}</h1>
+
+            <ng-container *ngIf="Note$ | async as note">
+                <h1 class="page-title" *ngIf="!isNewNoteView">{{translations.Get('Notes_Note')}}: {{note.NTitle}} </h1>
+            </ng-container>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+            <button mat-raised-button class="primary-btn float-right" (click)="SaveNote()" [disabled]="form.invalid">{{translations.Get('General_Save')}}</button>
+            <button mat-raised-button class="float-right margin-right-15" (click)="Cancel()">{{translations.Get('General_Cancel')}}</button>
+        </div>
+    </div>
+
+    <div class="row" [formGroup]="form">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row-textarea">
+                    <span class="data-input-text">
+                        {{translations.Get('Notes_Title')}}:
+                    </span>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row-inputs">
+                    <textarea formControlName="NTitle" maxlength="200" [placeholder]="translations.Get('Notes_Title')" class="notes-textarea"></textarea>
+                </div>
+                <div class="error row" *ngIf="this.form.get('NTitle')?.errors?.['required']">
+                    {{translations.Get('Notes_Title_Required')}}
+                </div>
+                <div class="error row" *ngIf="this.form.get('NTitle')?.errors?.['maxlength']">
+                    {{translations.Get('Notes_Title_Max_200')}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row-textarea">
+                    <span class="data-input-text">
+                        {{translations.Get('Notes_Text')}}:
+                    </span>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row-inputs">
+                    <textarea formControlName="NTxt" maxlength="4000" [placeholder]="translations.Get('Notes_Text')" class="notes-textarea"></textarea>
+                </div>
+                <div class="error row" *ngIf="this.form.get('NTxt')?.errors?.['required']">
+                    {{translations.Get('Notes_Text_Required')}}
+                </div>
+                <div class="error row" *ngIf="this.form.get('NTxt')?.errors?.['maxlength']">
+                    {{translations.Get('Notes_Text_Max_4000')}}
+                </div>
+            </div>
+            <div class="row" *ngIf="!isNewNoteView">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
+                    <span class="data-input-text">
+                        {{translations.Get('Notes_Creation_Date')}}:
+                    </span>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Notes_Creation_Date')" formControlName="NDate"/>
+                </div>
+            </div>
+            <div class="row" *ngIf="!isNewNoteView">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
+                    <span class="data-input-text">
+                        {{translations.Get('Notes_Modification_Date')}}:
+                    </span>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Notes_Modification_Date')" formControlName="NModificationDate"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

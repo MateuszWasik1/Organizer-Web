@@ -6,7 +6,7 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { Moment } from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { StatsFillDataDialogComponent } from './stats-page-dialogs/stats-fill-data-dialog.component';
-import { changeCategoryFilter, changeDataTypeFilter, changeEndDateFilter, changeStartDateFilter, cleanState, loadCategories, loadCategorySpendedMoneyBarChartStats, loadCustomStats, loadSavingBarChartStats, loadTaskSpendedMoneyBarChartStats } from './stats-page-state/stats-page-state.actions';
+import { changeCategoryFilter, changeDataTypeFilter, changeEndDateFilter, changeStartDateFilter, cleanState, loadCategories, loadCategorySpendedMoneyBarChartStats, loadCustomStats, loadNotesBarChartStats, loadSavingBarChartStats, loadTaskSpendedMoneyBarChartStats } from './stats-page-state/stats-page-state.actions';
 import { selectCategories, selectErrorMessage, selectErrors, selectFilters, selectStats } from './stats-page-state/stats-page-state.selectors';
 import { ChartOptions } from 'chart.js';
 import { TranslationService } from 'src/app/services/translate.service';
@@ -33,6 +33,7 @@ export class StatsPageComponent implements OnInit, OnDestroy {
     {name: "Oszczędności", value: "savings"},
     {name: "Wydatki z zadań", value: "task-money"},
     {name: "Wydatki z kategorii", value: "category"},
+    {name: "Notatki", value: "notes"},
   ]
 
   constructor(public store: Store<AppState>, 
@@ -54,6 +55,8 @@ export class StatsPageComponent implements OnInit, OnDestroy {
           this.store.dispatch(loadTaskSpendedMoneyBarChartStats())
         if(filters.DataType == "category")
           this.store.dispatch(loadCategorySpendedMoneyBarChartStats())
+        if(filters.DataType == "notes")
+          this.store.dispatch(loadNotesBarChartStats())
       })
     );
 
