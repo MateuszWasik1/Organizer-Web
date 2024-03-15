@@ -8,6 +8,7 @@ import { addNote, cleanState, loadNote, updateNote } from '../notes-page-state/n
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-note-page',
@@ -45,10 +46,10 @@ export class NotePageComponent implements OnInit, OnDestroy {
       this.Note$.subscribe(x =>{
         this.form = new FormGroup({
           NGID: new FormControl( x.NGID, { validators: [] }),
-          NDate:new FormControl( x.NDate, { validators: [] }),
-          NModificationDate:new FormControl( x.NModificationDate, { validators: [] }),
-          NTitle: new FormControl( x.NTitle, { validators: [Validators.maxLength(200)] }),
-          NTxt: new FormControl( x.NTxt, { validators: [Validators.maxLength(4000)] }),
+          NDate: new FormControl( { value: formatDate(x.NDate, 'yyyy-MM-dd HH:mm:ss', 'en'), disabled: true }, { validators: [] }),
+          NModificationDate: new FormControl( { value: formatDate(x.NModificationDate, 'yyyy-MM-dd HH:mm:ss', 'en'), disabled: true }, { validators: [] }),
+          NTitle: new FormControl( x.NTitle, { validators: [Validators.required, Validators.maxLength(200)] }),
+          NTxt: new FormControl( x.NTxt, { validators: [Validators.required, Validators.maxLength(4000)] }),
         })
       })
     );

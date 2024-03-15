@@ -70,7 +70,7 @@ export class NotesEffects {
         return this.actions.pipe(
             ofType(NotesActions.deleteNote),
             switchMap((params) => {
-                return this.notesService.UpdateNote(params.NGID).pipe(
+                return this.notesService.DeleteNote(params.NGID).pipe(
                     map(() => NotesActions.deleteNoteSuccess({ NGID: params.NGID })),
                     catchError(error => of(NotesActions.deleteNoteError({ error: this.errorHandler.handleAPIError(error) })))
                 )
