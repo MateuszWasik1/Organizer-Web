@@ -61,6 +61,19 @@ export class StatsEffects {
         )
     })
 
+    loadNotesBarChartStats = createEffect(() => {
+        return this.actions.pipe(
+            ofType(StatsActions.loadNotesBarChartStats),
+            withLatestFrom(this.store.select(selectFilters)),
+            switchMap((params) => {
+                return this.statsService.GetNotesBarChart(params[1].StartDate, params[1].EndDate).pipe(
+                    map((result) => StatsActions.loadStatsSuccess({ Result: result })),
+                    catchError(error => of(StatsActions.loadStatsError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    })
+
     loadCategories = createEffect(() => {
         return this.actions.pipe(
             ofType(StatsActions.loadCategories),
