@@ -8,20 +8,21 @@
             </ng-container>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
-            <button mat-raised-button class="primary-btn" (click)="SaveBug()" *ngIf="isNewBugView">{{translations.Get('General_Save')}}</button>
+            <button mat-raised-button class="primary-btn float-right" (click)="SaveBug()" *ngIf="isNewBugView">{{translations.Get('General_Save')}}</button>
+            <button mat-raised-button class="float-right margin-right-15" (click)="Cancel()">{{translations.Get('General_Cancel')}}</button>
         </div>
     </div>
 
     <div class="row" [formGroup]="form">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="row">
-                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
-                    <span class="data-input-text">
-                        {{translations.Get('Bugs_Status')}}:
-                    </span>
-                </div>
-                <ng-container *ngIf="UserRoles$ | async as userRoles">
-                    <ng-container *ngIf="!isNewBugView">
+            <ng-container *ngIf="!isNewBugView">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
+                        <span class="data-input-text">
+                            {{translations.Get('Bugs_Status')}}:
+                        </span>
+                    </div>
+                    <ng-container *ngIf="UserRoles$ | async as userRoles">
                         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs" *ngIf="userRoles.IsSupport || userRoles.IsAdmin">
                             <mat-form-field class="margin-left-30">
                                 <mat-select [value]="selectedBugStatus" (selectionChange)="ChangeBugStatus($event)">
@@ -41,8 +42,8 @@
                             </mat-form-field>
                         </div>
                     </ng-container>
-                </ng-container>
-            </div>
+                </div>
+            </ng-container>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row-textarea">
                     <span class="data-input-text">
