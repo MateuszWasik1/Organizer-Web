@@ -25,7 +25,7 @@ export class BugsPageComponent implements OnInit, OnDestroy {
   public UserRoles$ = this.store.select(selectUserRoles);
   public ErrorMessage$ = this.store.select(selectErrorMessage);
 
-  public defaultBugsType: BugTypeEnum = BugTypeEnum.My;
+  public defaultBugsType: BugTypeEnum = BugTypeEnum.New;
 
   public bugsTypes = [
     {name: "Moje błędy", value: BugTypeEnum.My},

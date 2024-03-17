@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { selectBug, selectBugNotes, selectErrorMessage, selectUserRoles } from '../bugs-page-state/bugs-page-state.selectors';
 import { changeBugStatus, cleanState, loadBug, loadBugNotes, loadUserRoles, saveBug, saveBugNote } from '../bugs-page-state/bugs-page-state.actions';
 import { TranslationService } from 'src/app/services/translate.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BugStatusEnum } from "src/app/enums/BugStatusEnum"
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 
@@ -44,6 +44,7 @@ export class BugPageComponent implements OnInit, OnDestroy {
   constructor(public store: Store<AppState>, 
     public translations: TranslationService,
     public route: ActivatedRoute,
+    public router: Router,
     public errorHandler: MainUIErrorHandler)
   {
     this.subscriptions = []
@@ -128,6 +129,8 @@ export class BugPageComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(changeBugStatus({ model: model }));
   }
+
+  public Cancel = () => this.router.navigate(["/bugs"])
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());
