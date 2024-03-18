@@ -58,7 +58,7 @@ export class NotesEffects {
             ofType(NotesActions.updateNote),
             switchMap((params) => {
                 return this.notesService.UpdateNote(params.Note).pipe(
-                    map(() => NotesActions.updateNoteSuccess()),
+                    map(() => NotesActions.updateNoteSuccess({ Note: params.Note })),
                     tap(x => this.router.navigate(['notes'])),
                     catchError(error => of(NotesActions.updateNoteError({ error: this.errorHandler.handleAPIError(error) })))
                 )

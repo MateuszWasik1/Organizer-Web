@@ -12,8 +12,10 @@ export class SavingsService {
     public apiUrl = environment.apiUrl;
     constructor( private http: HttpClient, private cookiesService: CookieService ) { }
 
-    GetSaving() : Observable<any>{
-        return this.http.get<any>(this.apiUrl + 'api/Savings/GetSaving', { params: new HttpParams(), headers: GetToken(this.cookiesService) })
+    GetSaving(sgid: string) : Observable<any>{
+        let params = new HttpParams().set("sgid", sgid);
+
+        return this.http.get<any>(this.apiUrl + 'api/Savings/GetSaving', { params: params, headers: GetToken(this.cookiesService) })
     }
 
     GetSavings() : Observable<any>{

@@ -18,11 +18,11 @@ export class SavingsEffects {
 
     loadSaving = createEffect(() => {
         return this.actions.pipe(
-            ofType(SavingsActions.loadSavings),
+            ofType(SavingsActions.loadSaving),
             switchMap((params) => {
-                return this.savingsService.GetSaving().pipe(
-                    map((result) => SavingsActions.loadSavingsSuccess({ Savings: result })),
-                    catchError(error => of(SavingsActions.loadSavingsError({ error: this.errorHandler.handleAPIError(error) })))
+                return this.savingsService.GetSaving(params.SGID).pipe(
+                    map((result) => SavingsActions.loadSavingSuccess({ Saving: result })),
+                    catchError(error => of(SavingsActions.loadSavingError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
