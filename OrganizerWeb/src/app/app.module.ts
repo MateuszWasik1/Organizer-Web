@@ -67,6 +67,7 @@ import { featureKeyNotesState } from './components/notes-page.component/notes-pa
 import { NotesReducer } from './components/notes-page.component/notes-page-state/notes-page-state.reducer';
 import { NotesEffects } from './components/notes-page.component/notes-page-state/notes-page-state.effects';
 import { NotePageComponent } from './components/notes-page.component/note-page.component/note-page.component';
+import { SavingPageComponent } from './components/savings-page.component/saving-page.component/saving-page.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { NotePageComponent } from './components/notes-page.component/note-page.c
     CategoriesFillDataDialogComponent,
     TasksPageComponent,
     TasksFillDataDialogComponent,
+    SavingPageComponent,
     SavingsPageComponent,
     SavingsFillDataDialogComponent,
     StatsPageComponent,

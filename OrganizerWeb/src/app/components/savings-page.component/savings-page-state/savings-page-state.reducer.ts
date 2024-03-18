@@ -11,9 +11,9 @@ var initialStateOfSearchPage: SavingsState = {
 export const SavingsReducer = createReducer<SavingsState>(
     initialStateOfSearchPage,
 
-    on(Actions.loadSavingsSuccess, (state, { savings }) => ({
+    on(Actions.loadSavingsSuccess, (state, { Savings }) => ({
         ...state,
-        Savings: savings
+        Savings: Savings
     })),
 
     on(Actions.loadSavingsError, (state, { error }) => ({
@@ -22,19 +22,19 @@ export const SavingsReducer = createReducer<SavingsState>(
         ErrorMessage: error
     })),
 
-    on(Actions.saveSavingSuccess, (state, { saving }) => {
+    on(Actions.addSavingSuccess, (state, { Saving }) => {
         let newSavings = [...state.Savings];
 
         let newModel = {
-            "sid": saving.SID,
-            "sgid": saving.SGID,
-            "sAmount": saving.SAmount,
-            "sTime": saving.STime,
-            "sOnWhat": saving.SOnWhat,
-            "sWhere": saving.SWhere,
+            "sid": Saving.SID,
+            "sgid": Saving.SGID,
+            "sAmount": Saving.SAmount,
+            "sTime": Saving.STime,
+            "sOnWhat": Saving.SOnWhat,
+            "sWhere": Saving.SWhere,
         }
 
-        let existingSavingIndex = newSavings.findIndex(x => x.sgid == saving.SGID);
+        let existingSavingIndex = newSavings.findIndex(x => x.sgid == Saving.SGID);
 
         if(existingSavingIndex != -1)
             newSavings[existingSavingIndex] = newModel
@@ -45,14 +45,14 @@ export const SavingsReducer = createReducer<SavingsState>(
         return {...state, Savings: newSavings};
     }),
 
-    on(Actions.saveSavingError, (state, { error }) => ({
+    on(Actions.addSavingError, (state, { error }) => ({
         ...state,
         ErrorMessage: error
     })),
 
-    on(Actions.deleteSaving, (state, { sGID }) => {
+    on(Actions.deleteSaving, (state, { SGID }) => {
         let newSavings = [...state.Savings];
-        let existingSavingIndex = newSavings.findIndex(x => x.sgid == sGID);
+        let existingSavingIndex = newSavings.findIndex(x => x.sgid == SGID);
 
         if(existingSavingIndex != -1)
         newSavings.splice(existingSavingIndex, 1)

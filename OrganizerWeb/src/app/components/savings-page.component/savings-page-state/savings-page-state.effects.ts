@@ -15,13 +15,25 @@ export class SavingsEffects {
         private fillDataService: FillDataService,
         private errorHandler: APIErrorHandler) {
     }
+
+    loadSaving = createEffect(() => {
+        return this.actions.pipe(
+            ofType(SavingsActions.loadSavings),
+            switchMap((params) => {
+                return this.savingsService.GetSaving().pipe(
+                    map((result) => SavingsActions.loadSavingsSuccess({ Savings: result })),
+                    catchError(error => of(SavingsActions.loadSavingsError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    })
     
     loadSavings = createEffect(() => {
         return this.actions.pipe(
             ofType(SavingsActions.loadSavings),
             switchMap((params) => {
-                return this.savingsService.getSavings().pipe(
-                    map((result) => SavingsActions.loadSavingsSuccess({ savings: result })),
+                return this.savingsService.GetSavings().pipe(
+                    map((result) => SavingsActions.loadSavingsSuccess({ Savings: result })),
                     catchError(error => of(SavingsActions.loadSavingsError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
@@ -33,20 +45,32 @@ export class SavingsEffects {
             ofType(SavingsActions.loadCustomSavings),
             switchMap(() => {
                 return of(this.fillDataService.FillSavings()).pipe(
-                    map((result) => SavingsActions.loadSavingsSuccess({ savings: result })),
+                    map((result) => SavingsActions.loadSavingsSuccess({ Savings: result })),
                     catchError(error => of(SavingsActions.loadSavingsError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
     })
 
-    saveSaving = createEffect(() => {
+    addSaving = createEffect(() => {
         return this.actions.pipe(
-            ofType(SavingsActions.saveSaving),
+            ofType(SavingsActions.addSaving),
             switchMap((params) => {
-                return this.savingsService.saveSaving(params.saving).pipe(
-                    map(() => SavingsActions.saveSavingSuccess({ saving: params.saving })),
-                    catchError(error => of(SavingsActions.saveSavingError({ error: this.errorHandler.handleAPIError(error) })))
+                return this.savingsService.AddSaving(params.Saving).pipe(
+                    map(() => SavingsActions.addSavingSuccess({ Saving: params.Saving })),
+                    catchError(error => of(SavingsActions.addSavingError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    })
+
+    updateSaving = createEffect(() => {
+        return this.actions.pipe(
+            ofType(SavingsActions.addSaving),
+            switchMap((params) => {
+                return this.savingsService.UpdateSaving(params.Saving).pipe(
+                    map(() => SavingsActions.addSavingSuccess({ Saving: params.Saving })),
+                    catchError(error => of(SavingsActions.addSavingError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -56,8 +80,8 @@ export class SavingsEffects {
         return this.actions.pipe(
             ofType(SavingsActions.deleteSaving),
             switchMap((params) => {
-                return this.savingsService.deleteSaving(params.sGID).pipe(
-                    map(() => SavingsActions.deleteSavingSuccess({ sGID: params.sGID })),
+                return this.savingsService.DeleteSaving(params.SGID).pipe(
+                    map(() => SavingsActions.deleteSavingSuccess({ SGID: params.SGID })),
                     catchError(error => of(SavingsActions.deleteSavingError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
