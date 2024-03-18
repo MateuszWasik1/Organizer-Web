@@ -13,7 +13,7 @@ export const addNoteSuccess = createAction('[Notes Page] Add Note Success');
 export const addNoteError = createAction('[Notes Page] Add Note Error', props<{ error: any }>());
 
 export const updateNote = createAction('[Notes Page] Update Note', props<{ Note: any }>());
-export const updateNoteSuccess = createAction('[Notes Page] Update Note Success');
+export const updateNoteSuccess = createAction('[Notes Page] Update Note Success', props<{ Note: any }>());
 export const updateNoteError = createAction('[Notes Page] Update Note Error', props<{ error: any }>());
 
 export const deleteNote = createAction('[Notes Page] Delete Note', props<{ NGID: any }>());

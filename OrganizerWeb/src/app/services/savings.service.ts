@@ -12,15 +12,25 @@ export class SavingsService {
     public apiUrl = environment.apiUrl;
     constructor( private http: HttpClient, private cookiesService: CookieService ) { }
 
-    getSavings() : Observable<any>{
-        return this.http.get<any>(this.apiUrl + 'api/Savings', { params: new HttpParams(), headers: GetToken(this.cookiesService) })
+    GetSaving(sgid: string) : Observable<any>{
+        let params = new HttpParams().set("sgid", sgid);
+
+        return this.http.get<any>(this.apiUrl + 'api/Savings/GetSaving', { params: params, headers: GetToken(this.cookiesService) })
     }
 
-    saveSaving(model: any) : Observable<any>{
-        return this.http.post<any>(this.apiUrl + 'api/Savings/Save', model, { headers: GetToken(this.cookiesService) })
+    GetSavings() : Observable<any>{
+        return this.http.get<any>(this.apiUrl + 'api/Savings/GetSavings', { params: new HttpParams(), headers: GetToken(this.cookiesService) })
     }
 
-    deleteSaving(sGID: any) : Observable<any>{
+    AddSaving(model: any) : Observable<any>{
+        return this.http.post<any>(this.apiUrl + 'api/Savings/AddSaving', model, { headers: GetToken(this.cookiesService) })
+    }
+
+    UpdateSaving(model: any) : Observable<any>{
+        return this.http.put<any>(this.apiUrl + 'api/Savings/UpdateSaving', model, { headers: GetToken(this.cookiesService) })
+    }
+
+    DeleteSaving(sGID: any) : Observable<any>{
         return this.http.delete<any>(this.apiUrl + 'api/Savings/Delete/'+ sGID, { headers: GetToken(this.cookiesService) })
     }
 }

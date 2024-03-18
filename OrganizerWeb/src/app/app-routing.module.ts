@@ -12,6 +12,7 @@ import { BugsPageComponent } from './components/bugs-page.component/bugs-page.co
 import { BugPageComponent } from './components/bugs-page.component/bug-page.component/bug-page.component';
 import { NotesPageComponent } from './components/notes-page.component/notes-page.component';
 import { NotePageComponent } from './components/notes-page.component/note-page.component/note-page.component';
+import { SavingPageComponent } from './components/savings-page.component/saving-page.component/saving-page.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'savings',
     component: SavingsPageComponent
+  },
+  {
+    path: 'savings/:sgid',
+    component: SavingPageComponent
   },
   {
     path: 'stats',

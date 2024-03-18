@@ -40,6 +40,8 @@
     "Categories_EndDate": "Data końcowa",
     "Categories_Budget": "Budżet",
     "Categories_NotFound": "Nie znaleziono żadnych kategorii! Dodaj kategorie bądź wybierz inny okres.",
+    "Savings_New_Saving": "Nowa oszczędność",
+    "Savings_Saving": "Oszczędność",
     "Savings_Dialog_Error_title": "Błąd załadowania Oszczędności",
     "Savings_Dialog_Error_Text": "Podczas ładowania Oszczędności wystąpił błąd. Czy chcesz załadować customowe dane?",
     "Savings_Amount": "Kwota",

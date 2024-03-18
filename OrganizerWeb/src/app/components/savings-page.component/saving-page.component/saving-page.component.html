@@ -1,0 +1,60 @@
+<section class="body">
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9">
+            <h1 class="page-title" *ngIf="isNewSavingView">{{translations.Get('Savings_New_Saving')}}</h1>
+
+            <ng-container *ngIf="Saving$ | async as saving">
+                <h1 class="page-title" *ngIf="!isNewSavingView">{{translations.Get('Savings_Saving')}}: {{saving.SOnWhat}}</h1>
+            </ng-container>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+            <button mat-raised-button class="primary-btn float-right" (click)="SaveSaving()" [disabled]="form.invalid">{{translations.Get('General_Save')}}</button>
+            <button mat-raised-button class="float-right margin-right-15" (click)="Cancel()">{{translations.Get('General_Cancel')}}</button>
+        </div>
+    </div>
+
+    <div class="row" [formGroup]="form">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
+                    <span class="data-input-text">
+                        {{translations.Get('Savings_Amount')}}:
+                    </span>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
+                    <input type="number" class="data-input" [placeholder]="translations.Get('Savings_Amount')" formControlName="SAmount"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
+                    <span class="data-input-text">
+                        {{translations.Get('Savings_Date')}}:
+                    </span>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
+                    <input type="date" class="data-input" [placeholder]="translations.Get('Savings_Date')"  formControlName="STime" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
+                    <span class="data-input-text">
+                        {{translations.Get('Savings_OnWhat')}}:
+                    </span>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Savings_OnWhat')"  formControlName="SOnWhat"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
+                    <span class="data-input-text">
+                        {{translations.Get('Savings_Where')}}:
+                    </span>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Savings_Where')"  step="1" formControlName="SWhere"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

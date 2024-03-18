@@ -4,6 +4,13 @@ import { SavingsState } from "./savings-page-state.state";
 
 var initialStateOfSearchPage: SavingsState = {
     Savings: [],
+    Saving: {
+        SGID: "",
+        SAmount: 0,
+        STime: new Date(),
+        SOnWhat: "",
+        SWhere: "",
+    },
     IsSavingsError: false,
     ErrorMessage: "",
 };
@@ -11,9 +18,25 @@ var initialStateOfSearchPage: SavingsState = {
 export const SavingsReducer = createReducer<SavingsState>(
     initialStateOfSearchPage,
 
-    on(Actions.loadSavingsSuccess, (state, { savings }) => ({
+    on(Actions.loadSavingSuccess, (state, { Saving }) => ({
         ...state,
-        Savings: savings
+        Saving: {
+            SGID: Saving.sgid,
+            SAmount: Saving.sAmount,
+            STime: Saving.sTime,
+            SOnWhat: Saving.sOnWhat,
+            SWhere: Saving.sWhere,
+        },
+    })),
+
+    on(Actions.loadSavingError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
+    on(Actions.loadSavingsSuccess, (state, { Savings }) => ({
+        ...state,
+        Savings: Savings
     })),
 
     on(Actions.loadSavingsError, (state, { error }) => ({
@@ -22,37 +45,27 @@ export const SavingsReducer = createReducer<SavingsState>(
         ErrorMessage: error
     })),
 
-    on(Actions.saveSavingSuccess, (state, { saving }) => {
-        let newSavings = [...state.Savings];
+    on(Actions.addSavingSuccess, (state) => ({
+        ...state,
+    })),
 
-        let newModel = {
-            "sid": saving.SID,
-            "sgid": saving.SGID,
-            "sAmount": saving.SAmount,
-            "sTime": saving.STime,
-            "sOnWhat": saving.SOnWhat,
-            "sWhere": saving.SWhere,
-        }
-
-        let existingSavingIndex = newSavings.findIndex(x => x.sgid == saving.SGID);
-
-        if(existingSavingIndex != -1)
-            newSavings[existingSavingIndex] = newModel
-        
-        else
-            newSavings.push(newModel)
-
-        return {...state, Savings: newSavings};
-    }),
-
-    on(Actions.saveSavingError, (state, { error }) => ({
+    on(Actions.addSavingError, (state, { error }) => ({
         ...state,
         ErrorMessage: error
     })),
 
-    on(Actions.deleteSaving, (state, { sGID }) => {
+    on(Actions.updateSavingSuccess, (state) => ({
+        ...state,
+    })),
+
+    on(Actions.updateSavingError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
+    on(Actions.deleteSaving, (state, { SGID }) => {
         let newSavings = [...state.Savings];
-        let existingSavingIndex = newSavings.findIndex(x => x.sgid == sGID);
+        let existingSavingIndex = newSavings.findIndex(x => x.sgid == SGID);
 
         if(existingSavingIndex != -1)
         newSavings.splice(existingSavingIndex, 1)
@@ -68,7 +81,37 @@ export const SavingsReducer = createReducer<SavingsState>(
     on(Actions.cleanState, (state) => ({
         ...state,
         Savings: [],
+        Saving: {
+            SGID: "",
+            SAmount: 0,
+            STime: new Date(),
+            SOnWhat: "",
+            SWhere: "",
+        },
         IsSavingsError: false,
         ErrorMessage: "",
     })),
+
+    // on(Actions.addSavingSuccess, (state, { Saving }) => {
+    //     let newSavings = [...state.Savings];
+
+    //     let newModel = {
+    //         "sid": Saving.SID,
+    //         "sgid": Saving.SGID,
+    //         "sAmount": Saving.SAmount,
+    //         "sTime": Saving.STime,
+    //         "sOnWhat": Saving.SOnWhat,
+    //         "sWhere": Saving.SWhere,
+    //     }
+
+    //     let existingSavingIndex = newSavings.findIndex(x => x.sgid == Saving.SGID);
+
+    //     if(existingSavingIndex != -1)
+    //         newSavings[existingSavingIndex] = newModel
+        
+    //     else
+    //         newSavings.push(newModel)
+
+    //     return {...state, Savings: newSavings};
+    // }),
 ) 
