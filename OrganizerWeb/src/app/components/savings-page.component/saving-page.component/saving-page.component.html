@@ -1,120 +1,60 @@
 <section class="body">
     <div class="row">
         <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9">
-            <h1 class="page-title" *ngIf="isNewBugView">{{translations.Get('TopMenu_Bugs')}}</h1>
+            <h1 class="page-title" *ngIf="isNewSavingView">{{translations.Get('Savings_New_Saving')}}</h1>
 
-            <ng-container *ngIf="Bug$ | async as bug">
-                <h1 class="page-title" *ngIf="!isNewBugView">{{translations.Get('Bugs_Bug')}}: {{bug.bTitle}} </h1>
+            <ng-container *ngIf="Saving$ | async as saving">
+                <h1 class="page-title" *ngIf="!isNewSavingView">{{translations.Get('Savings_Saving')}}: {{saving.SOnWhat}}</h1>
             </ng-container>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
-            <button mat-raised-button class="primary-btn float-right" (click)="SaveSaving()" *ngIf="isNewSavingView">{{translations.Get('General_Save')}}</button>
+            <button mat-raised-button class="primary-btn float-right" (click)="SaveSaving()" [disabled]="form.invalid">{{translations.Get('General_Save')}}</button>
             <button mat-raised-button class="float-right margin-right-15" (click)="Cancel()">{{translations.Get('General_Cancel')}}</button>
         </div>
     </div>
 
     <div class="row" [formGroup]="form">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <ng-container *ngIf="!isNewBugView">
-                <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
-                        <span class="data-input-text">
-                            {{translations.Get('Bugs_Status')}}:
-                        </span>
-                    </div>
-                    <ng-container *ngIf="UserRoles$ | async as userRoles">
-                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs" *ngIf="userRoles.IsSupport || userRoles.IsAdmin">
-                            <mat-form-field class="margin-left-30">
-                                <mat-select [value]="selectedBugStatus" (selectionChange)="ChangeBugStatus($event)">
-                                    <mat-option *ngFor="let status of bugStatusAdmin;" [value]="status['id']">
-                                        {{status['name']}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs" *ngIf="!userRoles.IsSupport && !userRoles.IsAdmin">
-                            <mat-form-field class="margin-left-30">
-                                <mat-select [value]="selectedBugStatus" (selectionChange)="ChangeBugStatus($event)">
-                                    <mat-option *ngFor="let status of bugStatusUser;" [value]="status['id']">
-                                        {{status['name']}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </ng-container>
-                </div>
-            </ng-container>
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row-textarea">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
                     <span class="data-input-text">
-                        {{translations.Get('Bugs_Title')}}:
+                        {{translations.Get('Savings_Amount')}}:
                     </span>
                 </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row-inputs">
-                    <textarea formControlName="bTitle" maxlength="200" [placeholder]="translations.Get('Bugs_Title')" class="bugs-textarea"></textarea>
-                    <div *ngIf="form.get('bTitle')?.invalid">{{translations.Get('Bugs_AddTitle_Error')}}</div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
+                    <input type="number" class="data-input" [placeholder]="translations.Get('Savings_Amount')" formControlName="SAmount"/>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row-textarea">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
                     <span class="data-input-text">
-                        {{translations.Get('Bugs_Text')}}:
+                        {{translations.Get('Savings_Date')}}:
                     </span>
                 </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row-inputs">
-                    <textarea formControlName="bText" maxlength="4000" [placeholder]="translations.Get('Bugs_Text')" class="bugs-textarea"></textarea>
-                    <div *ngIf="form.get('bTitle')?.invalid">{{translations.Get('Bugs_BugNotes_AddNote_Error')}}</div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
+                    <input type="date" class="data-input" [placeholder]="translations.Get('Savings_Date')"  formControlName="STime" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
+                    <span class="data-input-text">
+                        {{translations.Get('Savings_OnWhat')}}:
+                    </span>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Savings_OnWhat')"  formControlName="SOnWhat"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
+                    <span class="data-input-text">
+                        {{translations.Get('Savings_Where')}}:
+                    </span>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Savings_Where')"  step="1" formControlName="SWhere"/>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="row" *ngIf="!isNewBugView"> 
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h1 class="page-subtitle">{{translations.Get('Bugs_BugHistory')}}:</h1>
-        </div>
-    </div>
-
-
-    <ng-container *ngIf="!isNewBugView">
-        <ng-container *ngIf="BugNotes$ | async as bugNotes">
-            <div class="row">
-                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-                    <h1 class="page-subtitle">{{translations.Get('Bugs_Bug_AddNoteTitle')}}:</h1>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                    <button mat-raised-button class="primary-btn float-right add-task-note-btn" (click)="AddBugNote()" [disabled]="addBugNote.get('bugNote')?.invalid">{{translations.Get('Bugs_Bug_AddNote')}}</button>
-                </div>
-            </div>
-
-            <div class="row" [formGroup]="addBugNote">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <textarea formControlName="bugNote" class="bugs-textarea" maxlength="4000"></textarea>
-                    <div *ngIf="addBugNote.get('bugNote')?.invalid">{{translations.Get('Bugs_BugNotes_AddNote_Error')}}</div>
-                </div>
-            </div>
-
-            <div class="row padding-top-15 padding-bottom-15" *ngIf="bugNotes.length != 0">
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    {{translations.Get('Bugs_Bug_Data')}}
-                </div>
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                    {{translations.Get('Bugs_Bug_Text')}}
-                </div>
-            </div>
-            <div *ngFor="let bugNote of bugNotes;">
-                <div class="row data-row">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        <p>{{bugNote.bnDate | date: "yyyy-MM-dd HH:mm"}}</p>
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" [ngClass]="ChangeColor(bugNote.bnIsStatusChange, bugNote.bnChangedStatus)">
-                        <p>{{bugNote.bnText}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row no-data-row" *ngIf="bugNotes.length == 0">
-                <p>{{translations.Get('Bugs_NotFound')}}</p>
-            </div>
-        </ng-container>
-    </ng-container>
 </section>

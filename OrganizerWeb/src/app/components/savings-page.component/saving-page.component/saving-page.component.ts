@@ -3,12 +3,11 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-// import { selectBug, selectBugNotes, selectErrorMessage, selectUserRoles } from '../bugs-page-state/bugs-page-state.selectors';
-// import { changeBugStatus, cleanState, loadBug, loadBugNotes, loadUserRoles, saveBug, saveBugNote } from '../bugs-page-state/bugs-page-state.actions';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
-import { cleanState } from '../savings-page-state/savings-page-state.actions';
+import { addSaving, cleanState, loadSaving, updateSaving } from '../savings-page-state/savings-page-state.actions';
+import { selectErrorMessage, selectSaving } from '../savings-page-state/savings-page-state.selectors';
 
 @Component({
   selector: 'app-saving-page',
@@ -23,7 +22,7 @@ export class SavingPageComponent implements OnInit, OnDestroy {
   public sgid: string = "";
   public isNewSavingView: boolean = true;
 
-  public Bug$ = this.store.select(selectBug);
+  public Saving$ = this.store.select(selectSaving);
   public ErrorMessage$ = this.store.select(selectErrorMessage);
 
   constructor(public store: Store<AppState>, 
@@ -38,18 +37,17 @@ export class SavingPageComponent implements OnInit, OnDestroy {
     this.sgid = this.route.snapshot.paramMap.get('sgid') ?? "";
     this.isNewSavingView = this.sgid == "" || this.sgid == "0";
 
-    if(!this.isNewSavingView){
-      this.store.dispatch(loadBug({ bgid: this.bgid }));
-      this.store.dispatch(loadBugNotes({ bgid: this.bgid }));
-    }
+    if(!this.isNewSavingView)
+      this.store.dispatch(loadSaving({ SGID: this.sgid }));
     
     this.subscriptions.push(
-      this.Bug$.subscribe(x =>{
+      this.Saving$.subscribe(x =>{
         this.form = new FormGroup({
-          bguid: new FormControl( x.bguid, { validators: [] }),
-          bTitle: new FormControl( { value: x.bTitle, disabled: !this.isNewBugView }, { validators: [Validators.maxLength(200)] }),
-          bText:  new FormControl( { value: x.bText, disabled: !this.isNewBugView }, { validators: [Validators.maxLength(4000)] }),
-          bStatus:  new FormControl( x.bStatus, { validators: [] }),
+          SGID: new FormControl( x.SGID, { validators: [] }),
+          SAmount: new FormControl( x.SAmount, { validators: [] }),
+          STime: new FormControl( x.STime, { validators: [] }),
+          SOnWhat: new FormControl( x.SOnWhat, { validators: [] }),
+          SWhere: new FormControl( x.SWhere, { validators: [] }),
         })
       })
     );
@@ -63,13 +61,17 @@ export class SavingPageComponent implements OnInit, OnDestroy {
 
   public SaveSaving = () => {
     let model = {
-      "BGID": this.form.get("bguid")?.value,
-      "BTitle": this.form.get("bTitle")?.value,
-      "BText": this.form.get("bText")?.value,
-      "BStatus": this.form.get("bStatus")?.value,
+      "SGID": this.form.get("SGID")?.value,
+      "SAmount": this.form.get("SAmount")?.value,
+      "STime": this.form.get("STime")?.value,
+      "SOnWhat": this.form.get("SOnWhat")?.value,
+      "SWhere": this.form.get("SWhere")?.value,
     }
-    
-    this.store.dispatch(saveSaving({ Saving: model }));
+
+    if(model.SGID == "0" || model.SGID == "")
+      this.store.dispatch(addSaving({ Saving: model }));
+    else
+      this.store.dispatch(updateSaving({ Saving: model }));
   }
 
   public Cancel = () => this.router.navigate(["/savings"])

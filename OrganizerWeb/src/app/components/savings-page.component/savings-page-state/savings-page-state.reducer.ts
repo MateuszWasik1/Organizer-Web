@@ -4,6 +4,13 @@ import { SavingsState } from "./savings-page-state.state";
 
 var initialStateOfSearchPage: SavingsState = {
     Savings: [],
+    Saving: {
+        SGID: "",
+        SAmount: 0,
+        STime: new Date(),
+        SOnWhat: "",
+        SWhere: "",
+    },
     IsSavingsError: false,
     ErrorMessage: "",
 };
@@ -68,6 +75,13 @@ export const SavingsReducer = createReducer<SavingsState>(
     on(Actions.cleanState, (state) => ({
         ...state,
         Savings: [],
+        Saving: {
+            SGID: "",
+            SAmount: 0,
+            STime: new Date(),
+            SOnWhat: "",
+            SWhere: "",
+        },
         IsSavingsError: false,
         ErrorMessage: "",
     })),

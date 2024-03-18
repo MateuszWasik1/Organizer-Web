@@ -1,5 +1,9 @@
 import { createAction, props } from '@ngrx/store'
 
+export const loadSaving = createAction('[Savings Page] Load Saving', props<{ SGID: any }>());
+export const loadSavingSuccess = createAction('[Savings Page] Load Saving Success', props<{ Savings: any }>());
+export const loadSavingError = createAction('[Savings Page] Load Saving Error', props<{ error: any }>());
+
 export const loadSavings = createAction('[Savings Page] Load Savings');
 export const loadSavingsSuccess = createAction('[Savings Page] Load Savings Success', props<{ Savings: any }>());
 export const loadSavingsError = createAction('[Savings Page] Load Savings Error', props<{ error: any }>());
