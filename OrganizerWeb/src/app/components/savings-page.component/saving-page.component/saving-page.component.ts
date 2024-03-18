@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 import { addSaving, cleanState, loadSaving, updateSaving } from '../savings-page-state/savings-page-state.actions';
 import { selectErrorMessage, selectSaving } from '../savings-page-state/savings-page-state.selectors';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-saving-page',
@@ -45,7 +46,7 @@ export class SavingPageComponent implements OnInit, OnDestroy {
         this.form = new FormGroup({
           SGID: new FormControl( x.SGID, { validators: [] }),
           SAmount: new FormControl( x.SAmount, { validators: [] }),
-          STime: new FormControl( x.STime, { validators: [] }),
+          STime: new FormControl( formatDate(x.STime, 'yyyy-MM-dd', 'en'), { validators: [] }),
           SOnWhat: new FormControl( x.SOnWhat, { validators: [] }),
           SWhere: new FormControl( x.SWhere, { validators: [] }),
         })
