@@ -27,6 +27,7 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CategoriesFillDataDialogComponent } from './components/category-page.component copy/categories-dialogs/categories-fill-data-dialog.component';
+import { CategoryPageComponent } from './components/category-page.component copy/category-page.component/category-page.component';
 import { TasksFillDataDialogComponent } from './components/tasks-page.component/tasks-dialogs/tasks-fill-data-dialog.component';
 import { SavingsPageComponent } from './components/savings-page.component/savings-page.component';
 import { SavingsFillDataDialogComponent } from './components/savings-page.component/savings-page-dialogs/savings-fill-data-dialog.component';
@@ -74,6 +75,7 @@ import { SavingPageComponent } from './components/savings-page.component/saving-
     AppComponent,
     RegisterComponent,
     LoginComponent,
+    CategoryPageComponent,
     CategoriesPageComponent,
     CategoriesFillDataDialogComponent,
     TasksPageComponent,

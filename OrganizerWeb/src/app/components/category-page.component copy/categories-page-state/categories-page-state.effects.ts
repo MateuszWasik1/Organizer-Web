@@ -19,6 +19,19 @@ export class CategoriesEffects {
         private fillDataService: FillDataService,
         private errorHandler: APIErrorHandler) {
     }
+
+    loadCategory = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.loadCategory),
+            switchMap((params) => {
+                return this.categoriesService.GetCategory(params.CGID).pipe(
+                    map((result) => CategoriesActions.loadCategorySuccess({ Category: result })),
+                    catchError(error => of(CategoriesActions.loadCategoryError({ error: this.errorHandler.handleAPIError(error) }))),
+                )
+            })
+        )
+    })
+
     loadCategories = createEffect(() => {
         return this.actions.pipe(
             ofType(CategoriesActions.loadCategories),
@@ -44,13 +57,25 @@ export class CategoriesEffects {
         )
     })
 
-    saveCategory = createEffect(() => {
+    addCategory = createEffect(() => {
         return this.actions.pipe(
-            ofType(CategoriesActions.saveCategory),
+            ofType(CategoriesActions.addCategory),
             switchMap((params) => {
-                return this.categoriesService.SaveCategories(params.category).pipe(
-                    map(() => CategoriesActions.saveCategorySuccess({ category: params.category })),
-                    catchError(error => of(CategoriesActions.saveCategoryError({ error: this.errorHandler.handleAPIError(error) })))
+                return this.categoriesService.AddCategory(params.Category).pipe(
+                    map(() => CategoriesActions.addCategorySuccess()),
+                    catchError(error => of(CategoriesActions.addCategoryError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    })
+
+    updateCategory = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.updateCategory),
+            switchMap((params) => {
+                return this.categoriesService.UpdateCategory(params.Category).pipe(
+                    map(() => CategoriesActions.updateCategorySuccess()),
+                    catchError(error => of(CategoriesActions.updateCategoryError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )

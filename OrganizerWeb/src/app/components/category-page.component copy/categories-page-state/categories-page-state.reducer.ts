@@ -4,6 +4,14 @@ import { CategoriesState } from "./categories-page-state.state";
 
 var initialStateOfSearchPage: CategoriesState = {
     Categories: [],
+    Category: {
+        CGID: "",
+        CName: "",
+        CStartDate: new Date(),
+        CEndDate: new Date(),
+        CBudget: 0,
+        CBudgetCount: 0,
+    },
     Filters: {
         Date: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
     },
@@ -13,6 +21,23 @@ var initialStateOfSearchPage: CategoriesState = {
 
 export const CategoriesReducer = createReducer<CategoriesState>(
     initialStateOfSearchPage,
+
+    on(Actions.loadCategorySuccess, (state, { Category }) => ({
+        ...state,
+        Category: {
+            CGID: Category.cgid,
+            CName: Category.cName,
+            CStartDate: Category.cStartDate,
+            CEndDate: Category.cEndDate,
+            CBudget: Category.cBudget,
+            CBudgetCount: Category.cBudgetCount,
+        },
+    })),
+
+    on(Actions.loadCategoryError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
 
     on(Actions.loadCategoriesSuccess, (state, { Categories }) => ({
         ...state,
@@ -29,28 +54,24 @@ export const CategoriesReducer = createReducer<CategoriesState>(
         IsCategoriesError: true,
     })),
 
-    on(Actions.saveCategorySuccess, (state, { category }) => {
-        let newCategories = [...state.Categories];
+    on(Actions.addCategorySuccess, state => ({
+        ...state,
+    })),
 
-        let newModel = {
-            "cid": category.CID,
-            "cgid": category.CGID,
-            "cName": category.CName == "" ? 'Ty' : category.CName,
-            "cStartDate": category.CStartDate,
-            "cEndDate": category.CEndDate,
-            "cBudget": category.CBudget,
-        }
+    on(Actions.addCategoryError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error,
+    })),
 
-        let existingCategoryIndex = newCategories.findIndex(x => x.cgid == category.CGID);
+    on(Actions.updateCategorySuccess, state => ({
+        ...state,
+    })),
 
-        if(existingCategoryIndex != -1)
-            newCategories[existingCategoryIndex] = newModel
-        
-        else
-            newCategories.push(newModel)
+    on(Actions.updateCategoryError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error,
+    })),
 
-        return {...state, Categories: newCategories};
-    }),
     on(Actions.changeDateFilter, (state, { date }) => ({
         ...state,
         Filters: {
@@ -72,6 +93,14 @@ export const CategoriesReducer = createReducer<CategoriesState>(
     on(Actions.cleanState, (state) => ({
         ...state,
         Categories: [],
+        Category: {
+            CGID: "",
+            CName: "",
+            CStartDate: new Date(),
+            CEndDate: new Date(),
+            CBudget: 0,
+            CBudgetCount: 0,
+        },
         Filters: {
             Date: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
         },
