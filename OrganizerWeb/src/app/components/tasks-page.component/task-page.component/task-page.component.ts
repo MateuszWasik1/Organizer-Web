@@ -7,8 +7,9 @@ import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 import { formatDate } from '@angular/common';
-import { cleanState } from '../tasks-page-state/tasks-page-state.actions';
-import { selectErrorMessage } from '../tasks-page-state/tasks-page-state.selectors';
+import { addTask, cleanState, deleteTaskNote, loadTask, saveTaskNote, updateTask } from '../tasks-page-state/tasks-page-state.actions';
+import { selectCategories, selectErrorMessage, selectTask, selectTasksNotes } from '../tasks-page-state/tasks-page-state.selectors';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-task-page',
@@ -20,11 +21,22 @@ export class TaskPageComponent implements OnInit, OnDestroy {
   title = 'Zadanie - P1 - Mateusz Wąsik';
 
   public subscriptions: Subscription[];
+  public statuses: any;
+  public selectedStatus: any;
+  public selectedCategory: any;
+
   public form: FormGroup = new FormGroup({});
+  public addTaskNote: FormGroup = new FormGroup({});
   public tgid: string = "";
   public isNewTaskView: boolean = true;
 
+  public categories: any = [];
+  public IsBudgetExceeded: boolean = false;
+  public budgetExceededInfo: string = '';
+
   public Task$ = this.store.select(selectTask);
+  public TaskNotes$ = this.store.select(selectTasksNotes);
+  public Categories$ = this.store.select(selectCategories);
   public ErrorMessage$ = this.store.select(selectErrorMessage);
 
   constructor(public store: Store<AppState>, 
@@ -43,14 +55,15 @@ export class TaskPageComponent implements OnInit, OnDestroy {
       this.store.dispatch(loadTask({ TGID: this.tgid }));
     
     this.subscriptions.push(
-      this.Category$.subscribe(x =>{
+      this.Task$.subscribe(x =>{
         this.form = new FormGroup({
-          CGID: new FormControl( x.CGID, { validators: [] }),
-          CName: new FormControl( x.CName, { validators: [ Validators.required, Validators.maxLength(2000) ] }),
-          CStartDate: new FormControl( formatDate(x.CStartDate, 'yyyy-MM-dd', 'en'), { validators: [ Validators.required ] }),
-          CEndDate: new FormControl( formatDate(x.CEndDate, 'yyyy-MM-dd', 'en'), { validators: [ Validators.required ] }),
-          CBudget: new FormControl( x.CBudget, { validators: [ Validators.required ] }),
-          CBudgetCount: new FormControl( x.CBudgetCount, { validators: [] }),
+          TGID: new FormControl( x.TGID, { validators: [] }),
+          TCGID: new FormControl( x.TCGID, { validators: [ Validators.required, Validators.maxLength(2000) ] }),
+          TName: new FormControl( x.TName, { validators: [ Validators.required, Validators.maxLength(2000) ] }),
+          TLocalization: new FormControl( x.TLocalization, { validators: [ Validators.required, Validators.maxLength(2000) ] }),
+          TTime: new FormControl( formatDate(x.TTime, 'yyyy-MM-dd', 'en'), { validators: [ Validators.required ] }),
+          TBudget: new FormControl( x.TBudget, { validators: [ Validators.required ] }),
+          TStatus: new FormControl( x.TStatus, { validators: [] }),
         })
       })
     );
@@ -60,22 +73,53 @@ export class TaskPageComponent implements OnInit, OnDestroy {
         this.errorHandler.HandleException(error);
       })
     )
+
+    this.subscriptions.push(
+      this.Categories$.subscribe(categories => this.categories = categories
+    ));
+ 
+    this.addTaskNote = new FormGroup({
+      taskNote: new FormControl('', { validators: [Validators.maxLength(2000)] }),
+    })
+
+    this.statuses = [
+      {id: '0', name: 'Nie zaczęty'},
+      {id: '1', name: 'W trakcie'},
+      {id: '2', name: 'Skończony'},
+    ];
   }
 
-  public SaveSaving = () => {
+  public TaskCategoryChange = (category: any) =>{
+    let cat = this.categories.find((x: any) => x.cgid == category.value);
+
+    if(cat.cBudget < cat.cBudgetCount + this.form.get("TBudget")?.value){
+      this.IsBudgetExceeded = true;
+      this.budgetExceededInfo = `W obecnej kategorii zaplanowany budżet to ${cat.cBudget}, przekraczasz budżet kategorii o ${(cat.cBudgetCount + this.form.get("tBudget")?.value) - cat.cBudget} !`
+    }
+    else
+      this.IsBudgetExceeded = false;
+  }
+
+  public SaveTask = () => {
     let model = {
-      "CGID": this.form.get("CGID")?.value,
-      "CName": this.form.get("CName")?.value,
-      "CStartDate": this.form.get("CStartDate")?.value,
-      "CEndDate": this.form.get("CEndDate")?.value,
-      "CBudget": this.form.get("CBudget")?.value,
+      "TGID": this.form.get("TGID")?.value,
+      "TCGID": this.form.get("TCGID")?.value,
+      "TName": this.form.get("TName")?.value,
+      "TLocalization": this.form.get("TLocalization")?.value,
+      "TTime": this.form.get("TTime")?.value,
+      "TBudget": this.form.get("TBudget")?.value,
+      "TStatus": this.form.get("TStatus")?.value,
     }
 
-    if(model.CGID == "0" || model.CGID == "")
-      this.store.dispatch(addTask({ Category: model }));
+    if(model.TGID == "0" || model.TGID == "")
+      this.store.dispatch(addTask({ Task: model }));
     else
-      this.store.dispatch(updateTask({ Category: model }));
+      this.store.dispatch(updateTask({ Task: model }));
   }
+
+  public AddTaskNote = () => this.store.dispatch(saveTaskNote({ TNGID: Guid.create().toString(), TGID: this.form.get("tgid")?.value, TaskNote: this.addTaskNote.get("taskNote")?.value }));
+
+  public DeleteTaskNote = (tngid: any) => this.store.dispatch(deleteTaskNote({ TNGID: tngid }))
 
   public Cancel = () => this.router.navigate(["/tasks"])
 

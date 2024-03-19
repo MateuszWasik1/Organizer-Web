@@ -62,7 +62,7 @@ export class CategoryPageComponent implements OnInit, OnDestroy {
     )
   }
 
-  public SaveSaving = () => {
+  public SaveCategory = () => {
     let model = {
       "CGID": this.form.get("CGID")?.value,
       "CName": this.form.get("CName")?.value,
