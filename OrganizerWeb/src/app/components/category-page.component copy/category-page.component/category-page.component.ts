@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.state';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
@@ -46,10 +46,10 @@ export class CategoryPageComponent implements OnInit, OnDestroy {
       this.Category$.subscribe(x =>{
         this.form = new FormGroup({
           CGID: new FormControl( x.CGID, { validators: [] }),
-          CName: new FormControl( x.CName, { validators: [] }),
-          CStartDate: new FormControl( formatDate(x.CStartDate, 'yyyy-MM-dd', 'en'), { validators: [] }),
-          CEndDate: new FormControl( formatDate(x.CEndDate, 'yyyy-MM-dd', 'en'), { validators: [] }),
-          CBudget: new FormControl( x.CBudget, { validators: [] }),
+          CName: new FormControl( x.CName, { validators: [ Validators.required, Validators.maxLength(2000) ] }),
+          CStartDate: new FormControl( formatDate(x.CStartDate, 'yyyy-MM-dd', 'en'), { validators: [ Validators.required ] }),
+          CEndDate: new FormControl( formatDate(x.CEndDate, 'yyyy-MM-dd', 'en'), { validators: [ Validators.required ] }),
+          CBudget: new FormControl( x.CBudget, { validators: [ Validators.required ] }),
           CBudgetCount: new FormControl( x.CBudgetCount, { validators: [] }),
         })
       })

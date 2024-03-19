@@ -1,10 +1,10 @@
 <section class="body">
     <div class="row">
         <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9">
-            <h1 class="page-title" *ngIf="isNewCategoryView">{{translations.Get('Savings_New_Saving')}}</h1>
+            <h1 class="page-title" *ngIf="isNewCategoryView">{{translations.Get('Categories_New_Category')}}</h1>
 
             <ng-container *ngIf="Category$ | async as category">
-                <h1 class="page-title" *ngIf="!isNewCategoryView">{{translations.Get('Savings_Saving')}}: {{category}}</h1>
+                <h1 class="page-title" *ngIf="!isNewCategoryView">{{translations.Get('Categories_Category')}}: {{category.CName}}</h1>
             </ng-container>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
@@ -22,7 +22,13 @@
                     </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
-                    <input type="text" class="data-input" [placeholder]="translations.Get('Categories_Name')" formControlName="cName"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Categories_Name')" formControlName="CName"/>
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('CName')?.errors?.['required']">
+                    {{translations.Get('Categories_Name_Required')}}
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('CName')?.errors?.['maxlength']">
+                    {{translations.Get('Categories_Name_Max_2000')}}
                 </div>
             </div>
             <div class="row">
@@ -32,7 +38,10 @@
                     </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
-                    <input type="date" class="data-input" [placeholder]="translations.Get('Categories_StartDate')" formControlName="cStartDate" />
+                    <input type="date" class="data-input" [placeholder]="translations.Get('Categories_StartDate')" formControlName="CStartDate" />
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('CStartDate')?.errors?.['required']">
+                    {{translations.Get('Categories_StartDate_Required')}}
                 </div>
             </div>
             <div class="row">
@@ -42,7 +51,10 @@
                     </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
-                    <input type="date" class="data-input" [placeholder]="translations.Get('Categories_EndDate')" formControlName="cEndDate"/>
+                    <input type="date" class="data-input" [placeholder]="translations.Get('Categories_EndDate')" formControlName="CEndDate"/>
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('CEndDate')?.errors?.['required']">
+                    {{translations.Get('Categories_EndDate_Required')}}
                 </div>
             </div>
             <div class="row">
@@ -52,7 +64,10 @@
                     </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
-                    <input type="number" class="data-input" [placeholder]="translations.Get('Categories_Budget')" step="1" formControlName="cBudget"/>
+                    <input type="number" class="data-input" [placeholder]="translations.Get('Categories_Budget')" step="1" formControlName="CBudget"/>
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('CBudget')?.errors?.['required']">
+                    {{translations.Get('Categories_Budget_Required')}}
                 </div>
             </div>
         </div>
