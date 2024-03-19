@@ -39,7 +39,7 @@ export class CategoriesService {
     }
 
     UpdateCategory(model: any) : Observable<any>{
-        return this.http.post<any>(this.apiUrl + 'api/Categories/UpdateCategory', model, { headers: GetToken(this.cookiesService) })
+        return this.http.put<any>(this.apiUrl + 'api/Categories/UpdateCategory', model, { headers: GetToken(this.cookiesService) })
     }
 
     DeleteCategories(cGID: any) : Observable<any>{

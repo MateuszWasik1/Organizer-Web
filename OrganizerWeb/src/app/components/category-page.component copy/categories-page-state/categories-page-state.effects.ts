@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, switchMap, withLatestFrom} from "rxjs/operators";
+import { catchError, map, switchMap, tap, withLatestFrom} from "rxjs/operators";
 import * as CategoriesActions from "./categories-page-state.actions"
 import { AppState } from "src/app/app.state";
 import { Store } from "@ngrx/store";
@@ -9,12 +9,14 @@ import { CategoriesService } from "src/app/services/categories.service";
 import { selectFilters } from "./categories-page-state.selectors";
 import { FillDataService } from "src/app/services/fill-data.service";
 import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class CategoriesEffects {
     constructor(
         private actions: Actions,
         private store: Store<AppState>,
+        private router: Router,
         private categoriesService: CategoriesService,
         private fillDataService: FillDataService,
         private errorHandler: APIErrorHandler) {
@@ -63,6 +65,7 @@ export class CategoriesEffects {
             switchMap((params) => {
                 return this.categoriesService.AddCategory(params.Category).pipe(
                     map(() => CategoriesActions.addCategorySuccess()),
+                    tap(() => this.router.navigate(["/categories"])),
                     catchError(error => of(CategoriesActions.addCategoryError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
@@ -75,6 +78,7 @@ export class CategoriesEffects {
             switchMap((params) => {
                 return this.categoriesService.UpdateCategory(params.Category).pipe(
                     map(() => CategoriesActions.updateCategorySuccess()),
+                    tap(() => this.router.navigate(["/categories"])),
                     catchError(error => of(CategoriesActions.updateCategoryError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
