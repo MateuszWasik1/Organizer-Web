@@ -1,6 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import * as Actions from "./tasks-page-state.actions"
 import { TasksState } from "./tasks-page-state.state";
+import { TaskEnum } from "src/app/enums/TaskEnum";
 
 var initialStateOfTasksPage: TasksState = {
     Filters: {
@@ -8,6 +9,15 @@ var initialStateOfTasksPage: TasksState = {
         Status: 3,
     },
     Tasks: [],
+    Task: {
+        TGID: "",
+        TCGID: "",
+        TName: "",
+        TLocalization: "",
+        TTime: new Date(),
+        TBudget: 0,
+        TStatus: TaskEnum.NotStarted,
+    },
     TasksNotes: [],
     Categories: [],
     IsError: {
@@ -22,6 +32,25 @@ export const TasksReducer = createReducer<TasksState>(
     initialStateOfTasksPage,
 
     //Load Task
+    on(Actions.loadTaskSuccess, (state, { Task }) => ({
+        ...state,
+        Task: {
+            TGID: Task.tgid,
+            TCGID: Task.tcgid,
+            TName: Task.tName,
+            TLocalization: Task.tLocalization,
+            TTime: Task.tTime,
+            TBudget: Task.tBudget,
+            TStatus: Task.tStatus,
+        },
+    })),
+    
+    on(Actions.loadTaskError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
+    //Load Tasks
     on(Actions.loadTasksSuccess, (state, { Tasks }) => ({
         ...state,
         Tasks: Tasks
@@ -58,31 +87,11 @@ export const TasksReducer = createReducer<TasksState>(
     })),
 
     //Save Task 
-    on(Actions.saveTaskSuccess, (state, { Task }) => {
-        let newTasks = [...state.Tasks];
+    on(Actions.addTaskSuccess, (state) => ({
+        ...state,
+    })),
 
-        let newModel = {
-            "tid": Task.TID,
-            "tgid": Task.TGID,
-            "tcgid": Task.TCGID,
-            "tName": Task.TName,
-            "tTime": Task.TTime,
-            "tLocalization": Task.TLocalization,
-            "tBudget": Task.TBudget,
-            "tStatus": Task.TStatus,
-        }
-
-        let existingTaskIndex = newTasks.findIndex(x => x.tgid == Task.TGID);
-
-        if(existingTaskIndex != -1)
-            newTasks[existingTaskIndex] = newModel
-        else
-            newTasks.push(newModel)
-
-        return {...state, Tasks: newTasks};
-    }),
-
-    on(Actions.saveTaskError, (state, { error }) => ({
+    on(Actions.addTaskError, (state, { error }) => ({
         ...state,
         ErrorMessage: error
     })),
@@ -103,6 +112,16 @@ export const TasksReducer = createReducer<TasksState>(
     }),
 
     on(Actions.saveTaskNoteError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
+    //Update Task 
+    on(Actions.updateTaskSuccess, (state) => ({
+        ...state,
+    })),
+    
+    on(Actions.updateTaskError, (state, { error }) => ({
         ...state,
         ErrorMessage: error
     })),
@@ -159,6 +178,15 @@ export const TasksReducer = createReducer<TasksState>(
             Status: 3,
         },
         Tasks: [],
+        Task: {
+            TGID: "",
+            TCGID: "",
+            TName: "",
+            TLocalization: "",
+            TTime: new Date(),
+            TBudget: 0,
+            TStatus: TaskEnum.NotStarted,
+        },
         TasksNotes: [],
         Categories: [],
         IsError: {

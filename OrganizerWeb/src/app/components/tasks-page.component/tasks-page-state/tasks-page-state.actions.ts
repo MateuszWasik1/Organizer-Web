@@ -1,5 +1,9 @@
 import { createAction, props } from '@ngrx/store'
 
+export const loadTask = createAction('[Tasks Page] Load Task', props<{ TGID: any }>());
+export const loadTaskSuccess = createAction('[Tasks Page] Load Task Success', props<{ Task: any }>());
+export const loadTaskError = createAction('[Tasks Page] Load Task Error', props<{ error: any }>());
+
 export const loadTasks = createAction('[Tasks Page] Load Tasks');
 export const loadTasksSuccess = createAction('[Tasks Page] Load Tasks Success', props<{ Tasks: any }>());
 export const loadTasksError = createAction('[Tasks Page] Load Tasks Error', props<{ error: any }>());
@@ -15,9 +19,13 @@ export const loadCategoriesError = createAction('[Tasks Page] Load Categories Er
 export const loadCustomTasks = createAction('[Tasks Page] Load Custom Tasks');
 export const loadCustomCategories = createAction('[Tasks Page] Load Custom Categories');
 
-export const saveTask = createAction('[Tasks Page] Save Task', props<{ Task: any }>());
-export const saveTaskSuccess = createAction('Tasks Page] Save Task Success', props<{ Task: any }>());
-export const saveTaskError = createAction('[Tasks Page] Save Task Error', props<{ error: any }>());
+export const addTask = createAction('[Tasks Page] Add Task', props<{ Task: any }>());
+export const addTaskSuccess = createAction('Tasks Page] Add Task Success');
+export const addTaskError = createAction('[Tasks Page] Add Task Error', props<{ error: any }>());
+
+export const updateTask = createAction('[Tasks Page] Update Task', props<{ Task: any }>());
+export const updateTaskSuccess = createAction('Tasks Page] Update Task Success');
+export const updateTaskError = createAction('[Tasks Page] Update Task Error', props<{ error: any }>());
 
 export const saveTaskNote = createAction('[Tasks Page] Save Task Note', props<{ TNGID: any, TGID: any, TaskNote: any }>());
 export const saveTaskNoteSuccess = createAction('Tasks Page] Save Task Note Success', props<{ TaskNote: any }>());
@@ -30,7 +38,6 @@ export const deleteTaskError = createAction('[Tasks Page] Delete Task Error', pr
 export const deleteTaskNote = createAction('[Tasks Page] Delete Task Note', props<{ TNGID: any }>());
 export const deleteTaskNoteSuccess = createAction('Tasks Page] Delete Task Note Success', props<{ TNGID: any }>());
 export const deleteTaskNoteError = createAction('[Tasks Page] Delete Task Note Error', props<{ error: any }>());
-
 
 export const ChangeCategoryFilterValue = createAction('[Tasks Page] Change Category Filter Value', props<{ value: any }>());
 

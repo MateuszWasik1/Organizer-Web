@@ -1,0 +1,75 @@
+<section class="body">
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9">
+            <h1 class="page-title" *ngIf="isNewCategoryView">{{translations.Get('Categories_New_Category')}}</h1>
+
+            <ng-container *ngIf="Category$ | async as category">
+                <h1 class="page-title" *ngIf="!isNewCategoryView">{{translations.Get('Categories_Category')}}: {{category.CName}}</h1>
+            </ng-container>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+            <button mat-raised-button class="primary-btn float-right" (click)="SaveSaving()" [disabled]="form.invalid">{{translations.Get('General_Save')}}</button>
+            <button mat-raised-button class="float-right margin-right-15" (click)="Cancel()">{{translations.Get('General_Cancel')}}</button>
+        </div>
+    </div>
+
+    <div class="row" [formGroup]="form">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
+                    <span class="data-input-text">
+                        {{translations.Get('Categories_Name')}}:
+                    </span>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Categories_Name')" formControlName="CName"/>
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('CName')?.errors?.['required']">
+                    {{translations.Get('Categories_Name_Required')}}
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('CName')?.errors?.['maxlength']">
+                    {{translations.Get('Categories_Name_Max_2000')}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
+                    <span class="data-input-text">
+                        {{translations.Get('Categories_StartDate')}}:
+                    </span>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
+                    <input type="date" class="data-input" [placeholder]="translations.Get('Categories_StartDate')" formControlName="CStartDate" />
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('CStartDate')?.errors?.['required']">
+                    {{translations.Get('Categories_StartDate_Required')}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
+                    <span class="data-input-text">
+                        {{translations.Get('Categories_EndDate')}}:
+                    </span>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
+                    <input type="date" class="data-input" [placeholder]="translations.Get('Categories_EndDate')" formControlName="CEndDate"/>
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('CEndDate')?.errors?.['required']">
+                    {{translations.Get('Categories_EndDate_Required')}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
+                    <span class="data-input-text">
+                        {{translations.Get('Categories_Budget')}}:
+                    </span>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
+                    <input type="number" class="data-input" [placeholder]="translations.Get('Categories_Budget')" step="1" formControlName="CBudget"/>
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('CBudget')?.errors?.['required']">
+                    {{translations.Get('Categories_Budget_Required')}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

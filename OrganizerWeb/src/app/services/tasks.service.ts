@@ -12,19 +12,29 @@ export class TasksService {
     public apiUrl = environment.apiUrl;
     constructor( private http: HttpClient, private cookiesService: CookieService ) { }
 
-    getTasks(CGID: any, Status: number) : Observable<any>{
+    GetTask(TGID: any) : Observable<any>{
+        let params = new HttpParams().set("tgid", TGID);
+
+        return this.http.get<any>(this.apiUrl + 'api/Tasks/GetTask', { params: params, headers: GetToken(this.cookiesService) })
+    }
+
+    GetTasks(CGID: any, Status: number) : Observable<any>{
         let params = new HttpParams()
             .set("cGID", CGID)
             .set("status", Status);
 
-        return this.http.get<any>(this.apiUrl + 'api/Tasks', { params: params, headers: GetToken(this.cookiesService) })
+        return this.http.get<any>(this.apiUrl + 'api/Tasks/GetTasks', { params: params, headers: GetToken(this.cookiesService) })
     }
 
-    saveTask(model: any) : Observable<any>{
-        return this.http.post<any>(this.apiUrl + 'api/Tasks/Save', model, { headers: GetToken(this.cookiesService) })
+    AddTask(model: any) : Observable<any>{
+        return this.http.post<any>(this.apiUrl + 'api/Tasks/AddTask', model, { headers: GetToken(this.cookiesService) })
     }
 
-    deleteTask(tgid: any) : Observable<any>{
+    UpdateTask(model: any) : Observable<any>{
+        return this.http.put<any>(this.apiUrl + 'api/Tasks/UpdateTask', model, { headers: GetToken(this.cookiesService) })
+    }
+
+    DeleteTask(tgid: any) : Observable<any>{
         return this.http.delete<any>(`${this.apiUrl}api/Tasks/Delete/${tgid}`, { headers: GetToken(this.cookiesService) })
     }
 }

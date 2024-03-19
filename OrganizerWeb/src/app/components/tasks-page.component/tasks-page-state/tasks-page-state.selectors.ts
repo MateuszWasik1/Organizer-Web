@@ -5,6 +5,8 @@ const selectTasksState = createFeatureSelector<TasksState>(featureKeyTasksState)
 
 export const selectFilters = createSelector(selectTasksState, (state: TasksState) => state.Filters)
 
+export const selectTask = createSelector(selectTasksState, (state: TasksState) => state.Task)
+
 export const selectTasks = createSelector(selectTasksState, (state: TasksState) => state.Tasks)
 
 export const selectTasksNotes = createSelector(selectTasksState, (state: TasksState) => state.TasksNotes)
