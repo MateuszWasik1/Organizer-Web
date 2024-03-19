@@ -39,7 +39,6 @@ export class TasksPageComponent implements OnInit, OnDestroy {
     this.subscriptions = []
   }
   ngOnInit(): void {
-    this.store.dispatch(loadTasks());
     this.store.dispatch(loadCategories());
 
     this.statuses = [
@@ -86,9 +85,9 @@ export class TasksPageComponent implements OnInit, OnDestroy {
 
   public DisplayStatus = (status: number) => this.statuses[status].name;
 
-  public AddTask = () => this.router.navigate(['categories/0']);
+  public AddTask = () => this.router.navigate(['tasks/0']);
 
-  public ModifyTask= (cgid: any) => this.router.navigate([`categories/${cgid}`]);
+  public ModifyTask= (cgid: any) => this.router.navigate([`tasks/${cgid}`]);
 
   public DeleteTask = (tgid: any) => this.store.dispatch(deleteTask({ tgid: tgid }))
 

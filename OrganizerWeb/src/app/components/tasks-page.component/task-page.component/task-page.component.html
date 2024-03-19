@@ -22,7 +22,13 @@
                     </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
-                    <input type="text" class="data-input" [placeholder]="translations.Get('Tasks_Name')" formControlName="tName" required/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Tasks_Name')" formControlName="TName" required/>
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('TName')?.errors?.['required']">
+                    {{translations.Get('Categories_Name_Required')}}
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('TName')?.errors?.['maxlength']">
+                    {{translations.Get('Categories_Name_Max_2000')}}
                 </div>
             </div>
             <div class="row">
@@ -33,7 +39,7 @@
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                     <mat-form-field class="margin-left-30">
-                        <input matInput [ngxMatDatetimePicker]="picker" placeholder="translations.Get('General_Pick_Date_And_Time')" formControlName="tTime">
+                        <input matInput [ngxMatDatetimePicker]="picker" placeholder="translations.Get('General_Pick_Date_And_Time')" formControlName="TTime">
                         <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
                         <ngx-mat-datetime-picker #picker 
                             [showSpinners]="true" 
@@ -56,6 +62,9 @@
                         </ngx-mat-datetime-picker>
                      </mat-form-field>
                 </div>
+                <div class="error-input row" *ngIf="this.form.get('TTime')?.errors?.['required']">
+                    {{translations.Get('Categories_Name_Required')}}
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
@@ -64,7 +73,13 @@
                     </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
-                    <input type="text" class="data-input" [placeholder]="translations.Get('Tasks_Localization')" formControlName="tLocalization" required/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Tasks_Localization')" formControlName="TLocalization" required/>
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('TLocalization')?.errors?.['required']">
+                    {{translations.Get('Categories_Name_Required')}}
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('TLocalization')?.errors?.['maxlength']">
+                    {{translations.Get('Categories_Name_Max_2000')}}
                 </div>
             </div>
             <div class="row">
@@ -74,7 +89,10 @@
                     </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
-                    <input type="number" class="data-input" [placeholder]="translations.Get('Tasks_Budget')" step="1" formControlName="tBudget" required/>
+                    <input type="number" class="data-input" [placeholder]="translations.Get('Tasks_Budget')" step="1" formControlName="TBudget" required/>
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('TBudget')?.errors?.['required']">
+                    {{translations.Get('Categories_Name_Required')}}
                 </div>
             </div>
             <div class="row">
@@ -91,6 +109,9 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('TStatus')?.errors?.['required']">
+                    {{translations.Get('Categories_Name_Required')}}
                 </div>
             </div>
             <ng-container *ngIf="Categories$ | async as categories">
@@ -111,14 +132,11 @@
                         </mat-form-field>
                     </div>
                     <span *ngIf="IsBudgetExceeded">{{budgetExceededInfo}}</span>
+                    <div class="error-input row" *ngIf="this.form.get('TStatus')?.errors?.['required']">
+                        {{translations.Get('Categories_Name_Required')}}
+                    </div>
                 </div>
             </ng-container>
-            <div class="row padding-bottom-15">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <button mat-raised-button class="float-right primary-btn" (click)="SaveTask()" [disabled]="IsBudgetExceeded || form.invalid">{{translations.Get('General_Save')}}</button>
-                    <button mat-raised-button class="float-right margin-right-15" (click)="Cancel()">{{translations.Get('General_Cancel')}}</button>
-                </div>
-            </div>
 
             <ng-container *ngIf="TaskNotes$ | async as taskNotes">
                 <div *ngIf="!isNewTaskView">

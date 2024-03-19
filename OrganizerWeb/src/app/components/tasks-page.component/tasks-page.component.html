@@ -74,7 +74,7 @@
                     <p>{{DisplayStatus(task.tStatus)}}</p>
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-2 col-xs-3">
-                    <span class="bi bi-pencil" (click)="ModifyTask(task)"></span>
+                    <span class="bi bi-pencil" (click)="ModifyTask(task.tgid)"></span>
                     <span class="bi bi-trash" (click)="DeleteTask(task.tgid)"></span>
                 </div>
             </div>

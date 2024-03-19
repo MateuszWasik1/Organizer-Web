@@ -7,7 +7,7 @@ import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 import { formatDate } from '@angular/common';
-import { addTask, cleanState, deleteTaskNote, loadTask, saveTaskNote, updateTask } from '../tasks-page-state/tasks-page-state.actions';
+import { addTask, cleanState, deleteTaskNote, loadCategories, loadTask, saveTaskNote, updateTask } from '../tasks-page-state/tasks-page-state.actions';
 import { selectCategories, selectErrorMessage, selectTask, selectTasksNotes } from '../tasks-page-state/tasks-page-state.selectors';
 import { Guid } from 'guid-typescript';
 
@@ -22,7 +22,7 @@ export class TaskPageComponent implements OnInit, OnDestroy {
 
   public subscriptions: Subscription[];
   public statuses: any;
-  public selectedStatus: any;
+  public selectedStatus: number = 0;
   public selectedCategory: any;
 
   public form: FormGroup = new FormGroup({});
@@ -48,23 +48,37 @@ export class TaskPageComponent implements OnInit, OnDestroy {
     this.subscriptions = []
   }
   ngOnInit(): void {
-    this.tgid = this.route.snapshot.paramMap.get('cgid') ?? "";
+    this.store.dispatch(loadCategories());
+    
+    this.subscriptions.push(
+      this.Categories$.subscribe(categories => this.categories = categories)
+    );
+
+    this.tgid = this.route.snapshot.paramMap.get('tgid') ?? "";
     this.isNewTaskView = this.tgid == "" || this.tgid == "0";
 
     if(!this.isNewTaskView)
       this.store.dispatch(loadTask({ TGID: this.tgid }));
     
+    this.statuses = [
+      {id: '0', name: 'Nie zaczęty'},
+      {id: '1', name: 'W trakcie'},
+      {id: '2', name: 'Skończony'},
+    ]
+
     this.subscriptions.push(
       this.Task$.subscribe(x =>{
         this.form = new FormGroup({
           TGID: new FormControl( x.TGID, { validators: [] }),
-          TCGID: new FormControl( x.TCGID, { validators: [ Validators.required, Validators.maxLength(2000) ] }),
-          TName: new FormControl( x.TName, { validators: [ Validators.required, Validators.maxLength(2000) ] }),
-          TLocalization: new FormControl( x.TLocalization, { validators: [ Validators.required, Validators.maxLength(2000) ] }),
+          TCGID: new FormControl( x.TCGID, { validators: [] }),
+          TName: new FormControl( x.TName, { validators: [ Validators.required, Validators.maxLength(300) ] }),
+          TLocalization: new FormControl( x.TLocalization, { validators: [ Validators.required, Validators.maxLength(300) ] }),
           TTime: new FormControl( formatDate(x.TTime, 'yyyy-MM-dd', 'en'), { validators: [ Validators.required ] }),
           TBudget: new FormControl( x.TBudget, { validators: [ Validators.required ] }),
-          TStatus: new FormControl( x.TStatus, { validators: [] }),
         })
+
+        this.selectedStatus = this.statuses[x.TStatus].id
+        this.selectedCategory = this.categories.find((x: any) => x.cgid == x.TCGID).cgid
       })
     );
 
@@ -73,20 +87,10 @@ export class TaskPageComponent implements OnInit, OnDestroy {
         this.errorHandler.HandleException(error);
       })
     )
-
-    this.subscriptions.push(
-      this.Categories$.subscribe(categories => this.categories = categories
-    ));
  
     this.addTaskNote = new FormGroup({
       taskNote: new FormControl('', { validators: [Validators.maxLength(2000)] }),
     })
-
-    this.statuses = [
-      {id: '0', name: 'Nie zaczęty'},
-      {id: '1', name: 'W trakcie'},
-      {id: '2', name: 'Skończony'},
-    ];
   }
 
   public TaskCategoryChange = (category: any) =>{
