@@ -5,58 +5,7 @@
                 <h1 class="page-title">{{translations.Get('TopMenu_Categories')}}</h1>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
-                <button mat-raised-button class="primary-btn" (click)="AddCategory()" *ngIf="!ShowAddModal">{{translations.Get('General_Add')}}</button>
-            </div>
-        </div>
-
-        <div class="row categories-row" *ngIf="ShowAddModal" [formGroup]="form">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
-                        <span class="data-input-text">
-                            {{translations.Get('Categories_Name')}}:
-                        </span>
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
-                        <input type="text" class="data-input" [placeholder]="translations.Get('Categories_Name')" formControlName="cName"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
-                        <span class="data-input-text">
-                            {{translations.Get('Categories_StartDate')}}:
-                        </span>
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
-                        <input type="date" class="data-input" [placeholder]="translations.Get('Categories_StartDate')" formControlName="cStartDate" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
-                        <span class="data-input-text">
-                            {{translations.Get('Categories_EndDate')}}:
-                        </span>
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
-                        <input type="date" class="data-input" [placeholder]="translations.Get('Categories_EndDate')" formControlName="cEndDate"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
-                        <span class="data-input-text">
-                            {{translations.Get('Categories_Budget')}}:
-                        </span>
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
-                        <input type="number" class="data-input" [placeholder]="translations.Get('Categories_Budget')" step="1" formControlName="cBudget"/>
-                    </div>
-                </div>
-                <div class="row padding-bottom-15">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button mat-raised-button class="float-right primary-btn" (click)="Save()">{{translations.Get('General_Save')}}</button>
-                        <button mat-raised-button class="float-right margin-right-15" (click)="ShowAddModal = !ShowAddModal">{{translations.Get('General_Cancel')}}</button>
-                    </div>
-                </div>
+                <button mat-raised-button class="primary-btn" (click)="AddCategory()">{{translations.Get('General_Add')}}</button>
             </div>
         </div>
 
@@ -105,7 +54,7 @@
                     <p>{{category.cBudget}}</p>
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
-                    <span class="bi bi-pencil" (click)="ModifyCategory(category)"></span>
+                    <span class="bi bi-pencil" (click)="ModifyCategory(category.cgid)"></span>
                     <span class="bi bi-trash" (click)="DeleteCategory(category.cgid)"></span>
                 </div>
             </div>

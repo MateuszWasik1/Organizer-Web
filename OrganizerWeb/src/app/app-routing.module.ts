@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoriesPageComponent } from './components/category-page.component copy/categories-page.component';
+import { CategoryPageComponent } from './components/category-page.component copy/category-page.component/category-page.component';
 import { TasksPageComponent } from './components/tasks-page.component/tasks-page.component';
 import { SavingsPageComponent } from './components/savings-page.component/savings-page.component';
 import { StatsPageComponent } from './components/stats-page.component/stats-page.component';
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'categories',
     component: CategoriesPageComponent
+  },
+  {
+    path: 'categories/:cgid',
+    component: CategoryPageComponent
   },
   {
     path: 'tasks',
