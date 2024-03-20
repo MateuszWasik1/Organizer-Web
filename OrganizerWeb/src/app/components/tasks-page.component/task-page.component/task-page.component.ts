@@ -23,7 +23,7 @@ export class TaskPageComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[];
   public statuses: any;
   public selectedStatus: number = 0;
-  public selectedCategory: any;
+  public selectedCategory: string = "";
 
   public form: FormGroup = new FormGroup({});
   public addTaskNote: FormGroup = new FormGroup({});
@@ -51,7 +51,10 @@ export class TaskPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(loadCategories());
     
     this.subscriptions.push(
-      this.Categories$.subscribe(categories => this.categories = categories)
+      this.Categories$.subscribe(categories => {
+        this.categories = categories;
+        this.selectedCategory = this.categories.length != 0 ? this.categories.find((x: any) => x.cgid == this.form.get("TCGID")?.value).cgid : "";
+      })
     );
 
     this.tgid = this.route.snapshot.paramMap.get('tgid') ?? "";
@@ -73,12 +76,12 @@ export class TaskPageComponent implements OnInit, OnDestroy {
           TCGID: new FormControl( x.TCGID, { validators: [] }),
           TName: new FormControl( x.TName, { validators: [ Validators.required, Validators.maxLength(300) ] }),
           TLocalization: new FormControl( x.TLocalization, { validators: [ Validators.required, Validators.maxLength(300) ] }),
-          TTime: new FormControl( formatDate(x.TTime, 'yyyy-MM-dd', 'en'), { validators: [ Validators.required ] }),
+          TTime: new FormControl( x.TTime, { validators: [ Validators.required ] }),
           TBudget: new FormControl( x.TBudget, { validators: [ Validators.required ] }),
         })
 
-        this.selectedStatus = this.statuses[x.TStatus].id
-        this.selectedCategory = this.categories.find((x: any) => x.cgid == x.TCGID).cgid
+        this.selectedStatus = this.statuses[x.TStatus].id;
+        this.selectedCategory = this.categories.length != 0 ? this.categories.find((x: any) => x.cgid == x.TCGID).cgid : "";
       })
     );
 
@@ -107,12 +110,12 @@ export class TaskPageComponent implements OnInit, OnDestroy {
   public SaveTask = () => {
     let model = {
       "TGID": this.form.get("TGID")?.value,
-      "TCGID": this.form.get("TCGID")?.value,
+      "TCGID": this.selectedCategory,
       "TName": this.form.get("TName")?.value,
       "TLocalization": this.form.get("TLocalization")?.value,
       "TTime": this.form.get("TTime")?.value,
       "TBudget": this.form.get("TBudget")?.value,
-      "TStatus": this.form.get("TStatus")?.value,
+      "TStatus": this.selectedStatus,
     }
 
     if(model.TGID == "0" || model.TGID == "")

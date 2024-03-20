@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, switchMap, withLatestFrom} from "rxjs/operators";
+import { catchError, map, switchMap, tap, withLatestFrom} from "rxjs/operators";
 import * as CategoriesActions from "./tasks-page-state.actions"
 import { TasksService } from "src/app/services/tasks.service";
 import { CategoriesService } from "src/app/services/categories.service";
@@ -11,11 +11,13 @@ import { AppState } from "src/app/app.state";
 import { FillDataService } from "src/app/services/fill-data.service";
 import { TasksNotesService } from "src/app/services/tasks-notes.service";
 import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class TasksEffects {
     constructor(
         private actions: Actions,
+        private router: Router,
         private tasksService: TasksService,
         private tasksNotesService: TasksNotesService,
         private categoriesService: CategoriesService,
@@ -103,6 +105,7 @@ export class TasksEffects {
             switchMap((params) => {
                 return this.tasksService.AddTask(params.Task).pipe(
                     map((result) => CategoriesActions.addTaskSuccess()),
+                    tap(() => this.router.navigate(["/tasks"])),
                     catchError(error => of(CategoriesActions.addTaskError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
@@ -115,6 +118,7 @@ export class TasksEffects {
             switchMap((params) => {
                 return this.tasksService.UpdateTask(params.Task).pipe(
                     map((result) => CategoriesActions.updateTaskSuccess()),
+                    tap(() => this.router.navigate(["/tasks"])),
                     catchError(error => of(CategoriesActions.updateTaskError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
