@@ -1,13 +1,9 @@
-.categories-row{
-    border: 1px solid #DDD;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; 
-}
 .row-text{
     text-align: right;
     margin-top: 15px;
     margin-bottom: 15px;
 }
+
 .row-inputs{
     text-align: left;
     margin-top: 15px;
@@ -17,10 +13,10 @@
     }
 }
 
-.action-btn{
-    background: transparent;
-    border: none;
-    font-size: 40px;
+.taskNoteTextArea{
+    width: 100%;
+    height: 100px;
+    margin-bottom: 15px;
 }
 
 @media screen and (max-width: 992px) {
@@ -32,9 +28,5 @@
 @media screen and (max-width: 768px) {
     .row-text{
         text-align: left; 
-    }
-
-    .add-task-note-btn{
-        margin: 0 0 15px 0;
     }
 }

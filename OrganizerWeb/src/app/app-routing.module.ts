@@ -14,6 +14,7 @@ import { BugPageComponent } from './components/bugs-page.component/bug-page.comp
 import { NotesPageComponent } from './components/notes-page.component/notes-page.component';
 import { NotePageComponent } from './components/notes-page.component/note-page.component/note-page.component';
 import { SavingPageComponent } from './components/savings-page.component/saving-page.component/saving-page.component';
+import { TaskPageComponent } from './components/tasks-page.component/task-page.component/task-page.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'tasks',
     component: TasksPageComponent
+  },
+  {
+    path: 'tasks/:tgid',
+    component: TaskPageComponent
   },
   {
     path: 'savings',
