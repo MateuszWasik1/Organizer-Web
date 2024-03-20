@@ -77,7 +77,7 @@ export class TaskPageComponent implements OnInit, OnDestroy {
           TName: new FormControl( x.TName, { validators: [ Validators.required, Validators.maxLength(300) ] }),
           TLocalization: new FormControl( x.TLocalization, { validators: [ Validators.required, Validators.maxLength(300) ] }),
           TTime: new FormControl( x.TTime, { validators: [ Validators.required ] }),
-          TBudget: new FormControl( x.TBudget, { validators: [ Validators.required ] }),
+          TBudget: new FormControl( x.TBudget, { validators: [ Validators.required, Validators.min(0) ] }),
         })
 
         this.selectedStatus = this.statuses[x.TStatus].id;
