@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, filter } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
-import { addTask, cleanState, deleteTaskNote, loadCategories, loadTask, saveTaskNote, updateTask } from '../tasks-page-state/tasks-page-state.actions';
-import { selectCategories, selectErrorMessage, selectTask, selectTasksNotes } from '../tasks-page-state/tasks-page-state.selectors';
+import { CalculateCategoryBudget, addTask, cleanState, deleteTaskNote, loadCategories, loadTask, loadTasksNotes, saveTaskNote, updateTask } from '../tasks-page-state/tasks-page-state.actions';
+import { selectBudgetOverrunMessage, selectCategories, selectErrorMessage, selectTask, selectTasksNotes } from '../tasks-page-state/tasks-page-state.selectors';
 import { Guid } from 'guid-typescript';
 
 @Component({
@@ -30,12 +30,11 @@ export class TaskPageComponent implements OnInit, OnDestroy {
   public isNewTaskView: boolean = true;
 
   public categories: any = [];
-  public IsBudgetExceeded: boolean = false;
-  public budgetExceededInfo: string = '';
 
   public Task$ = this.store.select(selectTask);
   public TaskNotes$ = this.store.select(selectTasksNotes);
   public Categories$ = this.store.select(selectCategories);
+  public BudgetOverrunMessage$ = this.store.select(selectBudgetOverrunMessage);
   public ErrorMessage$ = this.store.select(selectErrorMessage);
 
   constructor(public store: Store<AppState>, 
@@ -59,8 +58,10 @@ export class TaskPageComponent implements OnInit, OnDestroy {
     this.tgid = this.route.snapshot.paramMap.get('tgid') ?? "";
     this.isNewTaskView = this.tgid == "" || this.tgid == "0";
 
-    if(!this.isNewTaskView)
+    if(!this.isNewTaskView){
       this.store.dispatch(loadTask({ TGID: this.tgid }));
+      this.store.dispatch(loadTasksNotes({ TGID: this.tgid }));
+    }
     
     this.statuses = [
       {id: '0', name: 'Nie zaczęty'},
@@ -95,16 +96,9 @@ export class TaskPageComponent implements OnInit, OnDestroy {
     })
   }
 
-  public TaskCategoryChange = (category: any) =>{
-    let cat = this.categories.find((x: any) => x.cgid == category.value);
+  public TaskCategoryChange = (category: any) => this.store.dispatch(CalculateCategoryBudget({ CGID: category.value, Budget: this.form.get("TBudget")?.value }));
 
-    if(cat.cBudget < cat.cBudgetCount + this.form.get("TBudget")?.value){
-      this.IsBudgetExceeded = true;
-      this.budgetExceededInfo = `W obecnej kategorii zaplanowany budżet to ${cat.cBudget}, przekraczasz budżet kategorii o ${(cat.cBudgetCount + this.form.get("tBudget")?.value) - cat.cBudget} !`
-    }
-    else
-      this.IsBudgetExceeded = false;
-  }
+  public ChangeBudget = (x: any) => this.store.dispatch(CalculateCategoryBudget({ CGID: this.selectedCategory, Budget: this.form.get("TBudget")?.value }));
 
   public SaveTask = () => {
     let model = {
@@ -123,7 +117,7 @@ export class TaskPageComponent implements OnInit, OnDestroy {
       this.store.dispatch(updateTask({ Task: model }));
   }
 
-  public AddTaskNote = () => this.store.dispatch(saveTaskNote({ TNGID: Guid.create().toString(), TGID: this.form.get("tgid")?.value, TaskNote: this.addTaskNote.get("taskNote")?.value }));
+  public AddTaskNote = () => this.store.dispatch(saveTaskNote({ TNGID: Guid.create().toString(), TGID: this.form.get("TGID")?.value, TaskNote: this.addTaskNote.get("taskNote")?.value }));
 
   public DeleteTaskNote = (tngid: any) => this.store.dispatch(deleteTaskNote({ TNGID: tngid }))
 

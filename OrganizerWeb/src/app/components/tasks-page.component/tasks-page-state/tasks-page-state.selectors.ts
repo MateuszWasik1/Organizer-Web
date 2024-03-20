@@ -15,4 +15,6 @@ export const selectCategories = createSelector(selectTasksState, (state: TasksSt
 
 export const selectErrors = createSelector(selectTasksState, (state: TasksState) => state.IsError)
 
+export const selectBudgetOverrunMessage = createSelector(selectTasksState, (state: TasksState) => state.BudgetOverrunMessage)
+
 export const selectErrorMessage = createSelector(selectTasksState, (state: TasksState) => state.ErrorMessage)

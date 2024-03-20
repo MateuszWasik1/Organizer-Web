@@ -24,5 +24,6 @@ export interface TasksState {
         IsTasksNotesError: boolean,
         IsCategoriesError: boolean,
     },
+    BudgetOverrunMessage: string,
     ErrorMessage: string,
 }

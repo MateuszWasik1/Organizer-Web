@@ -43,4 +43,6 @@ export const ChangeCategoryFilterValue = createAction('[Tasks Page] Change Categ
 
 export const ChangeStatusFilterValue = createAction('[Tasks Page] Change Status Filter Value', props<{ value: any }>());
 
+export const CalculateCategoryBudget = createAction('[Tasks Page] Calculate Category Budget', props<{ CGID: any, Budget: number }>());
+
 export const cleanState = createAction('[Tasks Page] Clean State');

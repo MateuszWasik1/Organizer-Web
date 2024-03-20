@@ -25,6 +25,7 @@ var initialStateOfTasksPage: TasksState = {
         IsTasksNotesError: false,
         IsCategoriesError: false,
     },
+    BudgetOverrunMessage: "",
     ErrorMessage: "",
 };
 
@@ -194,6 +195,17 @@ export const TasksReducer = createReducer<TasksState>(
             IsTasksNotesError: false,
             IsCategoriesError: false,
         },
+        BudgetOverrunMessage: "",
         ErrorMessage: "",
     })),
+
+    //Calculations
+    on(Actions.CalculateCategoryBudget, (state, { CGID, Budget }) => {
+        let category = state.Categories.find((x: any) => x.cgid == CGID);
+        
+        if(category.cBudget < category.cBudgetCount + Budget)
+            return {...state, BudgetOverrunMessage: `W obecnej kategorii zaplanowany budżet to ${category.cBudget}, przekraczasz budżet kategorii o ${(category.cBudgetCount + Budget) - category.cBudget} !`};
+        else
+            return {...state, BudgetOverrunMessage: ""};
+    }),
 ) 
