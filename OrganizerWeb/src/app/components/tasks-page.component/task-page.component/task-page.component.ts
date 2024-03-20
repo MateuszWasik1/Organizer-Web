@@ -6,7 +6,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
-import { formatDate } from '@angular/common';
 import { addTask, cleanState, deleteTaskNote, loadCategories, loadTask, saveTaskNote, updateTask } from '../tasks-page-state/tasks-page-state.actions';
 import { selectCategories, selectErrorMessage, selectTask, selectTasksNotes } from '../tasks-page-state/tasks-page-state.selectors';
 import { Guid } from 'guid-typescript';

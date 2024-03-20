@@ -49,7 +49,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
     ];
 
     this.subscriptions.push(
-      this.Filters$.subscribe(filter => this.store.dispatch(loadTasks())
+      this.Filters$.subscribe(() => this.store.dispatch(loadTasks())
     ));
 
     this.subscriptions.push(
