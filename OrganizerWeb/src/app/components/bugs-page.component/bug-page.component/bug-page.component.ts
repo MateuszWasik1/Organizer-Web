@@ -64,8 +64,8 @@ export class BugPageComponent implements OnInit, OnDestroy {
       this.Bug$.subscribe(x =>{
         this.form = new FormGroup({
           bguid: new FormControl( x.bguid, { validators: [] }),
-          bTitle: new FormControl( { value: x.bTitle, disabled: !this.isNewBugView }, { validators: [Validators.maxLength(200)] }),
-          bText:  new FormControl( { value: x.bText, disabled: !this.isNewBugView }, { validators: [Validators.maxLength(4000)] }),
+          bTitle: new FormControl( { value: x.bTitle, disabled: !this.isNewBugView }, { validators: [ Validators.required, Validators.maxLength(200) ] }),
+          bText:  new FormControl( { value: x.bText, disabled: !this.isNewBugView }, { validators: [ Validators.required, Validators.maxLength(4000) ] }),
           bStatus:  new FormControl( x.bStatus, { validators: [] }),
         })
 
@@ -74,7 +74,7 @@ export class BugPageComponent implements OnInit, OnDestroy {
     );
 
     this.addBugNote = new FormGroup({
-      bugNote: new FormControl('', { validators: [Validators.maxLength(4000)] }),
+      bugNote: new FormControl('', { validators: [ Validators.required, Validators.maxLength(4000) ] }),
     })
 
     this.subscriptions.push(
