@@ -22,13 +22,13 @@
                     </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
-                    <input type="text" class="data-input" [placeholder]="translations.Get('Categories_Name')" formControlName="CName"/>
+                    <input type="text" class="data-input" [placeholder]="translations.Get('Categories_Name')" formControlName="CName" max="300"/>
                 </div>
                 <div class="error-input row" *ngIf="this.form.get('CName')?.errors?.['required']">
                     {{translations.Get('Categories_Name_Required')}}
                 </div>
                 <div class="error-input row" *ngIf="this.form.get('CName')?.errors?.['maxlength']">
-                    {{translations.Get('Categories_Name_Max_2000')}}
+                    {{translations.Get('Categories_Name_Max_300')}}
                 </div>
             </div>
             <div class="row">
@@ -64,10 +64,13 @@
                     </span>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
-                    <input type="number" class="data-input" [placeholder]="translations.Get('Categories_Budget')" step="1" formControlName="CBudget"/>
+                    <input type="number" class="data-input" [placeholder]="translations.Get('Categories_Budget')" step="1" min="0" formControlName="CBudget"/>
                 </div>
                 <div class="error-input row" *ngIf="this.form.get('CBudget')?.errors?.['required']">
                     {{translations.Get('Categories_Budget_Required')}}
+                </div>
+                <div class="error-input row" *ngIf="this.form.get('CBudget')?.errors?.['min']">
+                    {{translations.Get('Categories_Budget_Min')}}
                 </div>
             </div>
         </div>
