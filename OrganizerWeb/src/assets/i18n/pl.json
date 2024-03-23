@@ -57,6 +57,8 @@
     "Savings_OnWhat": "Na czym",
     "Savings_Where": "Gdzie",
     "Savings_NotFound": "Nie znaleziono żadnych oszczędności! Dodaj nowe oszczędności.",
+    "Savings_Amount_Required": "Uzupełnienie pola kwoty jest wymagane.",
+    "Savings_Amount_Min": "Kwota nie może być mniejszy niż 0.",
     "Stats_Dialog_Error_Title": "Błąd załadowania Statystyk",
     "Stats_Dialog_Error_Text": "Podczas ładowania Statystyk wystąpił błąd. Czy chcesz załadować customowe dane?",
     "Stats_StartDate": "Data początku",
