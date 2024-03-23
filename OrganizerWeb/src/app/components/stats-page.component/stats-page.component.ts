@@ -71,7 +71,7 @@ export class StatsPageComponent implements OnInit, OnDestroy {
               this.store.dispatch(loadCustomStats());
           });
       })
-    )
+    );
 
     this.subscriptions.push(
       this.ErrorMessage$.subscribe(error => {
