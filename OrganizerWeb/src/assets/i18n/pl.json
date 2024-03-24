@@ -97,6 +97,7 @@
     "Tasks_TCategory_Required": "Uzupełnienie pola kategorii jest wymagane.",
     "TasksNotes_AddNoteToTask": "Dodaj notatkę do zadania",
     "TasksNotes_AddNote": "Dodaj notatkę",
+    "TasksNotes_AddNote_Required": "Uzupełnienie pola tekstu notatki do zadania jest wymagane!",
     "TasksNotes_AddNote_Error": "Przekroczyłeś liczbę znaków! Maksymalna liczba znaków to 2000!",
     "TasksNote_Date": "Data",
     "TasksNote_Note": "Notatka",

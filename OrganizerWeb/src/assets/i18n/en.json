@@ -96,6 +96,7 @@
     "Tasks_TCategory_Required": "Category field is required.",
     "TasksNotes_AddNoteToTask": "Add note to task",
     "TasksNotes_AddNote": "Add note",
+    "TasksNotes_AddNote_Required": "Task note text is required!",
     "TasksNotes_AddNote_Error": "You have exceeded the number of characters! Maximum number of characters up to 2000!",
     "TasksNote_Date": "Date",
     "TasksNote_Note": "Note",
