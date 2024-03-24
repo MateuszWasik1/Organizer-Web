@@ -22,6 +22,9 @@
         <div class="row error margin-bottom-15" *ngIf="this.form.get('email')?.errors?.['required']">
             {{translations.Get('Account_Register_Validation_Required')}}
         </div>
+        <div class="row error margin-bottom-15" *ngIf="form.get('email')?.errors?.['maxlength']">
+            {{translations.Get('User_Error_MaxLength100')}}
+        </div>
 
         <div class="row margin-bottom-15">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 register-form">
@@ -35,6 +38,9 @@
         </div>
         <div class="row error margin-bottom-15" *ngIf="this.form.get('userName')?.errors?.['required']">
             {{translations.Get('Account_Register_Validation_Required')}}
+        </div>
+        <div class="row error margin-bottom-15" *ngIf="form.get('userName')?.errors?.['maxlength']">
+            {{translations.Get('User_Error_MaxLength100')}}
         </div>
 
         <div class="row margin-bottom-15">

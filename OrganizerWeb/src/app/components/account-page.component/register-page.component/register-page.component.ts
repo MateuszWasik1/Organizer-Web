@@ -25,8 +25,8 @@ export class RegisterComponent implements OnInit {
   public ErrorMessage$ = this.store.select(selectErrorMessage);
 
   public form = new FormGroup({
-    userName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    userName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+    email: new FormControl('', [ Validators.required, Validators.email, Validators.maxLength(100) ]),
     password: new FormControl('', 
       [
         Validators.required, 
