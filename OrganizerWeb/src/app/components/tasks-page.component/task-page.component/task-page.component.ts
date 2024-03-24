@@ -92,7 +92,7 @@ export class TaskPageComponent implements OnInit, OnDestroy {
     )
  
     this.addTaskNote = new FormGroup({
-      taskNote: new FormControl('', { validators: [Validators.maxLength(2000)] }),
+      taskNote: new FormControl('', { validators: [ Validators.required, Validators.maxLength(2000) ] }),
     })
   }
 

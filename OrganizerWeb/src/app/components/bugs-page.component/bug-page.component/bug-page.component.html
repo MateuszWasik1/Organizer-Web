@@ -8,7 +8,7 @@
             </ng-container>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
-            <button mat-raised-button class="primary-btn float-right" (click)="SaveBug()" *ngIf="isNewBugView">{{translations.Get('General_Save')}}</button>
+            <button mat-raised-button class="primary-btn float-right" (click)="SaveBug()" *ngIf="isNewBugView" [disabled]="form.invalid">{{translations.Get('General_Save')}}</button>
             <button mat-raised-button class="float-right margin-right-15" (click)="Cancel()">{{translations.Get('General_Cancel')}}</button>
         </div>
     </div>
@@ -51,8 +51,13 @@
                     </span>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row-inputs">
-                    <textarea formControlName="bTitle" maxlength="200" [placeholder]="translations.Get('Bugs_Title')" class="bugs-textarea"></textarea>
-                    <div *ngIf="form.get('bTitle')?.invalid">{{translations.Get('Bugs_AddTitle_Error')}}</div>
+                    <textarea formControlName="bTitle" maxlength="200" [placeholder]="translations.Get('Bugs_Title')" class="bugs-textarea" required></textarea>
+                </div>
+                <div class="error row margin-bottom-15" *ngIf="form.get('bTitle')?.errors?.['required']">
+                    {{translations.Get('Bugs_AddTitle_Required')}}
+                </div>
+                <div class="error row margin-bottom-15" *ngIf="form.get('bTitle')?.errors?.['maxlength']">
+                    {{translations.Get('Bugs_AddTitle_Max200')}}
                 </div>
             </div>
             <div class="row">
@@ -62,8 +67,13 @@
                     </span>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row-inputs">
-                    <textarea formControlName="bText" maxlength="4000" [placeholder]="translations.Get('Bugs_Text')" class="bugs-textarea"></textarea>
-                    <div *ngIf="form.get('bTitle')?.invalid">{{translations.Get('Bugs_BugNotes_AddNote_Error')}}</div>
+                    <textarea formControlName="bText" maxlength="4000" [placeholder]="translations.Get('Bugs_Text')" class="bugs-textarea" required></textarea>
+                </div>
+                <div class="error row margin-bottom-15" *ngIf="form.get('bText')?.errors?.['required']">
+                    {{translations.Get('Bugs_Text_Required')}}
+                </div>
+                <div class="error row margin-bottom-15" *ngIf="form.get('bText')?.errors?.['maxlength']">
+                    {{translations.Get('Bugs_Text_Max4000')}}
                 </div>
             </div>
         </div>
@@ -82,14 +92,19 @@
                     <h1 class="page-subtitle">{{translations.Get('Bugs_Bug_AddNoteTitle')}}:</h1>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                    <button mat-raised-button class="primary-btn float-right add-task-note-btn" (click)="AddBugNote()" [disabled]="addBugNote.get('bugNote')?.invalid">{{translations.Get('Bugs_Bug_AddNote')}}</button>
+                    <button mat-raised-button class="primary-btn float-right add-task-note-btn" (click)="AddBugNote()" [disabled]="addBugNote.invalid">{{translations.Get('Bugs_Bug_AddNote')}}</button>
                 </div>
             </div>
 
             <div class="row" [formGroup]="addBugNote">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <textarea formControlName="bugNote" class="bugs-textarea" maxlength="4000"></textarea>
-                    <div *ngIf="addBugNote.get('bugNote')?.invalid">{{translations.Get('Bugs_BugNotes_AddNote_Error')}}</div>
+                    <textarea formControlName="bugNote" class="bugs-textarea" maxlength="4000" required></textarea>
+                </div>
+                <div class="error row margin-bottom-15" *ngIf="addBugNote.get('bugNote')?.errors?.['required']">
+                    {{translations.Get('Bugs_BugNotes_AddNote_Required')}}
+                </div>
+                <div class="error row margin-bottom-15" *ngIf="addBugNote.get('bugNote')?.errors?.['maxlength']">
+                    {{translations.Get('Bugs_BugNotes_AddNote_Max4000')}}
                 </div>
             </div>
 

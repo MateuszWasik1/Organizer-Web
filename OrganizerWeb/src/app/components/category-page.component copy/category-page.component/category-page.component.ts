@@ -46,10 +46,10 @@ export class CategoryPageComponent implements OnInit, OnDestroy {
       this.Category$.subscribe(x =>{
         this.form = new FormGroup({
           CGID: new FormControl( x.CGID, { validators: [] }),
-          CName: new FormControl( x.CName, { validators: [ Validators.required, Validators.maxLength(2000) ] }),
+          CName: new FormControl( x.CName, { validators: [ Validators.required, Validators.maxLength(300) ] }),
           CStartDate: new FormControl( formatDate(x.CStartDate, 'yyyy-MM-dd', 'en'), { validators: [ Validators.required ] }),
           CEndDate: new FormControl( formatDate(x.CEndDate, 'yyyy-MM-dd', 'en'), { validators: [ Validators.required ] }),
-          CBudget: new FormControl( x.CBudget, { validators: [ Validators.required ] }),
+          CBudget: new FormControl( x.CBudget, { validators: [ Validators.required, Validators.min(0) ] }),
           CBudgetCount: new FormControl( x.CBudgetCount, { validators: [] }),
         })
       })

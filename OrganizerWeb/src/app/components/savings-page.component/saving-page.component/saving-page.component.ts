@@ -45,7 +45,7 @@ export class SavingPageComponent implements OnInit, OnDestroy {
       this.Saving$.subscribe(x =>{
         this.form = new FormGroup({
           SGID: new FormControl( x.SGID, { validators: [] }),
-          SAmount: new FormControl( x.SAmount, { validators: [] }),
+          SAmount: new FormControl( x.SAmount, { validators: [ Validators.required, Validators.min(0) ] }),
           STime: new FormControl( formatDate(x.STime, 'yyyy-MM-dd', 'en'), { validators: [] }),
           SOnWhat: new FormControl( x.SOnWhat, { validators: [] }),
           SWhere: new FormControl( x.SWhere, { validators: [] }),
