@@ -121,6 +121,8 @@
     "User_Tasks_Count": "Suma zadań",
     "User_Tasks_Notes_Count": "Suma notatek",
     "User_Savings_Count": "Suma oszczędności",
+    "User_Error_MaxLength50": "Przekroczyłeś liczbę znaków! Maksymalna liczba znaków to 50!",
+    "User_Error_MaxLength100": "Przekroczyłeś liczbę znaków! Maksymalna liczba znaków to 100!",
     "ErrorHandler_ErrorOccured": "Wystąpił błąd",
     "ErrorHandler_ErrorContent": "Treść błędu",
     "Bugs_Title": "Tytuł",

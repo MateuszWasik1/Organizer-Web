@@ -5,7 +5,7 @@
         </div>
         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
             <button mat-raised-button class="margin-right-15" (click)="Cancel()" *ngIf="IsAdminView">{{translations.Get('General_Cancel')}}</button>
-            <button mat-raised-button class="primary-btn" (click)="Save()">{{translations.Get('General_Save')}}</button>
+            <button mat-raised-button class="primary-btn" (click)="Save()" [disabled]="form.invalid">{{translations.Get('General_Save')}}</button>
         </div>
     </div>
 
@@ -56,6 +56,9 @@
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                     <input type="text" class="data-input" [placeholder]="translations.Get('User_First_Name')" formControlName="uFirstName"/>
                 </div>
+                <div class="row error-input margin-bottom-15" *ngIf="form.get('uFirstName')?.errors?.['maxlength']">
+                    {{translations.Get('User_Error_MaxLength50')}}
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
@@ -65,6 +68,9 @@
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                     <input type="text" class="data-input" [placeholder]="translations.Get('User_Last_Name')" formControlName="uLastName"/>
+                </div>
+                <div class="row error-input margin-bottom-15" *ngIf="form.get('uLastName')?.errors?.['maxlength']">
+                    {{translations.Get('User_Error_MaxLength50')}}
                 </div>
             </div>
             <div class="row">
@@ -76,6 +82,9 @@
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                     <input type="text" class="data-input" [placeholder]="translations.Get('User_User_Name')" formControlName="uUserName"/>
                 </div>
+                <div class="row error-input margin-bottom-15" *ngIf="form.get('uUserName')?.errors?.['maxlength']">
+                    {{translations.Get('User_Error_MaxLength100')}}
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
@@ -86,6 +95,15 @@
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                     <input type="text" class="data-input" [placeholder]="translations.Get('User_Email')" formControlName="uEmail"/>
                 </div>
+                <div class="row error-input margin-bottom-15" *ngIf="form.get('uEmail')?.errors?.['required']">
+                    {{translations.Get('Account_Register_Validation_Required')}}
+                </div>
+                <div class="row error-input margin-bottom-15" *ngIf="form.get('uEmail')?.errors?.['email']">
+                    {{translations.Get('Account_Register_Validation_Email')}}
+                </div>
+                <div class="row error-input margin-bottom-15" *ngIf="form.get('uEmail')?.errors?.['maxlength']">
+                    {{translations.Get('User_Error_MaxLength100')}}
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 row-text">
@@ -95,6 +113,9 @@
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                     <input type="text" class="data-input" [placeholder]="translations.Get('User_Phone')" formControlName="uPhone"/>
+                </div>
+                <div class="row error-input margin-bottom-15" *ngIf="form.get('uPhone')?.errors?.['maxlength']">
+                    {{translations.Get('User_Error_MaxLength100')}}
                 </div>
             </div>
             <div class="row" *ngIf="IsAdminView">
