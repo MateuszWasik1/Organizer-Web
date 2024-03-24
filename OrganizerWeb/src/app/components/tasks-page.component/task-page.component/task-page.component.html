@@ -24,10 +24,10 @@
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                     <input type="text" class="data-input" [placeholder]="translations.Get('Tasks_Name')" formControlName="TName" required/>
                 </div>
-                <div class="error-input row" *ngIf="this.form.get('TName')?.errors?.['required']">
+                <div class="error-input row" *ngIf="form.get('TName')?.errors?.['required']">
                     {{translations.Get('Tasks_TName_Required')}}
                 </div>
-                <div class="error-input row" *ngIf="this.form.get('TName')?.errors?.['maxlength']">
+                <div class="error-input row" *ngIf="form.get('TName')?.errors?.['maxlength']">
                     {{translations.Get('Tasks_TName_Max_300')}}
                 </div>
             </div>
@@ -62,7 +62,7 @@
                         </ngx-mat-datetime-picker>
                      </mat-form-field>
                 </div>
-                <div class="error-input row" *ngIf="this.form.get('TTime')?.errors?.['required']">
+                <div class="error-input row" *ngIf="form.get('TTime')?.errors?.['required']">
                     {{translations.Get('Tasks_TTime_Required')}}
                 </div>
             </div>
@@ -75,10 +75,10 @@
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                     <input type="text" class="data-input" [placeholder]="translations.Get('Tasks_Localization')" formControlName="TLocalization" required/>
                 </div>
-                <div class="error-input row" *ngIf="this.form.get('TLocalization')?.errors?.['required']">
+                <div class="error-input row" *ngIf="form.get('TLocalization')?.errors?.['required']">
                     {{translations.Get('Tasks_TLocalization_Required')}}
                 </div>
-                <div class="error-input row" *ngIf="this.form.get('TLocalization')?.errors?.['maxlength']">
+                <div class="error-input row" *ngIf="form.get('TLocalization')?.errors?.['maxlength']">
                     {{translations.Get('Tasks_TLocalization_Max_300')}}
                 </div>
             </div>
@@ -91,10 +91,10 @@
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                     <input type="number" class="data-input" [placeholder]="translations.Get('Tasks_Budget')" step="1" formControlName="TBudget" required (change)="ChangeBudget($event)"/>
                 </div>
-                <div class="error-input row" *ngIf="this.form.get('TBudget')?.errors?.['required']">
+                <div class="error-input row" *ngIf="form.get('TBudget')?.errors?.['required']">
                     {{translations.Get('Tasks_TBudget_Required')}}
                 </div>
-                <div class="error-input row" *ngIf="this.form.get('TBudget')?.errors?.['min']">
+                <div class="error-input row" *ngIf="form.get('TBudget')?.errors?.['min']">
                     {{translations.Get('Tasks_TBudget_Min0')}}
                 </div>
             </div>
@@ -113,7 +113,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="error-input row" *ngIf="this.form.get('TStatus')?.errors?.['required']">
+                <div class="error-input row" *ngIf="form.get('TStatus')?.errors?.['required']">
                     {{translations.Get('Tasks_TStatus_Required')}}
                 </div>
             </div>

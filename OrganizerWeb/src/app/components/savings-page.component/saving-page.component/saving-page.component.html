@@ -24,10 +24,10 @@
                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 row-inputs">
                     <input type="number" class="data-input" [placeholder]="translations.Get('Savings_Amount')" formControlName="SAmount" min="0" required/>
                 </div>
-                <div class="error-input row" *ngIf="this.form.get('SAmount')?.errors?.['required']">
+                <div class="error-input row" *ngIf="form.get('SAmount')?.errors?.['required']">
                     {{translations.Get('Savings_Amount_Required')}}
                 </div>
-                <div class="error-input row" *ngIf="this.form.get('SAmount')?.errors?.['min']">
+                <div class="error-input row" *ngIf="form.get('SAmount')?.errors?.['min']">
                     {{translations.Get('Savings_Amount_Min')}}
                 </div>
             </div>

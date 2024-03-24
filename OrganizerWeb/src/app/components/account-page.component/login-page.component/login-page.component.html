@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <div class="row error margin-bottom-15" *ngIf="this.form.get('userName')?.errors?.['required']">
+        <div class="row error margin-bottom-15" *ngIf="form.get('userName')?.errors?.['required']">
             {{translations.Get('Account_Register_Validation_Required')}}
         </div>
 
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.get('password')?.errors?.['required']">
+        <div class="error row margin-bottom-15" *ngIf="form.get('password')?.errors?.['required']">
             {{translations.Get('Account_Register_Validation_Required')}}
         </div>
     </form>

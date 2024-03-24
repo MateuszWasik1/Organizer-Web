@@ -16,10 +16,10 @@
                 </div>
             </div>
         </div>
-        <div class="row error margin-bottom-15" *ngIf="this.form.get('email')?.errors?.['email']">
+        <div class="row error margin-bottom-15" *ngIf="form.get('email')?.errors?.['email']">
             {{translations.Get('Account_Register_Validation_Email')}}
         </div>
-        <div class="row error margin-bottom-15" *ngIf="this.form.get('email')?.errors?.['required']">
+        <div class="row error margin-bottom-15" *ngIf="form.get('email')?.errors?.['required']">
             {{translations.Get('Account_Register_Validation_Required')}}
         </div>
         <div class="row error margin-bottom-15" *ngIf="form.get('email')?.errors?.['maxlength']">
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="row error margin-bottom-15" *ngIf="this.form.get('userName')?.errors?.['required']">
+        <div class="row error margin-bottom-15" *ngIf="form.get('userName')?.errors?.['required']">
             {{translations.Get('Account_Register_Validation_Required')}}
         </div>
         <div class="row error margin-bottom-15" *ngIf="form.get('userName')?.errors?.['maxlength']">
@@ -53,22 +53,22 @@
                 </div>
             </div>
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.get('password')?.errors?.['minlength']">
+        <div class="error row margin-bottom-15" *ngIf="form.get('password')?.errors?.['minlength']">
             {{translations.Get('Account_Register_Validation_MinLength8')}}
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.get('password')?.errors?.['required']">
+        <div class="error row margin-bottom-15" *ngIf="form.get('password')?.errors?.['required']">
             {{translations.Get('Account_Register_Validation_Required')}}
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.get('password')?.errors?.['requiresLowercase']">
+        <div class="error row margin-bottom-15" *ngIf="form.get('password')?.errors?.['requiresLowercase']">
             {{translations.Get('Account_Register_Validation_LowerCase')}}
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.get('password')?.errors?.['requiresUppercase']">
+        <div class="error row margin-bottom-15" *ngIf="form.get('password')?.errors?.['requiresUppercase']">
             {{translations.Get('Account_Register_Validation_UpperCase')}}
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.get('password')?.errors?.['requiresDigit']">
+        <div class="error row margin-bottom-15" *ngIf="form.get('password')?.errors?.['requiresDigit']">
             {{translations.Get('Account_Register_Validation_Digit')}}
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.get('password')?.errors?.['requiresSpecialChars']">
+        <div class="error row margin-bottom-15" *ngIf="form.get('password')?.errors?.['requiresSpecialChars']">
             {{translations.Get('Account_Register_Validation_SpecialChar')}}
         </div>
 
@@ -82,25 +82,25 @@
                 </div>
             </div>
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.get('password2')?.errors?.['minlength']">
+        <div class="error row margin-bottom-15" *ngIf="form.get('password2')?.errors?.['minlength']">
             {{translations.Get('Account_Register_Validation_MinLength8')}}
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.get('password2')?.errors?.['required']">
+        <div class="error row margin-bottom-15" *ngIf="form.get('password2')?.errors?.['required']">
             {{translations.Get('Account_Register_Validation_Required')}}
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.get('password2')?.errors?.['requiresLowercase']">
+        <div class="error row margin-bottom-15" *ngIf="form.get('password2')?.errors?.['requiresLowercase']">
             {{translations.Get('Account_Register_Validation_LowerCase')}}
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.get('password2')?.errors?.['requiresUppercase']">
+        <div class="error row margin-bottom-15" *ngIf="form.get('password2')?.errors?.['requiresUppercase']">
             {{translations.Get('Account_Register_Validation_UpperCase')}}
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.get('password2')?.errors?.['requiresDigit']">
+        <div class="error row margin-bottom-15" *ngIf="form.get('password2')?.errors?.['requiresDigit']">
             {{translations.Get('Account_Register_Validation_Digit')}}
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.get('password2')?.errors?.['requiresSpecialChars']">
+        <div class="error row margin-bottom-15" *ngIf="form.get('password2')?.errors?.['requiresSpecialChars']">
             {{translations.Get('Account_Register_Validation_SpecialChar')}}
         </div>
-        <div class="error row margin-bottom-15" *ngIf="this.form.errors?.['PasswordNoMatch']">
+        <div class="error row margin-bottom-15" *ngIf="form.errors?.['PasswordNoMatch']">
             {{translations.Get('Account_Register_Validation_Password_Equals')}}
         </div>
     </form>
