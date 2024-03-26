@@ -147,7 +147,7 @@ export class TasksEffects {
                 )
             })
         )
-    })
+    });
 
     deleteTaskNote = createEffect(() => {
         return this.actions.pipe(
