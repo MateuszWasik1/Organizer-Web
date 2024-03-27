@@ -135,7 +135,7 @@ export class TasksEffects {
                 )
             })
         )
-    })
+    });
 
     deleteTask = createEffect(() => {
         return this.actions.pipe(
