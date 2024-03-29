@@ -123,7 +123,7 @@ export class TasksEffects {
                 )
             })
         )
-    })
+    });
 
     saveTaskNote = createEffect(() => {
         return this.actions.pipe(
