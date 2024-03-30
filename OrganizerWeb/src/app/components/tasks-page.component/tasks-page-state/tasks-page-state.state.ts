@@ -18,6 +18,7 @@ export interface TasksState {
         TStatus: TaskEnum,
     },
     TasksNotes: any[],
+    TasksSubTasks: any[],
     Categories: any[],
     IsError: {
         IsTasksError: boolean,

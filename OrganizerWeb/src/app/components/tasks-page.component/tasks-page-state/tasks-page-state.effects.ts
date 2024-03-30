@@ -12,6 +12,7 @@ import { FillDataService } from "src/app/services/fill-data.service";
 import { TasksNotesService } from "src/app/services/tasks-notes.service";
 import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
 import { Router } from "@angular/router";
+import { TasksSubTasksService } from "src/app/services/tasks-subtasks.service";
 
 @Injectable()
 export class TasksEffects {
@@ -20,6 +21,7 @@ export class TasksEffects {
         private router: Router,
         private tasksService: TasksService,
         private tasksNotesService: TasksNotesService,
+        private tasksSubTasksService: TasksSubTasksService,
         private categoriesService: CategoriesService,
         public store: Store<AppState>,
         private fillDataService: FillDataService,
@@ -36,7 +38,7 @@ export class TasksEffects {
                 )
             })
         )
-    })
+    });
 
     loadTasks = createEffect(() => {
         return this.actions.pipe(
@@ -49,7 +51,7 @@ export class TasksEffects {
                 )
             })
         )
-    })
+    });
 
     loadTasksNotes = createEffect(() => {
         return this.actions.pipe(
@@ -61,7 +63,19 @@ export class TasksEffects {
                 )
             })
         )
-    })
+    });
+
+    loadTasksSubTasks = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.loadTasksSubTasks),
+            switchMap((params) => {
+                return this.tasksSubTasksService.GetTasksSubTask(params.TGID).pipe(
+                    map((result) => CategoriesActions.loadTasksSubTasksSuccess({ TasksSubTasks: result })),
+                    catchError(error => of(CategoriesActions.loadTasksSubTasksError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    });
 
     loadCategories = createEffect(() => {
         return this.actions.pipe(
@@ -73,7 +87,7 @@ export class TasksEffects {
                 )
             })
         )
-    })
+    });
 
     loadCustomTasks = createEffect(() => {
         return this.actions.pipe(

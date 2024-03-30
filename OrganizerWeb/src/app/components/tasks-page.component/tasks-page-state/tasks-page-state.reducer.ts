@@ -19,6 +19,7 @@ var initialStateOfTasksPage: TasksState = {
         TStatus: TaskEnum.NotStarted,
     },
     TasksNotes: [],
+    TasksSubTasks: [],
     Categories: [],
     IsError: {
         IsTasksError: false,
@@ -189,6 +190,7 @@ export const TasksReducer = createReducer<TasksState>(
             TStatus: TaskEnum.NotStarted,
         },
         TasksNotes: [],
+        TasksSubTasks: [],
         Categories: [],
         IsError: {
             IsTasksError: false,
@@ -204,8 +206,14 @@ export const TasksReducer = createReducer<TasksState>(
         let category = state.Categories.find((x: any) => x.cgid == CGID);
         
         if(category.cBudget < category.cBudgetCount + Budget)
-            return {...state, BudgetOverrunMessage: `W obecnej kategorii zaplanowany budżet to ${category.cBudget}, przekraczasz budżet kategorii o ${(category.cBudgetCount + Budget) - category.cBudget} !`};
+            return {
+                ...state, 
+                BudgetOverrunMessage: `W obecnej kategorii zaplanowany budżet to ${category.cBudget}, przekraczasz budżet kategorii o ${(category.cBudgetCount + Budget) - category.cBudget} !`
+            };
         else
-            return {...state, BudgetOverrunMessage: ""};
+            return {
+                ...state, 
+                BudgetOverrunMessage: ""
+            };
     }),
 ) 

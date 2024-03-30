@@ -11,6 +11,8 @@ export const selectTasks = createSelector(selectTasksState, (state: TasksState) 
 
 export const selectTasksNotes = createSelector(selectTasksState, (state: TasksState) => state.TasksNotes)
 
+export const selectTasksSubTasks = createSelector(selectTasksState, (state: TasksState) => state.TasksSubTasks)
+
 export const selectCategories = createSelector(selectTasksState, (state: TasksState) => state.Categories)
 
 export const selectErrors = createSelector(selectTasksState, (state: TasksState) => state.IsError)

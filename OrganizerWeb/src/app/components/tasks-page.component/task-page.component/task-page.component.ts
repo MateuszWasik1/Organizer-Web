@@ -7,7 +7,7 @@ import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 import { CalculateCategoryBudget, addTask, cleanState, deleteTaskNote, loadCategories, loadTask, loadTasksNotes, saveTaskNote, updateTask } from '../tasks-page-state/tasks-page-state.actions';
-import { selectBudgetOverrunMessage, selectCategories, selectErrorMessage, selectTask, selectTasksNotes } from '../tasks-page-state/tasks-page-state.selectors';
+import { selectBudgetOverrunMessage, selectCategories, selectErrorMessage, selectTask, selectTasksNotes, selectTasksSubTasks } from '../tasks-page-state/tasks-page-state.selectors';
 import { Guid } from 'guid-typescript';
 
 @Component({
@@ -33,6 +33,7 @@ export class TaskPageComponent implements OnInit, OnDestroy {
 
   public Task$ = this.store.select(selectTask);
   public TaskNotes$ = this.store.select(selectTasksNotes);
+  public TaskSubTasks$ = this.store.select(selectTasksSubTasks);
   public Categories$ = this.store.select(selectCategories);
   public BudgetOverrunMessage$ = this.store.select(selectBudgetOverrunMessage);
   public ErrorMessage$ = this.store.select(selectErrorMessage);
@@ -120,6 +121,13 @@ export class TaskPageComponent implements OnInit, OnDestroy {
   public AddTaskNote = () => this.store.dispatch(saveTaskNote({ TNGID: Guid.create().toString(), TGID: this.form.get("TGID")?.value, TaskNote: this.addTaskNote.get("taskNote")?.value }));
 
   public DeleteTaskNote = (tngid: any) => this.store.dispatch(deleteTaskNote({ TNGID: tngid }))
+
+
+  public AddSubTask = () => {
+    this.store.dispatch(saveTaskNote({ TNGID: Guid.create().toString(), TGID: this.form.get("TGID")?.value, TaskNote: this.addTaskNote.get("taskNote")?.value }));
+  }
+
+  public DeleteSubTask = (tngid: any) => this.store.dispatch(deleteTaskNote({ TNGID: tngid }))
 
   public Cancel = () => this.router.navigate(["/tasks"])
 
