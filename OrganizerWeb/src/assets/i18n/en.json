@@ -96,6 +96,8 @@
     "Tasks_TCategory_Required": "Category field is required.",
     "TasksNotes_AddSubTaskToTask": "Add SubTasks",
     "TasksNotes_AddSubTask": "Add SubTask",
+    "TasksNotes_AddSubTask_Title": "Add SubTask title",
+    "TasksNotes_AddSubTask_Text": "Add SubTask text",
     "TasksNotes_AddSubTask_Title_Required": "SubTask title field is required.",
     "TasksNotes_AddSubTask_Title_Max200": "You have exceeded the number of characters! The maximum number of characters is 200!",
     "TasksNotes_AddSubTask_Text_Required": "SubTask text field is required.",

@@ -97,6 +97,8 @@
     "Tasks_TCategory_Required": "Uzupełnienie pola kategorii jest wymagane.",
     "TasksNotes_AddSubTaskToTask": "Dodaj podzadania",
     "TasksNotes_AddSubTask": "Dodaj podzadanie",
+    "TasksNotes_AddSubTask_Title": "Dodaj tytuł podzadania",
+    "TasksNotes_AddSubTask_Text": "Dodaj tekst podzadania",
     "TasksNotes_AddSubTask_Title_Required": "Uzupełnienie pola tytułu podzadania jest wymagane!",
     "TasksNotes_AddSubTask_Title_Max200": "Przekroczyłeś liczbę znaków! Maksymalna liczba znaków to 200!",
     "TasksNotes_AddSubTask_Text_Required": "Uzupełnienie pola tekstu podzadania jest wymagane!",

@@ -161,7 +161,7 @@
                     <div [formGroup]="addTaskSubTasks">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <textarea formControlName="subTaskTitle" class="taskNoteTextArea" maxlength="200"></textarea>
+                                <textarea formControlName="subTaskTitle" class="taskNoteTextArea" maxlength="200" [placeholder]="translations.Get('TasksNotes_AddSubTask_Title')"></textarea>
                             </div>
                             <div class="error row margin-bottom-15" *ngIf="addTaskSubTasks.get('subTaskTitle')?.errors?.['required']">
                                 {{translations.Get('TasksNotes_AddSubTask_Title_Required')}}
@@ -173,7 +173,7 @@
 
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <textarea formControlName="subTaskText" class="taskNoteTextArea" maxlength="2000"></textarea>
+                                <textarea formControlName="subTaskText" class="taskNoteTextArea" maxlength="2000" [placeholder]="translations.Get('TasksNotes_AddSubTask_Text')"></textarea>
                             </div>
                             <div class="error row" *ngIf="addTaskSubTasks.get('subTaskText')?.errors?.['required']">
                                 {{translations.Get('TasksNotes_AddSubTask_Text_Required')}}
@@ -188,23 +188,30 @@
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             {{translations.Get('TasksNote_Date')}}
                         </div>
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
                             {{translations.Get('TasksNote_Note')}}
                         </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            {{translations.Get('TasksNote_Note')}}
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                     </div>
-                    <!-- <div *ngFor="let taskSubTask of taskSubTasks;" class="padding-bottom-15">
+                    <div *ngFor="let taskSubTask of taskSubTasks;" class="padding-bottom-15">
                         <div class="row data-row">
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                <p>{{taskSubTask.tnDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+                                <p>{{taskSubTask.tstTitle}}</p>
                             </div>
-                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                <p>{{taskSubTask.tnNote}}</p>
+                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                <p>{{taskSubTask.tstText}}</p>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <p>{{taskSubTask.tstStatus}}</p>
                             </div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                                 <span class="bi bi-trash" (click)="DeleteSubTask(taskSubTask.tngid)"></span>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </ng-container>
 
