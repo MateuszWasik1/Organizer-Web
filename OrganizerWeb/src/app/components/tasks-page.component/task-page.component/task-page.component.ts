@@ -26,6 +26,7 @@ export class TaskPageComponent implements OnInit, OnDestroy {
 
   public form: FormGroup = new FormGroup({});
   public addTaskNote: FormGroup = new FormGroup({});
+  public addTaskSubTasks: FormGroup = new FormGroup({});
   public tgid: string = "";
   public isNewTaskView: boolean = true;
 
@@ -94,6 +95,11 @@ export class TaskPageComponent implements OnInit, OnDestroy {
  
     this.addTaskNote = new FormGroup({
       taskNote: new FormControl('', { validators: [ Validators.required, Validators.maxLength(2000) ] }),
+    })
+
+    this.addTaskSubTasks = new FormGroup({
+      subTaskTitle: new FormControl('', { validators: [ Validators.required, Validators.maxLength(200) ] }),
+      subTaskText: new FormControl('', { validators: [ Validators.required, Validators.maxLength(2000) ] }),
     })
   }
 
