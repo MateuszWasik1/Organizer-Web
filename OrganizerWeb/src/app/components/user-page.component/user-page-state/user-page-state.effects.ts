@@ -24,7 +24,7 @@ export class UserEffects {
                 )
             })
         )
-    })
+    });
 
     loadUserByAdmin = createEffect(() => {
         return this.actions.pipe(
