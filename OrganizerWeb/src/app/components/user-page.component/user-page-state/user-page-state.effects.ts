@@ -48,7 +48,7 @@ export class UserEffects {
                 )
             })
         )
-    })
+    });
 
     saveUserByAdmin = createEffect(() => {
         return this.actions.pipe(
