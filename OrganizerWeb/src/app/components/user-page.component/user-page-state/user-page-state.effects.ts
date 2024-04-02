@@ -36,7 +36,7 @@ export class UserEffects {
                 )
             })
         )
-    })
+    });
 
     saveUser = createEffect(() => {
         return this.actions.pipe(
