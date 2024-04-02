@@ -140,6 +140,8 @@ export const TasksReducer = createReducer<TasksState>(
         ErrorMessage: error
     })),
 
+    //ToDo - zrobić pasek sumujący liczbę wykonanych tasków, zrobić konwersję z Enuma na tekst stuatusu, dodać poprawne oznaczenie nazw kolumn w widoku, dodać tooltipa po najechaniu z datą, wykonać testy i dodać ew naprawić jakieś rzeczy zauważone podczas testów.
+
     //Change Task SubTask Status
     on(Actions.addTaskSubTaskSuccess, (state, { SubTask }) => {
         let newTaskSubTasks = [...state.TasksSubTasks];
