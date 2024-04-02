@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
-import { CalculateCategoryBudget, addTask, addTaskSubTask, cleanState, deleteTaskNote, loadCategories, loadTask, loadTasksNotes, saveTaskNote, updateTask } from '../tasks-page-state/tasks-page-state.actions';
+import { CalculateCategoryBudget, addTask, addTaskSubTask, cleanState, deleteTaskNote, deleteTaskSubTask, loadCategories, loadTask, loadTasksNotes, saveTaskNote, taskSubTaskChangeStatus, updateTask } from '../tasks-page-state/tasks-page-state.actions';
 import { selectBudgetOverrunMessage, selectCategories, selectErrorMessage, selectTask, selectTasksNotes, selectTasksSubTasks } from '../tasks-page-state/tasks-page-state.selectors';
 import { Guid } from 'guid-typescript';
 
@@ -137,10 +137,19 @@ export class TaskPageComponent implements OnInit, OnDestroy {
       TSTNext: this.addTaskSubTasks.get("subTaskText")?.value,
     };
 
-    this.store.dispatch(addTaskSubTask({ SubTask: Guid.create().toString() }));
+    this.store.dispatch(addTaskSubTask({ SubTask: model }));
   }
 
-  public DeleteSubTask = (tngid: any) => this.store.dispatch(deleteTaskNote({ TNGID: tngid }))
+  public ChangeSubTaskStatus = () => {
+    let model = {
+      TSTGID: Guid.create().toString(),
+      Status: "",
+    };
+
+    this.store.dispatch(taskSubTaskChangeStatus({ Model: model }));
+  }
+
+  public DeleteSubTask = (TSTGID: any) => this.store.dispatch(deleteTaskSubTask({ TSTGID: TSTGID }))
 
   public Cancel = () => this.router.navigate(["/tasks"])
 

@@ -128,6 +128,26 @@ export const TasksReducer = createReducer<TasksState>(
         ErrorMessage: error
     })),
 
+    //Change Task SubTask Status
+    on(Actions.taskSubTaskChangeStatusSuccess, (state, { Model }) => {
+        let newTasksSubTasks = [...state.TasksSubTasks];
+
+        let subTask = newTasksSubTasks.find(x => x.tstgid == Model.TSTGID);
+
+        subTask.tstStatus == Model.Status;
+
+        let existingSubTaskIndex = newTasksSubTasks.findIndex(x => x.tstgid == Model.TSTGID);
+
+        newTasksSubTasks[existingSubTaskIndex] = subTask
+
+        return {...state, TasksSubTasks: newTasksSubTasks};
+    }),
+
+    on(Actions.taskSubTaskChangeStatusError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
     //Delete Task
     on(Actions.deleteTaskSuccess, (state, { tgid }) => {
         let newTasks = [...state.Tasks];
@@ -152,6 +172,20 @@ export const TasksReducer = createReducer<TasksState>(
     }),
 
     on(Actions.deleteTaskNoteError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
+    //Delete Task SubTask
+    on(Actions.deleteTaskSubTaskSuccess, (state, { TSTGID }) => {
+        let newTaskSubTasks = [...state.TasksSubTasks];
+
+        let taskSubTasksWithoutDeletedTaskSubTask = newTaskSubTasks.filter(x => x.tstgid != TSTGID);
+    
+        return {...state, TasksSubTasks: taskSubTasksWithoutDeletedTaskSubTask};
+    }),
+    
+    on(Actions.deleteTaskSubTaskError, (state, { error }) => ({
         ...state,
         ErrorMessage: error
     })),

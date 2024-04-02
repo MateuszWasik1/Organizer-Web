@@ -163,6 +163,18 @@ export class TasksEffects {
         )
     });
 
+    taskSubTaskChangeStatus = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.taskSubTaskChangeStatus),
+            switchMap((params) => {
+                return this.tasksSubTasksService.ChangeTaskSubTaskStatus(params.Model).pipe(
+                    map(() => CategoriesActions.taskSubTaskChangeStatusSuccess({ Model: params.Model })),
+                    catchError(error => of(CategoriesActions.taskSubTaskChangeStatusError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    });
+
     deleteTask = createEffect(() => {
         return this.actions.pipe(
             ofType(CategoriesActions.deleteTask),
@@ -182,6 +194,18 @@ export class TasksEffects {
                 return this.tasksNotesService.deleteTaskNote(params.TNGID).pipe(
                     map(() => CategoriesActions.deleteTaskNoteSuccess({ TNGID: params.TNGID })),
                     catchError(error => of(CategoriesActions.deleteTaskNoteError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    });
+
+    deleteSubTask = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.deleteTaskSubTask),
+            switchMap((params) => {
+                return this.tasksSubTasksService.DeleteTaskSubTask(params.TSTGID).pipe(
+                    map(() => CategoriesActions.deleteTaskSubTaskSuccess({ TSTGID: params.TSTGID })),
+                    catchError(error => of(CategoriesActions.deleteTaskSubTaskError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )

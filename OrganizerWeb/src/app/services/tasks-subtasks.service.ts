@@ -23,7 +23,7 @@ export class TasksSubTasksService {
         return this.http.post<any>(this.apiUrl + 'api/TasksNotes/AddTaskNote', model, {headers: GetToken(this.cookiesService)})
     }
 
-    UpdateTaskSubTask(model: any) : Observable<any>{
+    ChangeTaskSubTaskStatus(model: any) : Observable<any>{
         return this.http.post<any>(this.apiUrl + 'api/TasksNotes/AddTaskNote', model, {headers: GetToken(this.cookiesService)})
     }
 

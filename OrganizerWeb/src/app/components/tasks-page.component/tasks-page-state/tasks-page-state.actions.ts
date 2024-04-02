@@ -39,6 +39,10 @@ export const addTaskSubTask = createAction('[Tasks Page] Add Task SubTask', prop
 export const addTaskSubTaskSuccess = createAction('Tasks Page] Add Task SubTask Success', props<{ SubTask: any }>());
 export const addTaskSubTaskError = createAction('[Tasks Page] Add Task SubTask Error', props<{ error: any }>());
 
+export const taskSubTaskChangeStatus = createAction('[Tasks Page] Task SubTask Change Status', props<{ Model: any }>());
+export const taskSubTaskChangeStatusSuccess = createAction('Tasks Page] Task SubTask Change Status Success', props<{ Model: any }>());
+export const taskSubTaskChangeStatusError = createAction('[Tasks Page] Task SubTask Change Status Error', props<{ error: any }>());
+
 export const deleteTask = createAction('[Tasks Page] Delete Task', props<{ tgid: any }>());
 export const deleteTaskSuccess = createAction('Tasks Page] Delete Task Success', props<{ tgid: any }>());
 export const deleteTaskError = createAction('[Tasks Page] Delete Task Error', props<{ error: any }>());
@@ -46,6 +50,10 @@ export const deleteTaskError = createAction('[Tasks Page] Delete Task Error', pr
 export const deleteTaskNote = createAction('[Tasks Page] Delete Task Note', props<{ TNGID: any }>());
 export const deleteTaskNoteSuccess = createAction('Tasks Page] Delete Task Note Success', props<{ TNGID: any }>());
 export const deleteTaskNoteError = createAction('[Tasks Page] Delete Task Note Error', props<{ error: any }>());
+
+export const deleteTaskSubTask = createAction('[Tasks Page] Delete Task SubTask', props<{ TSTGID: any }>());
+export const deleteTaskSubTaskSuccess = createAction('Tasks Page] Delete Task SubTask Success', props<{ TSTGID: any }>());
+export const deleteTaskSubTaskError = createAction('[Tasks Page] Delete Task SubTask Error', props<{ error: any }>());
 
 export const ChangeCategoryFilterValue = createAction('[Tasks Page] Change Category Filter Value', props<{ value: any }>());
 
