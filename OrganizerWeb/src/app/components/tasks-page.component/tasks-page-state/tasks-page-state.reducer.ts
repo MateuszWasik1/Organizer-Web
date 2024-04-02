@@ -2,6 +2,7 @@ import { createReducer, on } from "@ngrx/store";
 import * as Actions from "./tasks-page-state.actions"
 import { TasksState } from "./tasks-page-state.state";
 import { TaskEnum } from "src/app/enums/TaskEnum";
+import { SubTasksStatusEnum } from "src/app/enums/SubTasksStatusEnum";
 
 var initialStateOfTasksPage: TasksState = {
     Filters: {
@@ -76,6 +77,17 @@ export const TasksReducer = createReducer<TasksState>(
         ErrorMessage: error
     })),
 
+    //Load Task SubTasks
+    on(Actions.loadTasksSubTasksSuccess, (state, { TasksSubTasks }) => ({
+        ...state,
+        TasksSubTasks: TasksSubTasks
+    })),
+
+    on(Actions.loadTasksSubTasksError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
     //Load Categories
     on(Actions.loadCategoriesSuccess, (state, { Categories }) => ({
         ...state,
@@ -124,6 +136,28 @@ export const TasksReducer = createReducer<TasksState>(
     })),
     
     on(Actions.updateTaskError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
+    //Change Task SubTask Status
+    on(Actions.addTaskSubTaskSuccess, (state, { SubTask }) => {
+        let newTaskSubTasks = [...state.TasksSubTasks];
+
+        let newModel = {
+            tstgid: SubTask.TSTGID,
+            tstTitle: SubTask.TSTTitle,
+            tstText: SubTask.TSTText,
+            tstStatus: SubTasksStatusEnum.NotStarted,
+            tstCreationDate: new Date(),
+        }
+
+        newTaskSubTasks.push(newModel)
+
+        return {...state, TasksSubTasks: newTaskSubTasks};
+    }),
+
+    on(Actions.addTaskSubTaskError, (state, { error }) => ({
         ...state,
         ErrorMessage: error
     })),

@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
-import { CalculateCategoryBudget, addTask, addTaskSubTask, cleanState, deleteTaskNote, deleteTaskSubTask, loadCategories, loadTask, loadTasksNotes, saveTaskNote, taskSubTaskChangeStatus, updateTask } from '../tasks-page-state/tasks-page-state.actions';
+import { CalculateCategoryBudget, addTask, addTaskSubTask, cleanState, deleteTaskNote, deleteTaskSubTask, loadCategories, loadTask, loadTasksNotes, loadTasksSubTasks, saveTaskNote, taskSubTaskChangeStatus, updateTask } from '../tasks-page-state/tasks-page-state.actions';
 import { selectBudgetOverrunMessage, selectCategories, selectErrorMessage, selectTask, selectTasksNotes, selectTasksSubTasks } from '../tasks-page-state/tasks-page-state.selectors';
 import { Guid } from 'guid-typescript';
 
@@ -63,6 +63,7 @@ export class TaskPageComponent implements OnInit, OnDestroy {
     if(!this.isNewTaskView){
       this.store.dispatch(loadTask({ TGID: this.tgid }));
       this.store.dispatch(loadTasksNotes({ TGID: this.tgid }));
+      this.store.dispatch(loadTasksSubTasks({ TGID: this.tgid }));
     }
     
     this.statuses = [
@@ -134,8 +135,11 @@ export class TaskPageComponent implements OnInit, OnDestroy {
       TSTGID: Guid.create().toString(),
       TSTTGID: this.form.get("TGID")?.value,
       TSTTitle: this.addTaskSubTasks.get("subTaskTitle")?.value,
-      TSTNext: this.addTaskSubTasks.get("subTaskText")?.value,
+      TSTText: this.addTaskSubTasks.get("subTaskText")?.value,
     };
+
+    this.addTaskSubTasks.get("subTaskTitle")?.patchValue(""),
+    this.addTaskSubTasks.get("subTaskText")?.patchValue(""),
 
     this.store.dispatch(addTaskSubTask({ SubTask: model }));
   }
