@@ -60,5 +60,5 @@ export class UserEffects {
                 )
             })
         )
-    })
+    });
 }
