@@ -129,7 +129,6 @@ export class TaskPageComponent implements OnInit, OnDestroy {
 
   public DeleteTaskNote = (tngid: any) => this.store.dispatch(deleteTaskNote({ TNGID: tngid }))
 
-
   public AddSubTask = () => {
     let model = {
       TSTGID: Guid.create().toString(),
@@ -144,16 +143,18 @@ export class TaskPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(addTaskSubTask({ SubTask: model }));
   }
 
-  public ChangeSubTaskStatus = () => {
+  public SubTaskStatusChange = (event: any, tstgid: string) => {
     let model = {
-      TSTGID: Guid.create().toString(),
-      Status: "",
+      TSTGID: tstgid,
+      Status: event.value,
     };
 
     this.store.dispatch(taskSubTaskChangeStatus({ Model: model }));
   }
 
-  public DeleteSubTask = (TSTGID: any) => this.store.dispatch(deleteTaskSubTask({ TSTGID: TSTGID }))
+  public DeleteSubTask = (TSTGID: any) => this.store.dispatch(deleteTaskSubTask({ TSTGID: TSTGID }));
+
+  public DisplayStatus = (status: number) => this.statuses[status].name;
 
   public Cancel = () => this.router.navigate(["/tasks"])
 

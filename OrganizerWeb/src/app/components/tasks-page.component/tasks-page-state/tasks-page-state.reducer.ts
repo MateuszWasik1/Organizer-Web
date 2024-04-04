@@ -21,6 +21,7 @@ var initialStateOfTasksPage: TasksState = {
     },
     TasksNotes: [],
     TasksSubTasks: [],
+    TasksSubTasksProgressBar: 0,
     Categories: [],
     IsError: {
         IsTasksError: false,
@@ -78,10 +79,13 @@ export const TasksReducer = createReducer<TasksState>(
     })),
 
     //Load Task SubTasks
-    on(Actions.loadTasksSubTasksSuccess, (state, { TasksSubTasks }) => ({
-        ...state,
-        TasksSubTasks: TasksSubTasks
-    })),
+    on(Actions.loadTasksSubTasksSuccess, (state, { TasksSubTasks }) => {
+        let newTasksSubTasks = [...TasksSubTasks];
+
+        newTasksSubTasks = newTasksSubTasks.map((x: any) => ({...x, tstStatus: x.tstStatus.toString()}));
+
+        return {...state, TasksSubTasks: newTasksSubTasks};
+    }),
 
     on(Actions.loadTasksSubTasksError, (state, { error }) => ({
         ...state,
@@ -140,9 +144,9 @@ export const TasksReducer = createReducer<TasksState>(
         ErrorMessage: error
     })),
 
-    //ToDo - zrobić pasek sumujący liczbę wykonanych tasków, zrobić konwersję z Enuma na tekst stuatusu, dodać poprawne oznaczenie nazw kolumn w widoku, dodać tooltipa po najechaniu z datą, wykonać testy i dodać ew naprawić jakieś rzeczy zauważone podczas testów.
+    //ToDo - zrobić pasek sumujący liczbę wykonanych tasków, wykonać testy i dodać ew naprawić jakieś rzeczy zauważone podczas testów.
 
-    //Change Task SubTask Status
+    //Add Task SubTask 
     on(Actions.addTaskSubTaskSuccess, (state, { SubTask }) => {
         let newTaskSubTasks = [...state.TasksSubTasks];
 
@@ -170,11 +174,13 @@ export const TasksReducer = createReducer<TasksState>(
 
         let subTask = newTasksSubTasks.find(x => x.tstgid == Model.TSTGID);
 
-        subTask.tstStatus == Model.Status;
+        let newSubTask = {...subTask};
+
+        newSubTask.tstStatus = Model.Status;
 
         let existingSubTaskIndex = newTasksSubTasks.findIndex(x => x.tstgid == Model.TSTGID);
 
-        newTasksSubTasks[existingSubTaskIndex] = subTask
+        newTasksSubTasks[existingSubTaskIndex] = newSubTask
 
         return {...state, TasksSubTasks: newTasksSubTasks};
     }),
@@ -261,6 +267,7 @@ export const TasksReducer = createReducer<TasksState>(
         },
         TasksNotes: [],
         TasksSubTasks: [],
+        TasksSubTasksProgressBar: 0,
         Categories: [],
         IsError: {
             IsTasksError: false,

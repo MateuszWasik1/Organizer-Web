@@ -19,6 +19,7 @@ export interface TasksState {
     },
     TasksNotes: any[],
     TasksSubTasks: any[],
+    TasksSubTasksProgressBar: number,
     Categories: any[],
     IsError: {
         IsTasksError: boolean,

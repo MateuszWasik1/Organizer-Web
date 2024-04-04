@@ -70,6 +70,7 @@ import { NotesEffects } from './components/notes-page.component/notes-page-state
 import { NotePageComponent } from './components/notes-page.component/note-page.component/note-page.component';
 import { SavingPageComponent } from './components/savings-page.component/saving-page.component/saving-page.component';
 import { TaskPageComponent } from './components/tasks-page.component/task-page.component/task-page.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { TaskPageComponent } from './components/tasks-page.component/task-page.c
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
+    MatTooltipModule,
     
     TranslateModule.forRoot({
       loader: {

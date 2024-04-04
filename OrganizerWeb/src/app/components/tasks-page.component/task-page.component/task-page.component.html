@@ -186,26 +186,32 @@
 
                     <div class="row padding-top-15 padding-bottom-15" *ngIf="taskSubTasks.length != 0">
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            {{translations.Get('TasksNote_Date')}}
+                            {{translations.Get('TasksSubTasks_Title')}}
                         </div>
                         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                            {{translations.Get('TasksNote_Note')}}
+                            {{translations.Get('TasksSubTasks_Text')}}
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            {{translations.Get('TasksNote_Note')}}
+                            {{translations.Get('TasksSubTasks_Status')}}
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                     </div>
                     <div *ngFor="let taskSubTask of taskSubTasks;" class="padding-bottom-15">
-                        <div class="row data-row">
+                        <div class="row data-row" matTooltip="{{translations.Get('TasksSubTasks_CreationDate')}}: {{taskSubTask.tstCreationDate | date: 'yyyy-MM-dd HH:mm'}}">
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                                 <p>{{taskSubTask.tstTitle}}</p>
                             </div>
                             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
                                 <p>{{taskSubTask.tstText}}</p>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                <p>{{taskSubTask.tstStatus}}</p>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 inside-row-form-field">
+                                <mat-form-field class="margin-left-30">
+                                    <mat-select [(value)]="taskSubTask.tstStatus" (selectionChange)="SubTaskStatusChange($event, taskSubTask.tstgid)"> 
+                                        <mat-option *ngFor="let status of statuses;" [value]="status['id']">
+                                            {{status['name']}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
                             </div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                                 <span class="bi bi-trash" (click)="DeleteSubTask(taskSubTask.tstgid)"></span>

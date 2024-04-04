@@ -24,7 +24,7 @@ export class TasksSubTasksService {
     }
 
     ChangeTaskSubTaskStatus(model: any) : Observable<any>{
-        return this.http.post<any>(this.apiUrl + 'api/TasksSubTasks/ChangeSubTaskStatus', model, {headers: GetToken(this.cookiesService)})
+        return this.http.put<any>(this.apiUrl + 'api/TasksSubTasks/ChangeSubTaskStatus', model, {headers: GetToken(this.cookiesService)})
     }
 
     DeleteTaskSubTask(tstGID: any) : Observable<any>{
