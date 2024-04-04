@@ -82,9 +82,14 @@ export const TasksReducer = createReducer<TasksState>(
     on(Actions.loadTasksSubTasksSuccess, (state, { TasksSubTasks }) => {
         let newTasksSubTasks = [...TasksSubTasks];
 
+        let allSubTasks = newTasksSubTasks.length;
+        let finishedSubTasks = newTasksSubTasks.filter(x => x.tstStatus == 2).length;
+
+        let percentOfFinisedSubTasks = finishedSubTasks / allSubTasks * 100;
+
         newTasksSubTasks = newTasksSubTasks.map((x: any) => ({...x, tstStatus: x.tstStatus.toString()}));
 
-        return {...state, TasksSubTasks: newTasksSubTasks};
+        return {...state, TasksSubTasks: newTasksSubTasks, TasksSubTasksProgressBar: percentOfFinisedSubTasks};
     }),
 
     on(Actions.loadTasksSubTasksError, (state, { error }) => ({

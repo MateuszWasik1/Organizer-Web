@@ -7,7 +7,7 @@ import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 import { CalculateCategoryBudget, addTask, addTaskSubTask, cleanState, deleteTaskNote, deleteTaskSubTask, loadCategories, loadTask, loadTasksNotes, loadTasksSubTasks, saveTaskNote, taskSubTaskChangeStatus, updateTask } from '../tasks-page-state/tasks-page-state.actions';
-import { selectBudgetOverrunMessage, selectCategories, selectErrorMessage, selectTask, selectTasksNotes, selectTasksSubTasks } from '../tasks-page-state/tasks-page-state.selectors';
+import { selectBudgetOverrunMessage, selectCategories, selectErrorMessage, selectTask, selectTasksNotes, selectTasksSubTasks, selectTasksSubTasksProgressBar } from '../tasks-page-state/tasks-page-state.selectors';
 import { Guid } from 'guid-typescript';
 
 @Component({
@@ -21,6 +21,7 @@ export class TaskPageComponent implements OnInit, OnDestroy {
 
   public subscriptions: Subscription[];
   public statuses: any;
+  public progressBarPercent: number = 0;
   public selectedStatus: number = 0;
   public selectedCategory: string = "";
 
@@ -35,6 +36,7 @@ export class TaskPageComponent implements OnInit, OnDestroy {
   public Task$ = this.store.select(selectTask);
   public TaskNotes$ = this.store.select(selectTasksNotes);
   public TaskSubTasks$ = this.store.select(selectTasksSubTasks);
+  public TaskSubTasksProgressBar$ = this.store.select(selectTasksSubTasksProgressBar);
   public Categories$ = this.store.select(selectCategories);
   public BudgetOverrunMessage$ = this.store.select(selectBudgetOverrunMessage);
   public ErrorMessage$ = this.store.select(selectErrorMessage);
@@ -102,6 +104,12 @@ export class TaskPageComponent implements OnInit, OnDestroy {
       subTaskTitle: new FormControl('', { validators: [ Validators.required, Validators.maxLength(200) ] }),
       subTaskText: new FormControl('', { validators: [ Validators.required, Validators.maxLength(2000) ] }),
     })
+
+    this.subscriptions.push(
+      this.TaskSubTasksProgressBar$.subscribe(percent => {
+        this.progressBarPercent = percent;
+      })
+    )
   }
 
   public TaskCategoryChange = (category: any) => this.store.dispatch(CalculateCategoryBudget({ CGID: category.value, Budget: this.form.get("TBudget")?.value }));
@@ -155,6 +163,40 @@ export class TaskPageComponent implements OnInit, OnDestroy {
   public DeleteSubTask = (TSTGID: any) => this.store.dispatch(deleteTaskSubTask({ TSTGID: TSTGID }));
 
   public DisplayStatus = (status: number) => this.statuses[status].name;
+
+  public SelectProgressbarColor = () => {
+    if(this.progressBarPercent > 0 && this.progressBarPercent < 10)
+      return 'progress-10';
+
+    if(this.progressBarPercent > 10 && this.progressBarPercent < 20)
+      return 'progress-20';
+
+    if(this.progressBarPercent > 20 && this.progressBarPercent < 30)
+      return 'progress-30';
+
+    if(this.progressBarPercent > 30 && this.progressBarPercent < 40)
+      return 'progress-40';
+
+    if(this.progressBarPercent > 40 && this.progressBarPercent < 50)
+      return 'progress-50';
+
+    if(this.progressBarPercent > 50 && this.progressBarPercent < 60)
+      return 'progress-60';
+
+    if(this.progressBarPercent > 60 && this.progressBarPercent < 70)
+      return 'progress-70';
+
+    if(this.progressBarPercent > 70 && this.progressBarPercent < 80)
+      return 'progress-80';
+
+    if(this.progressBarPercent > 80 && this.progressBarPercent < 90)
+      return 'progress-90';
+
+    if(this.progressBarPercent > 90 && this.progressBarPercent <= 100)
+      return 'progress-100';
+
+    return 'progress-10';
+  }
 
   public Cancel = () => this.router.navigate(["/tasks"])
 
