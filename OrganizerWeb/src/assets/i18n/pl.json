@@ -113,6 +113,8 @@
     "TasksSubTasks_Title": "Tytuł podzadania",
     "TasksSubTasks_Text": "Tekst podzadania",
     "TasksSubTasks_Status": "Status podzadania",
+    "Tasks_SubTasks_Title": "Podzadania",
+    "Tasks_Notes_Title": "Notatki do zadania",
     "Task_NotFound": "Nie znaleziono żadnych zadań! Dodaj zadanie bądź zmień opcje filtrowania!",
     "User_User": "Użytkownik",
     "User_First_Name": "Imię",

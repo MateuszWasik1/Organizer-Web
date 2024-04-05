@@ -112,6 +112,8 @@
     "TasksSubTasks_Title": "SubTask title",
     "TasksSubTasks_Text": "SubTask text",
     "TasksSubTasks_Status": "SubTask status",
+    "Tasks_SubTasks_Title": "SubTasks",
+    "Tasks_Notes_Title": "Task Notes",
     "Task_NotFound": "No tasks found! Add new task or change filters options!",
     "User_User": "User",
     "User_First_Name": "First Name",

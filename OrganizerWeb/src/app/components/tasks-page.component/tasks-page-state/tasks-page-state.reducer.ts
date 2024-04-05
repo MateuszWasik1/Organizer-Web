@@ -149,8 +149,6 @@ export const TasksReducer = createReducer<TasksState>(
         ErrorMessage: error
     })),
 
-    //ToDo - zrobić pasek sumujący liczbę wykonanych tasków, wykonać testy i dodać ew naprawić jakieś rzeczy zauważone podczas testów.
-
     //Add Task SubTask 
     on(Actions.addTaskSubTaskSuccess, (state, { SubTask }) => {
         let newTaskSubTasks = [...state.TasksSubTasks];
