@@ -24,7 +24,7 @@ export class UserEffects {
                 )
             })
         )
-    })
+    });
 
     loadUserByAdmin = createEffect(() => {
         return this.actions.pipe(
@@ -36,7 +36,7 @@ export class UserEffects {
                 )
             })
         )
-    })
+    });
 
     saveUser = createEffect(() => {
         return this.actions.pipe(
@@ -48,7 +48,7 @@ export class UserEffects {
                 )
             })
         )
-    })
+    });
 
     saveUserByAdmin = createEffect(() => {
         return this.actions.pipe(
@@ -60,5 +60,5 @@ export class UserEffects {
                 )
             })
         )
-    })
+    });
 }
