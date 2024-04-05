@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, filter } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -21,7 +21,6 @@ export class TaskPageComponent implements OnInit, OnDestroy {
 
   public subscriptions: Subscription[];
   public statuses: any;
-  public progressBarPercent: number = 0;
   public selectedStatus: number = 0;
   public selectedCategory: string = "";
 
@@ -104,12 +103,6 @@ export class TaskPageComponent implements OnInit, OnDestroy {
       subTaskTitle: new FormControl('', { validators: [ Validators.required, Validators.maxLength(200) ] }),
       subTaskText: new FormControl('', { validators: [ Validators.required, Validators.maxLength(2000) ] }),
     })
-
-    this.subscriptions.push(
-      this.TaskSubTasksProgressBar$.subscribe(percent => {
-        this.progressBarPercent = percent;
-      })
-    )
   }
 
   public TaskCategoryChange = (category: any) => this.store.dispatch(CalculateCategoryBudget({ CGID: category.value, Budget: this.form.get("TBudget")?.value }));
@@ -163,40 +156,6 @@ export class TaskPageComponent implements OnInit, OnDestroy {
   public DeleteSubTask = (TSTGID: any) => this.store.dispatch(deleteTaskSubTask({ TSTGID: TSTGID }));
 
   public DisplayStatus = (status: number) => this.statuses[status].name;
-
-  public SelectProgressbarColor = () => {
-    if(this.progressBarPercent > 0 && this.progressBarPercent < 10)
-      return 'progress-10';
-
-    if(this.progressBarPercent > 10 && this.progressBarPercent < 20)
-      return 'progress-20';
-
-    if(this.progressBarPercent > 20 && this.progressBarPercent < 30)
-      return 'progress-30';
-
-    if(this.progressBarPercent > 30 && this.progressBarPercent < 40)
-      return 'progress-40';
-
-    if(this.progressBarPercent > 40 && this.progressBarPercent < 50)
-      return 'progress-50';
-
-    if(this.progressBarPercent > 50 && this.progressBarPercent < 60)
-      return 'progress-60';
-
-    if(this.progressBarPercent > 60 && this.progressBarPercent < 70)
-      return 'progress-70';
-
-    if(this.progressBarPercent > 70 && this.progressBarPercent < 80)
-      return 'progress-80';
-
-    if(this.progressBarPercent > 80 && this.progressBarPercent < 90)
-      return 'progress-90';
-
-    if(this.progressBarPercent > 90 && this.progressBarPercent <= 100)
-      return 'progress-100';
-
-    return 'progress-10';
-  }
 
   public Cancel = () => this.router.navigate(["/tasks"])
 

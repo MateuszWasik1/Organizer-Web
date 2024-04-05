@@ -147,23 +147,13 @@
 
             <ng-container *ngIf="TaskSubTasks$ | async as taskSubTasks">
                 <div *ngIf="!isNewTaskView">
-                    <div class="row progress-bar">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <progress value="0" max="100" [ngClass]="SelectProgressbarColor()"></progress>
-
-                            <progress value="0" max="100" class="progress-10"></progress>
-                            <progress value="10" max="100" class="progress-10"></progress>
-                            <progress value="20" max="100" class="progress-20"></progress>
-                            <progress value="30" max="100" class="progress-30"></progress>
-                            <progress value="40" max="100" class="progress-40"></progress>
-                            <progress value="50" max="100" class="progress-50"></progress>
-                            <progress value="60" max="100" class="progress-60"></progress>
-                            <progress value="70" max="100" class="progress-70"></progress>
-                            <progress value="80" max="100" class="progress-80"></progress>
-                            <progress value="90" max="100" class="progress-90"></progress>
-                            <progress value="100" max="100" class="progress-100"></progress>
+                    <ng-container *ngIf="TaskSubTasksProgressBar$ | async as progressBar">
+                        <div class="row progress-bar">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <progress [value]="progressBar.percent" max="100" [class]="progressBar.class"></progress>
+                            </div>
                         </div>
-                    </div>
+                    </ng-container> 
 
                     <div class="row">
                         <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">

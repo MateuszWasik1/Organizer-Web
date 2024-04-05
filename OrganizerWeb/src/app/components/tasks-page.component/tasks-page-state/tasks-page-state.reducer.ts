@@ -21,8 +21,11 @@ var initialStateOfTasksPage: TasksState = {
     },
     TasksNotes: [],
     TasksSubTasks: [],
-    TasksSubTasksProgressBar: 0,
     Categories: [],
+    TasksSubTasksProgressBar: {
+        percent: 0,
+        class: 'progress-10',
+    },
     IsError: {
         IsTasksError: false,
         IsTasksNotesError: false,
@@ -82,14 +85,11 @@ export const TasksReducer = createReducer<TasksState>(
     on(Actions.loadTasksSubTasksSuccess, (state, { TasksSubTasks }) => {
         let newTasksSubTasks = [...TasksSubTasks];
 
-        let allSubTasks = newTasksSubTasks.length;
-        let finishedSubTasks = newTasksSubTasks.filter(x => x.tstStatus == 2).length;
-
-        let percentOfFinisedSubTasks = finishedSubTasks / allSubTasks * 100;
-
         newTasksSubTasks = newTasksSubTasks.map((x: any) => ({...x, tstStatus: x.tstStatus.toString()}));
 
-        return {...state, TasksSubTasks: newTasksSubTasks, TasksSubTasksProgressBar: percentOfFinisedSubTasks};
+        let TasksSubTasksProgressBar = ProgressBarCalculations(newTasksSubTasks)
+
+        return {...state, TasksSubTasks: newTasksSubTasks, TasksSubTasksProgressBar: TasksSubTasksProgressBar};
     }),
 
     on(Actions.loadTasksSubTasksError, (state, { error }) => ({
@@ -187,7 +187,9 @@ export const TasksReducer = createReducer<TasksState>(
 
         newTasksSubTasks[existingSubTaskIndex] = newSubTask
 
-        return {...state, TasksSubTasks: newTasksSubTasks};
+        let TasksSubTasksProgressBar = ProgressBarCalculations(newTasksSubTasks)
+
+        return {...state, TasksSubTasks: newTasksSubTasks, TasksSubTasksProgressBar: TasksSubTasksProgressBar};
     }),
 
     on(Actions.taskSubTaskChangeStatusError, (state, { error }) => ({
@@ -272,8 +274,11 @@ export const TasksReducer = createReducer<TasksState>(
         },
         TasksNotes: [],
         TasksSubTasks: [],
-        TasksSubTasksProgressBar: 0,
         Categories: [],
+        TasksSubTasksProgressBar: {
+            percent: 0,
+            class: 'progress-10',
+        },
         IsError: {
             IsTasksError: false,
             IsTasksNotesError: false,
@@ -299,3 +304,48 @@ export const TasksReducer = createReducer<TasksState>(
             };
     }),
 ) 
+
+function ProgressBarCalculations(newTasksSubTasks: any) : any{
+    let allSubTasks = newTasksSubTasks.length;
+    let finishedSubTasks = newTasksSubTasks.filter((x: any) => x.tstStatus == 2).length;
+
+    let percentOfFinisedSubTasks = finishedSubTasks / allSubTasks * 100;
+    let progressBarClass = 'progress-10';
+
+    if(percentOfFinisedSubTasks > 0 && percentOfFinisedSubTasks < 10)
+        progressBarClass = 'progress-10';
+
+    if(percentOfFinisedSubTasks > 10 && percentOfFinisedSubTasks < 20)
+        progressBarClass = 'progress-20';
+
+    if(percentOfFinisedSubTasks > 20 && percentOfFinisedSubTasks < 30)
+        progressBarClass = 'progress-30';
+
+    if(percentOfFinisedSubTasks > 30 && percentOfFinisedSubTasks < 40)
+        progressBarClass = 'progress-40';
+
+    if(percentOfFinisedSubTasks > 40 && percentOfFinisedSubTasks < 50)
+        progressBarClass = 'progress-50';
+
+    if(percentOfFinisedSubTasks > 50 && percentOfFinisedSubTasks < 60)
+        progressBarClass = 'progress-60';
+
+    if(percentOfFinisedSubTasks > 60 && percentOfFinisedSubTasks < 70)
+        progressBarClass = 'progress-70';
+
+    if(percentOfFinisedSubTasks > 70 && percentOfFinisedSubTasks < 80)
+        progressBarClass = 'progress-80';
+
+    if(percentOfFinisedSubTasks > 80 && percentOfFinisedSubTasks < 90)
+        progressBarClass = 'progress-90';
+
+    if(percentOfFinisedSubTasks > 90 && percentOfFinisedSubTasks <= 100)
+        progressBarClass = 'progress-100';
+
+    let TasksSubTasksProgressBar = {
+        percent: percentOfFinisedSubTasks,
+        class: progressBarClass,
+    };
+
+    return TasksSubTasksProgressBar;
+}
