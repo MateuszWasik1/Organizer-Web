@@ -12,6 +12,7 @@ import { FillDataService } from "src/app/services/fill-data.service";
 import { TasksNotesService } from "src/app/services/tasks-notes.service";
 import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
 import { Router } from "@angular/router";
+import { TasksSubTasksService } from "src/app/services/tasks-subtasks.service";
 
 @Injectable()
 export class TasksEffects {
@@ -20,6 +21,7 @@ export class TasksEffects {
         private router: Router,
         private tasksService: TasksService,
         private tasksNotesService: TasksNotesService,
+        private tasksSubTasksService: TasksSubTasksService,
         private categoriesService: CategoriesService,
         public store: Store<AppState>,
         private fillDataService: FillDataService,
@@ -36,7 +38,7 @@ export class TasksEffects {
                 )
             })
         )
-    })
+    });
 
     loadTasks = createEffect(() => {
         return this.actions.pipe(
@@ -49,7 +51,7 @@ export class TasksEffects {
                 )
             })
         )
-    })
+    });
 
     loadTasksNotes = createEffect(() => {
         return this.actions.pipe(
@@ -61,63 +63,75 @@ export class TasksEffects {
                 )
             })
         )
-    })
+    });
+
+    loadTasksSubTasks = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.loadTasksSubTasks),
+            switchMap((params) => {
+                return this.tasksSubTasksService.GetTasksSubTask(params.TGID).pipe(
+                    map((result) => CategoriesActions.loadTasksSubTasksSuccess({ TasksSubTasks: result })),
+                    catchError(error => of(CategoriesActions.loadTasksSubTasksError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    });
 
     loadCategories = createEffect(() => {
         return this.actions.pipe(
             ofType(CategoriesActions.loadCategories),
-            switchMap((params) => {
+            switchMap(() => {
                 return this.categoriesService.GetCategories(null, true).pipe(
                     map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
                     catchError(error => of(CategoriesActions.loadCategoriesError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
-    })
+    });
 
     loadCustomTasks = createEffect(() => {
         return this.actions.pipe(
             ofType(CategoriesActions.loadCustomTasks),
-            switchMap((params) => {
+            switchMap(() => {
                 return of(this.fillDataService.FillTasks()).pipe(
                     map((result) => CategoriesActions.loadTasksSuccess({ Tasks: result })),
                     catchError(error => of(CategoriesActions.loadTasksError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
-    })
+    });
 
     loadCustomCategories = createEffect(() => {
         return this.actions.pipe(
             ofType(CategoriesActions.loadCustomCategories),
-            switchMap((params) => {
+            switchMap(() => {
                 return of(this.fillDataService.FillCategories()).pipe(
                     map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
                     catchError(error => of(CategoriesActions.loadCategoriesError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
-    })
+    });
 
     addTask = createEffect(() => {
         return this.actions.pipe(
             ofType(CategoriesActions.addTask),
             switchMap((params) => {
                 return this.tasksService.AddTask(params.Task).pipe(
-                    map((result) => CategoriesActions.addTaskSuccess()),
+                    map(() => CategoriesActions.addTaskSuccess()),
                     tap(() => this.router.navigate(["/tasks"])),
                     catchError(error => of(CategoriesActions.addTaskError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
-    })
+    });
 
     updateTask = createEffect(() => {
         return this.actions.pipe(
             ofType(CategoriesActions.updateTask),
             switchMap((params) => {
                 return this.tasksService.UpdateTask(params.Task).pipe(
-                    map((result) => CategoriesActions.updateTaskSuccess()),
+                    map(() => CategoriesActions.updateTaskSuccess()),
                     tap(() => this.router.navigate(["/tasks"])),
                     catchError(error => of(CategoriesActions.updateTaskError({ error: this.errorHandler.handleAPIError(error) })))
                 )
@@ -130,8 +144,32 @@ export class TasksEffects {
             ofType(CategoriesActions.saveTaskNote),
             switchMap((params) => {
                 return this.tasksNotesService.addTaskNotes(params.TNGID, params.TGID, params.TaskNote).pipe(
-                    map((result) => CategoriesActions.saveTaskNoteSuccess({ TaskNote: params })),
+                    map(() => CategoriesActions.saveTaskNoteSuccess({ TaskNote: params })),
                     catchError(error => of(CategoriesActions.saveTaskNoteError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    });
+
+    addTaskSubTask = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.addTaskSubTask),
+            switchMap((params) => {
+                return this.tasksSubTasksService.AddTaskSubTask(params.SubTask).pipe(
+                    map(() => CategoriesActions.addTaskSubTaskSuccess({ SubTask: params.SubTask })),
+                    catchError(error => of(CategoriesActions.addTaskSubTaskError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    });
+
+    taskSubTaskChangeStatus = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.taskSubTaskChangeStatus),
+            switchMap((params) => {
+                return this.tasksSubTasksService.ChangeTaskSubTaskStatus(params.Model).pipe(
+                    map(() => CategoriesActions.taskSubTaskChangeStatusSuccess({ Model: params.Model })),
+                    catchError(error => of(CategoriesActions.taskSubTaskChangeStatusError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
@@ -142,7 +180,7 @@ export class TasksEffects {
             ofType(CategoriesActions.deleteTask),
             switchMap((params) => {
                 return this.tasksService.DeleteTask(params.tgid).pipe(
-                    map((result) => CategoriesActions.deleteTaskSuccess({ tgid: params.tgid })),
+                    map(() => CategoriesActions.deleteTaskSuccess({ tgid: params.tgid })),
                     catchError(error => of(CategoriesActions.deleteTaskError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
@@ -154,8 +192,20 @@ export class TasksEffects {
             ofType(CategoriesActions.deleteTaskNote),
             switchMap((params) => {
                 return this.tasksNotesService.deleteTaskNote(params.TNGID).pipe(
-                    map((result) => CategoriesActions.deleteTaskNoteSuccess({ TNGID: params.TNGID })),
+                    map(() => CategoriesActions.deleteTaskNoteSuccess({ TNGID: params.TNGID })),
                     catchError(error => of(CategoriesActions.deleteTaskNoteError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    });
+
+    deleteSubTask = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.deleteTaskSubTask),
+            switchMap((params) => {
+                return this.tasksSubTasksService.DeleteTaskSubTask(params.TSTGID).pipe(
+                    map(() => CategoriesActions.deleteTaskSubTaskSuccess({ TSTGID: params.TSTGID })),
+                    catchError(error => of(CategoriesActions.deleteTaskSubTaskError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )

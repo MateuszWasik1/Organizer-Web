@@ -145,14 +145,112 @@
                 </div>
             </ng-container>
 
+            <ng-container *ngIf="TaskSubTasks$ | async as taskSubTasks">
+                <div *ngIf="!isNewTaskView">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h1 class="page-title">{{translations.Get('Tasks_SubTasks_Title')}}</h1>
+                        </div>
+                    </div>
+
+                    <ng-container *ngIf="TaskSubTasksProgressBar$ | async as progressBar">
+                        <div class="row progress-bar">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <progress [value]="progressBar.percent" max="100" [class]="progressBar.class"></progress>
+                            </div>
+                        </div>
+                    </ng-container> 
+
+                    <div class="row">
+                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                            <h1 class="page-title">{{translations.Get('TasksNotes_AddSubTaskToTask')}}</h1>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                            <button mat-raised-button class="primary-btn float-right add-task-note-btn" (click)="AddSubTask()" [disabled]="addTaskSubTasks.invalid">
+                                {{translations.Get('TasksNotes_AddSubTask')}}
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div [formGroup]="addTaskSubTasks">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <textarea formControlName="subTaskTitle" class="taskNoteTextArea" maxlength="200" [placeholder]="translations.Get('TasksNotes_AddSubTask_Title')"></textarea>
+                            </div>
+                            <div class="error row margin-bottom-15" *ngIf="addTaskSubTasks.get('subTaskTitle')?.errors?.['required']">
+                                {{translations.Get('TasksNotes_AddSubTask_Title_Required')}}
+                            </div>
+                            <div class="error row margin-bottom-15" *ngIf="addTaskSubTasks.get('subTaskTitle')?.errors?.['maxlength']">
+                                {{translations.Get('TasksNotes_AddSubTask_Title_Max200')}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <textarea formControlName="subTaskText" class="taskNoteTextArea" maxlength="2000" [placeholder]="translations.Get('TasksNotes_AddSubTask_Text')"></textarea>
+                            </div>
+                            <div class="error row" *ngIf="addTaskSubTasks.get('subTaskText')?.errors?.['required']">
+                                {{translations.Get('TasksNotes_AddSubTask_Text_Required')}}
+                            </div>
+                            <div class="error row" *ngIf="addTaskSubTasks.get('subTaskText')?.errors?.['maxlength']">
+                                {{translations.Get('TasksNotes_AddSubTask_Text_Max200')}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row padding-top-15 padding-bottom-15" *ngIf="taskSubTasks.length != 0">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            {{translations.Get('TasksSubTasks_Title')}}
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                            {{translations.Get('TasksSubTasks_Text')}}
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            {{translations.Get('TasksSubTasks_Status')}}
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                    </div>
+                    <div *ngFor="let taskSubTask of taskSubTasks;" class="padding-bottom-15">
+                        <div class="row data-row" matTooltip="{{translations.Get('TasksSubTasks_CreationDate')}}: {{taskSubTask.tstCreationDate | date: 'yyyy-MM-dd HH:mm'}}">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <p>{{taskSubTask.tstTitle}}</p>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                <p>{{taskSubTask.tstText}}</p>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 inside-row-form-field">
+                                <mat-form-field class="margin-left-30">
+                                    <mat-select [(value)]="taskSubTask.tstStatus" (selectionChange)="SubTaskStatusChange($event, taskSubTask.tstgid)"> 
+                                        <mat-option *ngFor="let status of statuses;" [value]="status['id']">
+                                            {{status['name']}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                <span class="bi bi-trash" (click)="DeleteSubTask(taskSubTask.tstgid)"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
             <ng-container *ngIf="TaskNotes$ | async as taskNotes">
                 <div *ngIf="!isNewTaskView">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h1 class="page-title">{{translations.Get('Tasks_Notes_Title')}}</h1>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
                             <h1 class="page-title">{{translations.Get('TasksNotes_AddNoteToTask')}}</h1>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                            <button mat-raised-button class="primary-btn float-right add-task-note-btn" (click)="AddTaskNote()" [disabled]="addTaskNote.get('taskNote')?.invalid">{{translations.Get('TasksNotes_AddNote')}}</button>
+                            <button mat-raised-button class="primary-btn float-right add-task-note-btn" (click)="AddTaskNote()" [disabled]="addTaskNote.invalid">
+                                {{translations.Get('TasksNotes_AddNote')}}
+                            </button>
                         </div>
                     </div>
 
@@ -160,10 +258,10 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <textarea formControlName="taskNote" class="taskNoteTextArea" maxlength="2000"></textarea>
                         </div>
-                        <div class="error-input row" *ngIf="addTaskNote.get('taskNote')?.errors?.['required']">
+                        <div class="error row" *ngIf="addTaskNote.get('taskNote')?.errors?.['required']">
                             {{translations.Get('TasksNotes_AddNote_Required')}}
                         </div>
-                        <div class="error-input row" *ngIf="addTaskNote.get('taskNote')?.errors?.['maxlength']">
+                        <div class="error row" *ngIf="addTaskNote.get('taskNote')?.errors?.['maxlength']">
                             {{translations.Get('TasksNotes_AddNote_Error')}}
                         </div>
                     </div>

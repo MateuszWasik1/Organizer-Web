@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, filter } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
-import { CalculateCategoryBudget, addTask, cleanState, deleteTaskNote, loadCategories, loadTask, loadTasksNotes, saveTaskNote, updateTask } from '../tasks-page-state/tasks-page-state.actions';
-import { selectBudgetOverrunMessage, selectCategories, selectErrorMessage, selectTask, selectTasksNotes } from '../tasks-page-state/tasks-page-state.selectors';
+import { CalculateCategoryBudget, addTask, addTaskSubTask, cleanState, deleteTaskNote, deleteTaskSubTask, loadCategories, loadTask, loadTasksNotes, loadTasksSubTasks, saveTaskNote, taskSubTaskChangeStatus, updateTask } from '../tasks-page-state/tasks-page-state.actions';
+import { selectBudgetOverrunMessage, selectCategories, selectErrorMessage, selectTask, selectTasksNotes, selectTasksSubTasks, selectTasksSubTasksProgressBar } from '../tasks-page-state/tasks-page-state.selectors';
 import { Guid } from 'guid-typescript';
 
 @Component({
@@ -26,6 +26,7 @@ export class TaskPageComponent implements OnInit, OnDestroy {
 
   public form: FormGroup = new FormGroup({});
   public addTaskNote: FormGroup = new FormGroup({});
+  public addTaskSubTasks: FormGroup = new FormGroup({});
   public tgid: string = "";
   public isNewTaskView: boolean = true;
 
@@ -33,6 +34,8 @@ export class TaskPageComponent implements OnInit, OnDestroy {
 
   public Task$ = this.store.select(selectTask);
   public TaskNotes$ = this.store.select(selectTasksNotes);
+  public TaskSubTasks$ = this.store.select(selectTasksSubTasks);
+  public TaskSubTasksProgressBar$ = this.store.select(selectTasksSubTasksProgressBar);
   public Categories$ = this.store.select(selectCategories);
   public BudgetOverrunMessage$ = this.store.select(selectBudgetOverrunMessage);
   public ErrorMessage$ = this.store.select(selectErrorMessage);
@@ -61,6 +64,7 @@ export class TaskPageComponent implements OnInit, OnDestroy {
     if(!this.isNewTaskView){
       this.store.dispatch(loadTask({ TGID: this.tgid }));
       this.store.dispatch(loadTasksNotes({ TGID: this.tgid }));
+      this.store.dispatch(loadTasksSubTasks({ TGID: this.tgid }));
     }
     
     this.statuses = [
@@ -94,6 +98,11 @@ export class TaskPageComponent implements OnInit, OnDestroy {
     this.addTaskNote = new FormGroup({
       taskNote: new FormControl('', { validators: [ Validators.required, Validators.maxLength(2000) ] }),
     })
+
+    this.addTaskSubTasks = new FormGroup({
+      subTaskTitle: new FormControl('', { validators: [ Validators.required, Validators.maxLength(200) ] }),
+      subTaskText: new FormControl('', { validators: [ Validators.required, Validators.maxLength(2000) ] }),
+    })
   }
 
   public TaskCategoryChange = (category: any) => this.store.dispatch(CalculateCategoryBudget({ CGID: category.value, Budget: this.form.get("TBudget")?.value }));
@@ -120,6 +129,33 @@ export class TaskPageComponent implements OnInit, OnDestroy {
   public AddTaskNote = () => this.store.dispatch(saveTaskNote({ TNGID: Guid.create().toString(), TGID: this.form.get("TGID")?.value, TaskNote: this.addTaskNote.get("taskNote")?.value }));
 
   public DeleteTaskNote = (tngid: any) => this.store.dispatch(deleteTaskNote({ TNGID: tngid }))
+
+  public AddSubTask = () => {
+    let model = {
+      TSTGID: Guid.create().toString(),
+      TSTTGID: this.form.get("TGID")?.value,
+      TSTTitle: this.addTaskSubTasks.get("subTaskTitle")?.value,
+      TSTText: this.addTaskSubTasks.get("subTaskText")?.value,
+    };
+
+    this.addTaskSubTasks.get("subTaskTitle")?.patchValue(""),
+    this.addTaskSubTasks.get("subTaskText")?.patchValue(""),
+
+    this.store.dispatch(addTaskSubTask({ SubTask: model }));
+  }
+
+  public SubTaskStatusChange = (event: any, tstgid: string) => {
+    let model = {
+      TSTGID: tstgid,
+      Status: event.value,
+    };
+
+    this.store.dispatch(taskSubTaskChangeStatus({ Model: model }));
+  }
+
+  public DeleteSubTask = (TSTGID: any) => this.store.dispatch(deleteTaskSubTask({ TSTGID: TSTGID }));
+
+  public DisplayStatus = (status: number) => this.statuses[status].name;
 
   public Cancel = () => this.router.navigate(["/tasks"])
 
