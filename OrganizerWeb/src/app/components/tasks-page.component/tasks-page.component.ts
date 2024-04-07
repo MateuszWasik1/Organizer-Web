@@ -2,13 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { ChangeCategoryFilterValue, ChangeStatusFilterValue, deleteTask, loadCategories, loadCustomCategories, loadCustomTasks, loadTasks, cleanState } from './tasks-page-state/tasks-page-state.actions';
+import { ChangeCategoryFilterValue, ChangeStatusFilterValue, deleteTask, loadCategories, loadCustomCategories, loadCustomTasks, loadTasks, cleanState, deleteTaskRelatedEntities } from './tasks-page-state/tasks-page-state.actions';
 import { selectCategories, selectErrorMessage, selectErrors, selectFilters, selectTasks } from './tasks-page-state/tasks-page-state.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { TasksFillDataDialogComponent } from './tasks-dialogs/tasks-fill-data-dialog.component';
 import { TranslationService } from 'src/app/services/translate.service';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 import { Router } from '@angular/router';
+import { TasksDeleteDialogComponent } from './tasks-dialogs/tasks-delete-dialog.component';
 
 @Component({
   selector: 'app-tasks-page',
@@ -20,6 +21,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
 
   public subscriptions: Subscription[];
   public statuses: any;
+  public deleteTGID: any;
 
   public selectedFilterStatus: any;
   public selectedFilterCategory: any;
@@ -55,26 +57,59 @@ export class TasksPageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.Errors$.subscribe(isErrors => {
         if(isErrors.IsTasksError || isErrors.IsCategoriesError)
+        {
           this.dialog
-          .open(TasksFillDataDialogComponent, {
-            data: {
-              IsTasksError: isErrors.IsTasksError,
-              IsCategoriesError: isErrors.IsCategoriesError,
-            }
-          })
-          .afterClosed()
-          .subscribe(fill => {
-            if(fill && isErrors.IsTasksError)
-              this.store.dispatch(loadCustomTasks());
-            if(fill && isErrors.IsCategoriesError)
-              this.store.dispatch(loadCustomCategories());
-          });
+            .open(TasksFillDataDialogComponent, {
+              data: {
+                IsTasksError: isErrors.IsTasksError,
+                IsCategoriesError: isErrors.IsCategoriesError,
+              }
+            })
+            .afterClosed()
+            .subscribe(fill => {
+              if(fill && isErrors.IsTasksError)
+                this.store.dispatch(loadCustomTasks());
+              if(fill && isErrors.IsCategoriesError)
+                this.store.dispatch(loadCustomCategories());
+              }
+            );          
+        }
       })
     )
 
     this.subscriptions.push(
       this.ErrorMessage$.subscribe(error => {
-        this.errorHandler.HandleException(error);
+        let notesError = error.includes("Do zadania przypisane są notatki! Usuń je najpierw!") ;
+        let subTasksError = error.includes("Do zadania przypisane są podzadania! Usuń je najpierw!");
+
+        if(notesError || subTasksError)
+        {
+          this.dialog
+            .open(TasksDeleteDialogComponent, {
+              data: {
+                error: error,
+              }
+            })
+            .afterClosed()
+            .subscribe(response => {
+              let model = {
+                TGID: this.deleteTGID,
+                DeleteTaskSubTasks: false,
+                DeleteTaskNotes: false,
+              };
+
+              if(response == 1 || response == 3)
+                model.DeleteTaskNotes = true
+
+              if(response >= 2)
+                model.DeleteTaskSubTasks = true
+
+              if(response > 0)
+                this.store.dispatch(deleteTaskRelatedEntities({ Model: model }));
+            });    
+        }
+        else       
+          this.errorHandler.HandleException(error);
       })
     )
   }
@@ -89,8 +124,10 @@ export class TasksPageComponent implements OnInit, OnDestroy {
 
   public ModifyTask= (cgid: any) => this.router.navigate([`tasks/${cgid}`]);
 
-  public DeleteTask = (tgid: any) => this.store.dispatch(deleteTask({ tgid: tgid }))
-
+  public DeleteTask = (tgid: any) => {
+    this.deleteTGID = tgid,
+    this.store.dispatch(deleteTask({ tgid: tgid }));
+  }
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());
       this.store.dispatch(cleanState())
