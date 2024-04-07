@@ -55,6 +55,10 @@ export const deleteTaskSubTask = createAction('[Tasks Page] Delete Task SubTask'
 export const deleteTaskSubTaskSuccess = createAction('Tasks Page] Delete Task SubTask Success', props<{ TSTGID: any }>());
 export const deleteTaskSubTaskError = createAction('[Tasks Page] Delete Task SubTask Error', props<{ error: any }>());
 
+export const deleteTaskRelatedEntities = createAction('[Tasks Page] Delete Task Related Entities', props<{ Model: any }>());
+export const deleteTaskRelatedEntitiesSuccess = createAction('Tasks Page] Delete Task Related Entities Success', props<{ TGID: any }>());
+export const deleteTaskRelatedEntitiesError = createAction('[Tasks Page] Delete Task Related Entities Error', props<{ error: any }>());
+
 export const ChangeCategoryFilterValue = createAction('[Tasks Page] Change Category Filter Value', props<{ value: any }>());
 
 export const ChangeStatusFilterValue = createAction('[Tasks Page] Change Status Filter Value', props<{ value: any }>());

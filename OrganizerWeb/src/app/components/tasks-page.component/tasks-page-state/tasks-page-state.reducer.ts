@@ -237,6 +237,19 @@ export const TasksReducer = createReducer<TasksState>(
         ErrorMessage: error
     })),
 
+    //Delete Task Related Entities
+    on(Actions.deleteTaskRelatedEntitiesSuccess, (state, { TGID }) => {
+        let newTasks = [...state.Tasks];
+
+        let taskWithoutDeletedTaskSubTask = newTasks.filter(x => x.tgid != TGID);
+            return {...state, Tasks: taskWithoutDeletedTaskSubTask};
+    }),
+        
+    on(Actions.deleteTaskRelatedEntitiesError, (state, { error }) => ({
+        ...state,
+        ErrorMessage: error
+    })),
+
     //Filters
     on(Actions.ChangeCategoryFilterValue, (state, { value }) => ({
         ...state,

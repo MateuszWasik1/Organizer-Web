@@ -71,6 +71,7 @@ import { NotePageComponent } from './components/notes-page.component/note-page.c
 import { SavingPageComponent } from './components/savings-page.component/saving-page.component/saving-page.component';
 import { TaskPageComponent } from './components/tasks-page.component/task-page.component/task-page.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TasksDeleteDialogComponent } from './components/tasks-page.component/tasks-dialogs/tasks-delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     TaskPageComponent,
     TasksPageComponent,
     TasksFillDataDialogComponent,
+    TasksDeleteDialogComponent,
     SavingPageComponent,
     SavingsPageComponent,
     SavingsFillDataDialogComponent,

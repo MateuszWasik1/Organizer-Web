@@ -37,4 +37,8 @@ export class TasksService {
     DeleteTask(tgid: any) : Observable<any>{
         return this.http.delete<any>(`${this.apiUrl}api/Tasks/Delete/${tgid}`, { headers: GetToken(this.cookiesService) })
     }
+
+    DeleteTaskRelatedEntities(model: any) : Observable<any>{
+        return this.http.post<any>(`${this.apiUrl}api/Tasks/DeleteWithRelatedEntities`, model, { headers: GetToken(this.cookiesService) })
+    }
 }

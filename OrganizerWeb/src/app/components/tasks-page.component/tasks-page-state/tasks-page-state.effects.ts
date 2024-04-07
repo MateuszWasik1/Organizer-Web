@@ -210,4 +210,16 @@ export class TasksEffects {
             })
         )
     });
+
+    deleteTaskRelatedEntities = createEffect(() => {
+        return this.actions.pipe(
+            ofType(CategoriesActions.deleteTaskRelatedEntities),
+            switchMap((params) => {
+                return this.tasksService.DeleteTaskRelatedEntities(params.Model).pipe(
+                    map(() => CategoriesActions.deleteTaskRelatedEntitiesSuccess({ TGID: params.Model.TGID })),
+                    catchError(error => of(CategoriesActions.deleteTaskRelatedEntitiesError({ error: this.errorHandler.handleAPIError(error) })))
+                )
+            })
+        )
+    });
 }

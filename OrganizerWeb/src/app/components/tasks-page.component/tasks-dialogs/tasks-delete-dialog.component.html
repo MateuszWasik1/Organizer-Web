@@ -1,0 +1,10 @@
+<h2 mat-dialog-title class="error-handler-title">{{translations.Get('ErrorHandler_ErrorOccured')}}</h2>
+<mat-dialog-content class="error-handler-content">
+  {{translations.Get('ErrorHandler_ErrorContent')}} {{data.error}}
+</mat-dialog-content>
+<mat-dialog-actions class="error-handler-actions">
+  <button mat-button [mat-dialog-close]="0">{{translations.Get('General_Close')}}</button>
+  <button mat-button [mat-dialog-close]="1">{{translations.Get('Task_DeleteTaskNotes')}}</button>
+  <button mat-button [mat-dialog-close]="2">{{translations.Get('Task_DeleteTaskSubTasks')}}</button>
+  <button mat-button [mat-dialog-close]="3">{{translations.Get('Task_DeleteTaskSubTasks_And_TaskNotes')}}</button>
+</mat-dialog-actions>
