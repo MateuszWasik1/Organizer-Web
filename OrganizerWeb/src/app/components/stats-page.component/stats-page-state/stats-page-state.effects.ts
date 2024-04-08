@@ -33,7 +33,7 @@ export class StatsEffects {
                 )
             })
         )
-    })
+    });
 
     loadTaskSpendedMoneyBarChartStats = createEffect(() => {
         return this.actions.pipe(
@@ -46,7 +46,7 @@ export class StatsEffects {
                 )
             })
         )
-    })
+    });
 
     loadCategorySpendedMoneyBarChartStats = createEffect(() => {
         return this.actions.pipe(
@@ -59,7 +59,7 @@ export class StatsEffects {
                 )
             })
         )
-    })
+    });
 
     loadNotesBarChartStats = createEffect(() => {
         return this.actions.pipe(
@@ -72,7 +72,7 @@ export class StatsEffects {
                 )
             })
         )
-    })
+    });
 
     loadCategories = createEffect(() => {
         return this.actions.pipe(
@@ -84,7 +84,7 @@ export class StatsEffects {
                 )
             })
         )
-    })
+    });
 
     loadCustomStats = createEffect(() => {
         return this.actions.pipe(
@@ -97,5 +97,5 @@ export class StatsEffects {
                 )
             })
         )
-    })
+    });
 }
