@@ -151,7 +151,7 @@ import { PaginatorI18n } from './helpers/PaginatorI18n';
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     // {
     //   provide: MatPaginatorIntl, deps: [TranslateService],
-    //   useFactory: (translateService: TranslateService) => new PaginatorI18n(translateService).getPaginatorIntl()
+    //   useFactory: (translateService: TranslateService) => new PaginatorI18n().GetPaginatorIntl(translateService)
     // },
     //{ provide: LOCALE_ID, useValue: 'pl' }
   ],
