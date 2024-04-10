@@ -175,5 +175,9 @@
     "Notes_Title_Required": "Uzupełnienie pola tytułu jest wymagane.",
     "Notes_Title_Max_200": "Przekroczyłeś liczbę znaków! Maksymalna liczba znaków to 200!",
     "Notes_Text_Required": "Uzupełnienie pola tekstu jest wymagane.",
-    "Notes_Text_Max_4000": "Przekroczyłeś liczbę znaków! Maksymalna liczba znaków to 4000!"
+    "Notes_Text_Max_4000": "Przekroczyłeś liczbę znaków! Maksymalna liczba znaków to 4000!",
+    "Paginator_FirstPage": "Pierwsza strona",
+    "Paginator_PreviousPage": "Poprzednia strona",
+    "Paginator_NextPage": "Następna strona",
+    "Paginator_LastPage": "Ostatnia strona"
 }
