@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { changeDateFilter, deleteCategory, loadCategories, loadCustomCategories, cleanState } from './categories-page-state/categories-page-state.actions';
+import { changeDateFilter, deleteCategory, loadCategories, loadCustomCategories, cleanState, updatePaginationData } from './categories-page-state/categories-page-state.actions';
 import { selectCategories, selectErrorMessage, selectErrors, selectFilters } from './categories-page-state/categories-page-state.selectors';
 import { FormControl, FormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
@@ -75,6 +75,8 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
     this.filterForm.patchValue({ date: new Date(normalizedMonth)});
     datepicker.close();
   }
+
+  public UpdatePaginationData = (PaginationData: any) => this.store.dispatch(updatePaginationData({ PaginationData: PaginationData }));
 
   public AddCategory = () => this.router.navigate(['categories/0']);
 

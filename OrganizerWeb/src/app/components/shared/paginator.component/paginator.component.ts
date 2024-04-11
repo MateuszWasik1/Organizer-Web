@@ -11,8 +11,7 @@ export class PaginatorComponent{
     title = 'Oszczędności - P1 - Mateusz Wąsik';
 
     @Input() length: number = 50;
-    @Output() skip = new EventEmitter<number>();
-    @Output() take = new EventEmitter<number>();
+    @Output() paginationData = new EventEmitter<object>();
 
     public pageSizeOptions: number[] = [1, 3, 5, 10, 15, 20, 25, 50, 100];
     public pageSize: number = 10;
@@ -23,10 +22,12 @@ export class PaginatorComponent{
     }
 
     HandlePageEvent(e: PageEvent) {
-        this.pageSize = e.pageSize;
-        this.pageIndex = e.pageIndex;
+      this.pageSize = e.pageSize;
+      this.pageIndex = e.pageIndex;
 
-        this.skip.emit(this.pageIndex * this.pageSize);
-        this.take.emit(this.pageSize);
+      this.paginationData.emit({ 
+        Skip: this.pageIndex * this.pageSize, 
+        Take: this.pageSize 
+      });
     }
 }

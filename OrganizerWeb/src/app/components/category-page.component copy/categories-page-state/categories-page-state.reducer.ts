@@ -14,6 +14,8 @@ var initialStateOfSearchPage: CategoriesState = {
     },
     Filters: {
         Date: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+        Skip: 0,
+        Take: 10,
     },
     IsCategoriesError: false,
     ErrorMessage: "",
@@ -90,6 +92,15 @@ export const CategoriesReducer = createReducer<CategoriesState>(
         return {...state, Categories: newCategories};
     }),
 
+    on(Actions.updatePaginationData, (state, { PaginationData }) => ({
+        ...state,
+        Filters: {
+            ...state.Filters,
+            Skip: PaginationData.Skip,
+            Take:  PaginationData.Take,
+        }
+    })),
+
     on(Actions.cleanState, (state) => ({
         ...state,
         Categories: [],
@@ -103,6 +114,8 @@ export const CategoriesReducer = createReducer<CategoriesState>(
         },
         Filters: {
             Date: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+            Skip: 0,
+            Take: 10,
         },
         IsCategoriesError: false,
         ErrorMessage: "",
