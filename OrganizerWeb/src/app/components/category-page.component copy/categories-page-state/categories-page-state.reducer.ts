@@ -17,6 +17,7 @@ var initialStateOfSearchPage: CategoriesState = {
         Skip: 0,
         Take: 10,
     },
+    CategoriesCount: 0,
     IsCategoriesError: false,
     ErrorMessage: "",
 };
@@ -43,7 +44,8 @@ export const CategoriesReducer = createReducer<CategoriesState>(
 
     on(Actions.loadCategoriesSuccess, (state, { Categories }) => ({
         ...state,
-        Categories: Categories
+        Categories: Categories.list,
+        CategoriesCount: Categories.count,
     })),
 
     on(Actions.loadCategoriesError, (state, { error }) => ({
@@ -117,6 +119,7 @@ export const CategoriesReducer = createReducer<CategoriesState>(
             Skip: 0,
             Take: 10,
         },
+        CategoriesCount: 0,
         IsCategoriesError: false,
         ErrorMessage: "",
     })),

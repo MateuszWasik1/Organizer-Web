@@ -100,7 +100,7 @@ export const TasksReducer = createReducer<TasksState>(
     //Load Categories
     on(Actions.loadCategoriesSuccess, (state, { Categories }) => ({
         ...state,
-        Categories: Categories
+        Categories: Categories.list
     })),
 
     on(Actions.loadCategoriesError, (state, { error }) => ({

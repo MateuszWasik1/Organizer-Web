@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { changeDateFilter, deleteCategory, loadCategories, loadCustomCategories, cleanState, updatePaginationData } from './categories-page-state/categories-page-state.actions';
-import { selectCategories, selectErrorMessage, selectErrors, selectFilters } from './categories-page-state/categories-page-state.selectors';
+import { selectCategories, selectCount, selectErrorMessage, selectErrors, selectFilters } from './categories-page-state/categories-page-state.selectors';
 import { FormControl, FormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { MatDatepicker } from '@angular/material/datepicker';
@@ -25,9 +25,11 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[];
   public form: FormGroup = new FormGroup({});
   public filterForm: FormGroup = new FormGroup({});
+  public count: number = 0;
   
   public Categories$ = this.store.select(selectCategories);
   public Filters$ = this.store.select(selectFilters);
+  public Count$ = this.store.select(selectCount);
   public IsCategoriesError$ = this.store.select(selectErrors);
   public ErrorMessage$ = this.store.select(selectErrorMessage);
 
@@ -69,8 +71,11 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
       this.ErrorMessage$.subscribe(error => {
         this.errorHandler.HandleException(error);
       })
-    )
+    );
+    
+    this.subscriptions.push(this.Count$.subscribe(count => this.count = count));
   }
+
   public setMonthAndYear(normalizedMonth: any, datepicker: MatDatepicker<Moment>) {
     this.filterForm.patchValue({ date: new Date(normalizedMonth)});
     datepicker.close();

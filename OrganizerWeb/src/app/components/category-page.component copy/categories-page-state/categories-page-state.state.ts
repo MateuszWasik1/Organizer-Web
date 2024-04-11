@@ -15,6 +15,7 @@ export interface CategoriesState {
         Skip: number,
         Take: number,
     },
+    CategoriesCount: number,
     IsCategoriesError: boolean
     ErrorMessage: string;
 }
