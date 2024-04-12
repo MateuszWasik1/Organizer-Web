@@ -28,7 +28,7 @@ export class SavingsEffects {
                 )
             })
         )
-    })
+    });
     
     loadSavings = createEffect(() => {
         return this.actions.pipe(
@@ -40,7 +40,7 @@ export class SavingsEffects {
                 )
             })
         )
-    })
+    });
 
     loadCustomSavings = createEffect(() => {
         return this.actions.pipe(
@@ -52,7 +52,7 @@ export class SavingsEffects {
                 )
             })
         )
-    })
+    });
 
     addSaving = createEffect(() => {
         return this.actions.pipe(
@@ -65,7 +65,7 @@ export class SavingsEffects {
                 )
             })
         )
-    })
+    });
 
     updateSaving = createEffect(() => {
         return this.actions.pipe(
@@ -78,7 +78,7 @@ export class SavingsEffects {
                 )
             })
         )
-    })
+    });
 
     deleteSaving = createEffect(() => {
         return this.actions.pipe(
@@ -90,5 +90,5 @@ export class SavingsEffects {
                 )
             })
         )
-    })
+    });
 }
