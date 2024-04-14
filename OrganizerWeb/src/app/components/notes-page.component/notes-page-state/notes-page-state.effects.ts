@@ -26,7 +26,7 @@ export class NotesEffects {
                 )
             })
         )
-    })
+    });
 
     loadNotes = createEffect(() => {
         return this.actions.pipe(
@@ -38,7 +38,7 @@ export class NotesEffects {
                 )
             })
         )
-    })
+    });
 
     addNote = createEffect(() => {
         return this.actions.pipe(
@@ -51,7 +51,7 @@ export class NotesEffects {
                 )
             })
         )
-    })
+    });
 
     updateNote = createEffect(() => {
         return this.actions.pipe(
@@ -64,7 +64,7 @@ export class NotesEffects {
                 )
             })
         )
-    })
+    });
 
     deleteNote = createEffect(() => {
         return this.actions.pipe(
@@ -76,5 +76,5 @@ export class NotesEffects {
                 )
             })
         )
-    })
+    });
 }
