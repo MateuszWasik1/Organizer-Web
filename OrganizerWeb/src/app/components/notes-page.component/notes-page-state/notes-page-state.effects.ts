@@ -7,11 +7,14 @@ import { Router } from "@angular/router";
 import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
 import { NotesService } from "src/app/services/notes.service";
 import { selectFilters } from "./notes-page-state.selectors";
+import { AppState } from "src/app/app.state";
+import { Store } from "@ngrx/store";
 
 @Injectable()
 export class NotesEffects {
     constructor(
         private actions: Actions,
+        private store: Store<AppState>,
         private router: Router,
         private notesService: NotesService,
         private errorHandler: APIErrorHandler) {
@@ -27,20 +30,20 @@ export class NotesEffects {
                 )
             })
         )
-    })
+    });
 
     loadNotes = createEffect(() => {
         return this.actions.pipe(
             ofType(NotesActions.loadNotes),
-            withLatestFrom(selectFilters),
+            withLatestFrom(this.store.select(selectFilters)),
             switchMap((params) => {
-                return this.notesService.GetNotes(params.Skip, params.Take).pipe(
+                return this.notesService.GetNotes(params[1].Skip, params[1].Take).pipe(
                     map((result) => NotesActions.loadNotesSuccess({ Notes: result })),
                     catchError(error => of(NotesActions.loadNotesError({ error: this.errorHandler.handleAPIError(error) })))
                 )
             })
         )
-    })
+    });
 
     addNote = createEffect(() => {
         return this.actions.pipe(
@@ -53,7 +56,7 @@ export class NotesEffects {
                 )
             })
         )
-    })
+    });
 
     updateNote = createEffect(() => {
         return this.actions.pipe(
@@ -66,7 +69,7 @@ export class NotesEffects {
                 )
             })
         )
-    })
+    });
 
     deleteNote = createEffect(() => {
         return this.actions.pipe(
@@ -78,5 +81,5 @@ export class NotesEffects {
                 )
             })
         )
-    })
+    });
 }

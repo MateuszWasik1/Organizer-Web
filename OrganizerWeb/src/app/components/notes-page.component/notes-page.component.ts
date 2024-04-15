@@ -6,7 +6,7 @@ import { TranslationService } from 'src/app/services/translate.service';
 import { Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 import { cleanState, deleteNote, loadNotes, updatePaginationData } from './notes-page-state/notes-page-state.actions';
-import { selectCount, selectErrorMessage, selectNotes } from './notes-page-state/notes-page-state.selectors';
+import { selectCount, selectErrorMessage, selectFilters, selectNotes } from './notes-page-state/notes-page-state.selectors';
 
 @Component({
   selector: 'app-notes-page',
@@ -18,8 +18,9 @@ export class NotesPageComponent implements OnInit, OnDestroy {
 
   public subscriptions: Subscription[];
   public count: number = 0;
-  
+
   public Notes$ = this.store.select(selectNotes);
+  public Filters$ = this.store.select(selectFilters);
   public Count$ = this.store.select(selectCount);
   public ErrorMessage$ = this.store.select(selectErrorMessage);
 
@@ -39,6 +40,8 @@ export class NotesPageComponent implements OnInit, OnDestroy {
         this.errorHandler.HandleException(error);
       })
     );
+
+    this.subscriptions.push(this.Filters$.subscribe(() => this.store.dispatch(loadNotes())));
 
     this.subscriptions.push(this.Count$.subscribe(count => this.count = count));
   }
