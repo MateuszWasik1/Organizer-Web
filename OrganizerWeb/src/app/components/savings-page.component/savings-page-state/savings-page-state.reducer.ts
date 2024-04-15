@@ -11,6 +11,11 @@ var initialStateOfSearchPage: SavingsState = {
         SOnWhat: "",
         SWhere: "",
     },
+    Filters: {
+        Skip: 0,
+        Take: 10,
+    },
+    SavingsCount: 0,
     IsSavingsError: false,
     ErrorMessage: "",
 };
@@ -36,7 +41,8 @@ export const SavingsReducer = createReducer<SavingsState>(
 
     on(Actions.loadSavingsSuccess, (state, { Savings }) => ({
         ...state,
-        Savings: Savings
+        Savings: Savings.list,
+        SavingsCount: Savings.count
     })),
 
     on(Actions.loadSavingsError, (state, { error }) => ({
@@ -78,6 +84,15 @@ export const SavingsReducer = createReducer<SavingsState>(
         ErrorMessage: error
     })),
 
+    on(Actions.updatePaginationData, (state, { PaginationData }) => ({
+        ...state,
+        Filters: {
+            ...state.Filters,
+            Skip: PaginationData.Skip,
+            Take:  PaginationData.Take,
+        }
+    })),
+
     on(Actions.cleanState, (state) => ({
         ...state,
         Savings: [],
@@ -88,6 +103,11 @@ export const SavingsReducer = createReducer<SavingsState>(
             SOnWhat: "",
             SWhere: "",
         },
+        Filters: {
+            Skip: 0,
+            Take: 10,
+        },
+        SavingsCount: 0,
         IsSavingsError: false,
         ErrorMessage: "",
     })),
