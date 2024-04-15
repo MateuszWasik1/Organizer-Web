@@ -83,7 +83,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
       this.ErrorMessage$.subscribe(error => {
         this.errorHandler.HandleException(error);
       })
-    )
+    );
   }
   public Save = () => {
     let model = {
