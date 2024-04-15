@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { selectBug, selectBugNotes, selectErrorMessage, selectUserRoles } from '../bugs-page-state/bugs-page-state.selectors';
-import { changeBugStatus, cleanState, loadBug, loadBugNotes, loadUserRoles, saveBug, saveBugNote } from '../bugs-page-state/bugs-page-state.actions';
+import { selectBug, selectBugNotes, selectBugsNotesCount, selectErrorMessage, selectUserRoles } from '../bugs-page-state/bugs-page-state.selectors';
+import { changeBugStatus, cleanState, loadBug, loadBugNotes, loadUserRoles, saveBug, saveBugNote, updateBugNotesPaginationData } from '../bugs-page-state/bugs-page-state.actions';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BugStatusEnum } from "src/app/enums/BugStatusEnum"
@@ -22,6 +22,7 @@ export class BugPageComponent implements OnInit, OnDestroy {
   public form: FormGroup = new FormGroup({});
   public addBugNote: FormGroup = new FormGroup({});
   public bgid: string = "";
+  public count: number = 0;
   public isNewBugView: boolean = true;
   public selectedBugStatus: any;
   public bugStatusAdmin = [
@@ -38,6 +39,7 @@ export class BugPageComponent implements OnInit, OnDestroy {
 
   public Bug$ = this.store.select(selectBug);
   public BugNotes$ = this.store.select(selectBugNotes);
+  public Count$ = this.store.select(selectBugsNotesCount);
   public UserRoles$ = this.store.select(selectUserRoles);
   public ErrorMessage$ = this.store.select(selectErrorMessage);
 
@@ -81,7 +83,9 @@ export class BugPageComponent implements OnInit, OnDestroy {
       this.ErrorMessage$.subscribe(error => {
         this.errorHandler.HandleException(error);
       })
-    )
+    );
+
+    this.subscriptions.push(this.Count$.subscribe(count => this.count = count));
   }
 
   public ChangeColor = (IsStatusChange: boolean, status: number) => {
@@ -130,7 +134,9 @@ export class BugPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(changeBugStatus({ model: model }));
   }
 
-  public Cancel = () => this.router.navigate(["/bugs"])
+  public Cancel = () => this.router.navigate(["/bugs"]);
+
+  public UpdatePaginationData = (PaginationData: any) => this.store.dispatch(updateBugNotesPaginationData({ PaginationData: PaginationData }));
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

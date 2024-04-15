@@ -11,10 +11,18 @@ export interface BugsState {
         bText: string,
         bStatus: BugStatusEnum,
     };
-    Filters: {
-        BugType: BugTypeEnum
-    },
     BugNotes: any[];
+    Filters: {
+        BugType: BugTypeEnum,
+        Skip: number,
+        Take: number,
+    },
+    FiltersBugNotes: {
+        Skip: number,
+        Take: number,
+    },
+    BugsCount: number,
+    BugsNotesCount: number,
     UserRoles: {
         IsSupport: boolean,
         IsAdmin: boolean,

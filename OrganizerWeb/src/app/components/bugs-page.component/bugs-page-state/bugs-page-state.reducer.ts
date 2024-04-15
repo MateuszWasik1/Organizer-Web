@@ -13,10 +13,18 @@ var initialStateOfBugsPage: BugsState = {
         bText: "",
         bStatus: BugStatusEnum.New,
     },
-    Filters: {
-        BugType: BugTypeEnum.New
-    },
     BugNotes: [],
+    Filters: {
+        BugType: BugTypeEnum.New,
+        Skip: 0,
+        Take: 10,
+    },
+    FiltersBugNotes: {
+        Skip: 0,
+        Take: 10,
+    },
+    BugsCount: 0,
+    BugsNotesCount: 0,
     UserRoles: {
         IsSupport: false,
         IsAdmin: false,
@@ -29,7 +37,8 @@ export const BugsReducer = createReducer<BugsState>(
 
     on(Actions.loadBugsSuccess, (state, { Bugs }) => ({
         ...state,
-        Bugs: Bugs
+        Bugs: Bugs.list,
+        BugsCount: Bugs.count
     })),
 
     on(Actions.loadBugsError, (state, { error }) => ({
@@ -54,7 +63,8 @@ export const BugsReducer = createReducer<BugsState>(
 
     on(Actions.loadBugNotesSuccess, (state, { BugNotes }) => ({
         ...state,
-        BugNotes: BugNotes
+        BugNotes: BugNotes.list,
+        BugsNotesCount: BugNotes.count
     })),
 
     on(Actions.loadBugNotesError, (state, { error }) => ({
@@ -137,6 +147,24 @@ export const BugsReducer = createReducer<BugsState>(
         }
     })),
 
+    on(Actions.updatePaginationData, (state, { PaginationData }) => ({
+        ...state,
+        Filters: {
+            ...state.Filters,
+            Skip: PaginationData.Skip,
+            Take:  PaginationData.Take,
+        }
+    })),
+
+    on(Actions.updateBugNotesPaginationData, (state, { PaginationData }) => ({
+        ...state,
+        FiltersBugNotes: {
+            ...state.Filters,
+            Skip: PaginationData.Skip,
+            Take:  PaginationData.Take,
+        }
+    })),
+
     on(Actions.cleanState, (state) => ({
         ...state,
         Bugs: [],
@@ -146,10 +174,18 @@ export const BugsReducer = createReducer<BugsState>(
             bText: "",
             bStatus: BugStatusEnum.New,
         },
-        Filters: {
-            BugType: BugTypeEnum.New
-        },
         BugNotes: [],
+        Filters: {
+            BugType: BugTypeEnum.New,
+            Skip: 0,
+            Take: 10,
+        },
+        FiltersBugNotes: {
+            Skip: 0,
+            Take: 10,
+        },
+        BugsCount: 0,
+        BugsNotesCount: 0,
         UserRoles: {
             IsSupport: false,
             IsAdmin: false,
