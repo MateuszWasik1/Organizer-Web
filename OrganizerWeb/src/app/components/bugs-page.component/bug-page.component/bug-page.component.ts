@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { selectBug, selectBugNotes, selectBugsNotesCount, selectErrorMessage, selectUserRoles } from '../bugs-page-state/bugs-page-state.selectors';
+import { selectBug, selectBugNotes, selectBugsNotesCount, selectErrorMessage, selectFiltersBugNotes, selectUserRoles } from '../bugs-page-state/bugs-page-state.selectors';
 import { changeBugStatus, cleanState, loadBug, loadBugNotes, loadUserRoles, saveBug, saveBugNote, updateBugNotesPaginationData } from '../bugs-page-state/bugs-page-state.actions';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -39,6 +39,7 @@ export class BugPageComponent implements OnInit, OnDestroy {
 
   public Bug$ = this.store.select(selectBug);
   public BugNotes$ = this.store.select(selectBugNotes);
+  public Filters$ = this.store.select(selectFiltersBugNotes);
   public Count$ = this.store.select(selectBugsNotesCount);
   public UserRoles$ = this.store.select(selectUserRoles);
   public ErrorMessage$ = this.store.select(selectErrorMessage);
@@ -86,6 +87,8 @@ export class BugPageComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(this.Count$.subscribe(count => this.count = count));
+
+    this.subscriptions.push(this.Filters$.subscribe(() => this.store.dispatch(loadBugNotes({ bgid: this.bgid }))));
   }
 
   public ChangeColor = (IsStatusChange: boolean, status: number) => {
