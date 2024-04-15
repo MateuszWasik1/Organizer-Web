@@ -33,8 +33,6 @@ export class NotesPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadNotes());
-
     this.subscriptions.push(
       this.ErrorMessage$.subscribe(error => {
         this.errorHandler.HandleException(error);

@@ -12,8 +12,10 @@ export class UserService {
     public apiUrl = environment.apiUrl;
     constructor( private http: HttpClient, private cookiesService: CookieService ) {}
 
-    GetAllUsers() : Observable<any>{
-        let params = new HttpParams();
+    GetAllUsers(Skip: number, Take: number) : Observable<any>{
+        let params = new HttpParams()
+            .set("skip", Skip)
+            .set("take", Take);
 
         return this.http.get<any>(this.apiUrl + 'api/User/GetAllUsers', { params: params, headers: GetToken(this.cookiesService) })
     }

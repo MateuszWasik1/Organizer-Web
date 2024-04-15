@@ -36,8 +36,6 @@ export class SavingsPageComponent implements OnInit, OnDestroy {
     this.subscriptions = []
   }
   ngOnInit(): void {
-    this.store.dispatch(loadSavings());
-
     this.subscriptions.push(
       this.IsSavingsError$.subscribe(isError => {
         if(isError)
