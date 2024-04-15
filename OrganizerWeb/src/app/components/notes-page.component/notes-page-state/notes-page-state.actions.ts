@@ -20,4 +20,6 @@ export const deleteNote = createAction('[Notes Page] Delete Note', props<{ NGID:
 export const deleteNoteSuccess = createAction('[Notes Page] Delete Note Success', props<{ NGID: any }>());
 export const deleteNoteError = createAction('[Notes Page] Delete Note Error', props<{ error: any }>());
 
+export const updatePaginationData = createAction('[Notes Page] Update Pagination Data', props<{ PaginationData: any }>());
+
 export const cleanState = createAction('[Notes Page] Clean State');

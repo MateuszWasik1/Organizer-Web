@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, switchMap, tap } from "rxjs/operators";
+import { catchError, map, switchMap, tap, withLatestFrom } from "rxjs/operators";
 import * as NotesActions from "./notes-page-state.actions"
 import { Router } from "@angular/router";
 import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
 import { NotesService } from "src/app/services/notes.service";
+import { selectFilters } from "./notes-page-state.selectors";
 
 @Injectable()
 export class NotesEffects {
@@ -31,8 +32,9 @@ export class NotesEffects {
     loadNotes = createEffect(() => {
         return this.actions.pipe(
             ofType(NotesActions.loadNotes),
+            withLatestFrom(selectFilters),
             switchMap((params) => {
-                return this.notesService.GetNotes().pipe(
+                return this.notesService.GetNotes(params.Skip, params.Take).pipe(
                     map((result) => NotesActions.loadNotesSuccess({ Notes: result })),
                     catchError(error => of(NotesActions.loadNotesError({ error: this.errorHandler.handleAPIError(error) })))
                 )

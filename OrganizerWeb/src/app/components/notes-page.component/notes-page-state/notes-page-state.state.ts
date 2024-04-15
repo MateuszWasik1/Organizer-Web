@@ -9,5 +9,10 @@ export interface NotesState {
         NTitle: string,
         NTxt: string,
     },
+    Filters: {
+        Skip: number,
+        Take: number,
+    },
+    NotesCount: number,
     ErrorMessage: string,
 }
