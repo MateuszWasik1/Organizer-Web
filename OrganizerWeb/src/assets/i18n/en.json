@@ -173,5 +173,9 @@
     "Notes_Title_Required": "Title field is required",
     "Notes_Title_Max_200": "You have exceeded the number of characters! The maximum number of characters is 200!",
     "Notes_Text_Required": "Message field is required.",
-    "Notes_Text_Max_4000": "You have exceeded the number of characters! The maximum number of characters is 400!"
+    "Notes_Text_Max_4000": "You have exceeded the number of characters! The maximum number of characters is 400!",
+    "Paginator_FirstPage": "First page",
+    "Paginator_PreviousPage": "Previous page",
+    "Paginator_NextPage": "Next page",
+    "Paginator_LastPage": "Last page"
 }

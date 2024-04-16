@@ -6,8 +6,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/services/translate.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
-import { CalculateCategoryBudget, addTask, addTaskSubTask, cleanState, deleteTaskNote, deleteTaskSubTask, loadCategories, loadTask, loadTasksNotes, loadTasksSubTasks, saveTaskNote, taskSubTaskChangeStatus, updateTask } from '../tasks-page-state/tasks-page-state.actions';
-import { selectBudgetOverrunMessage, selectCategories, selectErrorMessage, selectTask, selectTasksNotes, selectTasksSubTasks, selectTasksSubTasksProgressBar } from '../tasks-page-state/tasks-page-state.selectors';
+import { CalculateCategoryBudget, addTask, addTaskSubTask, cleanState, deleteTaskNote, deleteTaskSubTask, loadCategories, loadTask, loadTasksNotes, loadTasksSubTasks, saveTaskNote, taskSubTaskChangeStatus, updatePaginationDataTasksNotes, updatePaginationDataTasksSubTasks, updateTask } from '../tasks-page-state/tasks-page-state.actions';
+import { selectBudgetOverrunMessage, selectCategories, selectCountTasksNotes, selectCountTasksSubTasks, selectErrorMessage, selectFiltersTasksNotes, selectFiltersTasksSubTasks, selectTask, selectTasksNotes, selectTasksSubTasks, selectTasksSubTasksProgressBar } from '../tasks-page-state/tasks-page-state.selectors';
 import { Guid } from 'guid-typescript';
 
 @Component({
@@ -23,6 +23,8 @@ export class TaskPageComponent implements OnInit, OnDestroy {
   public statuses: any;
   public selectedStatus: number = 0;
   public selectedCategory: string = "";
+  public countTaskNotes: number = 0;
+  public countTaskSubTasks: number = 0;
 
   public form: FormGroup = new FormGroup({});
   public addTaskNote: FormGroup = new FormGroup({});
@@ -37,6 +39,10 @@ export class TaskPageComponent implements OnInit, OnDestroy {
   public TaskSubTasks$ = this.store.select(selectTasksSubTasks);
   public TaskSubTasksProgressBar$ = this.store.select(selectTasksSubTasksProgressBar);
   public Categories$ = this.store.select(selectCategories);
+  public FiltersTaskNotes$ = this.store.select(selectFiltersTasksNotes);
+  public FiltersTaskSubTask$ = this.store.select(selectFiltersTasksSubTasks);
+  public CountTaskNotes$ = this.store.select(selectCountTasksNotes);
+  public CountTaskSubTask$ = this.store.select(selectCountTasksSubTasks);
   public BudgetOverrunMessage$ = this.store.select(selectBudgetOverrunMessage);
   public ErrorMessage$ = this.store.select(selectErrorMessage);
 
@@ -93,16 +99,24 @@ export class TaskPageComponent implements OnInit, OnDestroy {
       this.ErrorMessage$.subscribe(error => {
         this.errorHandler.HandleException(error);
       })
-    )
+    );
  
     this.addTaskNote = new FormGroup({
       taskNote: new FormControl('', { validators: [ Validators.required, Validators.maxLength(2000) ] }),
-    })
+    });
 
     this.addTaskSubTasks = new FormGroup({
       subTaskTitle: new FormControl('', { validators: [ Validators.required, Validators.maxLength(200) ] }),
       subTaskText: new FormControl('', { validators: [ Validators.required, Validators.maxLength(2000) ] }),
-    })
+    });
+
+    this.subscriptions.push(this.FiltersTaskNotes$.subscribe(() => this.store.dispatch(loadTasksNotes({ TGID: this.tgid }))));
+
+    this.subscriptions.push(this.FiltersTaskSubTask$.subscribe(() => this.store.dispatch(loadTasksSubTasks({ TGID: this.tgid }))));
+
+    this.subscriptions.push(this.CountTaskNotes$.subscribe(countTaskNotes => this.countTaskNotes = countTaskNotes));
+
+    this.subscriptions.push(this.CountTaskSubTask$.subscribe(countTaskSubTasks => this.countTaskSubTasks = countTaskSubTasks));
   }
 
   public TaskCategoryChange = (category: any) => this.store.dispatch(CalculateCategoryBudget({ CGID: category.value, Budget: this.form.get("TBudget")?.value }));
@@ -157,7 +171,11 @@ export class TaskPageComponent implements OnInit, OnDestroy {
 
   public DisplayStatus = (status: number) => this.statuses[status].name;
 
-  public Cancel = () => this.router.navigate(["/tasks"])
+  public Cancel = () => this.router.navigate(["/tasks"]);
+
+  public UpdatePaginationDataTaskNotes = (PaginationData: any) => this.store.dispatch(updatePaginationDataTasksNotes({ PaginationData: PaginationData }));
+
+  public UpdatePaginationDataTaskSubTasks = (PaginationData: any) => this.store.dispatch(updatePaginationDataTasksSubTasks({ PaginationData: PaginationData }));
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

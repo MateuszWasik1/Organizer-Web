@@ -22,6 +22,8 @@ export const deleteCategory = createAction('[Categories Page] Delete Categories'
 export const deleteCategorySuccess = createAction('[Categories Page] Delete Categories Success', props<{ cGID: any }>());
 export const deleteCategoryError = createAction('[Categories Page] Delete Categories Error', props<{ error: any }>());
 
-export const changeDateFilter = createAction('[Categories Page] Save Categories Error', props<{ date: any }>());
+export const changeDateFilter = createAction('[Categories Page] Change Date Filter', props<{ date: any }>());
+
+export const updatePaginationData = createAction('[Categories Page] Update Pagination Data', props<{ PaginationData: any }>());
 
 export const cleanState = createAction('[Categories Page] Clean State');

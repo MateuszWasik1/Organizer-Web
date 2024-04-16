@@ -5,10 +5,6 @@ import { TaskEnum } from "src/app/enums/TaskEnum";
 import { SubTasksStatusEnum } from "src/app/enums/SubTasksStatusEnum";
 
 var initialStateOfTasksPage: TasksState = {
-    Filters: {
-        Category: '',
-        Status: 3,
-    },
     Tasks: [],
     Task: {
         TGID: "",
@@ -26,6 +22,23 @@ var initialStateOfTasksPage: TasksState = {
         percent: 0,
         class: 'progress-10',
     },
+    Filters: {
+        Category: '',
+        Status: 3,
+        Skip: 0,
+        Take: 10,
+    },
+    FiltersTasksNotes: {
+        Skip: 0,
+        Take: 10,
+    },
+    FiltersTasksSubTasks: {
+        Skip: 0,
+        Take: 10,
+    },
+    TasksCount: 0,
+    TasksNotesCount: 0,
+    TasksSubTasksCount: 0,
     IsError: {
         IsTasksError: false,
         IsTasksNotesError: false,
@@ -60,7 +73,8 @@ export const TasksReducer = createReducer<TasksState>(
     //Load Tasks
     on(Actions.loadTasksSuccess, (state, { Tasks }) => ({
         ...state,
-        Tasks: Tasks
+        Tasks: Tasks.list,
+        TasksCount: Tasks.count
     })),
 
     on(Actions.loadTasksError, (state, { error }) => ({
@@ -72,7 +86,8 @@ export const TasksReducer = createReducer<TasksState>(
     //Load Task Notes
     on(Actions.loadTasksNotesSuccess, (state, { TasksNotes }) => ({
         ...state,
-        TasksNotes: TasksNotes
+        TasksNotes: TasksNotes.list,
+        TasksNotesCount: TasksNotes.count
     })),
 
     on(Actions.loadTasksNotesError, (state, { error }) => ({
@@ -83,13 +98,18 @@ export const TasksReducer = createReducer<TasksState>(
 
     //Load Task SubTasks
     on(Actions.loadTasksSubTasksSuccess, (state, { TasksSubTasks }) => {
-        let newTasksSubTasks = [...TasksSubTasks];
+        let newTasksSubTasks = [...TasksSubTasks.list];
 
         newTasksSubTasks = newTasksSubTasks.map((x: any) => ({...x, tstStatus: x.tstStatus.toString()}));
 
         let TasksSubTasksProgressBar = ProgressBarCalculations(newTasksSubTasks)
 
-        return {...state, TasksSubTasks: newTasksSubTasks, TasksSubTasksProgressBar: TasksSubTasksProgressBar};
+        return { 
+            ...state, 
+            TasksSubTasks: newTasksSubTasks, 
+            TasksSubTasksCount: TasksSubTasks.count,
+            TasksSubTasksProgressBar: TasksSubTasksProgressBar
+        };
     }),
 
     on(Actions.loadTasksSubTasksError, (state, { error }) => ({
@@ -267,12 +287,35 @@ export const TasksReducer = createReducer<TasksState>(
         }
     })),
 
-    on(Actions.cleanState, (state) => ({
+    on(Actions.updatePaginationDataTasks, (state, { PaginationData }) => ({
         ...state,
         Filters: {
-            Category: '',
-            Status: 3,
-        },
+            ...state.Filters,
+            Skip: PaginationData.Skip,
+            Take:  PaginationData.Take,
+        }
+    })),
+
+    on(Actions.updatePaginationDataTasksNotes, (state, { PaginationData }) => ({
+        ...state,
+        FiltersTasksNotes: {
+            ...state.FiltersTasksNotes,
+            Skip: PaginationData.Skip,
+            Take:  PaginationData.Take,
+        }
+    })),
+
+    on(Actions.updatePaginationDataTasksSubTasks, (state, { PaginationData }) => ({
+        ...state,
+        FiltersTasksSubTasks: {
+            ...state.FiltersTasksSubTasks,
+            Skip: PaginationData.Skip,
+            Take:  PaginationData.Take,
+        }
+    })),
+
+    on(Actions.cleanState, (state) => ({
+        ...state,
         Tasks: [],
         Task: {
             TGID: "",
@@ -290,6 +333,23 @@ export const TasksReducer = createReducer<TasksState>(
             percent: 0,
             class: 'progress-10',
         },
+        Filters: {
+            Category: '',
+            Status: 3,
+            Skip: 0,
+            Take: 10,
+        },
+        FiltersTasksNotes: {
+            Skip: 0,
+            Take: 10,
+        },
+        FiltersTasksSubTasks: {
+            Skip: 0,
+            Take: 10,
+        },
+        TasksCount: 0,
+        TasksNotesCount: 0,
+        TasksSubTasksCount: 0,
         IsError: {
             IsTasksError: false,
             IsTasksNotesError: false,

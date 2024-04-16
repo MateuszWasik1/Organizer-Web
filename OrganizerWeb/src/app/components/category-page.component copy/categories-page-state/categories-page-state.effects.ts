@@ -39,7 +39,7 @@ export class CategoriesEffects {
             ofType(CategoriesActions.loadCategories),
             withLatestFrom(this.store.select(selectFilters)),
             switchMap((params) => {
-                return this.categoriesService.GetCategories(params[1].Date.date, false).pipe(
+                return this.categoriesService.GetCategories(params[1].Date.date, params[1].Skip, params[1].Take, false).pipe(
                     map((result) => CategoriesActions.loadCategoriesSuccess({ Categories: result })),
                     catchError(error => of(CategoriesActions.loadCategoriesError({ error: this.errorHandler.handleAPIError(error) }))),
                 )

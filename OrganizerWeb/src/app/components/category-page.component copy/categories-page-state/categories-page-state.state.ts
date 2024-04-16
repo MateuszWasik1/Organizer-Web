@@ -12,7 +12,10 @@ export interface CategoriesState {
     },
     Filters: {
         Date: any,
+        Skip: number,
+        Take: number,
     },
+    CategoriesCount: number,
     IsCategoriesError: boolean
     ErrorMessage: string;
 }

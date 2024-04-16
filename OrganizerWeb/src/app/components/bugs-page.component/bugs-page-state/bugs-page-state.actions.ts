@@ -30,4 +30,7 @@ export const loadUserRoles = createAction('[Bugs Page] Load User Roles');
 export const loadUserRolesSuccess = createAction('[Bugs Page] Load User Roles Success', props<{ UserRoles: any }>());
 export const loadUserRolesError = createAction('[Bugs Page] Load User Roles Error', props<{ error: any }>());
 
+export const updatePaginationData = createAction('[Bugs Page] Update Pagination Data', props<{ PaginationData: any }>());
+export const updateBugNotesPaginationData = createAction('[Bugs Page] Update Bug Notes Pagination Data', props<{ PaginationData: any }>());
+
 export const cleanState = createAction('[Bugs Page] Clean State');

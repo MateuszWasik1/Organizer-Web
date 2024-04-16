@@ -3,12 +3,14 @@ import { CategoriesState, featureKeyCategoriesState } from "./categories-page-st
 
 const selectCategoriesState = createFeatureSelector<CategoriesState>(featureKeyCategoriesState)
 
-export const selectCategory = createSelector(selectCategoriesState, (state: CategoriesState) => state.Category)
+export const selectCategory = createSelector(selectCategoriesState, (state: CategoriesState) => state.Category);
 
-export const selectCategories = createSelector(selectCategoriesState, (state: CategoriesState) => state.Categories)
+export const selectCategories = createSelector(selectCategoriesState, (state: CategoriesState) => state.Categories);
 
-export const selectFilters= createSelector(selectCategoriesState, (state: CategoriesState) => state.Filters)
+export const selectFilters= createSelector(selectCategoriesState, (state: CategoriesState) => state.Filters);
 
-export const selectErrors= createSelector(selectCategoriesState, (state: CategoriesState) => state.IsCategoriesError)
+export const selectCount= createSelector(selectCategoriesState, (state: CategoriesState) => state.CategoriesCount);
 
-export const selectErrorMessage= createSelector(selectCategoriesState, (state: CategoriesState) => state.ErrorMessage)
+export const selectErrors= createSelector(selectCategoriesState, (state: CategoriesState) => state.IsCategoriesError);
+
+export const selectErrorMessage= createSelector(selectCategoriesState, (state: CategoriesState) => state.ErrorMessage);

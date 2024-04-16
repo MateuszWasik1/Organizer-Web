@@ -1,18 +1,22 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, switchMap, tap } from "rxjs/operators";
+import { catchError, map, switchMap, tap, withLatestFrom } from "rxjs/operators";
 import * as SavingsActions from "./savings-page-state.actions"
 import { FillDataService } from "src/app/services/fill-data.service";
 import { SavingsService } from "src/app/services/savings.service";
 import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
 import { Router } from "@angular/router";
+import { selectFilters } from "./savings-page-state.selectors";
+import { Store } from "@ngrx/store";
+import { AppState } from "src/app/app.state";
 
 @Injectable()
 export class SavingsEffects {
     constructor(
         private actions: Actions,
-        public router: Router,
+        private store: Store<AppState>,
+        private router: Router,
         private savingsService: SavingsService,
         private fillDataService: FillDataService,
         private errorHandler: APIErrorHandler) {
@@ -33,8 +37,9 @@ export class SavingsEffects {
     loadSavings = createEffect(() => {
         return this.actions.pipe(
             ofType(SavingsActions.loadSavings),
+            withLatestFrom(this.store.select(selectFilters)),
             switchMap((params) => {
-                return this.savingsService.GetSavings().pipe(
+                return this.savingsService.GetSavings(params[1].Skip, params[1].Take).pipe(
                     map((result) => SavingsActions.loadSavingsSuccess({ Savings: result })),
                     catchError(error => of(SavingsActions.loadSavingsError({ error: this.errorHandler.handleAPIError(error) })))
                 )

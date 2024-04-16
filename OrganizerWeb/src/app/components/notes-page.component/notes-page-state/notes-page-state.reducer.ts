@@ -11,6 +11,11 @@ var initialStateOfNotesPage: NotesState = {
         NTitle: "",
         NTxt: "",
     },
+    Filters: {
+        Skip: 0,
+        Take: 10,
+    },
+    NotesCount: 0,
     ErrorMessage: "",
 };
 
@@ -35,7 +40,8 @@ export const NotesReducer = createReducer<NotesState>(
 
     on(Actions.loadNotesSuccess, (state, { Notes }) => ({
         ...state,
-        Notes: Notes
+        Notes: Notes.list,
+        NotesCount: Notes.count,
     })),
 
     on(Actions.loadNotesError, (state, { error }) => ({
@@ -76,6 +82,15 @@ export const NotesReducer = createReducer<NotesState>(
         ErrorMessage: error
     })),
 
+    on(Actions.updatePaginationData, (state, { PaginationData }) => ({
+        ...state,
+        Filters: {
+            ...state.Filters,
+            Skip: PaginationData.Skip,
+            Take:  PaginationData.Take,
+        }
+    })),
+
     on(Actions.cleanState, (state) => ({
         Notes: [],
         Note: {
@@ -85,6 +100,11 @@ export const NotesReducer = createReducer<NotesState>(
             NTitle: "",
             NTxt: "",
         },
+        Filters: {
+            Skip: 0,
+            Take: 10,
+        },
+        NotesCount: 0,
         ErrorMessage: "",
     })),
 )

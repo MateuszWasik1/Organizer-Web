@@ -1,4 +1,4 @@
-import { ErrorHandler, NgModule, isDevMode } from '@angular/core';
+import { ErrorHandler, LOCALE_ID, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -41,7 +41,7 @@ import { featureKeyStatsState } from './components/stats-page.component/stats-pa
 import { StatsReducer } from './components/stats-page.component/stats-page-state/stats-page-state.reducer';
 import { StatsEffects } from './components/stats-page.component/stats-page-state/stats-page-state.effects';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AccountEffects } from './components/account-page.component/account-page-state/account-page-state.effects';
 import { featureKeyAccountState } from './components/account-page.component/account-page-state/account-page-state.state';
@@ -72,6 +72,9 @@ import { SavingPageComponent } from './components/savings-page.component/saving-
 import { TaskPageComponent } from './components/tasks-page.component/task-page.component/task-page.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TasksDeleteDialogComponent } from './components/tasks-page.component/tasks-dialogs/tasks-delete-dialog.component';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { PaginatorComponent } from './components/shared/paginator.component/paginator.component';
+import { PaginatorI18n } from './helpers/PaginatorI18n';
 
 @NgModule({
   declarations: [
@@ -97,6 +100,7 @@ import { TasksDeleteDialogComponent } from './components/tasks-page.component/ta
     NotesPageComponent,
     NotePageComponent,
     UIErrorHandler,
+    PaginatorComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -117,6 +121,7 @@ import { TasksDeleteDialogComponent } from './components/tasks-page.component/ta
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
     MatTooltipModule,
+    MatPaginatorModule,
     
     TranslateModule.forRoot({
       loader: {
@@ -143,12 +148,16 @@ import { TasksDeleteDialogComponent } from './components/tasks-page.component/ta
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' },
-    { provide: ErrorHandler, useClass: GlobalErrorHandler }
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    // {
+    //   provide: MatPaginatorIntl, deps: [TranslateService],
+    //   useFactory: (translateService: TranslateService) => new PaginatorI18n().GetPaginatorIntl(translateService)
+    // },
+    //{ provide: LOCALE_ID, useValue: 'pl' }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { } 
-
 export function httpTranslateLoader(http: HttpClient){
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }

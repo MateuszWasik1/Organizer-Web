@@ -13,8 +13,11 @@ export class BugsService {
     public apiUrl = environment.apiUrl;
     constructor( private http: HttpClient, private cookiesService: CookieService ) { }
 
-    GetBugs(BugType: BugTypeEnum) : Observable<any>{
-        let params = new HttpParams().set("bugType", BugType);
+    GetBugs(BugType: BugTypeEnum, Skip: number, Take: number) : Observable<any>{
+        let params = new HttpParams()
+            .set("bugType", BugType)
+            .set("skip", Skip)
+            .set("take", Take);
 
         return this.http.get<any>(this.apiUrl + 'api/Bugs/GetBugs', { params: params, headers: GetToken(this.cookiesService)});
     }
@@ -25,8 +28,11 @@ export class BugsService {
         return this.http.get<any>(this.apiUrl + 'api/Bugs/GetBug', { params: params, headers: GetToken(this.cookiesService)});
     }
 
-    GetBugNotes(bgid: any) : Observable<any>{
-        let params = new HttpParams().set("bgid", bgid);
+    GetBugNotes(bgid: any, Skip: number, Take: number) : Observable<any>{
+        let params = new HttpParams()
+            .set("bgid", bgid)
+            .set("skip", Skip)
+            .set("take", Take);
 
         return this.http.get<any>(this.apiUrl + 'api/BugsNotes/GetBugNotes', { params: params, headers: GetToken(this.cookiesService)});
     }

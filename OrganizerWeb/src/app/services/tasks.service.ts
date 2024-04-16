@@ -18,10 +18,12 @@ export class TasksService {
         return this.http.get<any>(this.apiUrl + 'api/Tasks/GetTask', { params: params, headers: GetToken(this.cookiesService) })
     }
 
-    GetTasks(CGID: any, Status: number) : Observable<any>{
+    GetTasks(CGID: any, Status: number, Skip: number, Take: number) : Observable<any>{
         let params = new HttpParams()
             .set("cGID", CGID)
-            .set("status", Status);
+            .set("status", Status)
+            .set("skip", Skip)
+            .set("take", Take);
 
         return this.http.get<any>(this.apiUrl + 'api/Tasks/GetTasks', { params: params, headers: GetToken(this.cookiesService) })
     }

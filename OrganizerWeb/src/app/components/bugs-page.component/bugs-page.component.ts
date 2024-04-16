@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { TranslationService } from 'src/app/services/translate.service';
-import { selectBugs, selectErrorMessage, selectFilters, selectUserRoles } from './bugs-page-state/bugs-page-state.selectors';
-import { changeBugsType, cleanState, loadBugs, loadUserRoles } from './bugs-page-state/bugs-page-state.actions';
+import { selectBugs, selectErrorMessage, selectFilters, selectUserRoles, selectBugsCount } from './bugs-page-state/bugs-page-state.selectors';
+import { changeBugsType, cleanState, loadBugs, loadUserRoles, updatePaginationData } from './bugs-page-state/bugs-page-state.actions';
 import { Router } from '@angular/router';
 import { BugTypeEnum } from 'src/app/enums/BugTypeEnum';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
@@ -19,9 +19,12 @@ export class BugsPageComponent implements OnInit, OnDestroy {
 
   public subscriptions: Subscription[];
   public ShowAddModal: boolean = false;
+
+  public count: number = 0;
   
   public Bugs$ = this.store.select(selectBugs);
   public Filters$ = this.store.select(selectFilters);
+  public Count$ = this.store.select(selectBugsCount);
   public UserRoles$ = this.store.select(selectUserRoles);
   public ErrorMessage$ = this.store.select(selectErrorMessage);
 
@@ -54,7 +57,9 @@ export class BugsPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(loadUserRoles());
 
-    this.subscriptions.push(this.Filters$.subscribe(() => this.store.dispatch(loadBugs())))
+    this.subscriptions.push(this.Filters$.subscribe(() => this.store.dispatch(loadBugs())));
+
+    this.subscriptions.push(this.Count$.subscribe(count => this.count = count));
 
     this.subscriptions.push(
       this.ErrorMessage$.subscribe(error => {
@@ -65,11 +70,13 @@ export class BugsPageComponent implements OnInit, OnDestroy {
 
   public DisplayStatus = (status: number) => this.bugStatuses[status].name;
 
-  public AddBug = () => this.router.navigate(['bugs/0'])
+  public AddBug = () => this.router.navigate(['bugs/0']);
 
-  public ModifyBug = (bgid: any) => this.router.navigate([`bugs/${bgid}`])
+  public ModifyBug = (bgid: any) => this.router.navigate([`bugs/${bgid}`]);
 
-  public ChangeBugsType = (BugType: any) => this.store.dispatch(changeBugsType({ BugType: BugType.value }))
+  public ChangeBugsType = (BugType: any) => this.store.dispatch(changeBugsType({ BugType: BugType.value }));
+
+  public UpdatePaginationData = (PaginationData: any) => this.store.dispatch(updatePaginationData({ PaginationData: PaginationData }));
 
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());

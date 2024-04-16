@@ -22,4 +22,6 @@ export const deleteSaving = createAction('[Savings Page] Delete Savings', props<
 export const deleteSavingSuccess = createAction('[Savings Page] Delete Savings Success', props<{ SGID: any }>());
 export const deleteSavingError = createAction('[Savings Page] Delete Savings Error', props<{ error: any }>());
 
+export const updatePaginationData = createAction('[Savings Page] Update Pagination Data', props<{ PaginationData: any }>());
+
 export const cleanState = createAction('[Savings Page] Clean State');

@@ -12,9 +12,11 @@ export class TasksSubTasksService {
     public apiUrl = environment.apiUrl;
     constructor( private http: HttpClient, private cookiesService: CookieService ) { }
 
-    GetTasksSubTask(TGID: any) : Observable<any>{
+    GetTasksSubTask(TGID: any, Skip: number, Take: number) : Observable<any>{
         let params = new HttpParams()
-            .set("tGID", TGID);
+            .set("tGID", TGID)
+            .set("skip", Skip)
+            .set("take", Take);
 
         return this.http.get<any>(this.apiUrl + 'api/TasksSubTasks/GetSubTasks', { params: params, headers: GetToken(this.cookiesService) })
     }

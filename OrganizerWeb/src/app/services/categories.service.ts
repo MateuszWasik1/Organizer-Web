@@ -13,19 +13,23 @@ export class CategoriesService {
     constructor( private http: HttpClient, private cookiesService: CookieService ) { }
 
     GetCategory(CGID: string) : Observable<any>{
-        let params = new HttpParams().set("cgid", CGID);
+        let params = new HttpParams()
+            .set("cgid", CGID);
 
         return this.http.get<any>(this.apiUrl + 'api/Categories/GetCategory', { params: params, headers: GetToken(this.cookiesService) })
     }
 
-    GetCategories(date: any, isFromTask: boolean) : Observable<any>{
+    GetCategories(date: any, Skip: number, Take: number, IsFromTask: boolean) : Observable<any>{
         if(date == undefined)
             date = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1)
 
         let newDate = new Date(date);
         let stringDate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
 
-        let params = new HttpParams().set("date", isFromTask ? '' : stringDate);
+        let params = new HttpParams()
+            .set("date", IsFromTask ? '' : stringDate)
+            .set("skip", Skip)
+            .set("take", Take);
 
         return this.http.get<any>(this.apiUrl + 'api/Categories/GetCategories', { params: params, headers: GetToken(this.cookiesService)});
     }

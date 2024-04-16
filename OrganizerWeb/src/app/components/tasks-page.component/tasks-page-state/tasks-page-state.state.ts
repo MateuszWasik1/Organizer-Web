@@ -3,10 +3,6 @@ import { TaskEnum } from "src/app/enums/TaskEnum";
 export const featureKeyTasksState = 'tasks-page-state';
 
 export interface TasksState {
-    Filters: {
-        Category: string,
-        Status: number,
-    },
     Tasks: any[],
     Task: {
         TGID: string,
@@ -24,6 +20,23 @@ export interface TasksState {
         percent: number,
         class: string,
     },
+    Filters: {
+        Category: string,
+        Status: number,
+        Skip: number,
+        Take: number,
+    },
+    FiltersTasksNotes: {
+        Skip: number,
+        Take: number,
+    },
+    FiltersTasksSubTasks: {
+        Skip: number,
+        Take: number,
+    },
+    TasksCount: number,
+    TasksNotesCount: number,
+    TasksSubTasksCount: number,
     IsError: {
         IsTasksError: boolean,
         IsTasksNotesError: boolean,

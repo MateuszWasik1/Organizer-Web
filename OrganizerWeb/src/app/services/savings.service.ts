@@ -18,8 +18,12 @@ export class SavingsService {
         return this.http.get<any>(this.apiUrl + 'api/Savings/GetSaving', { params: params, headers: GetToken(this.cookiesService) })
     }
 
-    GetSavings() : Observable<any>{
-        return this.http.get<any>(this.apiUrl + 'api/Savings/GetSavings', { params: new HttpParams(), headers: GetToken(this.cookiesService) })
+    GetSavings(Skip: number, Take: number) : Observable<any>{
+        let params = new HttpParams()
+            .set("skip", Skip)
+            .set("take", Take);
+
+        return this.http.get<any>(this.apiUrl + 'api/Savings/GetSavings', { params: params, headers: GetToken(this.cookiesService) })
     }
 
     AddSaving(model: any) : Observable<any>{

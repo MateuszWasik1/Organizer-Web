@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
 import { RolesService } from "src/app/services/roles.service";
 import { AppState } from "src/app/app.state";
 import { Store } from "@ngrx/store";
-import { selectFilters } from "./bugs-page-state.selectors";
+import { selectFilters, selectFiltersBugNotes } from "./bugs-page-state.selectors";
 import { APIErrorHandler } from "src/app/error-handlers/api-error-handler";
 
 @Injectable()
@@ -27,7 +27,7 @@ export class BugsEffects {
             ofType(BugsActions.loadBugs),
             withLatestFrom(this.store.select(selectFilters)),
             switchMap((params) => {
-                return this.bugsService.GetBugs(params[1].BugType).pipe(
+                return this.bugsService.GetBugs(params[1].BugType, params[1].Skip, params[1].Take).pipe(
                     map((result) => BugsActions.loadBugsSuccess({ Bugs: result })),
                     catchError(error => of(BugsActions.loadBugsError({ error: this.errorHandler.handleAPIError(error) })))
                 )
@@ -50,8 +50,9 @@ export class BugsEffects {
     loadBugNotes = createEffect(() => {
         return this.actions.pipe(
             ofType(BugsActions.loadBugNotes),
+            withLatestFrom(this.store.select(selectFiltersBugNotes)),
             switchMap((params) => {
-                return this.bugsService.GetBugNotes(params.bgid).pipe(
+                return this.bugsService.GetBugNotes(params[0].bgid, params[1].Skip, params[1].Take).pipe(
                     map((result) => BugsActions.loadBugNotesSuccess({ BugNotes: result })),
                     catchError(error => of(BugsActions.loadBugNotesError({ error: this.errorHandler.handleAPIError(error) })))
                 )

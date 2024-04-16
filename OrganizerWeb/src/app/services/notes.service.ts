@@ -18,8 +18,10 @@ export class NotesService {
         return this.http.get<any>(this.apiUrl + 'api/Notes/GetNote', { params: params, headers: GetToken(this.cookiesService) })
     }
 
-    GetNotes() : Observable<any>{
-        let params = new HttpParams();
+    GetNotes(Skip: number, Take: number) : Observable<any>{
+        let params = new HttpParams()
+            .set("skip", Skip)
+            .set("take", Take);
 
         return this.http.get<any>(this.apiUrl + 'api/Notes/GetNotes', { params: params, headers: GetToken(this.cookiesService) })
     }

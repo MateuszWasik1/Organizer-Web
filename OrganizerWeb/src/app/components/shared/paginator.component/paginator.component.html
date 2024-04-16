@@ -1,0 +1,9 @@
+<mat-paginator #paginator
+               (page)="HandlePageEvent($event)"
+               [length]="length"
+               [pageSize]="pageSize"
+               [pageSizeOptions]="pageSizeOptions"
+               [pageIndex]="pageIndex"
+               [showFirstLastButtons]="true"
+               aria-label="Wybierz stronę">
+</mat-paginator>
