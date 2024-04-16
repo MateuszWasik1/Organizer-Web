@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { ChangeCategoryFilterValue, ChangeStatusFilterValue, deleteTask, loadCategories, loadCustomCategories, loadCustomTasks, loadTasks, cleanState, deleteTaskRelatedEntities } from './tasks-page-state/tasks-page-state.actions';
-import { selectCategories, selectErrorMessage, selectErrors, selectFilters, selectTasks } from './tasks-page-state/tasks-page-state.selectors';
+import { ChangeCategoryFilterValue, ChangeStatusFilterValue, deleteTask, loadCategories, loadCustomCategories, loadCustomTasks, loadTasks, cleanState, deleteTaskRelatedEntities, updatePaginationDataTasks } from './tasks-page-state/tasks-page-state.actions';
+import { selectCategories, selectCount, selectErrorMessage, selectErrors, selectFilters, selectTasks } from './tasks-page-state/tasks-page-state.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { TasksFillDataDialogComponent } from './tasks-dialogs/tasks-fill-data-dialog.component';
 import { TranslationService } from 'src/app/services/translate.service';
@@ -22,11 +22,13 @@ export class TasksPageComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[];
   public statuses: any;
   public deleteTGID: any;
+  public count: number = 0;
 
   public selectedFilterStatus: any;
   public selectedFilterCategory: any;
 
   public Filters$ = this.store.select(selectFilters);
+  public Count$ = this.store.select(selectCount);
   public Tasks$ = this.store.select(selectTasks);
   public Categories$ = this.store.select(selectCategories);
   public Errors$ = this.store.select(selectErrors);
@@ -50,9 +52,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
       {id: '3', name: 'Wszystkie'},
     ];
 
-    this.subscriptions.push(
-      this.Filters$.subscribe(() => this.store.dispatch(loadTasks())
-    ));
+    this.subscriptions.push(this.Filters$.subscribe(() => this.store.dispatch(loadTasks())));
 
     this.subscriptions.push(
       this.Errors$.subscribe(isErrors => {
@@ -111,7 +111,9 @@ export class TasksPageComponent implements OnInit, OnDestroy {
         else       
           this.errorHandler.HandleException(error);
       })
-    )
+    );
+
+    this.subscriptions.push(this.Count$.subscribe(count => this.count = count));
   }
 
   public ChangeCategoryFilterValue = (event: any) => this.store.dispatch(ChangeCategoryFilterValue({ value: event.value }));
@@ -128,6 +130,9 @@ export class TasksPageComponent implements OnInit, OnDestroy {
     this.deleteTGID = tgid,
     this.store.dispatch(deleteTask({ tgid: tgid }));
   }
+
+  public UpdatePaginationData = (PaginationData: any) => this.store.dispatch(updatePaginationDataTasks({ PaginationData: PaginationData }));
+
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());
       this.store.dispatch(cleanState())

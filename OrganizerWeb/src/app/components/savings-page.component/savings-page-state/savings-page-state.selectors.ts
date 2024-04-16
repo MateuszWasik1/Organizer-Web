@@ -7,9 +7,9 @@ export const selectSaving = createSelector(selectSavingsState, (state: SavingsSt
 
 export const selectSavings = createSelector(selectSavingsState, (state: SavingsState) => state.Savings);
 
-export const selectFilters= createSelector(selectSavingsState, (state: SavingsState) => state.Filters);
+export const selectFilters = createSelector(selectSavingsState, (state: SavingsState) => state.Filters);
 
-export const selectCount= createSelector(selectSavingsState, (state: SavingsState) => state.SavingsCount);
+export const selectCount = createSelector(selectSavingsState, (state: SavingsState) => state.SavingsCount);
 
 export const selectErrors = createSelector(selectSavingsState, (state: SavingsState) => state.IsSavingsError);
 

@@ -65,4 +65,8 @@ export const ChangeStatusFilterValue = createAction('[Tasks Page] Change Status 
 
 export const CalculateCategoryBudget = createAction('[Tasks Page] Calculate Category Budget', props<{ CGID: any, Budget: number }>());
 
+export const updatePaginationDataTasks = createAction('[Tasks Page] Update Pagination Data Tasks', props<{ PaginationData: any }>());
+export const updatePaginationDataTasksNotes = createAction('[Tasks Page] Update Pagination Data Tasks Notes', props<{ PaginationData: any }>());
+export const updatePaginationDataTasksSubTasks = createAction('[Tasks Page] Update Pagination Data Tasks SubTasks', props<{ PaginationData: any }>());
+
 export const cleanState = createAction('[Tasks Page] Clean State');
