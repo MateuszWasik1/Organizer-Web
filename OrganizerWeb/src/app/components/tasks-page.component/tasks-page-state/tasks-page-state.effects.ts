@@ -5,7 +5,7 @@ import { catchError, map, switchMap, tap, withLatestFrom} from "rxjs/operators";
 import * as CategoriesActions from "./tasks-page-state.actions"
 import { TasksService } from "src/app/services/tasks.service";
 import { CategoriesService } from "src/app/services/categories.service";
-import { selectFilters } from "./tasks-page-state.selectors";
+import { selectFilters, selectFiltersTasksNotes, selectFiltersTasksSubTasks } from "./tasks-page-state.selectors";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.state";
 import { FillDataService } from "src/app/services/fill-data.service";
@@ -56,7 +56,7 @@ export class TasksEffects {
     loadTasksNotes = createEffect(() => {
         return this.actions.pipe(
             ofType(CategoriesActions.loadTasksNotes),
-            withLatestFrom(this.store.select(selectFilters)),
+            withLatestFrom(this.store.select(selectFiltersTasksNotes)),
             switchMap((params) => {
                 return this.tasksNotesService.GetTasksNotes(params[0].TGID, params[1].Skip, params[1].Take).pipe(
                     map((result) => CategoriesActions.loadTasksNotesSuccess({ TasksNotes: result })),
@@ -69,7 +69,7 @@ export class TasksEffects {
     loadTasksSubTasks = createEffect(() => {
         return this.actions.pipe(
             ofType(CategoriesActions.loadTasksSubTasks),
-            withLatestFrom(this.store.select(selectFilters)),
+            withLatestFrom(this.store.select(selectFiltersTasksSubTasks)),
             switchMap((params) => {
                 return this.tasksSubTasksService.GetTasksSubTask(params[0].TGID, params[1].Skip, params[1].Take).pipe(
                     map((result) => CategoriesActions.loadTasksSubTasksSuccess({ TasksSubTasks: result })),

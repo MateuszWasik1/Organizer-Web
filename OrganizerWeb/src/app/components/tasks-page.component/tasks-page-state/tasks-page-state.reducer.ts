@@ -120,7 +120,7 @@ export const TasksReducer = createReducer<TasksState>(
     //Load Categories
     on(Actions.loadCategoriesSuccess, (state, { Categories }) => ({
         ...state,
-        Categories: Categories.list
+        Categories: Categories
     })),
 
     on(Actions.loadCategoriesError, (state, { error }) => ({
@@ -299,7 +299,7 @@ export const TasksReducer = createReducer<TasksState>(
     on(Actions.updatePaginationDataTasksNotes, (state, { PaginationData }) => ({
         ...state,
         FiltersTasksNotes: {
-            ...state.Filters,
+            ...state.FiltersTasksNotes,
             Skip: PaginationData.Skip,
             Take:  PaginationData.Take,
         }
@@ -308,7 +308,7 @@ export const TasksReducer = createReducer<TasksState>(
     on(Actions.updatePaginationDataTasksSubTasks, (state, { PaginationData }) => ({
         ...state,
         FiltersTasksSubTasks: {
-            ...state.Filters,
+            ...state.FiltersTasksSubTasks,
             Skip: PaginationData.Skip,
             Take:  PaginationData.Take,
         }
