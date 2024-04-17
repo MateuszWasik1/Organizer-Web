@@ -32,7 +32,7 @@ export class CategoriesEffects {
                 )
             })
         )
-    })
+    });
 
     loadCategories = createEffect(() => {
         return this.actions.pipe(
@@ -45,7 +45,7 @@ export class CategoriesEffects {
                 )
             })
         )
-    })
+    });
 
     loadCustomCategories = createEffect(() => {
         return this.actions.pipe(
@@ -57,7 +57,7 @@ export class CategoriesEffects {
                 )
             })
         )
-    })
+    });
 
     addCategory = createEffect(() => {
         return this.actions.pipe(
@@ -70,7 +70,7 @@ export class CategoriesEffects {
                 )
             })
         )
-    })
+    });
 
     updateCategory = createEffect(() => {
         return this.actions.pipe(
@@ -83,7 +83,7 @@ export class CategoriesEffects {
                 )
             })
         )
-    })
+    });
 
     deleteCategory = createEffect(() => {
         return this.actions.pipe(
@@ -95,5 +95,5 @@ export class CategoriesEffects {
                 )
             })
         )
-    })
+    });
 }
