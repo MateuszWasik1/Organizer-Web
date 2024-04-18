@@ -42,10 +42,8 @@ export class CategoriesPageComponent implements OnInit, OnDestroy {
     this.subscriptions = []
   }
   ngOnInit(): void {
-    this.store.dispatch(loadCategories());
-
     this.filterForm = new FormGroup({
-      date: new FormControl(formatDate(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1), 'yyyy-MM-dd', 'en'))
+      date: new FormControl(formatDate(new Date(new Date().getFullYear(), new Date().getMonth(), 1), 'yyyy-MM-dd', 'en'))
     })
 
     this.subscriptions.push(

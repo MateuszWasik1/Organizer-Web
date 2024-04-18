@@ -21,7 +21,7 @@ export class CategoriesService {
 
     GetCategories(date: any, Skip: number, Take: number, IsFromTask: boolean) : Observable<any>{
         if(date == undefined)
-            date = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1)
+            date = new Date(new Date().getFullYear(), new Date().getMonth(), 1)
 
         let newDate = new Date(date);
         let stringDate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
