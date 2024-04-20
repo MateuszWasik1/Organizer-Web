@@ -20,7 +20,7 @@ Mobile:\
 https://github.com/MateuszWasik1/Organiser-Mobile
 
 
-## Technologies
+### Technologies
 
 Technologies used in project:
 * HTML 5
@@ -65,7 +65,7 @@ Mobile:\
 https://github.com/MateuszWasik1/Organiser-Mobile
 
 
-## Technologies
+### Technologies
 
 Technologie użyte w projekcie:
 * HTML 5
@@ -78,7 +78,7 @@ Technologie użyte w projekcie:
 * NGRX
 
 
-# Dokumentacja 
+### Dokumentacja 
 
 Dokumentacja dostępna jest pod linkiem:\ 
 https://github.com/MateuszWasik1/Organizer-Web/blob/master/Dokumentacja%20-%20Web.pdf
@@ -86,6 +86,6 @@ https://github.com/MateuszWasik1/Organizer-Web/blob/master/Dokumentacja%20-%20We
 Bądź bezpośrednio wchodząc z poziomu głównego menu tego repozytorium pod nazwą: "Dokumentacja - Web.pdf" 
 
 
-# Aplikacja 
+### Aplikacja 
 
 Aplikacja również jest dostępna online, na portalu Azure: https://organiserweb.azurewebsites.net/login  
