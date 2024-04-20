@@ -34,10 +34,10 @@ Technologies used in project:
 
 ### Documentation 
 
-The documentation is available at:\ 
-https://github.com/MateuszWasik1/Organizer-Web/blob/master/Dokumentacja%20-%20Web.pdf
+The documentation is available at:\
+https://github.com/MateuszWasik1/Organizer-Web/blob/master/Dokumentacja%20-%20WEB%20-%20ENG.pdf
 
-Either by directly accessing it from the main menu of this repository under the name: "Documentation - Web.pdf"
+Either by directly accessing it from the main menu of this repository under the name: "Documentation - WEB - ENG.pdf"
 
 
 ### Aplikacja 
@@ -80,10 +80,10 @@ Technologie użyte w projekcie:
 
 ### Dokumentacja 
 
-Dokumentacja dostępna jest pod linkiem:\ 
+Dokumentacja dostępna jest pod linkiem:\
 https://github.com/MateuszWasik1/Organizer-Web/blob/master/Dokumentacja%20-%20Web.pdf
 
-Bądź bezpośrednio wchodząc z poziomu głównego menu tego repozytorium pod nazwą: "Dokumentacja - Web.pdf" 
+Bądź bezpośrednio wchodząc z poziomu głównego menu tego repozytorium pod nazwą: "Dokumentacja - WEB.pdf" 
 
 
 ### Aplikacja 
