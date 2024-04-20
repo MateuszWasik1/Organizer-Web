@@ -40,7 +40,7 @@ https://github.com/MateuszWasik1/Organizer-Web/blob/master/Dokumentacja%20-%20WE
 Either by directly accessing it from the main menu of this repository under the name: "Documentation - WEB - ENG.pdf"
 
 
-### Aplikacja 
+### Application 
 
 The application is also available online on Azure portal: https://organiserweb.azurewebsites.net/login  
 
