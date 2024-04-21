@@ -46,7 +46,7 @@ The application is also available online on Azure portal: https://organiserweb.a
 
 ## Polish
 
-Instalacja:
+### Instalacja:
 
 1. Należy pobrać repozytorium korzystając z gita.
 2. Należy otworzyć repozytorium przez edytor tekstu np.: VS Code
