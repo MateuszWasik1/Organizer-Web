@@ -1,7 +1,7 @@
 # Organizer-Web
 ## English
 
-Instalation:
+###Instalation:
 
 1. Download the repository using Git.
 2. Open the repository using a text editor, e.g., VS Code.
