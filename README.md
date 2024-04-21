@@ -65,7 +65,7 @@ Mobile:\
 https://github.com/MateuszWasik1/Organiser-Mobile
 
 
-### Technologies
+### Technologie
 
 Technologie użyte w projekcie:
 * HTML 5
