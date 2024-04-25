@@ -45,7 +45,7 @@ export class BugsEffects {
                 )
             })
         )
-    })
+    });
 
     loadBugNotes = createEffect(() => {
         return this.actions.pipe(
