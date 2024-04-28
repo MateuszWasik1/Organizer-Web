@@ -7,7 +7,7 @@
 2. Open the repository using a text editor, e.g., VS Code.
 3. Open Node.js and use the CD command followed by the path to the 'app' folder within the repository.
 4. Upon the first project launch, it may be necessary to execute the command: npm install - this command will download and install the required npm packages.
-5. Use the command ng -serve to run the application.
+5. Use the command ng serve to run the application.
 6. Navigate to http://localhost:4200/ or to another address specified by Node to access the application in your browser.
 
 Note!\
@@ -52,7 +52,7 @@ The application is also available online on Azure portal: https://organiserweb.a
 2. Należy otworzyć repozytorium przez edytor tekstu np.: VS Code
 3. Należy otworzyć node.js użyć komendy CD oraz ścieżki do folderu app z repozytorium
 4. Przy pierwszym uruchomieniu projektu może być niezbędne użycie komendy: npm install - komenda pobierze i zainstaluje wymagane paczki npm
-5. Należy użyć komendy ng -serve, która uruchomi aplikację
+5. Należy użyć komendy ng serve, która uruchomi aplikację
 6. Należy przejść pod adres: http://localhost:4200/ w przeglądarce, bądź inny wskazany przez node w celu włączenia aplikacji.
 
 UWAGA!\
