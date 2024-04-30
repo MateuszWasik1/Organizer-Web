@@ -44,6 +44,11 @@ Either by directly accessing it from the main menu of this repository under the 
 
 The application is also available online on Azure portal: https://organiserweb.azurewebsites.net/login  
 
+Test account for application:
+
+Login: test
+Password: Test2024!
+
 ## Polish
 
 ### Instalacja:
@@ -89,3 +94,8 @@ Bądź bezpośrednio wchodząc z poziomu głównego menu tego repozytorium pod n
 ### Aplikacja 
 
 Aplikacja również jest dostępna online, na portalu Azure: https://organiserweb.azurewebsites.net/login  
+
+Konto testowe:
+
+Login: test
+Hasło: Test2024!
