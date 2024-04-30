@@ -46,7 +46,7 @@ The application is also available online on Azure portal: https://organiserweb.a
 
 Test account for application:
 
-Login: test
+Login: test\
 Password: Test2024!
 
 ## Polish
@@ -97,5 +97,5 @@ Aplikacja również jest dostępna online, na portalu Azure: https://organiserwe
 
 Konto testowe:
 
-Login: test
+Login: test\
 Hasło: Test2024!
