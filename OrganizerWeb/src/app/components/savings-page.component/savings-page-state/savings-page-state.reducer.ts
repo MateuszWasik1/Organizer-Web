@@ -111,27 +111,4 @@ export const SavingsReducer = createReducer<SavingsState>(
         IsSavingsError: false,
         ErrorMessage: "",
     })),
-
-    // on(Actions.addSavingSuccess, (state, { Saving }) => {
-    //     let newSavings = [...state.Savings];
-
-    //     let newModel = {
-    //         "sid": Saving.SID,
-    //         "sgid": Saving.SGID,
-    //         "sAmount": Saving.SAmount,
-    //         "sTime": Saving.STime,
-    //         "sOnWhat": Saving.SOnWhat,
-    //         "sWhere": Saving.SWhere,
-    //     }
-
-    //     let existingSavingIndex = newSavings.findIndex(x => x.sgid == Saving.SGID);
-
-    //     if(existingSavingIndex != -1)
-    //         newSavings[existingSavingIndex] = newModel
-        
-    //     else
-    //         newSavings.push(newModel)
-
-    //     return {...state, Savings: newSavings};
-    // }),
 ) 
