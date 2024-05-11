@@ -48,6 +48,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
   {
     this.subscriptions = []
   }
+
   ngOnInit(): void {
     this.IsAdminView = this.route.snapshot.paramMap.get('ugid') != null;
 
@@ -77,7 +78,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
       this.form.get("uSavingsCount")?.setValue(user.uSavingsCount);
 
       this.selectedRole = this.roles[user.urid - 1 ?? 0].id;
-    }))
+    }));
 
     this.subscriptions.push(
       this.ErrorMessage$.subscribe(error => {
@@ -85,6 +86,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
       })
     );
   }
+  
   public Save = () => {
     let model = {
       "UGID": '',
@@ -94,7 +96,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
       "UUserName": this.form.get("uUserName")?.value,
       "UEmail": this.form.get("uEmail")?.value,
       "UPhone": this.form.get("uPhone")?.value,
-    }
+    };
 
     if(this.IsAdminView){
       model.UGID = this.form.get("ugid")?.value
