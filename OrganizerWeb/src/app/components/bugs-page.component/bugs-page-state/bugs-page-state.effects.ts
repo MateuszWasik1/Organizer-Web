@@ -63,7 +63,7 @@ export class BugsEffects {
     loadUserRoles = createEffect(() => {
         return this.actions.pipe(
             ofType(BugsActions.loadUserRoles),
-            switchMap((params) => {
+            switchMap(() => {
                 return this.rolesService.GetUserRoles().pipe(
                     map((result) => BugsActions.loadUserRolesSuccess({ UserRoles: result })),
                     catchError(error => of(BugsActions.loadUserRolesError({ error: this.errorHandler.handleAPIError(error) })))
