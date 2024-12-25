@@ -18,15 +18,27 @@ export class RolesService {
         return this.http.get<any>(this.apiUrl + 'api/Roles/GetUserRoles', { params: params, headers: GetToken(this.cookiesService) })
     }
 
-    GetIsUserAdmin() : Observable<any>{
+    GetIsPremiumUser() : Observable<any>{
         let params = new HttpParams();
 
-        return this.http.get<any>(this.apiUrl + 'api/Roles/GetIsUserAdmin', { params: params, headers: GetToken(this.cookiesService) })
+        return this.http.get<any>(this.apiUrl + 'api/Roles/GetIsPremiumUser', { params: params, headers: GetToken(this.cookiesService) })
+    }
+
+    GetIsAnyUser() : Observable<any>{
+        let params = new HttpParams();
+
+        return this.http.get<any>(this.apiUrl + 'api/Roles/GetIsAnyUser', { params: params, headers: GetToken(this.cookiesService) })
     }
 
     GetIsUserSupport() : Observable<any>{
         let params = new HttpParams();
 
         return this.http.get<any>(this.apiUrl + 'api/Roles/GetIsUserSupport', { params: params, headers: GetToken(this.cookiesService) })
+    }
+
+    GetIsUserAdmin() : Observable<any>{
+        let params = new HttpParams();
+
+        return this.http.get<any>(this.apiUrl + 'api/Roles/GetIsUserAdmin', { params: params, headers: GetToken(this.cookiesService) })
     }
 }
