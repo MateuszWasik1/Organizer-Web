@@ -7,6 +7,7 @@ import { selectCount, selectErrorMessage, selectFilters, selectUsers } from './u
 import { TranslationService } from 'src/app/services/translate.service';
 import { Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
+import { RolesEnum } from 'src/app/enums/RolesEnum';
 
 @Component({
   selector: 'app-users-page',
@@ -36,9 +37,10 @@ export class UsersPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.roles = [
-      {id: '1', name: 'Użytkownik'},
-      {id: '2', name: 'Wsparcie'},
-      {id: '3', name: 'Admin'},
+      {id: '1', name: RolesEnum.User },
+      {id: '2', name: RolesEnum.Premium },
+      {id: '3', name: RolesEnum.Support },
+      {id: '4', name: RolesEnum.Admin },
     ];
 
     this.subscriptions.push(

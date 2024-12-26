@@ -8,6 +8,7 @@ import { cleanState, loadUser, loadUserByAdmin, saveUser, saveUserByAdmin } from
 import { selectErrorMessage, selectUser } from './user-page-state/user-page-state.selectors';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
+import { RolesEnum } from 'src/app/enums/RolesEnum';
 
 @Component({
   selector: 'app-user-page',
@@ -58,15 +59,16 @@ export class UserPageComponent implements OnInit, OnDestroy {
       this.store.dispatch(loadUser());
 
     this.roles = [
-      {id: '1', name: 'Użytkownik'},
-      {id: '2', name: 'Wsparcie'},
-      {id: '3', name: 'Admin'},
+      {id: '1', name: RolesEnum.User },
+      {id: '2', name: RolesEnum.Premium },
+      {id: '3', name: RolesEnum.Support },
+      {id: '4', name: RolesEnum.Admin },
     ];
 
     this.subscriptions.push(this.User$.subscribe( user => {
       this.form.get("uid")?.setValue(user.uid);
       this.form.get("ugid")?.setValue(user.ugid);
-      this.form.get("urid")?.setValue(this.roles[user.urid - 1 ?? 1].id);
+      this.form.get("urid")?.setValue(this.roles[user.urid ? user.urid - 1 : 1].id);
       this.form.get("uFirstName")?.setValue(user.uFirstName);
       this.form.get("uLastName")?.setValue(user.uLastName);
       this.form.get("uUserName")?.setValue(user.uUserName);
@@ -77,7 +79,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
       this.form.get("uTaskNotesCount")?.setValue(user.uTaskNotesCount);
       this.form.get("uSavingsCount")?.setValue(user.uSavingsCount);
 
-      this.selectedRole = this.roles[user.urid - 1 ?? 0].id;
+      this.selectedRole = this.roles[user.urid ? user.urid - 1 : 0].id;
     }));
 
     this.subscriptions.push(
