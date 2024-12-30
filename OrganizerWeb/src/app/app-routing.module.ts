@@ -19,71 +19,88 @@ import { TaskPageComponent } from './components/tasks-page.component/task-page.c
 const routes: Routes = [
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    title: 'Rejestracja',
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    title: 'Logowanie',
   },
   {
     path: 'categories',
-    component: CategoriesPageComponent
+    component: CategoriesPageComponent,
+    title: 'Kategorie',
   },
   {
     path: 'categories/:cgid',
-    component: CategoryPageComponent
+    component: CategoryPageComponent,
+    title: 'Kategoria',
   },
   {
     path: 'tasks',
-    component: TasksPageComponent
+    component: TasksPageComponent,
+    title: 'Zadania',
   },
   {
     path: 'tasks/:tgid',
-    component: TaskPageComponent
+    component: TaskPageComponent,
+    title: 'Zadanie',
   },
   {
     path: 'savings',
-    component: SavingsPageComponent
+    component: SavingsPageComponent,
+    title: 'Oszczędności',
   },
   {
     path: 'savings/:sgid',
-    component: SavingPageComponent
+    component: SavingPageComponent,
+    title: 'Oszczędność',
   },
   {
     path: 'stats',
-    component: StatsPageComponent
+    component: StatsPageComponent,
+    title: 'Statystyki',
   },
   {
     path: 'user',
-    component: UserPageComponent
+    component: UserPageComponent,
+    title: 'Użytkownik',
   },
   {
     path: 'user/:ugid',
-    component: UserPageComponent
+    component: UserPageComponent,
+    title: 'Użytkownik',
   },
   {
     path: 'users',
-    component: UsersPageComponent
+    component: UsersPageComponent,
+    title: 'Użytkownicy',
   },
   {
     path: 'bugs',
-    component: BugsPageComponent
+    component: BugsPageComponent,
+    title: 'Błędy',
   },
   {
     path: 'bugs/:bgid',
-    component: BugPageComponent
+    component: BugPageComponent,
+    title: 'Błąd',
   },
   {
     path: 'notes',
-    component: NotesPageComponent
+    component: NotesPageComponent,
+    title: 'Notatki',
   },
   {
     path: 'notes/:ngid',
-    component: NotePageComponent
+    component: NotePageComponent,
+    title: 'Notatka',
   },
   {
     path: '**',
-    component: CategoriesPageComponent
+    component: CategoriesPageComponent,
+    title: 'Kategorie',
   },
 ];
 
