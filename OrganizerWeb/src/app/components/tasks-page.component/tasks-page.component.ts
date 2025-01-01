@@ -17,8 +17,6 @@ import { TasksDeleteDialogComponent } from './tasks-dialogs/tasks-delete-dialog.
   styleUrls: ['./tasks-page.component.scss']
 })
 export class TasksPageComponent implements OnInit, OnDestroy {
-  title = 'Zadania - P1 - Mateusz Wąsik';
-
   public subscriptions: Subscription[];
   public statuses: any;
   public deleteTGID: any;
@@ -42,6 +40,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
   {
     this.subscriptions = []
   }
+  
   ngOnInit(): void {
     this.store.dispatch(loadCategories());
 

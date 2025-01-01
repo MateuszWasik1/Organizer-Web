@@ -15,8 +15,6 @@ import { RolesEnum } from 'src/app/enums/RolesEnum';
   styleUrls: ['./users-page.component.scss']
 })
 export class UsersPageComponent implements OnInit, OnDestroy {
-  title = 'Użytkownicy - P1 - Mateusz Wąsik';
-
   public subscriptions: Subscription[];
   public roles: any;
 

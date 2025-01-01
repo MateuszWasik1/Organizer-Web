@@ -16,8 +16,6 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./saving-page.component.scss']
 })
 export class SavingPageComponent implements OnInit, OnDestroy {
-  title = 'Oszczędność - P1 - Mateusz Wąsik';
-
   public subscriptions: Subscription[];
   public form: FormGroup = new FormGroup({});
   public sgid: string = "";

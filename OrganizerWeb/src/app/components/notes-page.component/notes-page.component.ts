@@ -14,8 +14,6 @@ import { selectCount, selectErrorMessage, selectFilters, selectNotes } from './n
   styleUrls: ['./notes-page.component.scss']
 })
 export class NotesPageComponent implements OnInit, OnDestroy {
-  title = 'Notatki - P1 - Mateusz Wąsik';
-
   public subscriptions: Subscription[];
   public count: number = 0;
 

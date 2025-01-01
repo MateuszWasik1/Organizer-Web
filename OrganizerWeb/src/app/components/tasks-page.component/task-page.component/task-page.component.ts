@@ -17,8 +17,6 @@ import { Guid } from 'guid-typescript';
 })
 
 export class TaskPageComponent implements OnInit, OnDestroy {
-  title = 'Zadanie - P1 - Mateusz Wąsik';
-
   public subscriptions: Subscription[];
   public statuses: any;
   public selectedStatus: number = 0;

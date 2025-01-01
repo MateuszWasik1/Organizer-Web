@@ -8,8 +8,6 @@ import { TranslationService } from 'src/app/services/translate.service';
   styleUrls: ['./paginator.component.scss']
 })
 export class PaginatorComponent{
-    title = 'Oszczędności - P1 - Mateusz Wąsik';
-
     @Input() length: number = 50;
     @Output() paginationData = new EventEmitter<object>();
 
@@ -17,9 +15,7 @@ export class PaginatorComponent{
     public pageSize: number = 10;
     public pageIndex: number = 0;
 
-    constructor(public translations: TranslationService)
-    {
-    }
+    constructor(public translations: TranslationService){}
 
     HandlePageEvent(e: PageEvent) {
       this.pageSize = e.pageSize;

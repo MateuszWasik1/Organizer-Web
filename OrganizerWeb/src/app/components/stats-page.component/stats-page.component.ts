@@ -18,8 +18,6 @@ import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler
   styleUrls: ['./stats-page.component.scss']
 })
 export class StatsPageComponent implements OnInit, OnDestroy {
-  title = 'Statystyki - P1 - Mateusz Wąsik';
-
   public subscriptions: Subscription[];
 
   public Stats$ = this.store.select(selectStats);

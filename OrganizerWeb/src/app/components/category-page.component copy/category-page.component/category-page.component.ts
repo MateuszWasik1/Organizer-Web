@@ -17,8 +17,6 @@ import { selectCategory, selectErrorMessage } from '../categories-page-state/cat
 })
 
 export class CategoryPageComponent implements OnInit, OnDestroy {
-  title = 'Kateogria - P1 - Mateusz Wąsik';
-
   public subscriptions: Subscription[];
   public form: FormGroup = new FormGroup({});
   public cgid: string = "";

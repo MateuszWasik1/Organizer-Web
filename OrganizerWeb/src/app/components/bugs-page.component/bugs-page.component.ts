@@ -15,11 +15,8 @@ import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler
   styleUrls: ['./bugs-page.component.scss']
 })
 export class BugsPageComponent implements OnInit, OnDestroy {
-  title = 'Błędy - P1 - Mateusz Wąsik';
-
   public subscriptions: Subscription[];
   public ShowAddModal: boolean = false;
-
   public count: number = 0;
   
   public Bugs$ = this.store.select(selectBugs);
