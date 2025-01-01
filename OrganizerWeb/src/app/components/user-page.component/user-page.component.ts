@@ -16,8 +16,6 @@ import { RolesEnum } from 'src/app/enums/RolesEnum';
   styleUrls: ['./user-page.component.scss']
 })
 export class UserPageComponent implements OnInit, OnDestroy {
-  title = 'Użytkownik - P1 - Mateusz Wąsik';
-
   public IsAdminView: boolean = false;
   public roles: any;
   public selectedRole: any;

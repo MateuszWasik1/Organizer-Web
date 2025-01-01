@@ -10,8 +10,6 @@ import { RolesService } from './services/roles.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'OrganizerWeb';
-
   public language: string = "pl";
   public stopNavigate: boolean = false;
   public hideMenu: boolean = false

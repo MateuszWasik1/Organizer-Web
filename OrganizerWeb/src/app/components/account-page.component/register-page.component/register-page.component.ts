@@ -15,11 +15,8 @@ import { selectErrorMessage } from '../account-page-state/account-page-state.sel
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.scss']
 })
-export class RegisterComponent implements OnInit {
-  title = 'Rejestracja - P1 - Mateusz Wąsik';
-  
+export class RegisterComponent implements OnInit {  
   public subscriptions: Subscription[];
-
   public IsPasswordsEqual: boolean = true;
 
   public ErrorMessage$ = this.store.select(selectErrorMessage);

@@ -20,8 +20,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./categories-page.component.scss']
 })
 export class CategoriesPageComponent implements OnInit, OnDestroy {
-  title = 'Kategorie - P1 - Mateusz Wąsik';
-
   public subscriptions: Subscription[];
   public form: FormGroup = new FormGroup({});
   public filterForm: FormGroup = new FormGroup({});

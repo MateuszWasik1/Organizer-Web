@@ -15,8 +15,6 @@ import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler
   styleUrls: ['../register-page.component/register-page.component.scss']
 })
 export class LoginComponent implements OnInit {
-  title = 'Kategorie - P1 - Mateusz Wąsik';
-
   public subscriptions: Subscription[];
 
   public ErrorMessage$ = this.store.select(selectErrorMessage);

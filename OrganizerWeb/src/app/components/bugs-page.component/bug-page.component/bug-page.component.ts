@@ -16,8 +16,6 @@ import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler
   styleUrls: ['./bug-page.component.scss']
 })
 export class BugPageComponent implements OnInit, OnDestroy {
-  title = 'Błąd - P1 - Mateusz Wąsik';
-
   public subscriptions: Subscription[];
   public form: FormGroup = new FormGroup({});
   public addBugNote: FormGroup = new FormGroup({});

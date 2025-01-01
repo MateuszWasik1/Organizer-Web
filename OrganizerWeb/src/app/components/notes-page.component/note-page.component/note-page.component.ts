@@ -16,8 +16,6 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./note-page.component.scss']
 })
 export class NotePageComponent implements OnInit, OnDestroy {
-  title = 'Notatka - P1 - Mateusz Wąsik';
-
   public subscriptions: Subscription[];
   public form: FormGroup = new FormGroup({});
   public ngid: string = "";

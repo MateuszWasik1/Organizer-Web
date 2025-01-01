@@ -16,8 +16,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./savings-page.component.scss']
 })
 export class SavingsPageComponent implements OnInit, OnDestroy {
-  title = 'Oszczędności - P1 - Mateusz Wąsik';
-
   public subscriptions: Subscription[];
   public count: number = 0;
 
