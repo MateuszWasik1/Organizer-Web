@@ -92,7 +92,10 @@ export class StatsPageComponent implements OnInit, OnDestroy {
     scales: {
       x: {},
       y: {
-        min: 10,
+        min: 0,
+        ticks: {
+          precision: 0
+        }
       },
     },
     responsive: true,
