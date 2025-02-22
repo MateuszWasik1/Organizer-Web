@@ -1,9 +1,10 @@
 <section class="body">
     <div class="row">
-        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
+        <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
             <h1 class="page-title">{{translations.Get('User_User')}}</h1>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+        <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6">
+            <button mat-stroked-button class="delete-account margin-right-15" (click)="DeleteAccount()">{{translations.Get('User_Delete_Account')}}</button>
             <button mat-raised-button class="margin-right-15" (click)="Cancel()" *ngIf="IsAdminView">{{translations.Get('General_Cancel')}}</button>
             <button mat-raised-button class="primary-btn" (click)="Save()" [disabled]="form.invalid">{{translations.Get('General_Save')}}</button>
         </div>

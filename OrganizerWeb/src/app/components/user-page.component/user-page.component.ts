@@ -9,6 +9,8 @@ import { selectErrorMessage, selectUser } from './user-page-state/user-page-stat
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainUIErrorHandler } from 'src/app/error-handlers/main-ui-error-handler.component';
 import { RolesEnum } from 'src/app/enums/RolesEnum';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteUserDialogComponent } from './user-dialogs/delete-user-dialog.component';
 
 @Component({
   selector: 'app-user-page',
@@ -43,7 +45,8 @@ export class UserPageComponent implements OnInit, OnDestroy {
     public route: ActivatedRoute, 
     public router: Router, 
     public translations: TranslationService,
-    public errorHandler: MainUIErrorHandler)
+    public errorHandler: MainUIErrorHandler,
+    private dialog: MatDialog)
   {
     this.subscriptions = []
   }
@@ -64,6 +67,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
     ];
 
     this.subscriptions.push(this.User$.subscribe( user => {
+      console.log(user)
       this.form.get("uid")?.setValue(user.uid);
       this.form.get("ugid")?.setValue(user.ugid);
       this.form.get("urid")?.setValue(this.roles[user.urid ? user.urid - 1 : 1].id);
@@ -109,6 +113,14 @@ export class UserPageComponent implements OnInit, OnDestroy {
 
   public Cancel = () => this.router.navigate(['/users']);
 
+  public DeleteAccount = () => {
+    this.dialog.open(DeleteUserDialogComponent, { 
+      data: {
+        ugid: this.form.get('ugid')?.value
+      },
+      disableClose: true
+    });
+  }
   ngOnDestroy() {
       this.subscriptions.forEach(sub => sub.unsubscribe());
       this.store.dispatch(cleanState())
