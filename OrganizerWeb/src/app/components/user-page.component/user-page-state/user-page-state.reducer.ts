@@ -27,7 +27,7 @@ export const UserReducer = createReducer<UserState>(
         ...state,
         User: {
             uid: 0,
-            ugid: '',
+            ugid: User.ugid,
             urid: 1,
             uFirstName: User.uFirstName,
             uLastName: User.uLastName,

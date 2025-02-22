@@ -1,0 +1,16 @@
+.delete-user-row{
+    margin: 5px 0;
+}
+
+.btn-actions{
+    display: flex;
+    justify-content: flex-end;
+
+    .delete-btn-primary:not(:disabled) {
+        background-color: red !important;
+    }
+    
+    .delete-btn-secondary {
+        color: red !important;
+    }
+}

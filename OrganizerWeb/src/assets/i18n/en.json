@@ -138,6 +138,7 @@
     "User_Savings_Count": "Savings sum",
     "User_Error_MaxLength50": "You have exceeded the number of characters! The maximum number of characters is 50!",
     "User_Error_MaxLength100": "You have exceeded the number of characters! The maximum number of characters is 100!",
+    "User_Delete_Account": "Delete account",
     "ErrorHandler_ErrorOccured": "Error occured",
     "ErrorHandler_ErrorContent": "Error",
     "Bugs_Title": "Title",

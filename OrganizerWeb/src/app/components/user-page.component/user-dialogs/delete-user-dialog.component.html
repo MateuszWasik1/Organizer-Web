@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>{{translations.Get('User_Delete_Account_Title')}}</h1>
+<mat-dialog-content class="mat-typography" [formGroup]="form">
+  <div> {{translations.Get('User_Delete_Account_Body')}}</div>
+  <div> {{translations.Get('User_Delete_Account_Body_No_Data')}}</div>
+  <p class="delete-user-row"> {{translations.Get('User_Delete_Account_Categories')}}</p>
+  <p class="delete-user-row"> {{translations.Get('User_Delete_Account_Tasks')}}</p>
+  <p class="delete-user-row"> {{translations.Get('User_Delete_Account_TasksNotes')}}</p>
+  <p class="delete-user-row"> {{translations.Get('User_Delete_Account_SubTasks')}}</p>
+  <p class="delete-user-row"> {{translations.Get('User_Delete_Account_Savings')}}</p>
+  <p class="delete-user-row"> {{translations.Get('User_Delete_Account_Notes')}}</p>
+
+  <!-- Dodać pobieranie zsumowanych danych do tego wyżej - zweryfikować stryle
+   zweryfikować czy inne rzeczy są ok -->
+
+  <mat-checkbox formControlName="deleteOption">{{translations.Get('User_Delete_Account_Delete')}}</mat-checkbox>
+</mat-dialog-content>
+<mat-dialog-actions class="btn-actions">
+  <button mat-button [mat-dialog-close]="false" class="secondary-btn delete-btn-secondary">{{translations.Get('User_Delete_Account_Dont_Delete_Btn')}}</button>
+  <button mat-button class="primary-btn delete-btn-primary" [disabled]="!form.get('deleteOption')?.value" (click)="DeleteUser()">{{translations.Get('User_Delete_Account')}}</button>
+</mat-dialog-actions>

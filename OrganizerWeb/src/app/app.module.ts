@@ -75,6 +75,8 @@ import { TasksDeleteDialogComponent } from './components/tasks-page.component/ta
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatorComponent } from './components/shared/paginator.component/paginator.component';
 import { PaginatorI18n } from './helpers/PaginatorI18n';
+import { DeleteUserDialogComponent } from './components/user-page.component/user-dialogs/delete-user-dialog.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -95,6 +97,7 @@ import { PaginatorI18n } from './helpers/PaginatorI18n';
     StatsFillDataDialogComponent,
     UserPageComponent,
     UsersPageComponent,
+    DeleteUserDialogComponent,
     BugsPageComponent,
     BugPageComponent,
     NotesPageComponent,
@@ -116,6 +119,7 @@ import { PaginatorI18n } from './helpers/PaginatorI18n';
     MatNativeDateModule,
     MatInputModule,
     MatDialogModule,
+    MatCheckboxModule,
     NgChartsModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
